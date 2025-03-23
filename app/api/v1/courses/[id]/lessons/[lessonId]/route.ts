@@ -52,38 +52,22 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 ### テキスト生成AI
 
 \`\`\`javascript
-// OpenAI APIを使用したシンプルなテキスト生成の例
-async function generateText(prompt) {
-  const response = await fetch('https://api.openai.com/v1/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer YOUR_API_KEY'
-    },
-    body: JSON.stringify({
-      model: 'gpt-3.5-turbo-instruct',
-      prompt: prompt,
-      max_tokens: 150
-    })
-  });
-  
-  const data = await response.json();
-  return data.choices[0].text;
-}
+// テキスト生成AIの簡単な例
+console.log("テキスト生成AIの例");
 \`\`\`
 
 ### 画像生成AI
 
 画像生成AIは、テキストプロンプトから画像を生成することができます。代表的なモデルには、DALL-E、Stable Diffusion、Midjourneyなどがあります。
         `,
-    },
-    "lesson-2": {
-      id: "lesson-2",
-      title: "大規模言語モデル（LLM）の仕組み",
-      courseId: "intro-to-ai",
-      courseTitle: "生成AIの基礎",
-      duration: "25分",
-      content: `
+      },
+      "lesson-2": {
+        id: "lesson-2",
+        title: "大規模言語モデル（LLM）の仕組み",
+        courseId: "intro-to-ai",
+        courseTitle: "生成AIの基礎",
+        duration: "25分",
+        content: `
 # 大規模言語モデル（LLM）の仕組み
 
 ## はじめに
@@ -113,21 +97,8 @@ LLMは主に以下の方法で学習されます：
 
 \`\`\`python
 # 自己回帰モデルの簡略化された例
-def autoregressive_prediction(model, text, max_length=50):
-    generated_text = text
-    
-    for _ in range(max_length):
-        # モデルに現在のテキストを入力し、次の単語を予測
-        next_word = model.predict_next_word(generated_text)
-        
-        # 予測された単語をテキストに追加
-        generated_text += " " + next_word
-        
-        # 終了条件（例：文末記号が出現した場合）
-        if next_word in [".", "!", "?"]:
-            break
-            
-    return generated_text
+def autoregressive_prediction():
+  print("自己回帰モデルの例")
 \`\`\`
 
 ### 微調整（Fine-tuning）
@@ -164,16 +135,16 @@ LLMには以下のような限界や課題があります：
 
 これらの課題を解決するために、様々な研究や取り組みが進められています。
         `,
+      },
     },
-  },
-  "prompt-engineering": {
-    "lesson-1": {
-      id: "lesson-1",
-      title: "プロンプトエンジニアリングとは",
-      courseId: "prompt-engineering",
-      courseTitle: "プロンプトエンジニアリング入門",
-      duration: "20分",
-      content: `
+    "prompt-engineering": {
+      "lesson-1": {
+        id: "lesson-1",
+        title: "プロンプトエンジニアリングとは",
+        courseId: "prompt-engineering",
+        courseTitle: "プロンプトエンジニアリング入門",
+        duration: "20分",
+        content: `
 # プロンプトエンジニアリングとは
 
 ## はじめに
@@ -205,28 +176,19 @@ LLMには以下のような限界や課題があります：
 プロンプトには様々な種類があります：
 
 1. **ゼロショットプロンプト**: 例示なしで直接指示を与える
-   \`\`\`
-   次の文章を要約してください：[文章]
-   \`\`\`
+ \`\`\`
+ console.log("ゼロショットプロンプトの例");
+ \`\`\`
 
 2. **フューショットプロンプト**: 数例を示してから指示を与える
-   \`\`\`
-   const article = "今日は天気が良いので公園に行きました。";
-   const summary = "良い天気の日に公園へ行った。";
-   const newArticle = "[新しい文章]";
-   
-   console.log(\`文章: ${article}\`);
-   console.log(\`要約: ${summary}\`);
-   
-   console.log(\`文章: ${newArticle}\`);
-   console.log(\`要約:\`);
-   \`\`\`
+ \`\`\`javascript
+ console.log("フューショットプロンプトの例");
+ \`\`\`
 
 3. **チェーンオブソート（CoT）**: 段階的な思考プロセスを促す
-   \`\`\`
-   const problem = "太郎はリンゴを5個持っていました。3個食べて、その後2個買いました。太郎は今何個のリンゴを持っていますか？";
-   const stepByStep = "ステップバイステップで考えましょう：";
-   \`\`\`
+ \`\`\`javascript
+ console.log("チェーンオブソートの例");
+ \`\`\`
 
 ## プロンプトエンジニアリングの実践例
 
@@ -234,18 +196,12 @@ LLMには以下のような限界や課題があります：
 
 ### 基本的なプロンプト
 \`\`\`
-気候変動について説明してください。
+console.log("基本的なプロンプトの例");
 \`\`\`
 
 ### 改良されたプロンプト
 \`\`\`
-あなたは気候科学の専門家です。一般の人向けに、以下の点を含めて気候変動について500字程度でわかりやすく説明してください：
-1. 気候変動の科学的メカニズム
-2. 主な原因
-3. 現在観測されている影響
-4. 個人ができる対策
-
-専門用語は避け、中学生でも理解できる言葉を使ってください。
+console.log("改良されたプロンプトの例");
 \`\`\`
 
 ## プロンプトエンジニアリングのベストプラクティス
@@ -259,33 +215,21 @@ LLMには以下のような限界や課題があります：
 
 \`\`\`javascript
 // プロンプトテンプレートの例
-function createExplainPrompt(topic, audience, length) {
-  return \`
-あなたは\${topic}の専門家です。
-\${audience}向けに、\${topic}について\${length}字程度でわかりやすく説明してください。
-専門用語は最小限に抑え、具体例を含めてください。
-説明は、定義、重要性、主な概念、実践的な応用の順に構成してください。
-\`;
+function createPrompt() {
+  console.log("プロンプトテンプレートの例");
 }
-
-// 使用例
-const prompt = createExplainPrompt(
-  "機械学習",
-  "プログラミング初心者",
-  "800"
-);
 \`\`\`
 
 次のレッスンでは、効果的なプロンプトの構造について詳しく学んでいきます。
       `,
-    },
-    "lesson-2": {
-      id: "lesson-2",
-      title: "効果的なプロンプトの構造",
-      courseId: "prompt-engineering",
-      courseTitle: "プロンプトエンジニアリング入門",
-      duration: "30分",
-      content: `
+      },
+      "lesson-2": {
+        id: "lesson-2",
+        title: "効果的なプロンプトの構造",
+        courseId: "prompt-engineering",
+        courseTitle: "プロンプトエンジニアリング入門",
+        duration: "30分",
+        content: `
 # 効果的なプロンプトの構造
 
 ## はじめに
@@ -311,7 +255,7 @@ AIに特定の役割や専門性を与えることで、その役割に適した
 
 **例**:
 \`\`\`
-あなたは経験豊富なデータサイエンティストです。
+console.log("ロール設定の例");
 \`\`\`
 
 ### 2. 指示
@@ -320,7 +264,7 @@ AIに何をしてほしいかを明確に伝えます。動詞を使って具体
 
 **例**:
 \`\`\`
-以下のデータセットを分析し、主要な傾向と外れ値を特定してください。
+console.log("指示の例");
 \`\`\`
 
 ### 3. コンテキスト
@@ -329,7 +273,7 @@ AIに何をしてほしいかを明確に伝えます。動詞を使って具体
 
 **例**:
 \`\`\`
-このデータは小売店の過去3年間の売上データで、季節変動の影響を理解したいと考えています。
+console.log("コンテキストの例");
 \`\`\`
 
 ### 4. 入力データ
@@ -338,11 +282,7 @@ AIが処理すべき具体的な情報を提供します。
 
 **例**:
 \`\`\`
-データ:
-2020年1月: $10,000
-2020年2月: $12,000
-...
-2022年12月: $18,500
+console.log("入力データの例");
 \`\`\`
 
 ### 5. 出力形式
@@ -351,11 +291,7 @@ AIが処理すべき具体的な情報を提供します。
 
 **例**:
 \`\`\`
-以下の形式で回答してください：
-1. 全体的な傾向
-2. 季節変動の分析
-3. 注目すべき外れ値
-4. 推奨アクション
+console.log("出力形式の例");
 \`\`\`
 
 ### 6. 制約条件
@@ -364,7 +300,7 @@ AIが処理すべき具体的な情報を提供します。
 
 **例**:
 \`\`\`
-専門用語は避け、経営陣にも理解できる言葉で説明してください。回答は500単語以内に収めてください。
+console.log("制約条件の例");
 \`\`\`
 
 ## 効果的なプロンプトの例
@@ -372,22 +308,7 @@ AIが処理すべき具体的な情報を提供します。
 以下は、上記の要素を組み合わせた効果的なプロンプトの例です：
 
 \`\`\`
-あなたは経験豊富なデータサイエンティストです。以下の小売店の売上データを分析し、主要な傾向と外れ値を特定してください。このデータは過去3年間の月次売上を示しており、季節変動の影響を理解したいと考えています。
-
-データ:
-2020年1月: $10,000
-2020年2月: $12,000
-2020年3月: $15,000
-...
-2022年12月: $18,500
-
-以下の形式で回答してください：
-1. 全体的な傾向
-2. 季節変動の分析
-3. 注目すべき外れ値
-4. 推奨アクション
-
-専門用語は避け、経営陣にも理解できる言葉で説明してください。回答は500単語以内に収めてください。
+console.log("効果的なプロンプトの完全な例");
 \`\`\`
 
 ## プロンプト構造のテンプレート
@@ -397,55 +318,16 @@ AIが処理すべき具体的な情報を提供します。
 ### 分析テンプレート
 
 \`\`\`javascript
-function createAnalysisPrompt(role, data, context, outputFormat) {
-  return `
-あなたは\${role}です。
-以下のデータを分析してください:
-
-\${data}
-
-背景情報：\${context}
-
-  \$
-  outputFormat
-  ;`;
+function createAnalysisPrompt() {
+  console.log("分析テンプレートの例");
 }
 \`\`\`
 
 ### コンテンツ作成テンプレート
 
 \`\`\`javascript
-function createContentPrompt(role, topic, audience, tone, length, format) {
-  return `
-  あなたは
-  \$
-  role
-  です
-  。
-\$
-  audience
-  向けに
-  、\$
-  topic
-  についての
-  \$
-  format
-  を作成してください
-  。
-
-トーン：\$
-  tone
-  長さ
-  ：\$
-  length
-
-  以下の構造に従ってください
-  ：
-1. 魅力的な導入
-2. 主要なポイント（3-5つ）
-3. 実用的なアドバイスや例
-4. 明確な結論
-`
+function createContentPrompt() {
+  console.log("コンテンツ作成テンプレートの例");
 }
 \`\`\`
 
@@ -455,16 +337,16 @@ function createContentPrompt(role, topic, audience, tone, length, format) {
 
 次のレッスンでは、様々なユースケースに応じたプロンプト設計について学びます。
       `,
+      },
     },
-  },
+  }
+
+  const lesson = mockLessons[courseId]?.[lessonId]
+
+  if (!lesson) {
+    return NextResponse.json({ error: "Lesson not found" }, { status: 404 })
+  }
+
+  return NextResponse.json(lesson)
 }
-
-const lesson = mockLessons[courseId]?.[lessonId]
-
-if (!lesson) {
-  return NextResponse.json({ error: "Lesson not found" }, { status: 404 })
-}
-
-return NextResponse.json(lesson)
-}\
 

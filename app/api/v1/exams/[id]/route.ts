@@ -134,7 +134,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       {
         id: 1,
         type: "multiple-choice",
-        question: "この試験の問題1です。",
+        question: "この試験の問題1で���。",
         options: ["選択肢1", "選択肢2", "選択肢3", "選択肢4"],
         correctAnswer: "選択肢2",
       },

@@ -1,15 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server"
 import type { CourseDetail } from "@/types/api"
 
-interface RouteParams {
-  params: {
-    id: string
-  }
-}
-
-export async function GET(request: NextRequest, { params }: RouteParams) {
-  const courseId = params.id
-
+export async function GET(request: NextRequest,  { params }: { params: Promise<{ id: string }> }) {
+  const {id} = await params
+  const courseId = id
   // モックデータ
   const mockCourses: Record<string, CourseDetail> = {
     "intro-to-ai": {

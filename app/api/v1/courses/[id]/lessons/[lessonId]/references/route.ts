@@ -81,7 +81,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     },
   }
 
-  // デフォルトの参考リンク（コースIDやレッスンIDに対応するデータがない場合）
+  // デフォルトの参考リンク（コースIDやレッ���ンIDに対応するデータがない場合）
   const defaultReferences: ReferencesResponse = {
     references: [
       {

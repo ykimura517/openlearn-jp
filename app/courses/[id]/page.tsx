@@ -1,6 +1,4 @@
-"use client"
-
-import { useState, useEffect } from "react"
+import { Suspense } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -16,82 +14,53 @@ interface CoursePageProps {
   }
 }
 
-export default function CoursePage({ params }: CoursePageProps) {
-  const courseId = params.id
-  const [course, setCourse] = useState<CourseDetail | null>(null)
-  const [relatedCourses, setRelatedCourses] = useState<RelatedCoursesResponse | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  // コース詳細を取得
-  useEffect(() => {
-    const fetchCourseDetails = async () => {
-      setIsLoading(true)
-      setError(null)
-
-      try {
-        // コース詳細の取得
-        const courseResponse = await fetch(`/api/v1/courses/${courseId}`)
-        if (!courseResponse.ok) {
-          throw new Error("Failed to fetch course details")
-        }
-        const courseData: CourseDetail = await courseResponse.json()
-        setCourse(courseData)
-
-        // 関連コースの取得
-        const relatedResponse = await fetch(`/api/v1/courses/${courseId}/related`)
-        if (!relatedResponse.ok) {
-          throw new Error("Failed to fetch related courses")
-        }
-        const relatedData: RelatedCoursesResponse = await relatedResponse.json()
-        setRelatedCourses(relatedData)
-      } catch (err) {
-        console.error("Error fetching course data:", err)
-        setError("コース情報の取得中にエラーが発生しました。")
-      } finally {
-        setIsLoading(false)
-      }
+// サーバーコンポーネントでのデータフェッチング
+async function getCourseData(courseId: string) {
+  try {
+    // コース詳細の取得
+    const courseResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/v1/courses/${courseId}`, {
+      cache: "no-store",
+    })
+    if (!courseResponse.ok) {
+      throw new Error("Failed to fetch course details")
     }
+    return (await courseResponse.json()) as CourseDetail
+  } catch (error) {
+    console.error("Error fetching course data:", error)
+    throw error
+  }
+}
 
-    fetchCourseDetails()
-  }, [courseId])
-
-  // ローディング状態
-  if (isLoading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
-          <div className="h-10 bg-gray-200 rounded w-3/4 mb-4"></div>
-          <div className="flex gap-2 mb-6">
-            <div className="h-6 bg-gray-200 rounded w-20"></div>
-            <div className="h-6 bg-gray-200 rounded w-20"></div>
-          </div>
-          <div className="bg-gray-100 rounded-lg p-6 mb-8">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <div className="h-6 bg-gray-200 rounded w-1/2 mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-full mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded w-full mb-4"></div>
-              </div>
-              <div>
-                <div className="h-6 bg-gray-200 rounded w-1/2 mb-2"></div>
-                <div className="space-y-3">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className="flex">
-                      <div className="h-6 w-6 bg-gray-200 rounded-full mr-3"></div>
-                      <div className="h-4 bg-gray-200 rounded w-full"></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="h-96 bg-gray-200 rounded mb-12"></div>
-        </div>
-      </div>
+// 関連コースの取得
+async function getRelatedCourses(courseId: string) {
+  try {
+    const relatedResponse = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL || ""}/api/v1/courses/${courseId}/related`,
+      { cache: "no-store" },
     )
+    if (!relatedResponse.ok) {
+      throw new Error("Failed to fetch related courses")
+    }
+    return (await relatedResponse.json()) as RelatedCoursesResponse
+  } catch (error) {
+    console.error("Error fetching related courses:", error)
+    return { courses: [] }
+  }
+}
+
+export default async function CoursePage({ params }: CoursePageProps) {
+  const courseId = params.id
+
+  // データフェッチング
+  let course: CourseDetail | null = null
+  let error: string | null = null
+  let relatedCourses: RelatedCoursesResponse | null = null
+
+  try {
+    course = await getCourseData(courseId)
+    relatedCourses = await getRelatedCourses(courseId)
+  } catch (err) {
+    error = err instanceof Error ? err.message : "コース情報の取得中にエラーが発生しました。"
   }
 
   // エラー状態
@@ -173,7 +142,9 @@ export default function CoursePage({ params }: CoursePageProps) {
 
       {/* コースコンテンツ */}
       <div className="mb-12">
-        <MarkdownContent content={course.content} />
+        <Suspense fallback={<div className="animate-pulse h-96 bg-gray-100 rounded-md"></div>}>
+          <MarkdownContent content={course.content} />
+        </Suspense>
       </div>
 
       {/* コース開始ボタン */}

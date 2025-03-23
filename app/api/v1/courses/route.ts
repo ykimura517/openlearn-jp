@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
       id: "prompt-engineering",
       title: "プロンプトエンジニアリング入門",
       description:
-        "AIモデルから最適な結果を得るためのプロンプト設計技術を学びます。効果的なプロンプトの書き方や、様々なユースケースに応じたプロンプトの最適化方法を解説します。",
+        "AIモデルから最適な結果を得るためのプロンプト設計技術を学びます。効果的なプロンプトの書き方や、様���なユースケースに応じたプロンプトの最適化方法を解説します。",
       category: "ai",
       categoryName: "生成AI",
       level: "中級",
