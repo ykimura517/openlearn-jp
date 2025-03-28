@@ -364,13 +364,6 @@ export default function SignUpPage() {
               >
                 ログイン
               </Link>
-              <br />
-              <Link
-                href='/auth/forgot-password'
-                className='text-xs text-orange-500 hover:underline'
-              >
-                パスワードをお忘れですか？
-              </Link>
             </div>
           </CardFooter>
         </Card>

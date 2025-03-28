@@ -1,0 +1,206 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // ご利用のDBに合わせて変更
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id // firebaseUserIdと同じにする
+  displayId      String   @unique
+  firebaseUserId String   @unique
+  stripeUserId   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // リレーション
+  examSubmissions ExamSubmission[]
+  chatMessages    ChatMessage[]
+  courseFAQs      CourseFAQ[]
+}
+
+model Category {
+  id       String  @id @default(dbgenerated("ulid()"))
+  name     String
+  level    Int // 例：1: 大, 2: 中, 3: 小
+  parentId String?
+
+  parent   Category?  @relation("CategoryChildren", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryChildren")
+
+  // 関連するコースや試験
+  courses Course[]
+  exams   Exam[]
+}
+
+model Tag {
+  id   String @id @default(dbgenerated("ulid()"))
+  name String @unique
+
+  // Many-to-many: Course ↔ Tag
+  courses Course[] @relation("CourseTags")
+}
+
+model Course {
+  id             String   @id @default(dbgenerated("ulid()"))
+  title          String
+  summary        String
+  description    String
+  targetAudience String
+  difficulty     String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // カテゴリー（例：大・中・小の階層はCategoryテーブルの親子関係で管理）
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  // Many-to-many: Course ↔ Tag
+  tags Tag[] @relation("CourseTags")
+
+  // コースを構成するコンテンツ（各記事）
+  courseContents CourseContent[]
+
+  // 関連コース（自己相互の多対多リレーション）
+  relatedCourses   Course[] @relation("RelatedCourses")
+  relatedToCourses Course[] @relation("RelatedCourses")
+
+  // FAQ（よくある質問）
+  courseFAQs CourseFAQ[]
+}
+
+model CourseContent {
+  id       String @id @default(dbgenerated("ulid()"))
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  sequence  Int // コース内での連番
+  title     String
+  content   String // 記事本文（ブログ記事形式）
+  shareable Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 演習問題（記事末尾の練習問題）
+  exercises Exercise[]
+
+  // チャットメッセージ（「AIに質問する」用）
+  chatMessages ChatMessage[]
+}
+
+enum ExerciseType {
+  MULTIPLE_CHOICE
+  FREE_TEXT
+}
+
+model Exercise {
+  id              String        @id @default(dbgenerated("ulid()"))
+  courseContentId String
+  courseContent   CourseContent @relation(fields: [courseContentId], references: [id])
+
+  type          ExerciseType
+  question      String
+  // 複数選択式の場合、optionsをJSON文字列などで保存（例："[\"選択肢1\", \"選択肢2\", ...]"）
+  options       String?
+  correctAnswer String? // 自由記述の場合はnull可
+
+  createdAt DateTime @default(now())
+}
+
+enum ChatRole {
+  USER
+  AI
+}
+
+model ChatMessage {
+  id              String        @id @default(dbgenerated("ulid()"))
+  courseContentId String
+  courseContent   CourseContent @relation(fields: [courseContentId], references: [id])
+
+  // チャット発言者。未ログインの場合も想定できるため、userはオプショナル
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  role      ChatRole
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model CourseFAQ {
+  id       String @id @default(dbgenerated("ulid()"))
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  question   String
+  answer     String
+  // どの程度同一質問があったかをカウント
+  askedCount Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  User       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+}
+
+model Exam {
+  id          String   @id @default(dbgenerated("ulid()"))
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 試験もジャンル（カテゴリー）で分類。※各試験は大・中・小のうちいずれかのカテゴリーに所属する
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  examQuestions  ExamQuestion[]
+  ExamSubmission ExamSubmission[]
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  FREE_TEXT
+}
+
+model ExamQuestion {
+  id     String @id @default(dbgenerated("ulid()"))
+  examId String
+  exam   Exam   @relation(fields: [examId], references: [id])
+
+  question      String
+  type          QuestionType
+  // ラジオボタン式の場合、optionsはJSON形式の文字列で保存（例："[\"選択肢1\", \"選択肢2\"]"）
+  options       String?
+  correctAnswer String? // 自由記述はnull可
+
+  createdAt  DateTime     @default(now())
+  ExamAnswer ExamAnswer[]
+}
+
+model ExamSubmission {
+  id     String @id @default(dbgenerated("ulid()"))
+  examId String
+  exam   Exam   @relation(fields: [examId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  submittedAt DateTime @default(now())
+  score       Float
+  percentile  Float
+
+  examAnswers ExamAnswer[]
+}
+
+model ExamAnswer {
+  id               String         @id @default(dbgenerated("ulid()"))
+  examSubmissionId String
+  examSubmission   ExamSubmission @relation(fields: [examSubmissionId], references: [id])
+
+  examQuestionId String
+  examQuestion   ExamQuestion @relation(fields: [examQuestionId], references: [id])
+
+  answer    String
+  isCorrect Boolean
+}
