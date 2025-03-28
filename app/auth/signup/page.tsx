@@ -32,6 +32,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   fetchSignInMethodsForEmail,
+  sendEmailVerification,
 } from 'firebase/auth';
 
 // Firebaseのエラーコードに応じた日本語メッセージを返す関数
@@ -126,6 +127,8 @@ export default function SignUpPage() {
         email,
         password
       );
+      // メール認証メールを送信
+      await sendEmailVerification(userCredential.user);
       setFirebaseUser(userCredential.user);
       // Firebaseユーザー作成完了直後にBE登録APIを呼び出す
       await registerUserInBE(userCredential.user);
@@ -360,6 +363,13 @@ export default function SignUpPage() {
                 className='text-orange-500 hover:underline'
               >
                 ログイン
+              </Link>
+              <br />
+              <Link
+                href='/auth/forgot-password'
+                className='text-xs text-orange-500 hover:underline'
+              >
+                パスワードをお忘れですか？
               </Link>
             </div>
           </CardFooter>
