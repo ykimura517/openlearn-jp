@@ -1,7 +1,6 @@
 'use client';
 
 import type React from 'react';
-
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -21,21 +20,16 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/auth-context';
 import { auth } from '@/lib/firebase';
 import {
-  EmailAuthProvider,
+  updateEmail,
   reauthenticateWithCredential,
-  sendSignInLinkToEmail,
+  EmailAuthProvider,
+  sendEmailVerification,
+  verifyBeforeUpdateEmail,
 } from 'firebase/auth';
-
-// 認証メール送信用の設定オブジェクト
-const actionCodeSettings = {
-  // ユーザーがリンクをクリックした後に遷移するURL（適宜変更してください）
-  url: 'http://localhost:3000/auth/verify-email',
-  handleCodeInApp: true,
-};
 
 export default function ChangeEmailPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, reloadUser } = useAuth(); // ※ useAuth で現在のユーザー情報を管理している前提
   const [currentEmail, setCurrentEmail] = useState(user?.email || '');
   const [newEmail, setNewEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -60,7 +54,6 @@ export default function ChangeEmailPage() {
       setIsLoading(false);
       return;
     }
-    // メールアドレスの形式チェック
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(newEmail)) {
       setError('有効なメールアドレスを入力してください。');
@@ -69,29 +62,37 @@ export default function ChangeEmailPage() {
     }
 
     try {
-      if (!user) {
-        throw new Error('ユーザーがログインしていません。');
+      if (user) {
+        // ユーザーの再認証
+        const credential = EmailAuthProvider.credential(user.email, password);
+        await reauthenticateWithCredential(user, credential);
+
+        // メールアドレスの更新
+        // await updateEmail(user, newEmail); 現在では無理になっている
+        await verifyBeforeUpdateEmail(user, newEmail);
+
+        // 更新後、新しいメールアドレス宛に確認メールを送信
+        await sendEmailVerification(user);
+
+        // ユーザー情報を再読み込み（必要な場合）
+        if (reloadUser) {
+          await reloadUser();
+        }
+
+        setSuccess(
+          'メールアドレスの変更が完了しました。新しいメールアドレス宛に確認メールを送信しました。'
+        );
+        setCurrentEmail(newEmail);
+        setNewEmail('');
+        setPassword('');
+      } else {
+        setError(
+          'ユーザー情報が取得できませんでした。再度ログインしてください。'
+        );
       }
-      // 現在のパスワードを用いて再認証を実施
-      const credential = EmailAuthProvider.credential(
-        user.email || '',
-        password
-      );
-      await reauthenticateWithCredential(user, credential);
-
-      // 新しいメールアドレス宛に認証メールを送信
-      await sendSignInLinkToEmail(auth, newEmail, actionCodeSettings);
-
-      setSuccess(
-        '新しいメールアドレス宛に認証メールを送信しました。メール内のリンクをクリックし認証後、メールアドレスが変更されます。'
-      );
-      // ※メール認証完了後の更新処理は、認証リンク用の別ページでapplyActionCode等を用いて実施してください。
-      setCurrentEmail(newEmail);
-      setNewEmail('');
-      setPassword('');
     } catch (err: any) {
       setError(
-        'メールアドレスの変更に失敗しました。パスワードが正しいこと、または入力内容をご確認ください。'
+        'メールアドレスの変更に失敗しました。パスワードが正しいことを確認してください。'
       );
       console.error('Error changing email:', err);
     } finally {
@@ -118,7 +119,7 @@ export default function ChangeEmailPage() {
         <CardHeader>
           <CardTitle>メールアドレス変更</CardTitle>
           <CardDescription>
-            新しいメールアドレスを入力してください。変更後、認証メールが送信されます。
+            新しいメールアドレスを入力してください。変更後、確認メールが送信されます。
           </CardDescription>
         </CardHeader>
         <CardContent>

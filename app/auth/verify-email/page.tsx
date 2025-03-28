@@ -1,128 +1,83 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardFooter,
 } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { auth } from '@/lib/firebase';
-import {
-  isSignInWithEmailLink,
-  signInWithEmailLink,
-  updateEmail,
-} from 'firebase/auth';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { applyActionCode, checkActionCode } from 'firebase/auth';
 
 export default function VerifyEmailPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const oobCode = searchParams.get('oobCode');
+  const mode = searchParams.get('mode');
 
-  const oobUrl = typeof window !== 'undefined' ? window.location.href : '';
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+    'loading'
+  );
+  const [message, setMessage] = useState('');
 
-  const handleVerify = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-    setIsLoading(true);
-
-    if (!email) {
-      setError('確認用のメールアドレスを入力してください。');
-      setIsLoading(false);
-      return;
+  useEffect(() => {
+    if (mode === 'verifyEmail' && oobCode) {
+      // オプション: 事前にコードの妥当性をチェック
+      checkActionCode(auth, oobCode)
+        .then(() => applyActionCode(auth, oobCode))
+        .then(() => {
+          setStatus('success');
+          setMessage('メールアドレスの確認が完了しました。');
+        })
+        .catch((error) => {
+          console.error('Error verifying email:', error);
+          setStatus('error');
+          setMessage(
+            'メールアドレスの確認に失敗しました。リンクが無効か、既に確認済みの可能性があります。'
+          );
+        });
+    } else {
+      setStatus('error');
+      setMessage('無効なリクエストです。');
     }
-
-    try {
-      // メールリンク認証を完了（これによりemailVerified=true になる）
-      const result = await signInWithEmailLink(auth, email, oobUrl);
-
-      // 任意：ここで `auth.currentUser?.email !== email` の場合は updateEmail() を実行して元のユーザーとマージも可能
-      // メール変更用の流れであれば、新しい email を currentUser に反映
-      if (auth.currentUser && auth.currentUser.email !== email) {
-        await updateEmail(auth.currentUser, email);
-      }
-
-      setSuccess(
-        '認証が完了しました。新しいメールアドレスが有効になりました。'
-      );
-      setTimeout(() => router.push('/'), 3000);
-    } catch (err: any) {
-      setError(
-        '認証に失敗しました。URLが無効、または期限切れの可能性があります。'
-      );
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [mode, oobCode]);
 
   return (
     <div className='container mx-auto px-4 py-16 max-w-md'>
       <Card>
         <CardHeader>
           <CardTitle>メール確認</CardTitle>
-          <CardDescription>
-            認証メール内のリンクをクリックしてこのページにアクセスしています。
-            登録したメールアドレスを入力し、認証を完了してください。
-          </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleVerify} className='space-y-4'>
-            <div className='space-y-2'>
-              <label
-                htmlFor='email'
-                className='text-sm font-medium text-gray-700'
-              >
-                メールアドレス
-              </label>
-              <Input
-                id='email'
-                type='email'
-                placeholder='your@email.com'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            {error && (
-              <Alert variant='destructive'>
-                <AlertCircle className='h-4 w-4' />
-                <AlertTitle>エラー</AlertTitle>
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-
-            {success && (
-              <Alert className='bg-green-50 border-green-200'>
-                <CheckCircle className='h-4 w-4 text-green-600' />
-                <AlertTitle className='text-green-600'>成功</AlertTitle>
-                <AlertDescription className='text-green-700'>
-                  {success}
-                </AlertDescription>
-              </Alert>
-            )}
-
-            <Button
-              type='submit'
-              className='w-full bg-orange-500 hover:bg-orange-600'
-              disabled={isLoading}
-            >
-              {isLoading ? '確認中...' : '認証を完了する'}
-            </Button>
-          </form>
+          {status === 'loading' && <p>確認中...</p>}
+          {status === 'success' && (
+            <Alert variant='success'>
+              <AlertTitle>成功</AlertTitle>
+              <AlertDescription>{message}</AlertDescription>
+            </Alert>
+          )}
+          {status === 'error' && (
+            <Alert variant='destructive'>
+              <AlertTitle>エラー</AlertTitle>
+              <AlertDescription>{message}</AlertDescription>
+            </Alert>
+          )}
         </CardContent>
+        <CardFooter className='flex justify-center'>
+          <Button onClick={() => router.push('/')}>トップページへ</Button>
+        </CardFooter>
       </Card>
+      <div className='mt-4 text-center'>
+        <Link href='/auth/signin' className='text-orange-500 hover:underline'>
+          ログインページへ
+        </Link>
+      </div>
     </div>
   );
 }
