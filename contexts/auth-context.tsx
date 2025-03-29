@@ -11,6 +11,7 @@ import {
   signInWithPopup,
 } from 'firebase/auth';
 import { auth, googleProvider, githubProvider } from '@/lib/firebase';
+import { useRouter } from 'next/navigation'; // ルーターのインポート
 
 interface AuthContextType {
   user: User | null;
@@ -30,6 +31,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter(); // ルーターを初期化
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -60,8 +62,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     return result.user;
   };
 
-  const logout = () => {
-    return signOut(auth);
+  const logout = async () => {
+    await signOut(auth);
+    router.push('/'); // ログアウト後にトップページへリダイレクト
   };
 
   const reloadUser = async () => {

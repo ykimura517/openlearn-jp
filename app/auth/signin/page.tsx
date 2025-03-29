@@ -1,4 +1,3 @@
-// app/auth/signin/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -31,39 +30,48 @@ export default function SignInPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
 
+  // Firebaseのエラーコードに基づき、日本語のエラーメッセージを返す関数
+  const getErrorMessage = (err: any) => {
+    switch (err.code) {
+      default:
+        return 'ログインに失敗しました。';
+    }
+  };
+
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // ログイン成功後、必要に応じてfirebaseUser.getIdToken()でトークンを取得しセッション管理するなどしてください
+      // ログイン成功後、トップページへリダイレクト
       router.push('/');
     } catch (err: any) {
-      setError(err.message);
+      setError(getErrorMessage(err));
     }
   };
 
   const handleGoogleSignIn = async () => {
+    setError('');
     try {
       await signInWithPopup(auth, googleProvider);
       router.push('/');
     } catch (err: any) {
-      setError(err.message);
+      setError(getErrorMessage(err));
     }
   };
 
   const handleGithubSignIn = async () => {
+    setError('');
     try {
       await signInWithPopup(auth, githubProvider);
       router.push('/');
     } catch (err: any) {
-      setError(err.message);
+      setError(getErrorMessage(err));
     }
   };
 
   return (
     <div className='container mx-auto px-4 py-16 max-w-md'>
-      {/* 画面のUIは既存の実装とほぼ同じ */}
       <Card>
         <CardHeader>
           <CardTitle>ログイン</CardTitle>
@@ -138,7 +146,6 @@ export default function SignInPage() {
                   variant='outline'
                   className='w-full'
                 >
-                  {/* Googleアイコンなど */}
                   Googleでログイン
                 </Button>
               </div>
