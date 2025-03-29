@@ -1,6 +1,6 @@
 # Makefile
 
-.PHONY: prisma-generate mig prisma-studio seed dev
+.PHONY: prisma-generate mig prisma-studio seed dev reset
 
 # Prisma Client の再生成
 prisma-generate:
@@ -8,10 +8,7 @@ prisma-generate:
 
 # マイグレーションの実行（引数 name にマイグレーション名を指定）
 mig:
-ifndef name
-	$(error Please provide a migration name: make prisma-migrate name=MigrationName)
-endif
-	npx prisma migrate dev --name $(name)
+	npx prisma migrate dev
 
 # Prisma Studio の起動
 prisma-studio:
@@ -24,3 +21,5 @@ seed:
 # Next.js の開発サーバ起動
 dev:
 	npm run dev
+reset:
+	npx prisma migrate reset

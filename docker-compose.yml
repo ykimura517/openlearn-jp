@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:alpine
+    container_name: postgres-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: u
+      POSTGRES_PASSWORD: p
+      POSTGRES_DB: ol
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+
+volumes:
+  db_data:

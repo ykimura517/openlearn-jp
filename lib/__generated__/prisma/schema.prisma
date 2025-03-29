@@ -1,0 +1,218 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/__generated__/prisma"
+}
+
+datasource db {
+  provider = "postgresql" // ご利用のDBに合わせて変更
+  url      = env("DATABASE_URL")
+}
+
+// 方針：ENUM型は、DBスキーマでは使わず、必要な場合はアプリケーション側で定義する
+
+model User {
+  id             String   @id // firebaseUserIdと同じにする
+  displayId      String   @unique
+  firebaseUserId String   @unique
+  stripeUserId   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  plan           String   @default("FREE") // プラン名（例：FREE, PRO,）
+
+  // リレーション
+  examSubmissions ExamSubmission[]
+  chatMessages    ChatMessage[]
+  chatRoom        ChatRoom[]
+}
+
+model MasterCategory {
+  id       String  @id
+  name     String
+  level    Int // 例：1: 大, 2: 中, 3: 小
+  parentId String?
+
+  parent   MasterCategory?  @relation("CategoryChildren", fields: [parentId], references: [id])
+  children MasterCategory[] @relation("CategoryChildren")
+
+  // 関連するコースや試験
+  courses MasterCourse[]
+  exams   MasterExam[]
+}
+
+model MasterTag {
+  id   String @id
+  name String @unique
+
+  // Many-to-many: Course ↔ Tag
+  courses MasterCourse[] @relation("CourseTags")
+}
+
+model MasterCourse {
+  id             String   @id
+  title          String? // 初期はテーブルでなく、ファイルで管理するのでnull可
+  summary        String?
+  description    String?
+  targetAudience String?
+  difficulty     String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // カテゴリー（例：大・中・小の階層はCategoryテーブルの親子関係で管理）
+  categoryId String
+  category   MasterCategory @relation(fields: [categoryId], references: [id])
+
+  // Many-to-many: Course ↔ Tag
+  tags MasterTag[] @relation("CourseTags")
+
+  // コースを構成するコンテンツ（各記事）
+  courseContents MasterCourseContent[]
+
+  // 関連コース（自己相互の多対多リレーション）
+  relatedCourses   MasterCourse[] @relation("RelatedCourses")
+  relatedToCourses MasterCourse[] @relation("RelatedCourses")
+
+  // FAQ（よくある質問）
+  courseFAQs MasterCourseFAQ[]
+}
+
+model MasterCourseContent {
+  id       String       @id
+  courseId String
+  course   MasterCourse @relation(fields: [courseId], references: [id])
+
+  sequence  Int // コース内での連番
+  title     String? // 初期はテーブルでなく、ファイルで管理するのでnull可
+  content   String? // 記事本文（ブログ記事形式） 初期はテーブルでなく、ファイルで管理するのでnull可
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 演習問題（記事末尾の練習問題）
+  exercises MasterExercise[]
+
+  // チャットメッセージ（「AIに質問する」用）
+  chatMessages ChatMessage[]
+  chatRoom     ChatRoom[]
+}
+
+// コース内の演習問題（記事末尾の練習問題）
+model MasterExercise {
+  id              String              @id
+  courseContentId String
+  courseContent   MasterCourseContent @relation(fields: [courseContentId], references: [id])
+
+  exerciseType  String // SELECTION or TEXT, 自由記述か選択肢式か
+  question      String
+  // 複数選択式の場合、optionsをJSON文字列などで保存（例："[\"選択肢1\", \"選択肢2\", ...]"）
+  options       String?
+  correctAnswer String? // 自由記述の場合はnull可
+
+  createdAt DateTime @default(now())
+}
+
+// course内でユーザーとAIのチャットを行うためのテーブル
+model ChatRoom {
+  id              String              @id
+  userId          String
+  user            User                @relation(fields: [userId], references: [id])
+  courseContentId String
+  courseContent   MasterCourseContent @relation(fields: [courseContentId], references: [id])
+  createdAt       DateTime            @default(now())
+  chatMessage     ChatMessage[]
+
+  @@index([courseContentId])
+}
+
+model ChatMessage {
+  id String @id
+
+  chatRoomId String
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  // チャット発言者。未ログインの場合も想定できるため、userはオプショナル
+  userId     String? // AIの場合はnull
+  user       User?    @relation(fields: [userId], references: [id])
+
+  role                  String // 発言者の役割（例：USER or AI）
+  message               String
+  createdAt             DateTime             @default(now())
+  MasterCourseContent   MasterCourseContent? @relation(fields: [masterCourseContentId], references: [id])
+  masterCourseContentId String?
+
+  @@index([chatRoomId, createdAt], name: "idx_chatroom_createdAt")
+}
+
+model MasterCourseFAQ {
+  id       String       @id
+  courseId String
+  course   MasterCourse @relation(fields: [courseId], references: [id])
+
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model MasterExam {
+  id          String   @id
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 試験もジャンル（カテゴリー）で分類。※各試験は大・中・小のうちいずれかのカテゴリーに所属する
+  categoryId String
+  category   MasterCategory @relation(fields: [categoryId], references: [id])
+
+  examQuestions  MasterExamQuestion[]
+  ExamSubmission ExamSubmission[]
+}
+
+model MasterExamQuestion {
+  id     String     @id
+  examId String
+  exam   MasterExam @relation(fields: [examId], references: [id])
+
+  question      String
+  questionType  String // 問題の種類（例：選択肢式、自由記述式）
+  // ラジオボタン式の場合、optionsはJSON形式の文字列で保存（例："[\"選択肢1\", \"選択肢2\"]"）
+  options       String?
+  correctAnswer String? // 自由記述はnull可
+
+  createdAt  DateTime     @default(now())
+  ExamAnswer ExamAnswer[]
+
+  @@index([examId])
+}
+
+model ExamSubmission {
+  id     String     @id
+  examId String
+  exam   MasterExam @relation(fields: [examId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  submittedAt DateTime @default(now())
+  score       Float
+  percentile  Float
+
+  examAnswers ExamAnswer[]
+
+  @@index([userId])
+  @@index([examId])
+}
+
+model ExamAnswer {
+  id               String         @id
+  examSubmissionId String
+  examSubmission   ExamSubmission @relation(fields: [examSubmissionId], references: [id])
+
+  examQuestionId String
+  examQuestion   MasterExamQuestion @relation(fields: [examQuestionId], references: [id])
+
+  answer    String
+  isCorrect Boolean
+
+  @@index([examSubmissionId])
+}

@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../lib/__generated__/prisma"
 }
 
 datasource db {
@@ -7,10 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum PlanType {
-  FREE
-  PRO
-}
+// 方針：ENUM型は、DBスキーマでは使わず、必要な場合はアプリケーション側で定義する
 
 model User {
   id             String   @id // firebaseUserIdと同じにする
@@ -24,12 +22,11 @@ model User {
   // リレーション
   examSubmissions ExamSubmission[]
   chatMessages    ChatMessage[]
-  courseFAQs      MasterCourseFAQ[]
   chatRoom        ChatRoom[]
 }
 
 model MasterCategory {
-  id       String  @id @default(dbgenerated("ulid()"))
+  id       String  @id
   name     String
   level    Int // 例：1: 大, 2: 中, 3: 小
   parentId String?
@@ -43,7 +40,7 @@ model MasterCategory {
 }
 
 model MasterTag {
-  id   String @id @default(dbgenerated("ulid()"))
+  id   String @id
   name String @unique
 
   // Many-to-many: Course ↔ Tag
@@ -94,21 +91,16 @@ model MasterCourseContent {
 
   // チャットメッセージ（「AIに質問する」用）
   chatMessages ChatMessage[]
-  ChatRoom     ChatRoom[]
-}
-
-enum ExerciseType {
-  MULTIPLE_CHOICE
-  FREE_TEXT
+  chatRoom     ChatRoom[]
 }
 
 // コース内の演習問題（記事末尾の練習問題）
 model MasterExercise {
-  id              String              @id @default(dbgenerated("ulid()"))
+  id              String              @id
   courseContentId String
   courseContent   MasterCourseContent @relation(fields: [courseContentId], references: [id])
 
-  type          ExerciseType
+  exerciseType  String // SELECTION or TEXT, 自由記述か選択肢式か
   question      String
   // 複数選択式の場合、optionsをJSON文字列などで保存（例："[\"選択肢1\", \"選択肢2\", ...]"）
   options       String?
@@ -117,32 +109,29 @@ model MasterExercise {
   createdAt DateTime @default(now())
 }
 
-enum ChatRole {
-  USER
-  AI
-}
-
 // course内でユーザーとAIのチャットを行うためのテーブル
 model ChatRoom {
-  id              String              @id @default(dbgenerated("ulid()"))
+  id              String              @id
   userId          String
   user            User                @relation(fields: [userId], references: [id])
   courseContentId String
   courseContent   MasterCourseContent @relation(fields: [courseContentId], references: [id])
   createdAt       DateTime            @default(now())
-  ChatMessage     ChatMessage[]
+  chatMessage     ChatMessage[]
+
+  @@index([courseContentId])
 }
 
 model ChatMessage {
-  id         String   @id @default(dbgenerated("ulid()"))
-  // index貼る
+  id String @id
+
   chatRoomId String
   chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
   // チャット発言者。未ログインの場合も想定できるため、userはオプショナル
   userId     String? // AIの場合はnull
   user       User?    @relation(fields: [userId], references: [id])
 
-  role                  ChatRole
+  role                  String // 発言者の役割（例：USER or AI）
   message               String
   createdAt             DateTime             @default(now())
   MasterCourseContent   MasterCourseContent? @relation(fields: [masterCourseContentId], references: [id])
@@ -152,7 +141,7 @@ model ChatMessage {
 }
 
 model MasterCourseFAQ {
-  id       String       @id @default(dbgenerated("ulid()"))
+  id       String       @id
   courseId String
   course   MasterCourse @relation(fields: [courseId], references: [id])
 
@@ -160,12 +149,12 @@ model MasterCourseFAQ {
   answer    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+
+  @@index([courseId])
 }
 
 model MasterExam {
-  id          String   @id @default(dbgenerated("ulid()"))
+  id          String   @id
   title       String
   description String
   createdAt   DateTime @default(now())
@@ -179,18 +168,13 @@ model MasterExam {
   ExamSubmission ExamSubmission[]
 }
 
-enum QuestionType {
-  MULTIPLE_CHOICE
-  FREE_TEXT
-}
-
 model MasterExamQuestion {
-  id     String     @id @default(dbgenerated("ulid()"))
+  id     String     @id
   examId String
   exam   MasterExam @relation(fields: [examId], references: [id])
 
   question      String
-  type          QuestionType
+  questionType  String // 問題の種類（例：選択肢式、自由記述式）
   // ラジオボタン式の場合、optionsはJSON形式の文字列で保存（例："[\"選択肢1\", \"選択肢2\"]"）
   options       String?
   correctAnswer String? // 自由記述はnull可
@@ -202,7 +186,7 @@ model MasterExamQuestion {
 }
 
 model ExamSubmission {
-  id     String     @id @default(dbgenerated("ulid()"))
+  id     String     @id
   examId String
   exam   MasterExam @relation(fields: [examId], references: [id])
 
@@ -216,10 +200,11 @@ model ExamSubmission {
   examAnswers ExamAnswer[]
 
   @@index([userId])
+  @@index([examId])
 }
 
 model ExamAnswer {
-  id               String         @id @default(dbgenerated("ulid()"))
+  id               String         @id
   examSubmissionId String
   examSubmission   ExamSubmission @relation(fields: [examSubmissionId], references: [id])
 
