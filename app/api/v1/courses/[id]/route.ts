@@ -15,7 +15,7 @@ export async function GET(
     where: { id: courseId },
     include: {
       category: true,
-      courseContents: {
+      courseArticles: {
         orderBy: { sequence: 'asc' },
       },
     },
@@ -27,11 +27,11 @@ export async function GET(
   }
 
   // コースコンテンツを、メインコンテンツとレッスンに分割する
-  // ※ここでは、先頭の courseContents を全体の content とし、以降を articles とする例です
-  const mainContent = course.courseContents[0] || { content: '' };
+  // ※ここでは、先頭の courseArticles を全体の content とし、以降を articles とする例です
+  const mainContent = course.courseArticles[0] || { content: '' };
   const articles =
-    course.courseContents.length > 1
-      ? course.courseContents.slice(1).map((cc) => ({
+    course.courseArticles.length > 1
+      ? course.courseArticles.slice(1).map((cc) => ({
           id: cc.id,
           title: cc.title || '',
           duration: '', // DBにdurationがないため、必要に応じて別途実装してください
@@ -42,10 +42,10 @@ export async function GET(
     id: course.id,
     title: course.title || '',
     description: course.description || '',
-    category: course.categoryId,
+    categoryId: course.categoryId,
     categoryName: course.category.name,
-    level: course.difficulty || '',
-    duration: course.durationMin ? String(course.durationMin) + '分' : '未設定',
+    level: String(course.difficulty) || '',
+    durationMin: course.durationMin ?? -1,
     targetAudience: course.targetAudience || '',
     prerequisites: '特になし',
     articles,

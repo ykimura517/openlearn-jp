@@ -1,3 +1,4 @@
+// types/api.ts
 // APIの返却・受領値の型定義
 
 // コース関連
@@ -109,6 +110,7 @@ export interface Course {
 export interface CoursesResponse {
   courses: Course[];
   totalCourses: number;
+  totalPages: number;
 }
 
 export interface CourseDetail {
