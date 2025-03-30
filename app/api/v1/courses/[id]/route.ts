@@ -27,9 +27,9 @@ export async function GET(
   }
 
   // コースコンテンツを、メインコンテンツとレッスンに分割する
-  // ※ここでは、先頭の courseContents を全体の content とし、以降を lessons とする例です
+  // ※ここでは、先頭の courseContents を全体の content とし、以降を articles とする例です
   const mainContent = course.courseContents[0] || { content: '' };
-  const lessons =
+  const articles =
     course.courseContents.length > 1
       ? course.courseContents.slice(1).map((cc) => ({
           id: cc.id,
@@ -48,7 +48,7 @@ export async function GET(
     duration: course.durationMin ? String(course.durationMin) + '分' : '未設定',
     targetAudience: course.targetAudience || '',
     prerequisites: '特になし',
-    lessons,
+    articles,
     content: mainContent.content || '',
   };
 

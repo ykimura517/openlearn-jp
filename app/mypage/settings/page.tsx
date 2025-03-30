@@ -4,7 +4,7 @@ import type React from 'react';
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,22 +15,20 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
+// import { Separator } from '@/components/ui/separator';
+// import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AlertCircle, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/auth-context';
 
 export default function SettingsPage() {
-  const router = useRouter();
+  // const router = useRouter();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('account');
   const [username, setUsername] = useState('山田 太郎');
   const [userId, setUserId] = useState('yamada123');
   const [occupation, setOccupation] = useState('エンジニア・開発者');
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [marketingEmails, setMarketingEmails] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,27 +49,6 @@ export default function SettingsPage() {
     } catch (err) {
       setError('プロフィールの更新に失敗しました。もう一度お試しください。');
       console.error('Error updating profile:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSaveNotifications = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-    setIsLoading(true);
-
-    try {
-      // 実際のアプリケーションではAPIを呼び出して通知設定を更新
-      // ここではモック処理
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // 成功メッセージを表示
-      setSuccess('通知設定が正常に更新されました。');
-    } catch (err) {
-      setError('通知設定の更新に失敗しました。もう一度お試しください。');
-      console.error('Error updating notification settings:', err);
     } finally {
       setIsLoading(false);
     }
@@ -202,78 +179,6 @@ export default function SettingsPage() {
                   disabled={isLoading}
                 >
                   {isLoading ? '保存中...' : '変更を保存'}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value='notifications'>
-          <Card>
-            <CardHeader>
-              <CardTitle>通知設定</CardTitle>
-              <CardDescription>
-                通知の受け取り方法を設定します。
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSaveNotifications} className='space-y-6'>
-                <div className='space-y-4'>
-                  <div className='flex items-center justify-between'>
-                    <div className='space-y-0.5'>
-                      <Label htmlFor='email-notifications'>メール通知</Label>
-                      <p className='text-sm text-gray-500'>
-                        コースの更新やお知らせをメールで受け取ります。
-                      </p>
-                    </div>
-                    <Switch
-                      id='email-notifications'
-                      checked={emailNotifications}
-                      onCheckedChange={setEmailNotifications}
-                    />
-                  </div>
-                  <Separator />
-                  <div className='flex items-center justify-between'>
-                    <div className='space-y-0.5'>
-                      <Label htmlFor='marketing-emails'>
-                        マーケティングメール
-                      </Label>
-                      <p className='text-sm text-gray-500'>
-                        新しいコースやキャンペーン情報をメールで受け取ります。
-                      </p>
-                    </div>
-                    <Switch
-                      id='marketing-emails'
-                      checked={marketingEmails}
-                      onCheckedChange={setMarketingEmails}
-                    />
-                  </div>
-                </div>
-
-                {error && (
-                  <Alert variant='destructive'>
-                    <AlertCircle className='h-4 w-4' />
-                    <AlertTitle>エラー</AlertTitle>
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
-
-                {success && (
-                  <Alert className='bg-green-50 border-green-200'>
-                    <CheckCircle className='h-4 w-4 text-green-600' />
-                    <AlertTitle className='text-green-600'>成功</AlertTitle>
-                    <AlertDescription className='text-green-700'>
-                      {success}
-                    </AlertDescription>
-                  </Alert>
-                )}
-
-                <Button
-                  type='submit'
-                  className='bg-orange-500 hover:bg-orange-600'
-                  disabled={isLoading}
-                >
-                  {isLoading ? '保存中...' : '設定を保存'}
                 </Button>
               </form>
             </CardContent>

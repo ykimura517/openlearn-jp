@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     // リクエストボディの解析
     const body: AIChatRequest = await request.json();
-    const { message, lessonTitle, history } = body;
+    const { message, articleTitle, history } = body;
 
     if (!message) {
       return NextResponse.json(
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     // AIレスポンスの生成（実際のアプリケーションではAI APIを呼び出す）
     const aiResponses = [
-      `「${lessonTitle}」について、ご質問ありがとうございます。${message}についてですが、このレッスンでは生成AIの基本的な概念と種類について説明しています。さらに詳しく知りたい点はありますか？`,
+      `「${articleTitle}」について、ご質問ありがとうございます。${message}についてですが、このレッスンでは生成AIの基本的な概念と種類について説明しています。さらに詳しく知りたい点はありますか？`,
       `良い質問ですね！${message}に関しては、生成AIの発展において重要なポイントです。特にTransformerアーキテクチャの登場以降、大きな進化を遂げました。他に気になる点はありますか？`,
       `${message}については、実際の応用例を見るとより理解が深まります。例えば、テキスト生成AIはコンテンツ作成、コード生成、翻訳などで活用されています。具体的な例を知りたい場合は、お気軽にお尋ねください。`,
       `${message}は興味深いトピックですね。生成AIの倫理的な側面も含めて考えると、技術の発展だけでなく社会的な影響も重要です。このレッスンの後半で詳しく触れていますが、補足情報が必要でしたらお知らせください。`,

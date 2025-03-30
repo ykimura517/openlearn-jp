@@ -1,249 +1,303 @@
 // prisma/seed.ts
-// import { PrismaClient } from '@prisma/client';
 import { PrismaClient } from '../lib/__generated__/prisma';
+
 const prisma = new PrismaClient();
 
 async function main() {
-  // 1. ユーザー (User)
+  // ---------------------------
+  // User
+  // ---------------------------
   const user = await prisma.user.upsert({
-    where: { id: 'user_1' },
-    update: {
-      displayId: 'user001',
-      firebaseUserId: 'firebase_user_1',
-      plan: 'FREE',
-    },
+    where: { id: 'user-001' },
+    update: {},
     create: {
-      id: 'user_1',
+      id: 'user-001',
       displayId: 'user001',
-      firebaseUserId: 'firebase_user_1',
+      firebaseUserId: 'w4XaNBvYnORz5dJ9Mig1FwpxxVi1',
+      name: 'Test User',
+      occupation: 'Engineer',
+      birthDate: '1990-01-01',
       plan: 'FREE',
     },
   });
 
-  // 2. カテゴリ (MasterCategory)
-  // 大カテゴリー
-  const categoryProgramming = await prisma.masterCategory.upsert({
-    where: { id: 'programming' },
-    update: {
-      name: 'プログラミング',
-      level: 1,
-      parentId: null,
-    },
-    create: {
+  // ---------------------------
+  // MasterCategory
+  // ---------------------------
+  const categories = [
+    {
       id: 'programming',
       name: 'プログラミング',
-      level: 1,
-      parentId: null,
+      description: 'プログラミングに関するコースや試験',
     },
+    {
+      id: 'ai',
+      name: '生成AI',
+      description: '生成AIに関するコースや試験',
+    },
+    {
+      id: 'web-development',
+      name: 'Web開発',
+      description: 'Web開発に関するコースや試験',
+    },
+  ];
+
+  for (const category of categories) {
+    await prisma.masterCategory.upsert({
+      where: { id: category.id },
+      update: {},
+      create: category,
+    });
+  }
+
+  // ---------------------------
+  // MasterTag
+  // ---------------------------
+  const tags = [
+    { id: 'python', name: 'python' },
+    { id: 'fastapi', name: 'fastapi' },
+    { id: 'machine-learning', name: 'machine-learning' },
+  ];
+
+  for (const tag of tags) {
+    await prisma.masterTag.upsert({
+      where: { id: tag.id },
+      update: {},
+      create: tag,
+    });
+  }
+
+  // ---------------------------
+  // MasterCourse (2件作成して関連付けのサンプルとする)
+  // ---------------------------
+  const course1 = {
+    id: 'course-001',
+    title: 'はじめてのプログラミング',
+    summary: 'プログラミングの基本を学ぶコースです。',
+    description: 'このコースでは、プログラミングの基礎から学びます。',
+    targetAudience: '初心者',
+    level: '初級',
+    difficulty: 1,
+    durationMin: 120,
+    categoryId: 'programming',
+  };
+
+  await prisma.masterCourse.upsert({
+    where: { id: course1.id },
+    update: course1,
+    create: course1,
   });
-  // 中カテゴリー（大カテゴリーの子）
-  const categoryPython = await prisma.masterCategory.upsert({
-    where: { id: 'python' },
-    update: {
-      name: 'Python',
-      level: 2,
-      parentId: categoryProgramming.id,
-    },
-    create: {
-      id: 'python',
-      name: 'Python',
-      level: 2,
-      parentId: categoryProgramming.id,
+
+  // course1 にタグを関連付け (python, fastapi)
+  await prisma.masterCourse.update({
+    where: { id: course1.id },
+    data: {
+      tags: {
+        set: [{ id: 'python' }, { id: 'fastapi' }],
+      },
     },
   });
 
-  // 3. タグ (MasterTag)
-  const tagBeginner = await prisma.masterTag.upsert({
-    where: { id: 'tag_beginner' },
-    update: { name: '初心者向け' },
-    create: { id: 'tag_beginner', name: '初心者向け' },
+  const course2 = {
+    id: 'course-002',
+    title: '中級プログラミング',
+    summary: 'プログラミングの中級レベルの内容を学ぶコースです。',
+    description: 'このコースでは、より実践的なプログラミングスキルを磨きます。',
+    targetAudience: '中級者',
+    level: '中級',
+    difficulty: 2,
+    durationMin: 180,
+    categoryId: 'programming',
+  };
+
+  await prisma.masterCourse.upsert({
+    where: { id: course2.id },
+    update: course2,
+    create: course2,
   });
 
-  // 4. コース (MasterCourse)
-  const course = await prisma.masterCourse.upsert({
-    where: { id: 'course_intro_python' },
-    update: {
-      title: 'Python入門',
-      summary: 'Pythonの基礎を学ぶコースです。',
-      description: 'Pythonの文法、データ型、制御構文などを解説します。',
-      targetAudience: 'プログラミング初心者',
-      difficulty: '初級',
-      category: { connect: { id: categoryPython.id } },
-      tags: { connect: [{ id: tagBeginner.id }] },
-    },
-    create: {
-      id: 'course_intro_python',
-      title: 'Python入門',
-      summary: 'Pythonの基礎を学ぶコースです。',
-      description: 'Pythonの文法、データ型、制御構文などを解説します。',
-      targetAudience: 'プログラミング初心者',
-      difficulty: '初級',
-      category: { connect: { id: categoryPython.id } },
-      tags: { connect: [{ id: tagBeginner.id }] },
+  // course2 にタグを関連付け (python)
+  await prisma.masterCourse.update({
+    where: { id: course2.id },
+    data: {
+      tags: {
+        set: [{ id: 'python' }],
+      },
     },
   });
 
-  // 5. コースコンテンツ (MasterCourseContent)
-  const content = await prisma.masterCourseContent.upsert({
-    where: { id: 'content_1' },
-    update: {
-      sequence: 1,
-      title: 'はじめに',
-      content: 'この章ではPythonの概要について学びます。',
-      course: { connect: { id: course.id } },
-    },
+  // ---------------------------
+  // MasterCourseRelation (course1 と course2 の関連付け)
+  // ---------------------------
+  await prisma.masterCourseRelation.upsert({
+    where: { id: 'relation-001' },
+    update: {},
     create: {
-      id: 'content_1',
-      courseId: course.id,
-      sequence: 1,
-      title: 'はじめに',
-      content: 'この章ではPythonの概要について学びます。',
+      id: 'relation-001',
+      courseId: course1.id,
+      relatedCourseId: course2.id,
+      score: 0.85,
     },
   });
 
-  // 6. 演習問題 (MasterExercise)
-  const exercise = await prisma.masterExercise.upsert({
-    where: { id: 'exercise_1' },
-    update: {
-      exerciseType: 'SELECTION',
-      question: 'Pythonで変数を宣言する正しい方法はどれ？',
-      options: JSON.stringify(['var x = 10;', 'x = 10', 'int x = 10;']),
-      correctAnswer: 'x = 10',
-      courseContent: { connect: { id: content.id } },
-    },
+  // ---------------------------
+  // MasterCourseArticle (course1 の記事)
+  // ---------------------------
+  const article = {
+    id: 'article-001',
+    courseId: course1.id,
+    sequence: 1,
+    title: 'イントロダクション',
+    content: 'このセクションでは、プログラミングの基本概念を紹介します。',
+    durationMin: 30,
+  };
+
+  await prisma.masterCourseArticle.upsert({
+    where: { id: article.id },
+    update: article,
+    create: article,
+  });
+
+  // ---------------------------
+  // MasterCourseArticleExercise (記事に紐づく演習問題)
+  // ---------------------------
+  await prisma.masterCourseArticleExercise.upsert({
+    where: { id: 'exercise-001' },
+    update: {},
     create: {
-      id: 'exercise_1',
-      courseContentId: content.id,
-      exerciseType: 'SELECTION',
-      question: 'Pythonで変数を宣言する正しい方法はどれ？',
-      options: JSON.stringify(['var x = 10;', 'x = 10', 'int x = 10;']),
-      correctAnswer: 'x = 10',
+      id: 'exercise-001',
+      courseArticleId: article.id,
+      exerciseType: 'SELECTION', // または 'TEXT'
+      question: 'プログラミング言語の例として正しいものはどれですか？',
+      options: JSON.stringify(['JavaScript', 'HTML', 'CSS']),
+      correctAnswer: 'JavaScript',
     },
   });
 
-  // 7. FAQ (MasterCourseFAQ)
-  const faq = await prisma.masterCourseFAQ.upsert({
-    where: { id: 'faq_1' },
-    update: {
-      question: 'Pythonのインストール方法は？',
-      answer: '公式サイトからインストーラーをダウンロードしてください。',
-      course: { connect: { id: course.id } },
-    },
+  // ---------------------------
+  // MasterCourseArticleFAQ (記事に紐づく FAQ)
+  // ---------------------------
+  await prisma.masterCourseArticleFAQ.upsert({
+    where: { id: 'faq-001' },
+    update: {},
     create: {
-      id: 'faq_1',
-      courseId: course.id,
-      question: 'Pythonのインストール方法は？',
-      answer: '公式サイトからインストーラーをダウンロードしてください。',
+      id: 'faq-001',
+      courseArticleId: article.id,
+      question: 'このコースの前提知識は何ですか？',
+      answer: '基本的なパソコン操作ができれば十分です。',
     },
   });
 
-  // 8. チャットルーム (ChatRoom)
-  const chatRoom = await prisma.chatRoom.upsert({
-    where: { id: 'chatroom_1' },
-    update: {
-      user: { connect: { id: user.id } },
-      courseContent: { connect: { id: content.id } },
-    },
+  // ---------------------------
+  // ChatRoom (ユーザーと記事に紐づくチャットルーム)
+  // ---------------------------
+  await prisma.chatRoom.upsert({
+    where: { id: 'chatroom-001' },
+    update: {},
     create: {
-      id: 'chatroom_1',
+      id: 'chatroom-001',
       userId: user.id,
-      courseContentId: content.id,
+      courseArticleId: article.id,
     },
   });
 
-  // 9. チャットメッセージ (ChatMessage)
-  const chatMessage = await prisma.chatMessage.upsert({
-    where: { id: 'chatmessage_1' },
-    update: {
-      chatRoom: { connect: { id: chatRoom.id } },
-      user: { connect: { id: user.id } },
+  // ---------------------------
+  // ChatMessage (チャットルーム内のメッセージ)
+  // ---------------------------
+  await prisma.chatMessage.upsert({
+    where: { id: 'chatmessage-001' },
+    update: {},
+    create: {
+      id: 'chatmessage-001',
+      chatRoomId: 'chatroom-001',
+      userId: user.id,
       role: 'USER',
-      message: 'このコース、わかりやすいですね！',
-      MasterCourseContent: { connect: { id: content.id } },
-    },
-    create: {
-      id: 'chatmessage_1',
-      chatRoomId: chatRoom.id,
-      userId: user.id,
-      role: 'USER',
-      message: 'このコース、わかりやすいですね！',
-      masterCourseContentId: content.id,
+      message: 'このレッスンの内容について質問があります。',
+      masterCourseArticleId: article.id,
     },
   });
 
-  // 10. 試験 (MasterExam)
-  const exam = await prisma.masterExam.upsert({
-    where: { id: 'exam_1' },
-    update: {
-      title: 'Python基礎試験',
-      description: 'Pythonの基礎知識を確認する試験です。',
-      category: { connect: { id: categoryPython.id } },
-    },
+  await prisma.chatMessage.upsert({
+    where: { id: 'chatmessage-002' },
+    update: {},
     create: {
-      id: 'exam_1',
-      title: 'Python基礎試験',
-      description: 'Pythonの基礎知識を確認する試験です。',
-      categoryId: categoryPython.id,
+      id: 'chatmessage-002',
+      chatRoomId: 'chatroom-001',
+      userId: null, // AI の場合は userId は null
+      role: 'AI',
+      message: 'どの部分についてご質問でしょうか？',
+      masterCourseArticleId: article.id,
     },
   });
 
-  // 11. 試験問題 (MasterExamQuestion)
-  const examQuestion = await prisma.masterExamQuestion.upsert({
-    where: { id: 'examquestion_1' },
-    update: {
-      exam: { connect: { id: exam.id } },
-      question: 'Pythonの拡張子は何ですか？',
-      questionType: 'SELECTION',
-      options: JSON.stringify(['.py', '.js', '.java']),
-      correctAnswer: '.py',
-    },
+  // ---------------------------
+  // MasterExam (試験)
+  // ---------------------------
+  const exam = {
+    id: 'exam-001',
+    title: 'プログラミング基礎試験',
+    description: 'プログラミングの基本知識を問う試験です。',
+    level: 1,
+    timeLimitMin: 60,
+    categoryId: 'programming',
+    passingScore: 70,
+  };
+
+  await prisma.masterExam.upsert({
+    where: { id: exam.id },
+    update: exam,
+    create: exam,
+  });
+
+  // ---------------------------
+  // MasterExamQuestion (試験問題)
+  // ---------------------------
+  await prisma.masterExamQuestion.upsert({
+    where: { id: 'exam-question-001' },
+    update: {},
     create: {
-      id: 'examquestion_1',
+      id: 'exam-question-001',
       examId: exam.id,
-      question: 'Pythonの拡張子は何ですか？',
-      questionType: 'SELECTION',
-      options: JSON.stringify(['.py', '.js', '.java']),
-      correctAnswer: '.py',
+      sequence: 1,
+      score: 10,
+      question: 'プログラミングとは何ですか？',
+      questionType: 'TEXT',
+      options: null,
+      correctAnswer: 'コンピュータに指示を与えるための言語',
     },
   });
 
-  // 12. 試験の受験記録 (ExamSubmission)
-  const examSubmission = await prisma.examSubmission.upsert({
-    where: { id: 'examsubmission_1' },
-    update: {
-      exam: { connect: { id: exam.id } },
-      user: { connect: { id: user.id } },
-      score: 80.0,
-      percentile: 90.0,
-    },
+  // ---------------------------
+  // ExamSubmission (試験の受験結果)
+  // ---------------------------
+  await prisma.examSubmission.upsert({
+    where: { id: 'submission-001' },
+    update: {},
     create: {
-      id: 'examsubmission_1',
+      id: 'submission-001',
       examId: exam.id,
       userId: user.id,
-      score: 80.0,
-      percentile: 90.0,
+      score: 10,
+      percentile: 90,
     },
   });
 
-  // 13. 試験の回答 (ExamAnswer)
-  const examAnswer = await prisma.examAnswer.upsert({
-    where: { id: 'examanswer_1' },
-    update: {
-      examSubmission: { connect: { id: examSubmission.id } },
-      examQuestion: { connect: { id: examQuestion.id } },
-      answer: '.py',
+  // ---------------------------
+  // ExamAnswer (試験問題に対する解答)
+  // ---------------------------
+  await prisma.examAnswer.upsert({
+    where: { id: 'exam-answer-001' },
+    update: {},
+    create: {
+      id: 'exam-answer-001',
+      examSubmissionId: 'submission-001',
+      examQuestionId: 'exam-question-001',
+      answer: 'コンピュータに指示を与えるための言語',
       isCorrect: true,
     },
-    create: {
-      id: 'examanswer_1',
-      examSubmissionId: examSubmission.id,
-      examQuestionId: examQuestion.id,
-      answer: '.py',
-      isCorrect: true,
-    },
   });
 
-  console.log('シードデータの投入（idempotent）が完了しました。');
+  console.log('Seeding completed.');
 }
 
 main()

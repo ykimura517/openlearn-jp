@@ -64,7 +64,7 @@ export async function GET(request: NextRequest) {
     level: course.difficulty ? course.difficulty : '未設定',
     // duration はDBに情報が無い場合、仮の値（例："未設定"）を設定
     duration: String(course.durationMin) || '未設定',
-    lessons: course._count.courseContents,
+    articles: course._count.courseContents,
   }));
 
   const response: CoursesResponse = {

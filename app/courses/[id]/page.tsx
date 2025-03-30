@@ -57,6 +57,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
   try {
     course = await getCourseData(courseId);
+    if (course) {
+      // CourseArticleをsequence順にソート
+      course.articleSummaries.sort((a, b) => a.sequence - b.sequence);
+    }
     relatedCourses = await getRelatedCourses(courseId);
   } catch (err) {
     error =
@@ -118,7 +122,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             variant='outline'
             className='bg-gray-100 text-gray-600 border-gray-200'
           >
-            {course.duration}
+            {course.durationMin}分
           </Badge>
         </div>
         <SocialShareButtons title={course.title} className='mb-6' />
@@ -147,16 +151,17 @@ export default async function CoursePage({ params }: CoursePageProps) {
               コース内容
             </h3>
             <ul className='space-y-3'>
-              {course.lessons.map((lesson, index) => (
-                <li key={lesson.id} className='flex items-start'>
+              {course.articleSummaries.map((article, index) => (
+                <li key={article.id} className='flex items-start'>
                   <div className='bg-orange-200 text-orange-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0'>
                     {index + 1}
                   </div>
                   <div className='flex-1'>
                     <div className='flex justify-between'>
-                      <span className='text-gray-800'>{lesson.title}</span>
+                      <span className='text-gray-800'>{article.title}</span>
                       <span className='text-gray-500 text-sm flex items-center'>
-                        <Clock className='h-3 w-3 mr-1' /> {lesson.duration}
+                        <Clock className='h-3 w-3 mr-1' /> {article.durationMin}
+                        分
                       </span>
                     </div>
                   </div>
@@ -174,7 +179,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
             <div className='animate-pulse h-96 bg-gray-100 rounded-md'></div>
           }
         >
-          <MarkdownContent content={course.content} />
+          <MarkdownContent content={course.description} />
         </Suspense>
       </div>
 
@@ -186,7 +191,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
         <p className='text-gray-700 mb-4'>
           このコースの最初のレッスンから学習を開始できます。
         </p>
-        <Link href={`/courses/${courseId}/lessons/${course.content}`}>
+        <Link
+          href={`/courses/${courseId}/articles/${course.articleSummaries[0].id}`}
+        >
           <Button className='bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg'>
             コースを始める <ArrowRight className='ml-2 h-5 w-5' />
           </Button>

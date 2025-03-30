@@ -1,25 +1,25 @@
-import { type NextRequest, NextResponse } from "next/server"
-import type { LessonDetail } from "@/types/api"
+import { type NextRequest, NextResponse } from 'next/server';
+import type { CourseArticleDetail } from '@/types/api';
 
 interface RouteParams {
   params: {
-    id: string
-    lessonId: string
-  }
+    id: string;
+    articleId: string;
+  };
 }
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
-  const { id: courseId, lessonId } = params
+  const { id: courseId, articleId } = params;
 
   // モックデータ
-  const mockLessons: Record<string, Record<string, LessonDetail>> = {
-    "intro-to-ai": {
-      "lesson-1": {
-        id: "lesson-1",
-        title: "生成AIとは何か",
-        courseId: "intro-to-ai",
-        courseTitle: "生成AIの基礎",
-        duration: "20分",
+  const mockArticles: Record<string, Record<string, CourseArticleDetail>> = {
+    'intro-to-ai': {
+      'lesson-1': {
+        id: 'lesson-1',
+        title: '生成AIとは何か',
+        courseId: 'intro-to-ai',
+        courseTitle: '生成AIの基礎',
+        durationMin: 20,
         content: `
 # 生成AIとは何か
 
@@ -61,12 +61,12 @@ console.log("テキスト生成AIの例");
 画像生成AIは、テキストプロンプトから画像を生成することができます。代表的なモデルには、DALL-E、Stable Diffusion、Midjourneyなどがあります。
         `,
       },
-      "lesson-2": {
-        id: "lesson-2",
-        title: "大規模言語モデル（LLM）の仕組み",
-        courseId: "intro-to-ai",
-        courseTitle: "生成AIの基礎",
-        duration: "25分",
+      'lesson-2': {
+        id: 'lesson-2',
+        title: '大規模言語モデル（LLM）の仕組み',
+        courseId: 'intro-to-ai',
+        courseTitle: '生成AIの基礎',
+        durationMin: 25,
         content: `
 # 大規模言語モデル（LLM）の仕組み
 
@@ -137,13 +137,13 @@ LLMには以下のような限界や課題があります：
         `,
       },
     },
-    "prompt-engineering": {
-      "lesson-1": {
-        id: "lesson-1",
-        title: "プロンプトエンジニアリングとは",
-        courseId: "prompt-engineering",
-        courseTitle: "プロンプトエンジニアリング入門",
-        duration: "20分",
+    'prompt-engineering': {
+      'lesson-1': {
+        id: 'lesson-1',
+        title: 'プロンプトエンジニアリングとは',
+        courseId: 'prompt-engineering',
+        courseTitle: 'プロンプトエンジニアリング入門',
+        duration: '20分',
         content: `
 # プロンプトエンジニアリングとは
 
@@ -223,12 +223,12 @@ function createPrompt() {
 次のレッスンでは、効果的なプロンプトの構造について詳しく学んでいきます。
       `,
       },
-      "lesson-2": {
-        id: "lesson-2",
-        title: "効果的なプロンプトの構造",
-        courseId: "prompt-engineering",
-        courseTitle: "プロンプトエンジニアリング入門",
-        duration: "30分",
+      'lesson-2': {
+        id: 'lesson-2',
+        title: '効果的なプロンプトの構造',
+        courseId: 'prompt-engineering',
+        courseTitle: 'プロンプトエンジニアリング入門',
+        durationMin: 30,
         content: `
 # 効果的なプロンプトの構造
 
@@ -339,14 +339,13 @@ function createContentPrompt() {
       `,
       },
     },
+  };
+
+  const article = mockArticles[courseId]?.[articleId];
+
+  if (!article) {
+    return NextResponse.json({ error: 'Lesson not found' }, { status: 404 });
   }
 
-  const lesson = mockLessons[courseId]?.[lessonId]
-
-  if (!lesson) {
-    return NextResponse.json({ error: "Lesson not found" }, { status: 404 })
-  }
-
-  return NextResponse.json(lesson)
+  return NextResponse.json(article);
 }
-

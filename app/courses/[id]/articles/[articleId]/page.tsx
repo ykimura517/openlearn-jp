@@ -2,39 +2,42 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import SocialShareButtons from '@/components/social-share-buttons';
-import LessonContent from './lesson-content';
+import ArticleContent from './article-content';
 import PracticeQuestions from './practice-questions';
 import AiChatSection from './ai-chat-section';
 import NavigationSection from './navigation-section';
 import ReferencesSection from './references-section';
-import NextLessonSection from './next-lesson-section';
-import type { LessonDetail, PracticeQuestionsResponse } from '@/types/api';
+import NextArticleSection from './next-article-section';
+import type {
+  CourseArticleDetail,
+  ExerciseQuestionsResponse,
+} from '@/types/api';
 
-interface LessonPageProps {
+interface ArticlePageProps {
   params: {
     id: string;
-    lessonId: string;
+    articleId: string;
   };
 }
 
 // サーバーコンポーネントでのデータフェッチング
-async function getLessonData(courseId: string, lessonId: string) {
+async function getArticleData(courseId: string, articleId: string) {
   try {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_API_BASE_URL || ''
-      }/api/v1/courses/${courseId}/lessons/${lessonId}`,
+      }/api/v1/courses/${courseId}/articles/${articleId}`,
       { cache: 'no-store' }
     );
 
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
-        `Failed to fetch lesson content: ${response.status} - ${errorText}`
+        `Failed to fetch lesson(article) content: ${response.status} - ${errorText}`
       );
     }
 
-    return (await response.json()) as LessonDetail;
+    return (await response.json()) as CourseArticleDetail;
   } catch (error) {
     console.error('Error fetching lesson data:', error);
     throw error;
@@ -42,12 +45,12 @@ async function getLessonData(courseId: string, lessonId: string) {
 }
 
 // 練習問題の取得
-async function getPracticeQuestions(courseId: string, lessonId: string) {
+async function getExerciseQuestions(courseId: string, articleId: string) {
   try {
     const response = await fetch(
       `${
         process.env.NEXT_PUBLIC_API_BASE_URL || ''
-      }/api/v1/courses/${courseId}/lessons/${lessonId}/questions`,
+      }/api/v1/courses/${courseId}/articles/${articleId}/questions`,
       { cache: 'no-store' }
     );
 
@@ -55,25 +58,25 @@ async function getPracticeQuestions(courseId: string, lessonId: string) {
       return null;
     }
 
-    return (await response.json()) as PracticeQuestionsResponse;
+    return (await response.json()) as ExerciseQuestionsResponse;
   } catch (error) {
     console.error('Error fetching practice questions:', error);
     return null;
   }
 }
 
-export default async function LessonPage({ params }: LessonPageProps) {
-  const { id: courseId, lessonId } = params;
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const { id: courseId, articleId } = params;
   // データフェッチング
-  let lessonData: LessonDetail | null = null;
+  let articleData: CourseArticleDetail | null = null;
   let error: string | null = null;
-  let questions: PracticeQuestionsResponse | null = null;
+  let questions: ExerciseQuestionsResponse | null = null;
 
   try {
     // 並列でデータを取得
-    [lessonData, questions] = await Promise.all([
-      getLessonData(courseId, lessonId),
-      getPracticeQuestions(courseId, lessonId),
+    [articleData, questions] = await Promise.all([
+      getArticleData(courseId, articleId),
+      getExerciseQuestions(courseId, articleId),
     ]);
   } catch (err) {
     error =
@@ -83,7 +86,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
   }
 
   // エラー状態
-  if (error || !lessonData) {
+  if (error || !articleData) {
     return (
       <div className='container mx-auto px-4 py-8'>
         <div className='bg-red-50 border border-red-200 rounded-lg p-6 text-center'>
@@ -116,17 +119,17 @@ export default async function LessonPage({ params }: LessonPageProps) {
           ← コース概要に戻る
         </Link>
         <h1 className='text-3xl font-bold text-gray-800 mb-2'>
-          {lessonData.courseTitle}
+          {articleData.courseTitle}
         </h1>
-        <h2 className='text-xl text-gray-600 mb-4'>{lessonData.title}</h2>
+        <h2 className='text-xl text-gray-600 mb-4'>{articleData.title}</h2>
         <SocialShareButtons
-          title={`${lessonData.courseTitle} - ${lessonData.title}`}
+          title={`${articleData.courseTitle} - ${articleData.title}`}
           className='mb-6'
         />
       </div>
 
       {/* レッスンナビゲーション - クライアントコンポーネント */}
-      <NavigationSection courseId={courseId} lessonId={lessonId} />
+      <NavigationSection courseId={courseId} articleId={articleId} />
 
       {/* レッスンコンテンツ - サーバーサイドレンダリング */}
       <div className='mb-12'>
@@ -135,7 +138,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
             <div className='animate-pulse h-96 bg-gray-100 rounded-md'></div>
           }
         >
-          <LessonContent content={lessonData.content} />
+          <ArticleContent content={articleData.content} />
         </Suspense>
       </div>
 
@@ -150,14 +153,14 @@ export default async function LessonPage({ params }: LessonPageProps) {
       {/* AIチャットセクション - クライアントサイドインタラクティブ */}
       <div className='mb-12'>
         <h2 className='text-2xl font-bold text-gray-800 mb-6'>AIに質問する</h2>
-        <AiChatSection lessonTitle={lessonData.title} />
+        <AiChatSection articleTitle={articleData.title} />
       </div>
 
       {/* 次のレッスンボタン - クライアントコンポーネント */}
-      <NextLessonSection courseId={courseId} lessonId={lessonId} />
+      <NextArticleSection courseId={courseId} articleId={articleId} />
 
       {/* 参考リンク - クライアントコンポーネント */}
-      <ReferencesSection courseId={courseId} lessonId={lessonId} />
+      <ReferencesSection courseId={courseId} articleId={articleId} />
     </div>
   );
 }

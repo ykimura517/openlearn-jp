@@ -34,15 +34,20 @@ export type MasterTag = $Result.DefaultSelection<Prisma.$MasterTagPayload>
  */
 export type MasterCourse = $Result.DefaultSelection<Prisma.$MasterCoursePayload>
 /**
- * Model MasterCourseContent
+ * Model MasterCourseRelation
  * 
  */
-export type MasterCourseContent = $Result.DefaultSelection<Prisma.$MasterCourseContentPayload>
+export type MasterCourseRelation = $Result.DefaultSelection<Prisma.$MasterCourseRelationPayload>
 /**
- * Model MasterExercise
+ * Model MasterCourseArticle
  * 
  */
-export type MasterExercise = $Result.DefaultSelection<Prisma.$MasterExercisePayload>
+export type MasterCourseArticle = $Result.DefaultSelection<Prisma.$MasterCourseArticlePayload>
+/**
+ * Model MasterCourseArticleExercise
+ * 
+ */
+export type MasterCourseArticleExercise = $Result.DefaultSelection<Prisma.$MasterCourseArticleExercisePayload>
 /**
  * Model ChatRoom
  * 
@@ -54,10 +59,10 @@ export type ChatRoom = $Result.DefaultSelection<Prisma.$ChatRoomPayload>
  */
 export type ChatMessage = $Result.DefaultSelection<Prisma.$ChatMessagePayload>
 /**
- * Model MasterCourseFAQ
+ * Model MasterCourseArticleFAQ
  * 
  */
-export type MasterCourseFAQ = $Result.DefaultSelection<Prisma.$MasterCourseFAQPayload>
+export type MasterCourseArticleFAQ = $Result.DefaultSelection<Prisma.$MasterCourseArticleFAQPayload>
 /**
  * Model MasterExam
  * 
@@ -245,24 +250,34 @@ export class PrismaClient<
   get masterCourse(): Prisma.MasterCourseDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.masterCourseContent`: Exposes CRUD operations for the **MasterCourseContent** model.
+   * `prisma.masterCourseRelation`: Exposes CRUD operations for the **MasterCourseRelation** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more MasterCourseContents
-    * const masterCourseContents = await prisma.masterCourseContent.findMany()
+    * // Fetch zero or more MasterCourseRelations
+    * const masterCourseRelations = await prisma.masterCourseRelation.findMany()
     * ```
     */
-  get masterCourseContent(): Prisma.MasterCourseContentDelegate<ExtArgs, ClientOptions>;
+  get masterCourseRelation(): Prisma.MasterCourseRelationDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.masterExercise`: Exposes CRUD operations for the **MasterExercise** model.
+   * `prisma.masterCourseArticle`: Exposes CRUD operations for the **MasterCourseArticle** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more MasterExercises
-    * const masterExercises = await prisma.masterExercise.findMany()
+    * // Fetch zero or more MasterCourseArticles
+    * const masterCourseArticles = await prisma.masterCourseArticle.findMany()
     * ```
     */
-  get masterExercise(): Prisma.MasterExerciseDelegate<ExtArgs, ClientOptions>;
+  get masterCourseArticle(): Prisma.MasterCourseArticleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.masterCourseArticleExercise`: Exposes CRUD operations for the **MasterCourseArticleExercise** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MasterCourseArticleExercises
+    * const masterCourseArticleExercises = await prisma.masterCourseArticleExercise.findMany()
+    * ```
+    */
+  get masterCourseArticleExercise(): Prisma.MasterCourseArticleExerciseDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.chatRoom`: Exposes CRUD operations for the **ChatRoom** model.
@@ -285,14 +300,14 @@ export class PrismaClient<
   get chatMessage(): Prisma.ChatMessageDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.masterCourseFAQ`: Exposes CRUD operations for the **MasterCourseFAQ** model.
+   * `prisma.masterCourseArticleFAQ`: Exposes CRUD operations for the **MasterCourseArticleFAQ** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more MasterCourseFAQS
-    * const masterCourseFAQS = await prisma.masterCourseFAQ.findMany()
+    * // Fetch zero or more MasterCourseArticleFAQS
+    * const masterCourseArticleFAQS = await prisma.masterCourseArticleFAQ.findMany()
     * ```
     */
-  get masterCourseFAQ(): Prisma.MasterCourseFAQDelegate<ExtArgs, ClientOptions>;
+  get masterCourseArticleFAQ(): Prisma.MasterCourseArticleFAQDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.masterExam`: Exposes CRUD operations for the **MasterExam** model.
@@ -777,11 +792,12 @@ export namespace Prisma {
     MasterCategory: 'MasterCategory',
     MasterTag: 'MasterTag',
     MasterCourse: 'MasterCourse',
-    MasterCourseContent: 'MasterCourseContent',
-    MasterExercise: 'MasterExercise',
+    MasterCourseRelation: 'MasterCourseRelation',
+    MasterCourseArticle: 'MasterCourseArticle',
+    MasterCourseArticleExercise: 'MasterCourseArticleExercise',
     ChatRoom: 'ChatRoom',
     ChatMessage: 'ChatMessage',
-    MasterCourseFAQ: 'MasterCourseFAQ',
+    MasterCourseArticleFAQ: 'MasterCourseArticleFAQ',
     MasterExam: 'MasterExam',
     MasterExamQuestion: 'MasterExamQuestion',
     ExamSubmission: 'ExamSubmission',
@@ -804,7 +820,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "masterCategory" | "masterTag" | "masterCourse" | "masterCourseContent" | "masterExercise" | "chatRoom" | "chatMessage" | "masterCourseFAQ" | "masterExam" | "masterExamQuestion" | "examSubmission" | "examAnswer"
+      modelProps: "user" | "masterCategory" | "masterTag" | "masterCourse" | "masterCourseRelation" | "masterCourseArticle" | "masterCourseArticleExercise" | "chatRoom" | "chatMessage" | "masterCourseArticleFAQ" | "masterExam" | "masterExamQuestion" | "examSubmission" | "examAnswer"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1104,151 +1120,225 @@ export namespace Prisma {
           }
         }
       }
-      MasterCourseContent: {
-        payload: Prisma.$MasterCourseContentPayload<ExtArgs>
-        fields: Prisma.MasterCourseContentFieldRefs
+      MasterCourseRelation: {
+        payload: Prisma.$MasterCourseRelationPayload<ExtArgs>
+        fields: Prisma.MasterCourseRelationFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.MasterCourseContentFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload> | null
+            args: Prisma.MasterCourseRelationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.MasterCourseContentFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>
+            args: Prisma.MasterCourseRelationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>
           }
           findFirst: {
-            args: Prisma.MasterCourseContentFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload> | null
+            args: Prisma.MasterCourseRelationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.MasterCourseContentFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>
+            args: Prisma.MasterCourseRelationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>
           }
           findMany: {
-            args: Prisma.MasterCourseContentFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>[]
+            args: Prisma.MasterCourseRelationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>[]
           }
           create: {
-            args: Prisma.MasterCourseContentCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>
+            args: Prisma.MasterCourseRelationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>
           }
           createMany: {
-            args: Prisma.MasterCourseContentCreateManyArgs<ExtArgs>
+            args: Prisma.MasterCourseRelationCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.MasterCourseContentCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>[]
+            args: Prisma.MasterCourseRelationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>[]
           }
           delete: {
-            args: Prisma.MasterCourseContentDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>
+            args: Prisma.MasterCourseRelationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>
           }
           update: {
-            args: Prisma.MasterCourseContentUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>
+            args: Prisma.MasterCourseRelationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>
           }
           deleteMany: {
-            args: Prisma.MasterCourseContentDeleteManyArgs<ExtArgs>
+            args: Prisma.MasterCourseRelationDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.MasterCourseContentUpdateManyArgs<ExtArgs>
+            args: Prisma.MasterCourseRelationUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.MasterCourseContentUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>[]
+            args: Prisma.MasterCourseRelationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>[]
           }
           upsert: {
-            args: Prisma.MasterCourseContentUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseContentPayload>
+            args: Prisma.MasterCourseRelationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseRelationPayload>
           }
           aggregate: {
-            args: Prisma.MasterCourseContentAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMasterCourseContent>
+            args: Prisma.MasterCourseRelationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasterCourseRelation>
           }
           groupBy: {
-            args: Prisma.MasterCourseContentGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MasterCourseContentGroupByOutputType>[]
+            args: Prisma.MasterCourseRelationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseRelationGroupByOutputType>[]
           }
           count: {
-            args: Prisma.MasterCourseContentCountArgs<ExtArgs>
-            result: $Utils.Optional<MasterCourseContentCountAggregateOutputType> | number
+            args: Prisma.MasterCourseRelationCountArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseRelationCountAggregateOutputType> | number
           }
         }
       }
-      MasterExercise: {
-        payload: Prisma.$MasterExercisePayload<ExtArgs>
-        fields: Prisma.MasterExerciseFieldRefs
+      MasterCourseArticle: {
+        payload: Prisma.$MasterCourseArticlePayload<ExtArgs>
+        fields: Prisma.MasterCourseArticleFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.MasterExerciseFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload> | null
+            args: Prisma.MasterCourseArticleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.MasterExerciseFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>
+            args: Prisma.MasterCourseArticleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>
           }
           findFirst: {
-            args: Prisma.MasterExerciseFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload> | null
+            args: Prisma.MasterCourseArticleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.MasterExerciseFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>
+            args: Prisma.MasterCourseArticleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>
           }
           findMany: {
-            args: Prisma.MasterExerciseFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>[]
+            args: Prisma.MasterCourseArticleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>[]
           }
           create: {
-            args: Prisma.MasterExerciseCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>
+            args: Prisma.MasterCourseArticleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>
           }
           createMany: {
-            args: Prisma.MasterExerciseCreateManyArgs<ExtArgs>
+            args: Prisma.MasterCourseArticleCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.MasterExerciseCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>[]
+            args: Prisma.MasterCourseArticleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>[]
           }
           delete: {
-            args: Prisma.MasterExerciseDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>
+            args: Prisma.MasterCourseArticleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>
           }
           update: {
-            args: Prisma.MasterExerciseUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>
+            args: Prisma.MasterCourseArticleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>
           }
           deleteMany: {
-            args: Prisma.MasterExerciseDeleteManyArgs<ExtArgs>
+            args: Prisma.MasterCourseArticleDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.MasterExerciseUpdateManyArgs<ExtArgs>
+            args: Prisma.MasterCourseArticleUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.MasterExerciseUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>[]
+            args: Prisma.MasterCourseArticleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>[]
           }
           upsert: {
-            args: Prisma.MasterExerciseUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterExercisePayload>
+            args: Prisma.MasterCourseArticleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticlePayload>
           }
           aggregate: {
-            args: Prisma.MasterExerciseAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMasterExercise>
+            args: Prisma.MasterCourseArticleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasterCourseArticle>
           }
           groupBy: {
-            args: Prisma.MasterExerciseGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MasterExerciseGroupByOutputType>[]
+            args: Prisma.MasterCourseArticleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleGroupByOutputType>[]
           }
           count: {
-            args: Prisma.MasterExerciseCountArgs<ExtArgs>
-            result: $Utils.Optional<MasterExerciseCountAggregateOutputType> | number
+            args: Prisma.MasterCourseArticleCountArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleCountAggregateOutputType> | number
+          }
+        }
+      }
+      MasterCourseArticleExercise: {
+        payload: Prisma.$MasterCourseArticleExercisePayload<ExtArgs>
+        fields: Prisma.MasterCourseArticleExerciseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MasterCourseArticleExerciseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MasterCourseArticleExerciseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>
+          }
+          findFirst: {
+            args: Prisma.MasterCourseArticleExerciseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MasterCourseArticleExerciseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>
+          }
+          findMany: {
+            args: Prisma.MasterCourseArticleExerciseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>[]
+          }
+          create: {
+            args: Prisma.MasterCourseArticleExerciseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>
+          }
+          createMany: {
+            args: Prisma.MasterCourseArticleExerciseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MasterCourseArticleExerciseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>[]
+          }
+          delete: {
+            args: Prisma.MasterCourseArticleExerciseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>
+          }
+          update: {
+            args: Prisma.MasterCourseArticleExerciseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>
+          }
+          deleteMany: {
+            args: Prisma.MasterCourseArticleExerciseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MasterCourseArticleExerciseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MasterCourseArticleExerciseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>[]
+          }
+          upsert: {
+            args: Prisma.MasterCourseArticleExerciseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleExercisePayload>
+          }
+          aggregate: {
+            args: Prisma.MasterCourseArticleExerciseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasterCourseArticleExercise>
+          }
+          groupBy: {
+            args: Prisma.MasterCourseArticleExerciseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleExerciseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MasterCourseArticleExerciseCountArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleExerciseCountAggregateOutputType> | number
           }
         }
       }
@@ -1400,77 +1490,77 @@ export namespace Prisma {
           }
         }
       }
-      MasterCourseFAQ: {
-        payload: Prisma.$MasterCourseFAQPayload<ExtArgs>
-        fields: Prisma.MasterCourseFAQFieldRefs
+      MasterCourseArticleFAQ: {
+        payload: Prisma.$MasterCourseArticleFAQPayload<ExtArgs>
+        fields: Prisma.MasterCourseArticleFAQFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.MasterCourseFAQFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload> | null
+            args: Prisma.MasterCourseArticleFAQFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.MasterCourseFAQFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>
+            args: Prisma.MasterCourseArticleFAQFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>
           }
           findFirst: {
-            args: Prisma.MasterCourseFAQFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload> | null
+            args: Prisma.MasterCourseArticleFAQFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.MasterCourseFAQFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>
+            args: Prisma.MasterCourseArticleFAQFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>
           }
           findMany: {
-            args: Prisma.MasterCourseFAQFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>[]
+            args: Prisma.MasterCourseArticleFAQFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>[]
           }
           create: {
-            args: Prisma.MasterCourseFAQCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>
+            args: Prisma.MasterCourseArticleFAQCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>
           }
           createMany: {
-            args: Prisma.MasterCourseFAQCreateManyArgs<ExtArgs>
+            args: Prisma.MasterCourseArticleFAQCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.MasterCourseFAQCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>[]
+            args: Prisma.MasterCourseArticleFAQCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>[]
           }
           delete: {
-            args: Prisma.MasterCourseFAQDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>
+            args: Prisma.MasterCourseArticleFAQDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>
           }
           update: {
-            args: Prisma.MasterCourseFAQUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>
+            args: Prisma.MasterCourseArticleFAQUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>
           }
           deleteMany: {
-            args: Prisma.MasterCourseFAQDeleteManyArgs<ExtArgs>
+            args: Prisma.MasterCourseArticleFAQDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.MasterCourseFAQUpdateManyArgs<ExtArgs>
+            args: Prisma.MasterCourseArticleFAQUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.MasterCourseFAQUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>[]
+            args: Prisma.MasterCourseArticleFAQUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>[]
           }
           upsert: {
-            args: Prisma.MasterCourseFAQUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MasterCourseFAQPayload>
+            args: Prisma.MasterCourseArticleFAQUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleFAQPayload>
           }
           aggregate: {
-            args: Prisma.MasterCourseFAQAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMasterCourseFAQ>
+            args: Prisma.MasterCourseArticleFAQAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasterCourseArticleFAQ>
           }
           groupBy: {
-            args: Prisma.MasterCourseFAQGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MasterCourseFAQGroupByOutputType>[]
+            args: Prisma.MasterCourseArticleFAQGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleFAQGroupByOutputType>[]
           }
           count: {
-            args: Prisma.MasterCourseFAQCountArgs<ExtArgs>
-            result: $Utils.Optional<MasterCourseFAQCountAggregateOutputType> | number
+            args: Prisma.MasterCourseArticleFAQCountArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleFAQCountAggregateOutputType> | number
           }
         }
       }
@@ -1858,11 +1948,12 @@ export namespace Prisma {
     masterCategory?: MasterCategoryOmit
     masterTag?: MasterTagOmit
     masterCourse?: MasterCourseOmit
-    masterCourseContent?: MasterCourseContentOmit
-    masterExercise?: MasterExerciseOmit
+    masterCourseRelation?: MasterCourseRelationOmit
+    masterCourseArticle?: MasterCourseArticleOmit
+    masterCourseArticleExercise?: MasterCourseArticleExerciseOmit
     chatRoom?: ChatRoomOmit
     chatMessage?: ChatMessageOmit
-    masterCourseFAQ?: MasterCourseFAQOmit
+    masterCourseArticleFAQ?: MasterCourseArticleFAQOmit
     masterExam?: MasterExamOmit
     masterExamQuestion?: MasterExamQuestionOmit
     examSubmission?: ExamSubmissionOmit
@@ -2010,13 +2101,11 @@ export namespace Prisma {
    */
 
   export type MasterCategoryCountOutputType = {
-    children: number
     courses: number
     exams: number
   }
 
   export type MasterCategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    children?: boolean | MasterCategoryCountOutputTypeCountChildrenArgs
     courses?: boolean | MasterCategoryCountOutputTypeCountCoursesArgs
     exams?: boolean | MasterCategoryCountOutputTypeCountExamsArgs
   }
@@ -2030,13 +2119,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the MasterCategoryCountOutputType
      */
     select?: MasterCategoryCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * MasterCategoryCountOutputType without action
-   */
-  export type MasterCategoryCountOutputTypeCountChildrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterCategoryWhereInput
   }
 
   /**
@@ -2091,18 +2173,12 @@ export namespace Prisma {
 
   export type MasterCourseCountOutputType = {
     tags: number
-    courseContents: number
-    relatedCourses: number
-    relatedToCourses: number
-    courseFAQs: number
+    courseArticles: number
   }
 
   export type MasterCourseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tags?: boolean | MasterCourseCountOutputTypeCountTagsArgs
-    courseContents?: boolean | MasterCourseCountOutputTypeCountCourseContentsArgs
-    relatedCourses?: boolean | MasterCourseCountOutputTypeCountRelatedCoursesArgs
-    relatedToCourses?: boolean | MasterCourseCountOutputTypeCountRelatedToCoursesArgs
-    courseFAQs?: boolean | MasterCourseCountOutputTypeCountCourseFAQsArgs
+    courseArticles?: boolean | MasterCourseCountOutputTypeCountCourseArticlesArgs
   }
 
   // Custom InputTypes
@@ -2126,78 +2202,57 @@ export namespace Prisma {
   /**
    * MasterCourseCountOutputType without action
    */
-  export type MasterCourseCountOutputTypeCountCourseContentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterCourseContentWhereInput
-  }
-
-  /**
-   * MasterCourseCountOutputType without action
-   */
-  export type MasterCourseCountOutputTypeCountRelatedCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterCourseWhereInput
-  }
-
-  /**
-   * MasterCourseCountOutputType without action
-   */
-  export type MasterCourseCountOutputTypeCountRelatedToCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterCourseWhereInput
-  }
-
-  /**
-   * MasterCourseCountOutputType without action
-   */
-  export type MasterCourseCountOutputTypeCountCourseFAQsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterCourseFAQWhereInput
+  export type MasterCourseCountOutputTypeCountCourseArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleWhereInput
   }
 
 
   /**
-   * Count Type MasterCourseContentCountOutputType
+   * Count Type MasterCourseArticleCountOutputType
    */
 
-  export type MasterCourseContentCountOutputType = {
+  export type MasterCourseArticleCountOutputType = {
     exercises: number
-    chatMessages: number
     chatRoom: number
+    faq: number
   }
 
-  export type MasterCourseContentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    exercises?: boolean | MasterCourseContentCountOutputTypeCountExercisesArgs
-    chatMessages?: boolean | MasterCourseContentCountOutputTypeCountChatMessagesArgs
-    chatRoom?: boolean | MasterCourseContentCountOutputTypeCountChatRoomArgs
+  export type MasterCourseArticleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    exercises?: boolean | MasterCourseArticleCountOutputTypeCountExercisesArgs
+    chatRoom?: boolean | MasterCourseArticleCountOutputTypeCountChatRoomArgs
+    faq?: boolean | MasterCourseArticleCountOutputTypeCountFaqArgs
   }
 
   // Custom InputTypes
   /**
-   * MasterCourseContentCountOutputType without action
+   * MasterCourseArticleCountOutputType without action
    */
-  export type MasterCourseContentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContentCountOutputType
+     * Select specific fields to fetch from the MasterCourseArticleCountOutputType
      */
-    select?: MasterCourseContentCountOutputTypeSelect<ExtArgs> | null
+    select?: MasterCourseArticleCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * MasterCourseContentCountOutputType without action
+   * MasterCourseArticleCountOutputType without action
    */
-  export type MasterCourseContentCountOutputTypeCountExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterExerciseWhereInput
+  export type MasterCourseArticleCountOutputTypeCountExercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleExerciseWhereInput
   }
 
   /**
-   * MasterCourseContentCountOutputType without action
+   * MasterCourseArticleCountOutputType without action
    */
-  export type MasterCourseContentCountOutputTypeCountChatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ChatMessageWhereInput
-  }
-
-  /**
-   * MasterCourseContentCountOutputType without action
-   */
-  export type MasterCourseContentCountOutputTypeCountChatRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleCountOutputTypeCountChatRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ChatRoomWhereInput
+  }
+
+  /**
+   * MasterCourseArticleCountOutputType without action
+   */
+  export type MasterCourseArticleCountOutputTypeCountFaqArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleFAQWhereInput
   }
 
 
@@ -2356,6 +2411,11 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     plan: string | null
+    name: string | null
+    occupation: string | null
+    birthDate: string | null
+    deletedAt: Date | null
+    deleteReason: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2366,6 +2426,11 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     plan: string | null
+    name: string | null
+    occupation: string | null
+    birthDate: string | null
+    deletedAt: Date | null
+    deleteReason: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2376,6 +2441,11 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     plan: number
+    name: number
+    occupation: number
+    birthDate: number
+    deletedAt: number
+    deleteReason: number
     _all: number
   }
 
@@ -2388,6 +2458,11 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     plan?: true
+    name?: true
+    occupation?: true
+    birthDate?: true
+    deletedAt?: true
+    deleteReason?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2398,6 +2473,11 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     plan?: true
+    name?: true
+    occupation?: true
+    birthDate?: true
+    deletedAt?: true
+    deleteReason?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2408,6 +2488,11 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     plan?: true
+    name?: true
+    occupation?: true
+    birthDate?: true
+    deletedAt?: true
+    deleteReason?: true
     _all?: true
   }
 
@@ -2491,6 +2576,11 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     plan: string
+    name: string | null
+    occupation: string | null
+    birthDate: string | null
+    deletedAt: Date | null
+    deleteReason: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2518,6 +2608,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     plan?: boolean
+    name?: boolean
+    occupation?: boolean
+    birthDate?: boolean
+    deletedAt?: boolean
+    deleteReason?: boolean
     examSubmissions?: boolean | User$examSubmissionsArgs<ExtArgs>
     chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
     chatRoom?: boolean | User$chatRoomArgs<ExtArgs>
@@ -2532,6 +2627,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     plan?: boolean
+    name?: boolean
+    occupation?: boolean
+    birthDate?: boolean
+    deletedAt?: boolean
+    deleteReason?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2542,6 +2642,11 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     plan?: boolean
+    name?: boolean
+    occupation?: boolean
+    birthDate?: boolean
+    deletedAt?: boolean
+    deleteReason?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2552,9 +2657,14 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     plan?: boolean
+    name?: boolean
+    occupation?: boolean
+    birthDate?: boolean
+    deletedAt?: boolean
+    deleteReason?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "displayId" | "firebaseUserId" | "stripeUserId" | "createdAt" | "updatedAt" | "plan", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "displayId" | "firebaseUserId" | "stripeUserId" | "createdAt" | "updatedAt" | "plan" | "name" | "occupation" | "birthDate" | "deletedAt" | "deleteReason", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     examSubmissions?: boolean | User$examSubmissionsArgs<ExtArgs>
     chatMessages?: boolean | User$chatMessagesArgs<ExtArgs>
@@ -2579,6 +2689,11 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       plan: string
+      name: string | null
+      occupation: string | null
+      birthDate: string | null
+      deletedAt: Date | null
+      deleteReason: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3012,6 +3127,11 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly plan: FieldRef<"User", 'String'>
+    readonly name: FieldRef<"User", 'String'>
+    readonly occupation: FieldRef<"User", 'String'>
+    readonly birthDate: FieldRef<"User", 'String'>
+    readonly deletedAt: FieldRef<"User", 'DateTime'>
+    readonly deleteReason: FieldRef<"User", 'String'>
   }
     
 
@@ -3496,70 +3616,46 @@ export namespace Prisma {
 
   export type AggregateMasterCategory = {
     _count: MasterCategoryCountAggregateOutputType | null
-    _avg: MasterCategoryAvgAggregateOutputType | null
-    _sum: MasterCategorySumAggregateOutputType | null
     _min: MasterCategoryMinAggregateOutputType | null
     _max: MasterCategoryMaxAggregateOutputType | null
-  }
-
-  export type MasterCategoryAvgAggregateOutputType = {
-    level: number | null
-  }
-
-  export type MasterCategorySumAggregateOutputType = {
-    level: number | null
   }
 
   export type MasterCategoryMinAggregateOutputType = {
     id: string | null
     name: string | null
-    level: number | null
-    parentId: string | null
+    description: string | null
   }
 
   export type MasterCategoryMaxAggregateOutputType = {
     id: string | null
     name: string | null
-    level: number | null
-    parentId: string | null
+    description: string | null
   }
 
   export type MasterCategoryCountAggregateOutputType = {
     id: number
     name: number
-    level: number
-    parentId: number
+    description: number
     _all: number
   }
 
 
-  export type MasterCategoryAvgAggregateInputType = {
-    level?: true
-  }
-
-  export type MasterCategorySumAggregateInputType = {
-    level?: true
-  }
-
   export type MasterCategoryMinAggregateInputType = {
     id?: true
     name?: true
-    level?: true
-    parentId?: true
+    description?: true
   }
 
   export type MasterCategoryMaxAggregateInputType = {
     id?: true
     name?: true
-    level?: true
-    parentId?: true
+    description?: true
   }
 
   export type MasterCategoryCountAggregateInputType = {
     id?: true
     name?: true
-    level?: true
-    parentId?: true
+    description?: true
     _all?: true
   }
 
@@ -3601,18 +3697,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: MasterCategoryAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: MasterCategorySumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: MasterCategoryMinAggregateInputType
@@ -3643,8 +3727,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MasterCategoryCountAggregateInputType | true
-    _avg?: MasterCategoryAvgAggregateInputType
-    _sum?: MasterCategorySumAggregateInputType
     _min?: MasterCategoryMinAggregateInputType
     _max?: MasterCategoryMaxAggregateInputType
   }
@@ -3652,11 +3734,8 @@ export namespace Prisma {
   export type MasterCategoryGroupByOutputType = {
     id: string
     name: string
-    level: number
-    parentId: string | null
+    description: string
     _count: MasterCategoryCountAggregateOutputType | null
-    _avg: MasterCategoryAvgAggregateOutputType | null
-    _sum: MasterCategorySumAggregateOutputType | null
     _min: MasterCategoryMinAggregateOutputType | null
     _max: MasterCategoryMaxAggregateOutputType | null
   }
@@ -3678,10 +3757,7 @@ export namespace Prisma {
   export type MasterCategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    level?: boolean
-    parentId?: boolean
-    parent?: boolean | MasterCategory$parentArgs<ExtArgs>
-    children?: boolean | MasterCategory$childrenArgs<ExtArgs>
+    description?: boolean
     courses?: boolean | MasterCategory$coursesArgs<ExtArgs>
     exams?: boolean | MasterCategory$examsArgs<ExtArgs>
     _count?: boolean | MasterCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -3690,54 +3766,40 @@ export namespace Prisma {
   export type MasterCategorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    level?: boolean
-    parentId?: boolean
-    parent?: boolean | MasterCategory$parentArgs<ExtArgs>
+    description?: boolean
   }, ExtArgs["result"]["masterCategory"]>
 
   export type MasterCategorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
-    level?: boolean
-    parentId?: boolean
-    parent?: boolean | MasterCategory$parentArgs<ExtArgs>
+    description?: boolean
   }, ExtArgs["result"]["masterCategory"]>
 
   export type MasterCategorySelectScalar = {
     id?: boolean
     name?: boolean
-    level?: boolean
-    parentId?: boolean
+    description?: boolean
   }
 
-  export type MasterCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "level" | "parentId", ExtArgs["result"]["masterCategory"]>
+  export type MasterCategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description", ExtArgs["result"]["masterCategory"]>
   export type MasterCategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parent?: boolean | MasterCategory$parentArgs<ExtArgs>
-    children?: boolean | MasterCategory$childrenArgs<ExtArgs>
     courses?: boolean | MasterCategory$coursesArgs<ExtArgs>
     exams?: boolean | MasterCategory$examsArgs<ExtArgs>
     _count?: boolean | MasterCategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type MasterCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parent?: boolean | MasterCategory$parentArgs<ExtArgs>
-  }
-  export type MasterCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    parent?: boolean | MasterCategory$parentArgs<ExtArgs>
-  }
+  export type MasterCategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type MasterCategoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $MasterCategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MasterCategory"
     objects: {
-      parent: Prisma.$MasterCategoryPayload<ExtArgs> | null
-      children: Prisma.$MasterCategoryPayload<ExtArgs>[]
       courses: Prisma.$MasterCoursePayload<ExtArgs>[]
       exams: Prisma.$MasterExamPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      level: number
-      parentId: string | null
+      description: string
     }, ExtArgs["result"]["masterCategory"]>
     composites: {}
   }
@@ -4132,8 +4194,6 @@ export namespace Prisma {
    */
   export interface Prisma__MasterCategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    parent<T extends MasterCategory$parentArgs<ExtArgs> = {}>(args?: Subset<T, MasterCategory$parentArgs<ExtArgs>>): Prisma__MasterCategoryClient<$Result.GetResult<Prisma.$MasterCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    children<T extends MasterCategory$childrenArgs<ExtArgs> = {}>(args?: Subset<T, MasterCategory$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     courses<T extends MasterCategory$coursesArgs<ExtArgs> = {}>(args?: Subset<T, MasterCategory$coursesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     exams<T extends MasterCategory$examsArgs<ExtArgs> = {}>(args?: Subset<T, MasterCategory$examsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterExamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -4167,8 +4227,7 @@ export namespace Prisma {
   interface MasterCategoryFieldRefs {
     readonly id: FieldRef<"MasterCategory", 'String'>
     readonly name: FieldRef<"MasterCategory", 'String'>
-    readonly level: FieldRef<"MasterCategory", 'Int'>
-    readonly parentId: FieldRef<"MasterCategory", 'String'>
+    readonly description: FieldRef<"MasterCategory", 'String'>
   }
     
 
@@ -4418,10 +4477,6 @@ export namespace Prisma {
      */
     data: MasterCategoryCreateManyInput | MasterCategoryCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCategoryIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4492,10 +4547,6 @@ export namespace Prisma {
      * Limit how many MasterCategories to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCategoryIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4562,49 +4613,6 @@ export namespace Prisma {
      * Limit how many MasterCategories to delete.
      */
     limit?: number
-  }
-
-  /**
-   * MasterCategory.parent
-   */
-  export type MasterCategory$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MasterCategory
-     */
-    select?: MasterCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MasterCategory
-     */
-    omit?: MasterCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCategoryInclude<ExtArgs> | null
-    where?: MasterCategoryWhereInput
-  }
-
-  /**
-   * MasterCategory.children
-   */
-  export type MasterCategory$childrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MasterCategory
-     */
-    select?: MasterCategorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MasterCategory
-     */
-    omit?: MasterCategoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCategoryInclude<ExtArgs> | null
-    where?: MasterCategoryWhereInput
-    orderBy?: MasterCategoryOrderByWithRelationInput | MasterCategoryOrderByWithRelationInput[]
-    cursor?: MasterCategoryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MasterCategoryScalarFieldEnum | MasterCategoryScalarFieldEnum[]
   }
 
   /**
@@ -5718,10 +5726,12 @@ export namespace Prisma {
   }
 
   export type MasterCourseAvgAggregateOutputType = {
+    difficulty: number | null
     durationMin: number | null
   }
 
   export type MasterCourseSumAggregateOutputType = {
+    difficulty: number | null
     durationMin: number | null
   }
 
@@ -5731,7 +5741,8 @@ export namespace Prisma {
     summary: string | null
     description: string | null
     targetAudience: string | null
-    difficulty: string | null
+    level: string | null
+    difficulty: number | null
     durationMin: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5744,7 +5755,8 @@ export namespace Prisma {
     summary: string | null
     description: string | null
     targetAudience: string | null
-    difficulty: string | null
+    level: string | null
+    difficulty: number | null
     durationMin: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -5757,6 +5769,7 @@ export namespace Prisma {
     summary: number
     description: number
     targetAudience: number
+    level: number
     difficulty: number
     durationMin: number
     createdAt: number
@@ -5767,10 +5780,12 @@ export namespace Prisma {
 
 
   export type MasterCourseAvgAggregateInputType = {
+    difficulty?: true
     durationMin?: true
   }
 
   export type MasterCourseSumAggregateInputType = {
+    difficulty?: true
     durationMin?: true
   }
 
@@ -5780,6 +5795,7 @@ export namespace Prisma {
     summary?: true
     description?: true
     targetAudience?: true
+    level?: true
     difficulty?: true
     durationMin?: true
     createdAt?: true
@@ -5793,6 +5809,7 @@ export namespace Prisma {
     summary?: true
     description?: true
     targetAudience?: true
+    level?: true
     difficulty?: true
     durationMin?: true
     createdAt?: true
@@ -5806,6 +5823,7 @@ export namespace Prisma {
     summary?: true
     description?: true
     targetAudience?: true
+    level?: true
     difficulty?: true
     durationMin?: true
     createdAt?: true
@@ -5906,7 +5924,8 @@ export namespace Prisma {
     summary: string | null
     description: string | null
     targetAudience: string | null
-    difficulty: string | null
+    level: string
+    difficulty: number | null
     durationMin: number | null
     createdAt: Date
     updatedAt: Date
@@ -5938,6 +5957,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    level?: boolean
     difficulty?: boolean
     durationMin?: boolean
     createdAt?: boolean
@@ -5945,10 +5965,7 @@ export namespace Prisma {
     categoryId?: boolean
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
     tags?: boolean | MasterCourse$tagsArgs<ExtArgs>
-    courseContents?: boolean | MasterCourse$courseContentsArgs<ExtArgs>
-    relatedCourses?: boolean | MasterCourse$relatedCoursesArgs<ExtArgs>
-    relatedToCourses?: boolean | MasterCourse$relatedToCoursesArgs<ExtArgs>
-    courseFAQs?: boolean | MasterCourse$courseFAQsArgs<ExtArgs>
+    courseArticles?: boolean | MasterCourse$courseArticlesArgs<ExtArgs>
     _count?: boolean | MasterCourseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterCourse"]>
 
@@ -5958,6 +5975,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    level?: boolean
     difficulty?: boolean
     durationMin?: boolean
     createdAt?: boolean
@@ -5972,6 +5990,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    level?: boolean
     difficulty?: boolean
     durationMin?: boolean
     createdAt?: boolean
@@ -5986,6 +6005,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    level?: boolean
     difficulty?: boolean
     durationMin?: boolean
     createdAt?: boolean
@@ -5993,14 +6013,11 @@ export namespace Prisma {
     categoryId?: boolean
   }
 
-  export type MasterCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "description" | "targetAudience" | "difficulty" | "durationMin" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["masterCourse"]>
+  export type MasterCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "description" | "targetAudience" | "level" | "difficulty" | "durationMin" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["masterCourse"]>
   export type MasterCourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
     tags?: boolean | MasterCourse$tagsArgs<ExtArgs>
-    courseContents?: boolean | MasterCourse$courseContentsArgs<ExtArgs>
-    relatedCourses?: boolean | MasterCourse$relatedCoursesArgs<ExtArgs>
-    relatedToCourses?: boolean | MasterCourse$relatedToCoursesArgs<ExtArgs>
-    courseFAQs?: boolean | MasterCourse$courseFAQsArgs<ExtArgs>
+    courseArticles?: boolean | MasterCourse$courseArticlesArgs<ExtArgs>
     _count?: boolean | MasterCourseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MasterCourseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6015,10 +6032,7 @@ export namespace Prisma {
     objects: {
       category: Prisma.$MasterCategoryPayload<ExtArgs>
       tags: Prisma.$MasterTagPayload<ExtArgs>[]
-      courseContents: Prisma.$MasterCourseContentPayload<ExtArgs>[]
-      relatedCourses: Prisma.$MasterCoursePayload<ExtArgs>[]
-      relatedToCourses: Prisma.$MasterCoursePayload<ExtArgs>[]
-      courseFAQs: Prisma.$MasterCourseFAQPayload<ExtArgs>[]
+      courseArticles: Prisma.$MasterCourseArticlePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6026,7 +6040,8 @@ export namespace Prisma {
       summary: string | null
       description: string | null
       targetAudience: string | null
-      difficulty: string | null
+      level: string
+      difficulty: number | null
       durationMin: number | null
       createdAt: Date
       updatedAt: Date
@@ -6427,10 +6442,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     category<T extends MasterCategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCategoryDefaultArgs<ExtArgs>>): Prisma__MasterCategoryClient<$Result.GetResult<Prisma.$MasterCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     tags<T extends MasterCourse$tagsArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourse$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    courseContents<T extends MasterCourse$courseContentsArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourse$courseContentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    relatedCourses<T extends MasterCourse$relatedCoursesArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourse$relatedCoursesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    relatedToCourses<T extends MasterCourse$relatedToCoursesArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourse$relatedToCoursesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCoursePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    courseFAQs<T extends MasterCourse$courseFAQsArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourse$courseFAQsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    courseArticles<T extends MasterCourse$courseArticlesArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourse$courseArticlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6465,7 +6477,8 @@ export namespace Prisma {
     readonly summary: FieldRef<"MasterCourse", 'String'>
     readonly description: FieldRef<"MasterCourse", 'String'>
     readonly targetAudience: FieldRef<"MasterCourse", 'String'>
-    readonly difficulty: FieldRef<"MasterCourse", 'String'>
+    readonly level: FieldRef<"MasterCourse", 'String'>
+    readonly difficulty: FieldRef<"MasterCourse", 'Int'>
     readonly durationMin: FieldRef<"MasterCourse", 'Int'>
     readonly createdAt: FieldRef<"MasterCourse", 'DateTime'>
     readonly updatedAt: FieldRef<"MasterCourse", 'DateTime'>
@@ -6890,99 +6903,27 @@ export namespace Prisma {
   }
 
   /**
-   * MasterCourse.courseContents
+   * MasterCourse.courseArticles
    */
-  export type MasterCourse$courseContentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourse$courseArticlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseArticle
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseArticleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseArticle
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    where?: MasterCourseContentWhereInput
-    orderBy?: MasterCourseContentOrderByWithRelationInput | MasterCourseContentOrderByWithRelationInput[]
-    cursor?: MasterCourseContentWhereUniqueInput
+    include?: MasterCourseArticleInclude<ExtArgs> | null
+    where?: MasterCourseArticleWhereInput
+    orderBy?: MasterCourseArticleOrderByWithRelationInput | MasterCourseArticleOrderByWithRelationInput[]
+    cursor?: MasterCourseArticleWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: MasterCourseContentScalarFieldEnum | MasterCourseContentScalarFieldEnum[]
-  }
-
-  /**
-   * MasterCourse.relatedCourses
-   */
-  export type MasterCourse$relatedCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MasterCourse
-     */
-    select?: MasterCourseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MasterCourse
-     */
-    omit?: MasterCourseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCourseInclude<ExtArgs> | null
-    where?: MasterCourseWhereInput
-    orderBy?: MasterCourseOrderByWithRelationInput | MasterCourseOrderByWithRelationInput[]
-    cursor?: MasterCourseWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MasterCourseScalarFieldEnum | MasterCourseScalarFieldEnum[]
-  }
-
-  /**
-   * MasterCourse.relatedToCourses
-   */
-  export type MasterCourse$relatedToCoursesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MasterCourse
-     */
-    select?: MasterCourseSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MasterCourse
-     */
-    omit?: MasterCourseOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCourseInclude<ExtArgs> | null
-    where?: MasterCourseWhereInput
-    orderBy?: MasterCourseOrderByWithRelationInput | MasterCourseOrderByWithRelationInput[]
-    cursor?: MasterCourseWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MasterCourseScalarFieldEnum | MasterCourseScalarFieldEnum[]
-  }
-
-  /**
-   * MasterCourse.courseFAQs
-   */
-  export type MasterCourse$courseFAQsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MasterCourseFAQ
-     */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MasterCourseFAQ
-     */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
-    where?: MasterCourseFAQWhereInput
-    orderBy?: MasterCourseFAQOrderByWithRelationInput | MasterCourseFAQOrderByWithRelationInput[]
-    cursor?: MasterCourseFAQWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: MasterCourseFAQScalarFieldEnum | MasterCourseFAQScalarFieldEnum[]
+    distinct?: MasterCourseArticleScalarFieldEnum | MasterCourseArticleScalarFieldEnum[]
   }
 
   /**
@@ -7005,419 +6946,358 @@ export namespace Prisma {
 
 
   /**
-   * Model MasterCourseContent
+   * Model MasterCourseRelation
    */
 
-  export type AggregateMasterCourseContent = {
-    _count: MasterCourseContentCountAggregateOutputType | null
-    _avg: MasterCourseContentAvgAggregateOutputType | null
-    _sum: MasterCourseContentSumAggregateOutputType | null
-    _min: MasterCourseContentMinAggregateOutputType | null
-    _max: MasterCourseContentMaxAggregateOutputType | null
+  export type AggregateMasterCourseRelation = {
+    _count: MasterCourseRelationCountAggregateOutputType | null
+    _avg: MasterCourseRelationAvgAggregateOutputType | null
+    _sum: MasterCourseRelationSumAggregateOutputType | null
+    _min: MasterCourseRelationMinAggregateOutputType | null
+    _max: MasterCourseRelationMaxAggregateOutputType | null
   }
 
-  export type MasterCourseContentAvgAggregateOutputType = {
-    sequence: number | null
+  export type MasterCourseRelationAvgAggregateOutputType = {
+    score: number | null
   }
 
-  export type MasterCourseContentSumAggregateOutputType = {
-    sequence: number | null
+  export type MasterCourseRelationSumAggregateOutputType = {
+    score: number | null
   }
 
-  export type MasterCourseContentMinAggregateOutputType = {
+  export type MasterCourseRelationMinAggregateOutputType = {
     id: string | null
     courseId: string | null
-    sequence: number | null
-    title: string | null
-    content: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    relatedCourseId: string | null
+    score: number | null
   }
 
-  export type MasterCourseContentMaxAggregateOutputType = {
+  export type MasterCourseRelationMaxAggregateOutputType = {
     id: string | null
     courseId: string | null
-    sequence: number | null
-    title: string | null
-    content: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
+    relatedCourseId: string | null
+    score: number | null
   }
 
-  export type MasterCourseContentCountAggregateOutputType = {
+  export type MasterCourseRelationCountAggregateOutputType = {
     id: number
     courseId: number
-    sequence: number
-    title: number
-    content: number
-    createdAt: number
-    updatedAt: number
+    relatedCourseId: number
+    score: number
     _all: number
   }
 
 
-  export type MasterCourseContentAvgAggregateInputType = {
-    sequence?: true
+  export type MasterCourseRelationAvgAggregateInputType = {
+    score?: true
   }
 
-  export type MasterCourseContentSumAggregateInputType = {
-    sequence?: true
+  export type MasterCourseRelationSumAggregateInputType = {
+    score?: true
   }
 
-  export type MasterCourseContentMinAggregateInputType = {
+  export type MasterCourseRelationMinAggregateInputType = {
     id?: true
     courseId?: true
-    sequence?: true
-    title?: true
-    content?: true
-    createdAt?: true
-    updatedAt?: true
+    relatedCourseId?: true
+    score?: true
   }
 
-  export type MasterCourseContentMaxAggregateInputType = {
+  export type MasterCourseRelationMaxAggregateInputType = {
     id?: true
     courseId?: true
-    sequence?: true
-    title?: true
-    content?: true
-    createdAt?: true
-    updatedAt?: true
+    relatedCourseId?: true
+    score?: true
   }
 
-  export type MasterCourseContentCountAggregateInputType = {
+  export type MasterCourseRelationCountAggregateInputType = {
     id?: true
     courseId?: true
-    sequence?: true
-    title?: true
-    content?: true
-    createdAt?: true
-    updatedAt?: true
+    relatedCourseId?: true
+    score?: true
     _all?: true
   }
 
-  export type MasterCourseContentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which MasterCourseContent to aggregate.
+     * Filter which MasterCourseRelation to aggregate.
      */
-    where?: MasterCourseContentWhereInput
+    where?: MasterCourseRelationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseContents to fetch.
+     * Determine the order of MasterCourseRelations to fetch.
      */
-    orderBy?: MasterCourseContentOrderByWithRelationInput | MasterCourseContentOrderByWithRelationInput[]
+    orderBy?: MasterCourseRelationOrderByWithRelationInput | MasterCourseRelationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: MasterCourseContentWhereUniqueInput
+    cursor?: MasterCourseRelationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseContents from the position of the cursor.
+     * Take `±n` MasterCourseRelations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseContents.
+     * Skip the first `n` MasterCourseRelations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned MasterCourseContents
+     * Count returned MasterCourseRelations
     **/
-    _count?: true | MasterCourseContentCountAggregateInputType
+    _count?: true | MasterCourseRelationCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: MasterCourseContentAvgAggregateInputType
+    _avg?: MasterCourseRelationAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: MasterCourseContentSumAggregateInputType
+    _sum?: MasterCourseRelationSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: MasterCourseContentMinAggregateInputType
+    _min?: MasterCourseRelationMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: MasterCourseContentMaxAggregateInputType
+    _max?: MasterCourseRelationMaxAggregateInputType
   }
 
-  export type GetMasterCourseContentAggregateType<T extends MasterCourseContentAggregateArgs> = {
-        [P in keyof T & keyof AggregateMasterCourseContent]: P extends '_count' | 'count'
+  export type GetMasterCourseRelationAggregateType<T extends MasterCourseRelationAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasterCourseRelation]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateMasterCourseContent[P]>
-      : GetScalarType<T[P], AggregateMasterCourseContent[P]>
+        : GetScalarType<T[P], AggregateMasterCourseRelation[P]>
+      : GetScalarType<T[P], AggregateMasterCourseRelation[P]>
   }
 
 
 
 
-  export type MasterCourseContentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterCourseContentWhereInput
-    orderBy?: MasterCourseContentOrderByWithAggregationInput | MasterCourseContentOrderByWithAggregationInput[]
-    by: MasterCourseContentScalarFieldEnum[] | MasterCourseContentScalarFieldEnum
-    having?: MasterCourseContentScalarWhereWithAggregatesInput
+  export type MasterCourseRelationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseRelationWhereInput
+    orderBy?: MasterCourseRelationOrderByWithAggregationInput | MasterCourseRelationOrderByWithAggregationInput[]
+    by: MasterCourseRelationScalarFieldEnum[] | MasterCourseRelationScalarFieldEnum
+    having?: MasterCourseRelationScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: MasterCourseContentCountAggregateInputType | true
-    _avg?: MasterCourseContentAvgAggregateInputType
-    _sum?: MasterCourseContentSumAggregateInputType
-    _min?: MasterCourseContentMinAggregateInputType
-    _max?: MasterCourseContentMaxAggregateInputType
+    _count?: MasterCourseRelationCountAggregateInputType | true
+    _avg?: MasterCourseRelationAvgAggregateInputType
+    _sum?: MasterCourseRelationSumAggregateInputType
+    _min?: MasterCourseRelationMinAggregateInputType
+    _max?: MasterCourseRelationMaxAggregateInputType
   }
 
-  export type MasterCourseContentGroupByOutputType = {
+  export type MasterCourseRelationGroupByOutputType = {
     id: string
     courseId: string
-    sequence: number
-    title: string | null
-    content: string | null
-    createdAt: Date
-    updatedAt: Date
-    _count: MasterCourseContentCountAggregateOutputType | null
-    _avg: MasterCourseContentAvgAggregateOutputType | null
-    _sum: MasterCourseContentSumAggregateOutputType | null
-    _min: MasterCourseContentMinAggregateOutputType | null
-    _max: MasterCourseContentMaxAggregateOutputType | null
+    relatedCourseId: string
+    score: number
+    _count: MasterCourseRelationCountAggregateOutputType | null
+    _avg: MasterCourseRelationAvgAggregateOutputType | null
+    _sum: MasterCourseRelationSumAggregateOutputType | null
+    _min: MasterCourseRelationMinAggregateOutputType | null
+    _max: MasterCourseRelationMaxAggregateOutputType | null
   }
 
-  type GetMasterCourseContentGroupByPayload<T extends MasterCourseContentGroupByArgs> = Prisma.PrismaPromise<
+  type GetMasterCourseRelationGroupByPayload<T extends MasterCourseRelationGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<MasterCourseContentGroupByOutputType, T['by']> &
+      PickEnumerable<MasterCourseRelationGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof MasterCourseContentGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof MasterCourseRelationGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], MasterCourseContentGroupByOutputType[P]>
-            : GetScalarType<T[P], MasterCourseContentGroupByOutputType[P]>
+              : GetScalarType<T[P], MasterCourseRelationGroupByOutputType[P]>
+            : GetScalarType<T[P], MasterCourseRelationGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type MasterCourseContentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseRelationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     courseId?: boolean
-    sequence?: boolean
-    title?: boolean
-    content?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-    exercises?: boolean | MasterCourseContent$exercisesArgs<ExtArgs>
-    chatMessages?: boolean | MasterCourseContent$chatMessagesArgs<ExtArgs>
-    chatRoom?: boolean | MasterCourseContent$chatRoomArgs<ExtArgs>
-    _count?: boolean | MasterCourseContentCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterCourseContent"]>
+    relatedCourseId?: boolean
+    score?: boolean
+  }, ExtArgs["result"]["masterCourseRelation"]>
 
-  export type MasterCourseContentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseRelationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     courseId?: boolean
-    sequence?: boolean
-    title?: boolean
-    content?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterCourseContent"]>
+    relatedCourseId?: boolean
+    score?: boolean
+  }, ExtArgs["result"]["masterCourseRelation"]>
 
-  export type MasterCourseContentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseRelationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     courseId?: boolean
-    sequence?: boolean
-    title?: boolean
-    content?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterCourseContent"]>
+    relatedCourseId?: boolean
+    score?: boolean
+  }, ExtArgs["result"]["masterCourseRelation"]>
 
-  export type MasterCourseContentSelectScalar = {
+  export type MasterCourseRelationSelectScalar = {
     id?: boolean
     courseId?: boolean
-    sequence?: boolean
-    title?: boolean
-    content?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
+    relatedCourseId?: boolean
+    score?: boolean
   }
 
-  export type MasterCourseContentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "sequence" | "title" | "content" | "createdAt" | "updatedAt", ExtArgs["result"]["masterCourseContent"]>
-  export type MasterCourseContentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-    exercises?: boolean | MasterCourseContent$exercisesArgs<ExtArgs>
-    chatMessages?: boolean | MasterCourseContent$chatMessagesArgs<ExtArgs>
-    chatRoom?: boolean | MasterCourseContent$chatRoomArgs<ExtArgs>
-    _count?: boolean | MasterCourseContentCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type MasterCourseContentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-  }
-  export type MasterCourseContentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-  }
+  export type MasterCourseRelationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "relatedCourseId" | "score", ExtArgs["result"]["masterCourseRelation"]>
 
-  export type $MasterCourseContentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "MasterCourseContent"
-    objects: {
-      course: Prisma.$MasterCoursePayload<ExtArgs>
-      exercises: Prisma.$MasterExercisePayload<ExtArgs>[]
-      chatMessages: Prisma.$ChatMessagePayload<ExtArgs>[]
-      chatRoom: Prisma.$ChatRoomPayload<ExtArgs>[]
-    }
+  export type $MasterCourseRelationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MasterCourseRelation"
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
       courseId: string
-      sequence: number
-      title: string | null
-      content: string | null
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["masterCourseContent"]>
+      relatedCourseId: string
+      score: number
+    }, ExtArgs["result"]["masterCourseRelation"]>
     composites: {}
   }
 
-  type MasterCourseContentGetPayload<S extends boolean | null | undefined | MasterCourseContentDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseContentPayload, S>
+  type MasterCourseRelationGetPayload<S extends boolean | null | undefined | MasterCourseRelationDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseRelationPayload, S>
 
-  type MasterCourseContentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MasterCourseContentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MasterCourseContentCountAggregateInputType | true
+  type MasterCourseRelationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MasterCourseRelationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasterCourseRelationCountAggregateInputType | true
     }
 
-  export interface MasterCourseContentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseContent'], meta: { name: 'MasterCourseContent' } }
+  export interface MasterCourseRelationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseRelation'], meta: { name: 'MasterCourseRelation' } }
     /**
-     * Find zero or one MasterCourseContent that matches the filter.
-     * @param {MasterCourseContentFindUniqueArgs} args - Arguments to find a MasterCourseContent
+     * Find zero or one MasterCourseRelation that matches the filter.
+     * @param {MasterCourseRelationFindUniqueArgs} args - Arguments to find a MasterCourseRelation
      * @example
-     * // Get one MasterCourseContent
-     * const masterCourseContent = await prisma.masterCourseContent.findUnique({
+     * // Get one MasterCourseRelation
+     * const masterCourseRelation = await prisma.masterCourseRelation.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends MasterCourseContentFindUniqueArgs>(args: SelectSubset<T, MasterCourseContentFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends MasterCourseRelationFindUniqueArgs>(args: SelectSubset<T, MasterCourseRelationFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one MasterCourseContent that matches the filter or throw an error with `error.code='P2025'`
+     * Find one MasterCourseRelation that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {MasterCourseContentFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseContent
+     * @param {MasterCourseRelationFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseRelation
      * @example
-     * // Get one MasterCourseContent
-     * const masterCourseContent = await prisma.masterCourseContent.findUniqueOrThrow({
+     * // Get one MasterCourseRelation
+     * const masterCourseRelation = await prisma.masterCourseRelation.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends MasterCourseContentFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseContentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends MasterCourseRelationFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseRelationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first MasterCourseContent that matches the filter.
+     * Find the first MasterCourseRelation that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseContentFindFirstArgs} args - Arguments to find a MasterCourseContent
+     * @param {MasterCourseRelationFindFirstArgs} args - Arguments to find a MasterCourseRelation
      * @example
-     * // Get one MasterCourseContent
-     * const masterCourseContent = await prisma.masterCourseContent.findFirst({
+     * // Get one MasterCourseRelation
+     * const masterCourseRelation = await prisma.masterCourseRelation.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends MasterCourseContentFindFirstArgs>(args?: SelectSubset<T, MasterCourseContentFindFirstArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends MasterCourseRelationFindFirstArgs>(args?: SelectSubset<T, MasterCourseRelationFindFirstArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first MasterCourseContent that matches the filter or
+     * Find the first MasterCourseRelation that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseContentFindFirstOrThrowArgs} args - Arguments to find a MasterCourseContent
+     * @param {MasterCourseRelationFindFirstOrThrowArgs} args - Arguments to find a MasterCourseRelation
      * @example
-     * // Get one MasterCourseContent
-     * const masterCourseContent = await prisma.masterCourseContent.findFirstOrThrow({
+     * // Get one MasterCourseRelation
+     * const masterCourseRelation = await prisma.masterCourseRelation.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends MasterCourseContentFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseContentFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends MasterCourseRelationFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseRelationFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more MasterCourseContents that matches the filter.
+     * Find zero or more MasterCourseRelations that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseContentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MasterCourseRelationFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all MasterCourseContents
-     * const masterCourseContents = await prisma.masterCourseContent.findMany()
+     * // Get all MasterCourseRelations
+     * const masterCourseRelations = await prisma.masterCourseRelation.findMany()
      * 
-     * // Get first 10 MasterCourseContents
-     * const masterCourseContents = await prisma.masterCourseContent.findMany({ take: 10 })
+     * // Get first 10 MasterCourseRelations
+     * const masterCourseRelations = await prisma.masterCourseRelation.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const masterCourseContentWithIdOnly = await prisma.masterCourseContent.findMany({ select: { id: true } })
+     * const masterCourseRelationWithIdOnly = await prisma.masterCourseRelation.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends MasterCourseContentFindManyArgs>(args?: SelectSubset<T, MasterCourseContentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends MasterCourseRelationFindManyArgs>(args?: SelectSubset<T, MasterCourseRelationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a MasterCourseContent.
-     * @param {MasterCourseContentCreateArgs} args - Arguments to create a MasterCourseContent.
+     * Create a MasterCourseRelation.
+     * @param {MasterCourseRelationCreateArgs} args - Arguments to create a MasterCourseRelation.
      * @example
-     * // Create one MasterCourseContent
-     * const MasterCourseContent = await prisma.masterCourseContent.create({
+     * // Create one MasterCourseRelation
+     * const MasterCourseRelation = await prisma.masterCourseRelation.create({
      *   data: {
-     *     // ... data to create a MasterCourseContent
+     *     // ... data to create a MasterCourseRelation
      *   }
      * })
      * 
      */
-    create<T extends MasterCourseContentCreateArgs>(args: SelectSubset<T, MasterCourseContentCreateArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends MasterCourseRelationCreateArgs>(args: SelectSubset<T, MasterCourseRelationCreateArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many MasterCourseContents.
-     * @param {MasterCourseContentCreateManyArgs} args - Arguments to create many MasterCourseContents.
+     * Create many MasterCourseRelations.
+     * @param {MasterCourseRelationCreateManyArgs} args - Arguments to create many MasterCourseRelations.
      * @example
-     * // Create many MasterCourseContents
-     * const masterCourseContent = await prisma.masterCourseContent.createMany({
+     * // Create many MasterCourseRelations
+     * const masterCourseRelation = await prisma.masterCourseRelation.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends MasterCourseContentCreateManyArgs>(args?: SelectSubset<T, MasterCourseContentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends MasterCourseRelationCreateManyArgs>(args?: SelectSubset<T, MasterCourseRelationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many MasterCourseContents and returns the data saved in the database.
-     * @param {MasterCourseContentCreateManyAndReturnArgs} args - Arguments to create many MasterCourseContents.
+     * Create many MasterCourseRelations and returns the data saved in the database.
+     * @param {MasterCourseRelationCreateManyAndReturnArgs} args - Arguments to create many MasterCourseRelations.
      * @example
-     * // Create many MasterCourseContents
-     * const masterCourseContent = await prisma.masterCourseContent.createManyAndReturn({
+     * // Create many MasterCourseRelations
+     * const masterCourseRelation = await prisma.masterCourseRelation.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many MasterCourseContents and only return the `id`
-     * const masterCourseContentWithIdOnly = await prisma.masterCourseContent.createManyAndReturn({
+     * // Create many MasterCourseRelations and only return the `id`
+     * const masterCourseRelationWithIdOnly = await prisma.masterCourseRelation.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -7427,28 +7307,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends MasterCourseContentCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseContentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends MasterCourseRelationCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseRelationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a MasterCourseContent.
-     * @param {MasterCourseContentDeleteArgs} args - Arguments to delete one MasterCourseContent.
+     * Delete a MasterCourseRelation.
+     * @param {MasterCourseRelationDeleteArgs} args - Arguments to delete one MasterCourseRelation.
      * @example
-     * // Delete one MasterCourseContent
-     * const MasterCourseContent = await prisma.masterCourseContent.delete({
+     * // Delete one MasterCourseRelation
+     * const MasterCourseRelation = await prisma.masterCourseRelation.delete({
      *   where: {
-     *     // ... filter to delete one MasterCourseContent
+     *     // ... filter to delete one MasterCourseRelation
      *   }
      * })
      * 
      */
-    delete<T extends MasterCourseContentDeleteArgs>(args: SelectSubset<T, MasterCourseContentDeleteArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends MasterCourseRelationDeleteArgs>(args: SelectSubset<T, MasterCourseRelationDeleteArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one MasterCourseContent.
-     * @param {MasterCourseContentUpdateArgs} args - Arguments to update one MasterCourseContent.
+     * Update one MasterCourseRelation.
+     * @param {MasterCourseRelationUpdateArgs} args - Arguments to update one MasterCourseRelation.
      * @example
-     * // Update one MasterCourseContent
-     * const masterCourseContent = await prisma.masterCourseContent.update({
+     * // Update one MasterCourseRelation
+     * const masterCourseRelation = await prisma.masterCourseRelation.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7458,30 +7338,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends MasterCourseContentUpdateArgs>(args: SelectSubset<T, MasterCourseContentUpdateArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends MasterCourseRelationUpdateArgs>(args: SelectSubset<T, MasterCourseRelationUpdateArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more MasterCourseContents.
-     * @param {MasterCourseContentDeleteManyArgs} args - Arguments to filter MasterCourseContents to delete.
+     * Delete zero or more MasterCourseRelations.
+     * @param {MasterCourseRelationDeleteManyArgs} args - Arguments to filter MasterCourseRelations to delete.
      * @example
-     * // Delete a few MasterCourseContents
-     * const { count } = await prisma.masterCourseContent.deleteMany({
+     * // Delete a few MasterCourseRelations
+     * const { count } = await prisma.masterCourseRelation.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends MasterCourseContentDeleteManyArgs>(args?: SelectSubset<T, MasterCourseContentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends MasterCourseRelationDeleteManyArgs>(args?: SelectSubset<T, MasterCourseRelationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more MasterCourseContents.
+     * Update zero or more MasterCourseRelations.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseContentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {MasterCourseRelationUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many MasterCourseContents
-     * const masterCourseContent = await prisma.masterCourseContent.updateMany({
+     * // Update many MasterCourseRelations
+     * const masterCourseRelation = await prisma.masterCourseRelation.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7491,14 +7371,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends MasterCourseContentUpdateManyArgs>(args: SelectSubset<T, MasterCourseContentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends MasterCourseRelationUpdateManyArgs>(args: SelectSubset<T, MasterCourseRelationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more MasterCourseContents and returns the data updated in the database.
-     * @param {MasterCourseContentUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseContents.
+     * Update zero or more MasterCourseRelations and returns the data updated in the database.
+     * @param {MasterCourseRelationUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseRelations.
      * @example
-     * // Update many MasterCourseContents
-     * const masterCourseContent = await prisma.masterCourseContent.updateManyAndReturn({
+     * // Update many MasterCourseRelations
+     * const masterCourseRelation = await prisma.masterCourseRelation.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7507,8 +7387,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more MasterCourseContents and only return the `id`
-     * const masterCourseContentWithIdOnly = await prisma.masterCourseContent.updateManyAndReturn({
+     * // Update zero or more MasterCourseRelations and only return the `id`
+     * const masterCourseRelationWithIdOnly = await prisma.masterCourseRelation.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -7521,56 +7401,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends MasterCourseContentUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseContentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends MasterCourseRelationUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseRelationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one MasterCourseContent.
-     * @param {MasterCourseContentUpsertArgs} args - Arguments to update or create a MasterCourseContent.
+     * Create or update one MasterCourseRelation.
+     * @param {MasterCourseRelationUpsertArgs} args - Arguments to update or create a MasterCourseRelation.
      * @example
-     * // Update or create a MasterCourseContent
-     * const masterCourseContent = await prisma.masterCourseContent.upsert({
+     * // Update or create a MasterCourseRelation
+     * const masterCourseRelation = await prisma.masterCourseRelation.upsert({
      *   create: {
-     *     // ... data to create a MasterCourseContent
+     *     // ... data to create a MasterCourseRelation
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the MasterCourseContent we want to update
+     *     // ... the filter for the MasterCourseRelation we want to update
      *   }
      * })
      */
-    upsert<T extends MasterCourseContentUpsertArgs>(args: SelectSubset<T, MasterCourseContentUpsertArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends MasterCourseRelationUpsertArgs>(args: SelectSubset<T, MasterCourseRelationUpsertArgs<ExtArgs>>): Prisma__MasterCourseRelationClient<$Result.GetResult<Prisma.$MasterCourseRelationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of MasterCourseContents.
+     * Count the number of MasterCourseRelations.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseContentCountArgs} args - Arguments to filter MasterCourseContents to count.
+     * @param {MasterCourseRelationCountArgs} args - Arguments to filter MasterCourseRelations to count.
      * @example
-     * // Count the number of MasterCourseContents
-     * const count = await prisma.masterCourseContent.count({
+     * // Count the number of MasterCourseRelations
+     * const count = await prisma.masterCourseRelation.count({
      *   where: {
-     *     // ... the filter for the MasterCourseContents we want to count
+     *     // ... the filter for the MasterCourseRelations we want to count
      *   }
      * })
     **/
-    count<T extends MasterCourseContentCountArgs>(
-      args?: Subset<T, MasterCourseContentCountArgs>,
+    count<T extends MasterCourseRelationCountArgs>(
+      args?: Subset<T, MasterCourseRelationCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], MasterCourseContentCountAggregateOutputType>
+          : GetScalarType<T['select'], MasterCourseRelationCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a MasterCourseContent.
+     * Allows you to perform aggregations operations on a MasterCourseRelation.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseContentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {MasterCourseRelationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7590,13 +7470,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends MasterCourseContentAggregateArgs>(args: Subset<T, MasterCourseContentAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseContentAggregateType<T>>
+    aggregate<T extends MasterCourseRelationAggregateArgs>(args: Subset<T, MasterCourseRelationAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseRelationAggregateType<T>>
 
     /**
-     * Group by MasterCourseContent.
+     * Group by MasterCourseRelation.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseContentGroupByArgs} args - Group by arguments.
+     * @param {MasterCourseRelationGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7611,14 +7491,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends MasterCourseContentGroupByArgs,
+      T extends MasterCourseRelationGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MasterCourseContentGroupByArgs['orderBy'] }
-        : { orderBy?: MasterCourseContentGroupByArgs['orderBy'] },
+        ? { orderBy: MasterCourseRelationGroupByArgs['orderBy'] }
+        : { orderBy?: MasterCourseRelationGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7667,25 +7547,21 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, MasterCourseContentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseContentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, MasterCourseRelationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseRelationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the MasterCourseContent model
+   * Fields of the MasterCourseRelation model
    */
-  readonly fields: MasterCourseContentFieldRefs;
+  readonly fields: MasterCourseRelationFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for MasterCourseContent.
+   * The delegate class that acts as a "Promise-like" for MasterCourseRelation.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__MasterCourseContentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__MasterCourseRelationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    course<T extends MasterCourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseDefaultArgs<ExtArgs>>): Prisma__MasterCourseClient<$Result.GetResult<Prisma.$MasterCoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    exercises<T extends MasterCourseContent$exercisesArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseContent$exercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    chatMessages<T extends MasterCourseContent$chatMessagesArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseContent$chatMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    chatRoom<T extends MasterCourseContent$chatRoomArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseContent$chatRoomArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7712,463 +7588,1537 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the MasterCourseContent model
+   * Fields of the MasterCourseRelation model
    */ 
-  interface MasterCourseContentFieldRefs {
-    readonly id: FieldRef<"MasterCourseContent", 'String'>
-    readonly courseId: FieldRef<"MasterCourseContent", 'String'>
-    readonly sequence: FieldRef<"MasterCourseContent", 'Int'>
-    readonly title: FieldRef<"MasterCourseContent", 'String'>
-    readonly content: FieldRef<"MasterCourseContent", 'String'>
-    readonly createdAt: FieldRef<"MasterCourseContent", 'DateTime'>
-    readonly updatedAt: FieldRef<"MasterCourseContent", 'DateTime'>
+  interface MasterCourseRelationFieldRefs {
+    readonly id: FieldRef<"MasterCourseRelation", 'String'>
+    readonly courseId: FieldRef<"MasterCourseRelation", 'String'>
+    readonly relatedCourseId: FieldRef<"MasterCourseRelation", 'String'>
+    readonly score: FieldRef<"MasterCourseRelation", 'Float'>
   }
     
 
   // Custom InputTypes
   /**
-   * MasterCourseContent findUnique
+   * MasterCourseRelation findUnique
    */
-  export type MasterCourseContentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseRelation
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseRelationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseRelation
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which MasterCourseRelation to fetch.
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    /**
-     * Filter, which MasterCourseContent to fetch.
-     */
-    where: MasterCourseContentWhereUniqueInput
+    where: MasterCourseRelationWhereUniqueInput
   }
 
   /**
-   * MasterCourseContent findUniqueOrThrow
+   * MasterCourseRelation findUniqueOrThrow
    */
-  export type MasterCourseContentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseRelation
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseRelationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseRelation
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which MasterCourseRelation to fetch.
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    /**
-     * Filter, which MasterCourseContent to fetch.
-     */
-    where: MasterCourseContentWhereUniqueInput
+    where: MasterCourseRelationWhereUniqueInput
   }
 
   /**
-   * MasterCourseContent findFirst
+   * MasterCourseRelation findFirst
    */
-  export type MasterCourseContentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseRelation
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseRelationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseRelation
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which MasterCourseRelation to fetch.
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    /**
-     * Filter, which MasterCourseContent to fetch.
-     */
-    where?: MasterCourseContentWhereInput
+    where?: MasterCourseRelationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseContents to fetch.
+     * Determine the order of MasterCourseRelations to fetch.
      */
-    orderBy?: MasterCourseContentOrderByWithRelationInput | MasterCourseContentOrderByWithRelationInput[]
+    orderBy?: MasterCourseRelationOrderByWithRelationInput | MasterCourseRelationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for MasterCourseContents.
+     * Sets the position for searching for MasterCourseRelations.
      */
-    cursor?: MasterCourseContentWhereUniqueInput
+    cursor?: MasterCourseRelationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseContents from the position of the cursor.
+     * Take `±n` MasterCourseRelations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseContents.
+     * Skip the first `n` MasterCourseRelations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of MasterCourseContents.
+     * Filter by unique combinations of MasterCourseRelations.
      */
-    distinct?: MasterCourseContentScalarFieldEnum | MasterCourseContentScalarFieldEnum[]
+    distinct?: MasterCourseRelationScalarFieldEnum | MasterCourseRelationScalarFieldEnum[]
   }
 
   /**
-   * MasterCourseContent findFirstOrThrow
+   * MasterCourseRelation findFirstOrThrow
    */
-  export type MasterCourseContentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseRelation
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseRelationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseRelation
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which MasterCourseRelation to fetch.
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    /**
-     * Filter, which MasterCourseContent to fetch.
-     */
-    where?: MasterCourseContentWhereInput
+    where?: MasterCourseRelationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseContents to fetch.
+     * Determine the order of MasterCourseRelations to fetch.
      */
-    orderBy?: MasterCourseContentOrderByWithRelationInput | MasterCourseContentOrderByWithRelationInput[]
+    orderBy?: MasterCourseRelationOrderByWithRelationInput | MasterCourseRelationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for MasterCourseContents.
+     * Sets the position for searching for MasterCourseRelations.
      */
-    cursor?: MasterCourseContentWhereUniqueInput
+    cursor?: MasterCourseRelationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseContents from the position of the cursor.
+     * Take `±n` MasterCourseRelations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseContents.
+     * Skip the first `n` MasterCourseRelations.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of MasterCourseContents.
+     * Filter by unique combinations of MasterCourseRelations.
      */
-    distinct?: MasterCourseContentScalarFieldEnum | MasterCourseContentScalarFieldEnum[]
+    distinct?: MasterCourseRelationScalarFieldEnum | MasterCourseRelationScalarFieldEnum[]
   }
 
   /**
-   * MasterCourseContent findMany
+   * MasterCourseRelation findMany
    */
-  export type MasterCourseContentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseRelation
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseRelationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseRelation
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which MasterCourseRelations to fetch.
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    /**
-     * Filter, which MasterCourseContents to fetch.
-     */
-    where?: MasterCourseContentWhereInput
+    where?: MasterCourseRelationWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseContents to fetch.
+     * Determine the order of MasterCourseRelations to fetch.
      */
-    orderBy?: MasterCourseContentOrderByWithRelationInput | MasterCourseContentOrderByWithRelationInput[]
+    orderBy?: MasterCourseRelationOrderByWithRelationInput | MasterCourseRelationOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing MasterCourseContents.
+     * Sets the position for listing MasterCourseRelations.
      */
-    cursor?: MasterCourseContentWhereUniqueInput
+    cursor?: MasterCourseRelationWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseContents from the position of the cursor.
+     * Take `±n` MasterCourseRelations from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseContents.
+     * Skip the first `n` MasterCourseRelations.
      */
     skip?: number
-    distinct?: MasterCourseContentScalarFieldEnum | MasterCourseContentScalarFieldEnum[]
+    distinct?: MasterCourseRelationScalarFieldEnum | MasterCourseRelationScalarFieldEnum[]
   }
 
   /**
-   * MasterCourseContent create
+   * MasterCourseRelation create
    */
-  export type MasterCourseContentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseRelation
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseRelationSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseRelation
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * The data needed to create a MasterCourseRelation.
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    /**
-     * The data needed to create a MasterCourseContent.
-     */
-    data: XOR<MasterCourseContentCreateInput, MasterCourseContentUncheckedCreateInput>
+    data: XOR<MasterCourseRelationCreateInput, MasterCourseRelationUncheckedCreateInput>
   }
 
   /**
-   * MasterCourseContent createMany
+   * MasterCourseRelation createMany
    */
-  export type MasterCourseContentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many MasterCourseContents.
+     * The data used to create many MasterCourseRelations.
      */
-    data: MasterCourseContentCreateManyInput | MasterCourseContentCreateManyInput[]
+    data: MasterCourseRelationCreateManyInput | MasterCourseRelationCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * MasterCourseContent createManyAndReturn
+   * MasterCourseRelation createManyAndReturn
    */
-  export type MasterCourseContentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseRelationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseRelation
      */
-    select?: MasterCourseContentSelectCreateManyAndReturn<ExtArgs> | null
+    select?: MasterCourseRelationSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseRelation
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
     /**
-     * The data used to create many MasterCourseContents.
+     * The data used to create many MasterCourseRelations.
      */
-    data: MasterCourseContentCreateManyInput | MasterCourseContentCreateManyInput[]
+    data: MasterCourseRelationCreateManyInput | MasterCourseRelationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MasterCourseRelation update
+   */
+  export type MasterCourseRelationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseRelation
+     */
+    select?: MasterCourseRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseRelation
+     */
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MasterCourseRelation.
+     */
+    data: XOR<MasterCourseRelationUpdateInput, MasterCourseRelationUncheckedUpdateInput>
+    /**
+     * Choose, which MasterCourseRelation to update.
+     */
+    where: MasterCourseRelationWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseRelation updateMany
+   */
+  export type MasterCourseRelationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MasterCourseRelations.
+     */
+    data: XOR<MasterCourseRelationUpdateManyMutationInput, MasterCourseRelationUncheckedUpdateManyInput>
+    /**
+     * Filter which MasterCourseRelations to update
+     */
+    where?: MasterCourseRelationWhereInput
+    /**
+     * Limit how many MasterCourseRelations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseRelation updateManyAndReturn
+   */
+  export type MasterCourseRelationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseRelation
+     */
+    select?: MasterCourseRelationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseRelation
+     */
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
+    /**
+     * The data used to update MasterCourseRelations.
+     */
+    data: XOR<MasterCourseRelationUpdateManyMutationInput, MasterCourseRelationUncheckedUpdateManyInput>
+    /**
+     * Filter which MasterCourseRelations to update
+     */
+    where?: MasterCourseRelationWhereInput
+    /**
+     * Limit how many MasterCourseRelations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseRelation upsert
+   */
+  export type MasterCourseRelationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseRelation
+     */
+    select?: MasterCourseRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseRelation
+     */
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MasterCourseRelation to update in case it exists.
+     */
+    where: MasterCourseRelationWhereUniqueInput
+    /**
+     * In case the MasterCourseRelation found by the `where` argument doesn't exist, create a new MasterCourseRelation with this data.
+     */
+    create: XOR<MasterCourseRelationCreateInput, MasterCourseRelationUncheckedCreateInput>
+    /**
+     * In case the MasterCourseRelation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MasterCourseRelationUpdateInput, MasterCourseRelationUncheckedUpdateInput>
+  }
+
+  /**
+   * MasterCourseRelation delete
+   */
+  export type MasterCourseRelationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseRelation
+     */
+    select?: MasterCourseRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseRelation
+     */
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
+    /**
+     * Filter which MasterCourseRelation to delete.
+     */
+    where: MasterCourseRelationWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseRelation deleteMany
+   */
+  export type MasterCourseRelationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasterCourseRelations to delete
+     */
+    where?: MasterCourseRelationWhereInput
+    /**
+     * Limit how many MasterCourseRelations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseRelation without action
+   */
+  export type MasterCourseRelationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseRelation
+     */
+    select?: MasterCourseRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseRelation
+     */
+    omit?: MasterCourseRelationOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MasterCourseArticle
+   */
+
+  export type AggregateMasterCourseArticle = {
+    _count: MasterCourseArticleCountAggregateOutputType | null
+    _avg: MasterCourseArticleAvgAggregateOutputType | null
+    _sum: MasterCourseArticleSumAggregateOutputType | null
+    _min: MasterCourseArticleMinAggregateOutputType | null
+    _max: MasterCourseArticleMaxAggregateOutputType | null
+  }
+
+  export type MasterCourseArticleAvgAggregateOutputType = {
+    sequence: number | null
+    durationMin: number | null
+  }
+
+  export type MasterCourseArticleSumAggregateOutputType = {
+    sequence: number | null
+    durationMin: number | null
+  }
+
+  export type MasterCourseArticleMinAggregateOutputType = {
+    id: string | null
+    courseId: string | null
+    sequence: number | null
+    title: string | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    durationMin: number | null
+  }
+
+  export type MasterCourseArticleMaxAggregateOutputType = {
+    id: string | null
+    courseId: string | null
+    sequence: number | null
+    title: string | null
+    content: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    durationMin: number | null
+  }
+
+  export type MasterCourseArticleCountAggregateOutputType = {
+    id: number
+    courseId: number
+    sequence: number
+    title: number
+    content: number
+    createdAt: number
+    updatedAt: number
+    durationMin: number
+    _all: number
+  }
+
+
+  export type MasterCourseArticleAvgAggregateInputType = {
+    sequence?: true
+    durationMin?: true
+  }
+
+  export type MasterCourseArticleSumAggregateInputType = {
+    sequence?: true
+    durationMin?: true
+  }
+
+  export type MasterCourseArticleMinAggregateInputType = {
+    id?: true
+    courseId?: true
+    sequence?: true
+    title?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    durationMin?: true
+  }
+
+  export type MasterCourseArticleMaxAggregateInputType = {
+    id?: true
+    courseId?: true
+    sequence?: true
+    title?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    durationMin?: true
+  }
+
+  export type MasterCourseArticleCountAggregateInputType = {
+    id?: true
+    courseId?: true
+    sequence?: true
+    title?: true
+    content?: true
+    createdAt?: true
+    updatedAt?: true
+    durationMin?: true
+    _all?: true
+  }
+
+  export type MasterCourseArticleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasterCourseArticle to aggregate.
+     */
+    where?: MasterCourseArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticles to fetch.
+     */
+    orderBy?: MasterCourseArticleOrderByWithRelationInput | MasterCourseArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MasterCourseArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MasterCourseArticles
+    **/
+    _count?: true | MasterCourseArticleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MasterCourseArticleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MasterCourseArticleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MasterCourseArticleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MasterCourseArticleMaxAggregateInputType
+  }
+
+  export type GetMasterCourseArticleAggregateType<T extends MasterCourseArticleAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasterCourseArticle]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMasterCourseArticle[P]>
+      : GetScalarType<T[P], AggregateMasterCourseArticle[P]>
+  }
+
+
+
+
+  export type MasterCourseArticleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleWhereInput
+    orderBy?: MasterCourseArticleOrderByWithAggregationInput | MasterCourseArticleOrderByWithAggregationInput[]
+    by: MasterCourseArticleScalarFieldEnum[] | MasterCourseArticleScalarFieldEnum
+    having?: MasterCourseArticleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MasterCourseArticleCountAggregateInputType | true
+    _avg?: MasterCourseArticleAvgAggregateInputType
+    _sum?: MasterCourseArticleSumAggregateInputType
+    _min?: MasterCourseArticleMinAggregateInputType
+    _max?: MasterCourseArticleMaxAggregateInputType
+  }
+
+  export type MasterCourseArticleGroupByOutputType = {
+    id: string
+    courseId: string
+    sequence: number
+    title: string | null
+    content: string | null
+    createdAt: Date
+    updatedAt: Date
+    durationMin: number | null
+    _count: MasterCourseArticleCountAggregateOutputType | null
+    _avg: MasterCourseArticleAvgAggregateOutputType | null
+    _sum: MasterCourseArticleSumAggregateOutputType | null
+    _min: MasterCourseArticleMinAggregateOutputType | null
+    _max: MasterCourseArticleMaxAggregateOutputType | null
+  }
+
+  type GetMasterCourseArticleGroupByPayload<T extends MasterCourseArticleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MasterCourseArticleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MasterCourseArticleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MasterCourseArticleGroupByOutputType[P]>
+            : GetScalarType<T[P], MasterCourseArticleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MasterCourseArticleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    sequence?: boolean
+    title?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    durationMin?: boolean
+    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+    exercises?: boolean | MasterCourseArticle$exercisesArgs<ExtArgs>
+    chatRoom?: boolean | MasterCourseArticle$chatRoomArgs<ExtArgs>
+    faq?: boolean | MasterCourseArticle$faqArgs<ExtArgs>
+    _count?: boolean | MasterCourseArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticle"]>
+
+  export type MasterCourseArticleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    sequence?: boolean
+    title?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    durationMin?: boolean
+    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticle"]>
+
+  export type MasterCourseArticleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    courseId?: boolean
+    sequence?: boolean
+    title?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    durationMin?: boolean
+    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticle"]>
+
+  export type MasterCourseArticleSelectScalar = {
+    id?: boolean
+    courseId?: boolean
+    sequence?: boolean
+    title?: boolean
+    content?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    durationMin?: boolean
+  }
+
+  export type MasterCourseArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "sequence" | "title" | "content" | "createdAt" | "updatedAt" | "durationMin", ExtArgs["result"]["masterCourseArticle"]>
+  export type MasterCourseArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+    exercises?: boolean | MasterCourseArticle$exercisesArgs<ExtArgs>
+    chatRoom?: boolean | MasterCourseArticle$chatRoomArgs<ExtArgs>
+    faq?: boolean | MasterCourseArticle$faqArgs<ExtArgs>
+    _count?: boolean | MasterCourseArticleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MasterCourseArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+  }
+  export type MasterCourseArticleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+  }
+
+  export type $MasterCourseArticlePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MasterCourseArticle"
+    objects: {
+      course: Prisma.$MasterCoursePayload<ExtArgs>
+      exercises: Prisma.$MasterCourseArticleExercisePayload<ExtArgs>[]
+      chatRoom: Prisma.$ChatRoomPayload<ExtArgs>[]
+      faq: Prisma.$MasterCourseArticleFAQPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      courseId: string
+      sequence: number
+      title: string | null
+      content: string | null
+      createdAt: Date
+      updatedAt: Date
+      durationMin: number | null
+    }, ExtArgs["result"]["masterCourseArticle"]>
+    composites: {}
+  }
+
+  type MasterCourseArticleGetPayload<S extends boolean | null | undefined | MasterCourseArticleDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseArticlePayload, S>
+
+  type MasterCourseArticleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MasterCourseArticleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasterCourseArticleCountAggregateInputType | true
+    }
+
+  export interface MasterCourseArticleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseArticle'], meta: { name: 'MasterCourseArticle' } }
+    /**
+     * Find zero or one MasterCourseArticle that matches the filter.
+     * @param {MasterCourseArticleFindUniqueArgs} args - Arguments to find a MasterCourseArticle
+     * @example
+     * // Get one MasterCourseArticle
+     * const masterCourseArticle = await prisma.masterCourseArticle.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MasterCourseArticleFindUniqueArgs>(args: SelectSubset<T, MasterCourseArticleFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MasterCourseArticle that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MasterCourseArticleFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseArticle
+     * @example
+     * // Get one MasterCourseArticle
+     * const masterCourseArticle = await prisma.masterCourseArticle.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MasterCourseArticleFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseArticleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasterCourseArticle that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleFindFirstArgs} args - Arguments to find a MasterCourseArticle
+     * @example
+     * // Get one MasterCourseArticle
+     * const masterCourseArticle = await prisma.masterCourseArticle.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MasterCourseArticleFindFirstArgs>(args?: SelectSubset<T, MasterCourseArticleFindFirstArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasterCourseArticle that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleFindFirstOrThrowArgs} args - Arguments to find a MasterCourseArticle
+     * @example
+     * // Get one MasterCourseArticle
+     * const masterCourseArticle = await prisma.masterCourseArticle.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MasterCourseArticleFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseArticleFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MasterCourseArticles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MasterCourseArticles
+     * const masterCourseArticles = await prisma.masterCourseArticle.findMany()
+     * 
+     * // Get first 10 MasterCourseArticles
+     * const masterCourseArticles = await prisma.masterCourseArticle.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const masterCourseArticleWithIdOnly = await prisma.masterCourseArticle.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MasterCourseArticleFindManyArgs>(args?: SelectSubset<T, MasterCourseArticleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MasterCourseArticle.
+     * @param {MasterCourseArticleCreateArgs} args - Arguments to create a MasterCourseArticle.
+     * @example
+     * // Create one MasterCourseArticle
+     * const MasterCourseArticle = await prisma.masterCourseArticle.create({
+     *   data: {
+     *     // ... data to create a MasterCourseArticle
+     *   }
+     * })
+     * 
+     */
+    create<T extends MasterCourseArticleCreateArgs>(args: SelectSubset<T, MasterCourseArticleCreateArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MasterCourseArticles.
+     * @param {MasterCourseArticleCreateManyArgs} args - Arguments to create many MasterCourseArticles.
+     * @example
+     * // Create many MasterCourseArticles
+     * const masterCourseArticle = await prisma.masterCourseArticle.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MasterCourseArticleCreateManyArgs>(args?: SelectSubset<T, MasterCourseArticleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MasterCourseArticles and returns the data saved in the database.
+     * @param {MasterCourseArticleCreateManyAndReturnArgs} args - Arguments to create many MasterCourseArticles.
+     * @example
+     * // Create many MasterCourseArticles
+     * const masterCourseArticle = await prisma.masterCourseArticle.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MasterCourseArticles and only return the `id`
+     * const masterCourseArticleWithIdOnly = await prisma.masterCourseArticle.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MasterCourseArticleCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseArticleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MasterCourseArticle.
+     * @param {MasterCourseArticleDeleteArgs} args - Arguments to delete one MasterCourseArticle.
+     * @example
+     * // Delete one MasterCourseArticle
+     * const MasterCourseArticle = await prisma.masterCourseArticle.delete({
+     *   where: {
+     *     // ... filter to delete one MasterCourseArticle
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MasterCourseArticleDeleteArgs>(args: SelectSubset<T, MasterCourseArticleDeleteArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MasterCourseArticle.
+     * @param {MasterCourseArticleUpdateArgs} args - Arguments to update one MasterCourseArticle.
+     * @example
+     * // Update one MasterCourseArticle
+     * const masterCourseArticle = await prisma.masterCourseArticle.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MasterCourseArticleUpdateArgs>(args: SelectSubset<T, MasterCourseArticleUpdateArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MasterCourseArticles.
+     * @param {MasterCourseArticleDeleteManyArgs} args - Arguments to filter MasterCourseArticles to delete.
+     * @example
+     * // Delete a few MasterCourseArticles
+     * const { count } = await prisma.masterCourseArticle.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MasterCourseArticleDeleteManyArgs>(args?: SelectSubset<T, MasterCourseArticleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasterCourseArticles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MasterCourseArticles
+     * const masterCourseArticle = await prisma.masterCourseArticle.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MasterCourseArticleUpdateManyArgs>(args: SelectSubset<T, MasterCourseArticleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasterCourseArticles and returns the data updated in the database.
+     * @param {MasterCourseArticleUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseArticles.
+     * @example
+     * // Update many MasterCourseArticles
+     * const masterCourseArticle = await prisma.masterCourseArticle.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MasterCourseArticles and only return the `id`
+     * const masterCourseArticleWithIdOnly = await prisma.masterCourseArticle.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MasterCourseArticleUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseArticleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MasterCourseArticle.
+     * @param {MasterCourseArticleUpsertArgs} args - Arguments to update or create a MasterCourseArticle.
+     * @example
+     * // Update or create a MasterCourseArticle
+     * const masterCourseArticle = await prisma.masterCourseArticle.upsert({
+     *   create: {
+     *     // ... data to create a MasterCourseArticle
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MasterCourseArticle we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MasterCourseArticleUpsertArgs>(args: SelectSubset<T, MasterCourseArticleUpsertArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MasterCourseArticles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleCountArgs} args - Arguments to filter MasterCourseArticles to count.
+     * @example
+     * // Count the number of MasterCourseArticles
+     * const count = await prisma.masterCourseArticle.count({
+     *   where: {
+     *     // ... the filter for the MasterCourseArticles we want to count
+     *   }
+     * })
+    **/
+    count<T extends MasterCourseArticleCountArgs>(
+      args?: Subset<T, MasterCourseArticleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MasterCourseArticleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MasterCourseArticle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MasterCourseArticleAggregateArgs>(args: Subset<T, MasterCourseArticleAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseArticleAggregateType<T>>
+
+    /**
+     * Group by MasterCourseArticle.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MasterCourseArticleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MasterCourseArticleGroupByArgs['orderBy'] }
+        : { orderBy?: MasterCourseArticleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MasterCourseArticleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseArticleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MasterCourseArticle model
+   */
+  readonly fields: MasterCourseArticleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MasterCourseArticle.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MasterCourseArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    course<T extends MasterCourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseDefaultArgs<ExtArgs>>): Prisma__MasterCourseClient<$Result.GetResult<Prisma.$MasterCoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    exercises<T extends MasterCourseArticle$exercisesArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseArticle$exercisesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chatRoom<T extends MasterCourseArticle$chatRoomArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseArticle$chatRoomArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    faq<T extends MasterCourseArticle$faqArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseArticle$faqArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MasterCourseArticle model
+   */ 
+  interface MasterCourseArticleFieldRefs {
+    readonly id: FieldRef<"MasterCourseArticle", 'String'>
+    readonly courseId: FieldRef<"MasterCourseArticle", 'String'>
+    readonly sequence: FieldRef<"MasterCourseArticle", 'Int'>
+    readonly title: FieldRef<"MasterCourseArticle", 'String'>
+    readonly content: FieldRef<"MasterCourseArticle", 'String'>
+    readonly createdAt: FieldRef<"MasterCourseArticle", 'DateTime'>
+    readonly updatedAt: FieldRef<"MasterCourseArticle", 'DateTime'>
+    readonly durationMin: FieldRef<"MasterCourseArticle", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MasterCourseArticle findUnique
+   */
+  export type MasterCourseArticleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterCourseArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticle to fetch.
+     */
+    where: MasterCourseArticleWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticle findUniqueOrThrow
+   */
+  export type MasterCourseArticleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterCourseArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticle to fetch.
+     */
+    where: MasterCourseArticleWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticle findFirst
+   */
+  export type MasterCourseArticleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterCourseArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticle to fetch.
+     */
+    where?: MasterCourseArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticles to fetch.
+     */
+    orderBy?: MasterCourseArticleOrderByWithRelationInput | MasterCourseArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasterCourseArticles.
+     */
+    cursor?: MasterCourseArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasterCourseArticles.
+     */
+    distinct?: MasterCourseArticleScalarFieldEnum | MasterCourseArticleScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticle findFirstOrThrow
+   */
+  export type MasterCourseArticleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterCourseArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticle to fetch.
+     */
+    where?: MasterCourseArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticles to fetch.
+     */
+    orderBy?: MasterCourseArticleOrderByWithRelationInput | MasterCourseArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasterCourseArticles.
+     */
+    cursor?: MasterCourseArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasterCourseArticles.
+     */
+    distinct?: MasterCourseArticleScalarFieldEnum | MasterCourseArticleScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticle findMany
+   */
+  export type MasterCourseArticleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterCourseArticleInclude<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticles to fetch.
+     */
+    where?: MasterCourseArticleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticles to fetch.
+     */
+    orderBy?: MasterCourseArticleOrderByWithRelationInput | MasterCourseArticleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MasterCourseArticles.
+     */
+    cursor?: MasterCourseArticleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticles.
+     */
+    skip?: number
+    distinct?: MasterCourseArticleScalarFieldEnum | MasterCourseArticleScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticle create
+   */
+  export type MasterCourseArticleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterCourseArticleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MasterCourseArticle.
+     */
+    data: XOR<MasterCourseArticleCreateInput, MasterCourseArticleUncheckedCreateInput>
+  }
+
+  /**
+   * MasterCourseArticle createMany
+   */
+  export type MasterCourseArticleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MasterCourseArticles.
+     */
+    data: MasterCourseArticleCreateManyInput | MasterCourseArticleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MasterCourseArticle createManyAndReturn
+   */
+  export type MasterCourseArticleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * The data used to create many MasterCourseArticles.
+     */
+    data: MasterCourseArticleCreateManyInput | MasterCourseArticleCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseContentIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: MasterCourseArticleIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * MasterCourseContent update
+   * MasterCourseArticle update
    */
-  export type MasterCourseContentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseArticle
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseArticleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseArticle
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
+    include?: MasterCourseArticleInclude<ExtArgs> | null
     /**
-     * The data needed to update a MasterCourseContent.
+     * The data needed to update a MasterCourseArticle.
      */
-    data: XOR<MasterCourseContentUpdateInput, MasterCourseContentUncheckedUpdateInput>
+    data: XOR<MasterCourseArticleUpdateInput, MasterCourseArticleUncheckedUpdateInput>
     /**
-     * Choose, which MasterCourseContent to update.
+     * Choose, which MasterCourseArticle to update.
      */
-    where: MasterCourseContentWhereUniqueInput
+    where: MasterCourseArticleWhereUniqueInput
   }
 
   /**
-   * MasterCourseContent updateMany
+   * MasterCourseArticle updateMany
    */
-  export type MasterCourseContentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update MasterCourseContents.
+     * The data used to update MasterCourseArticles.
      */
-    data: XOR<MasterCourseContentUpdateManyMutationInput, MasterCourseContentUncheckedUpdateManyInput>
+    data: XOR<MasterCourseArticleUpdateManyMutationInput, MasterCourseArticleUncheckedUpdateManyInput>
     /**
-     * Filter which MasterCourseContents to update
+     * Filter which MasterCourseArticles to update
      */
-    where?: MasterCourseContentWhereInput
+    where?: MasterCourseArticleWhereInput
     /**
-     * Limit how many MasterCourseContents to update.
+     * Limit how many MasterCourseArticles to update.
      */
     limit?: number
   }
 
   /**
-   * MasterCourseContent updateManyAndReturn
+   * MasterCourseArticle updateManyAndReturn
    */
-  export type MasterCourseContentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseArticle
      */
-    select?: MasterCourseContentSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: MasterCourseArticleSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseArticle
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
     /**
-     * The data used to update MasterCourseContents.
+     * The data used to update MasterCourseArticles.
      */
-    data: XOR<MasterCourseContentUpdateManyMutationInput, MasterCourseContentUncheckedUpdateManyInput>
+    data: XOR<MasterCourseArticleUpdateManyMutationInput, MasterCourseArticleUncheckedUpdateManyInput>
     /**
-     * Filter which MasterCourseContents to update
+     * Filter which MasterCourseArticles to update
      */
-    where?: MasterCourseContentWhereInput
+    where?: MasterCourseArticleWhereInput
     /**
-     * Limit how many MasterCourseContents to update.
+     * Limit how many MasterCourseArticles to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseContentIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: MasterCourseArticleIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * MasterCourseContent upsert
+   * MasterCourseArticle upsert
    */
-  export type MasterCourseContentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseArticle
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseArticleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseArticle
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
+    include?: MasterCourseArticleInclude<ExtArgs> | null
     /**
-     * The filter to search for the MasterCourseContent to update in case it exists.
+     * The filter to search for the MasterCourseArticle to update in case it exists.
      */
-    where: MasterCourseContentWhereUniqueInput
+    where: MasterCourseArticleWhereUniqueInput
     /**
-     * In case the MasterCourseContent found by the `where` argument doesn't exist, create a new MasterCourseContent with this data.
+     * In case the MasterCourseArticle found by the `where` argument doesn't exist, create a new MasterCourseArticle with this data.
      */
-    create: XOR<MasterCourseContentCreateInput, MasterCourseContentUncheckedCreateInput>
+    create: XOR<MasterCourseArticleCreateInput, MasterCourseArticleUncheckedCreateInput>
     /**
-     * In case the MasterCourseContent was found with the provided `where` argument, update it with this data.
+     * In case the MasterCourseArticle was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<MasterCourseContentUpdateInput, MasterCourseContentUncheckedUpdateInput>
+    update: XOR<MasterCourseArticleUpdateInput, MasterCourseArticleUncheckedUpdateInput>
   }
 
   /**
-   * MasterCourseContent delete
+   * MasterCourseArticle delete
    */
-  export type MasterCourseContentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseArticle
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseArticleSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseArticle
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
+    include?: MasterCourseArticleInclude<ExtArgs> | null
     /**
-     * Filter which MasterCourseContent to delete.
+     * Filter which MasterCourseArticle to delete.
      */
-    where: MasterCourseContentWhereUniqueInput
+    where: MasterCourseArticleWhereUniqueInput
   }
 
   /**
-   * MasterCourseContent deleteMany
+   * MasterCourseArticle deleteMany
    */
-  export type MasterCourseContentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which MasterCourseContents to delete
+     * Filter which MasterCourseArticles to delete
      */
-    where?: MasterCourseContentWhereInput
+    where?: MasterCourseArticleWhereInput
     /**
-     * Limit how many MasterCourseContents to delete.
+     * Limit how many MasterCourseArticles to delete.
      */
     limit?: number
   }
 
   /**
-   * MasterCourseContent.exercises
+   * MasterCourseArticle.exercises
    */
-  export type MasterCourseContent$exercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticle$exercisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
-    where?: MasterExerciseWhereInput
-    orderBy?: MasterExerciseOrderByWithRelationInput | MasterExerciseOrderByWithRelationInput[]
-    cursor?: MasterExerciseWhereUniqueInput
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
+    where?: MasterCourseArticleExerciseWhereInput
+    orderBy?: MasterCourseArticleExerciseOrderByWithRelationInput | MasterCourseArticleExerciseOrderByWithRelationInput[]
+    cursor?: MasterCourseArticleExerciseWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: MasterExerciseScalarFieldEnum | MasterExerciseScalarFieldEnum[]
+    distinct?: MasterCourseArticleExerciseScalarFieldEnum | MasterCourseArticleExerciseScalarFieldEnum[]
   }
 
   /**
-   * MasterCourseContent.chatMessages
+   * MasterCourseArticle.chatRoom
    */
-  export type MasterCourseContent$chatMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ChatMessage
-     */
-    select?: ChatMessageSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ChatMessage
-     */
-    omit?: ChatMessageOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ChatMessageInclude<ExtArgs> | null
-    where?: ChatMessageWhereInput
-    orderBy?: ChatMessageOrderByWithRelationInput | ChatMessageOrderByWithRelationInput[]
-    cursor?: ChatMessageWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ChatMessageScalarFieldEnum | ChatMessageScalarFieldEnum[]
-  }
-
-  /**
-   * MasterCourseContent.chatRoom
-   */
-  export type MasterCourseContent$chatRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticle$chatRoomArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ChatRoom
      */
@@ -8190,37 +9140,61 @@ export namespace Prisma {
   }
 
   /**
-   * MasterCourseContent without action
+   * MasterCourseArticle.faq
    */
-  export type MasterCourseContentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticle$faqArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseContent
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseContentSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseContent
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseContentInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
+    where?: MasterCourseArticleFAQWhereInput
+    orderBy?: MasterCourseArticleFAQOrderByWithRelationInput | MasterCourseArticleFAQOrderByWithRelationInput[]
+    cursor?: MasterCourseArticleFAQWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MasterCourseArticleFAQScalarFieldEnum | MasterCourseArticleFAQScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticle without action
+   */
+  export type MasterCourseArticleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticle
+     */
+    select?: MasterCourseArticleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticle
+     */
+    omit?: MasterCourseArticleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MasterCourseArticleInclude<ExtArgs> | null
   }
 
 
   /**
-   * Model MasterExercise
+   * Model MasterCourseArticleExercise
    */
 
-  export type AggregateMasterExercise = {
-    _count: MasterExerciseCountAggregateOutputType | null
-    _min: MasterExerciseMinAggregateOutputType | null
-    _max: MasterExerciseMaxAggregateOutputType | null
+  export type AggregateMasterCourseArticleExercise = {
+    _count: MasterCourseArticleExerciseCountAggregateOutputType | null
+    _min: MasterCourseArticleExerciseMinAggregateOutputType | null
+    _max: MasterCourseArticleExerciseMaxAggregateOutputType | null
   }
 
-  export type MasterExerciseMinAggregateOutputType = {
+  export type MasterCourseArticleExerciseMinAggregateOutputType = {
     id: string | null
-    courseContentId: string | null
+    courseArticleId: string | null
     exerciseType: string | null
     question: string | null
     options: string | null
@@ -8228,9 +9202,9 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type MasterExerciseMaxAggregateOutputType = {
+  export type MasterCourseArticleExerciseMaxAggregateOutputType = {
     id: string | null
-    courseContentId: string | null
+    courseArticleId: string | null
     exerciseType: string | null
     question: string | null
     options: string | null
@@ -8238,9 +9212,9 @@ export namespace Prisma {
     createdAt: Date | null
   }
 
-  export type MasterExerciseCountAggregateOutputType = {
+  export type MasterCourseArticleExerciseCountAggregateOutputType = {
     id: number
-    courseContentId: number
+    courseArticleId: number
     exerciseType: number
     question: number
     options: number
@@ -8250,9 +9224,9 @@ export namespace Prisma {
   }
 
 
-  export type MasterExerciseMinAggregateInputType = {
+  export type MasterCourseArticleExerciseMinAggregateInputType = {
     id?: true
-    courseContentId?: true
+    courseArticleId?: true
     exerciseType?: true
     question?: true
     options?: true
@@ -8260,9 +9234,9 @@ export namespace Prisma {
     createdAt?: true
   }
 
-  export type MasterExerciseMaxAggregateInputType = {
+  export type MasterCourseArticleExerciseMaxAggregateInputType = {
     id?: true
-    courseContentId?: true
+    courseArticleId?: true
     exerciseType?: true
     question?: true
     options?: true
@@ -8270,9 +9244,9 @@ export namespace Prisma {
     createdAt?: true
   }
 
-  export type MasterExerciseCountAggregateInputType = {
+  export type MasterCourseArticleExerciseCountAggregateInputType = {
     id?: true
-    courseContentId?: true
+    courseArticleId?: true
     exerciseType?: true
     question?: true
     options?: true
@@ -8281,141 +9255,141 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type MasterExerciseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which MasterExercise to aggregate.
+     * Filter which MasterCourseArticleExercise to aggregate.
      */
-    where?: MasterExerciseWhereInput
+    where?: MasterCourseArticleExerciseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterExercises to fetch.
+     * Determine the order of MasterCourseArticleExercises to fetch.
      */
-    orderBy?: MasterExerciseOrderByWithRelationInput | MasterExerciseOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleExerciseOrderByWithRelationInput | MasterCourseArticleExerciseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: MasterExerciseWhereUniqueInput
+    cursor?: MasterCourseArticleExerciseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterExercises from the position of the cursor.
+     * Take `±n` MasterCourseArticleExercises from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterExercises.
+     * Skip the first `n` MasterCourseArticleExercises.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned MasterExercises
+     * Count returned MasterCourseArticleExercises
     **/
-    _count?: true | MasterExerciseCountAggregateInputType
+    _count?: true | MasterCourseArticleExerciseCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: MasterExerciseMinAggregateInputType
+    _min?: MasterCourseArticleExerciseMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: MasterExerciseMaxAggregateInputType
+    _max?: MasterCourseArticleExerciseMaxAggregateInputType
   }
 
-  export type GetMasterExerciseAggregateType<T extends MasterExerciseAggregateArgs> = {
-        [P in keyof T & keyof AggregateMasterExercise]: P extends '_count' | 'count'
+  export type GetMasterCourseArticleExerciseAggregateType<T extends MasterCourseArticleExerciseAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasterCourseArticleExercise]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateMasterExercise[P]>
-      : GetScalarType<T[P], AggregateMasterExercise[P]>
+        : GetScalarType<T[P], AggregateMasterCourseArticleExercise[P]>
+      : GetScalarType<T[P], AggregateMasterCourseArticleExercise[P]>
   }
 
 
 
 
-  export type MasterExerciseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterExerciseWhereInput
-    orderBy?: MasterExerciseOrderByWithAggregationInput | MasterExerciseOrderByWithAggregationInput[]
-    by: MasterExerciseScalarFieldEnum[] | MasterExerciseScalarFieldEnum
-    having?: MasterExerciseScalarWhereWithAggregatesInput
+  export type MasterCourseArticleExerciseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleExerciseWhereInput
+    orderBy?: MasterCourseArticleExerciseOrderByWithAggregationInput | MasterCourseArticleExerciseOrderByWithAggregationInput[]
+    by: MasterCourseArticleExerciseScalarFieldEnum[] | MasterCourseArticleExerciseScalarFieldEnum
+    having?: MasterCourseArticleExerciseScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: MasterExerciseCountAggregateInputType | true
-    _min?: MasterExerciseMinAggregateInputType
-    _max?: MasterExerciseMaxAggregateInputType
+    _count?: MasterCourseArticleExerciseCountAggregateInputType | true
+    _min?: MasterCourseArticleExerciseMinAggregateInputType
+    _max?: MasterCourseArticleExerciseMaxAggregateInputType
   }
 
-  export type MasterExerciseGroupByOutputType = {
+  export type MasterCourseArticleExerciseGroupByOutputType = {
     id: string
-    courseContentId: string
+    courseArticleId: string
     exerciseType: string
     question: string
     options: string | null
     correctAnswer: string | null
     createdAt: Date
-    _count: MasterExerciseCountAggregateOutputType | null
-    _min: MasterExerciseMinAggregateOutputType | null
-    _max: MasterExerciseMaxAggregateOutputType | null
+    _count: MasterCourseArticleExerciseCountAggregateOutputType | null
+    _min: MasterCourseArticleExerciseMinAggregateOutputType | null
+    _max: MasterCourseArticleExerciseMaxAggregateOutputType | null
   }
 
-  type GetMasterExerciseGroupByPayload<T extends MasterExerciseGroupByArgs> = Prisma.PrismaPromise<
+  type GetMasterCourseArticleExerciseGroupByPayload<T extends MasterCourseArticleExerciseGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<MasterExerciseGroupByOutputType, T['by']> &
+      PickEnumerable<MasterCourseArticleExerciseGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof MasterExerciseGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof MasterCourseArticleExerciseGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], MasterExerciseGroupByOutputType[P]>
-            : GetScalarType<T[P], MasterExerciseGroupByOutputType[P]>
+              : GetScalarType<T[P], MasterCourseArticleExerciseGroupByOutputType[P]>
+            : GetScalarType<T[P], MasterCourseArticleExerciseGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type MasterExerciseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseArticleExerciseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     exerciseType?: boolean
     question?: boolean
     options?: boolean
     correctAnswer?: boolean
     createdAt?: boolean
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterExercise"]>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticleExercise"]>
 
-  export type MasterExerciseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseArticleExerciseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     exerciseType?: boolean
     question?: boolean
     options?: boolean
     correctAnswer?: boolean
     createdAt?: boolean
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterExercise"]>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticleExercise"]>
 
-  export type MasterExerciseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseArticleExerciseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     exerciseType?: boolean
     question?: boolean
     options?: boolean
     correctAnswer?: boolean
     createdAt?: boolean
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterExercise"]>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticleExercise"]>
 
-  export type MasterExerciseSelectScalar = {
+  export type MasterCourseArticleExerciseSelectScalar = {
     id?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     exerciseType?: boolean
     question?: boolean
     options?: boolean
@@ -8423,160 +9397,160 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type MasterExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseContentId" | "exerciseType" | "question" | "options" | "correctAnswer" | "createdAt", ExtArgs["result"]["masterExercise"]>
-  export type MasterExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+  export type MasterCourseArticleExerciseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseArticleId" | "exerciseType" | "question" | "options" | "correctAnswer" | "createdAt", ExtArgs["result"]["masterCourseArticleExercise"]>
+  export type MasterCourseArticleExerciseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
-  export type MasterExerciseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+  export type MasterCourseArticleExerciseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
-  export type MasterExerciseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+  export type MasterCourseArticleExerciseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
 
-  export type $MasterExercisePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "MasterExercise"
+  export type $MasterCourseArticleExercisePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MasterCourseArticleExercise"
     objects: {
-      courseContent: Prisma.$MasterCourseContentPayload<ExtArgs>
+      courseArticle: Prisma.$MasterCourseArticlePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      courseContentId: string
+      courseArticleId: string
       exerciseType: string
       question: string
       options: string | null
       correctAnswer: string | null
       createdAt: Date
-    }, ExtArgs["result"]["masterExercise"]>
+    }, ExtArgs["result"]["masterCourseArticleExercise"]>
     composites: {}
   }
 
-  type MasterExerciseGetPayload<S extends boolean | null | undefined | MasterExerciseDefaultArgs> = $Result.GetResult<Prisma.$MasterExercisePayload, S>
+  type MasterCourseArticleExerciseGetPayload<S extends boolean | null | undefined | MasterCourseArticleExerciseDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseArticleExercisePayload, S>
 
-  type MasterExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MasterExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MasterExerciseCountAggregateInputType | true
+  type MasterCourseArticleExerciseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MasterCourseArticleExerciseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasterCourseArticleExerciseCountAggregateInputType | true
     }
 
-  export interface MasterExerciseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterExercise'], meta: { name: 'MasterExercise' } }
+  export interface MasterCourseArticleExerciseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseArticleExercise'], meta: { name: 'MasterCourseArticleExercise' } }
     /**
-     * Find zero or one MasterExercise that matches the filter.
-     * @param {MasterExerciseFindUniqueArgs} args - Arguments to find a MasterExercise
+     * Find zero or one MasterCourseArticleExercise that matches the filter.
+     * @param {MasterCourseArticleExerciseFindUniqueArgs} args - Arguments to find a MasterCourseArticleExercise
      * @example
-     * // Get one MasterExercise
-     * const masterExercise = await prisma.masterExercise.findUnique({
+     * // Get one MasterCourseArticleExercise
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends MasterExerciseFindUniqueArgs>(args: SelectSubset<T, MasterExerciseFindUniqueArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends MasterCourseArticleExerciseFindUniqueArgs>(args: SelectSubset<T, MasterCourseArticleExerciseFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one MasterExercise that matches the filter or throw an error with `error.code='P2025'`
+     * Find one MasterCourseArticleExercise that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {MasterExerciseFindUniqueOrThrowArgs} args - Arguments to find a MasterExercise
+     * @param {MasterCourseArticleExerciseFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseArticleExercise
      * @example
-     * // Get one MasterExercise
-     * const masterExercise = await prisma.masterExercise.findUniqueOrThrow({
+     * // Get one MasterCourseArticleExercise
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends MasterExerciseFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterExerciseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends MasterCourseArticleExerciseFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseArticleExerciseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first MasterExercise that matches the filter.
+     * Find the first MasterCourseArticleExercise that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterExerciseFindFirstArgs} args - Arguments to find a MasterExercise
+     * @param {MasterCourseArticleExerciseFindFirstArgs} args - Arguments to find a MasterCourseArticleExercise
      * @example
-     * // Get one MasterExercise
-     * const masterExercise = await prisma.masterExercise.findFirst({
+     * // Get one MasterCourseArticleExercise
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends MasterExerciseFindFirstArgs>(args?: SelectSubset<T, MasterExerciseFindFirstArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends MasterCourseArticleExerciseFindFirstArgs>(args?: SelectSubset<T, MasterCourseArticleExerciseFindFirstArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first MasterExercise that matches the filter or
+     * Find the first MasterCourseArticleExercise that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterExerciseFindFirstOrThrowArgs} args - Arguments to find a MasterExercise
+     * @param {MasterCourseArticleExerciseFindFirstOrThrowArgs} args - Arguments to find a MasterCourseArticleExercise
      * @example
-     * // Get one MasterExercise
-     * const masterExercise = await prisma.masterExercise.findFirstOrThrow({
+     * // Get one MasterCourseArticleExercise
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends MasterExerciseFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterExerciseFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends MasterCourseArticleExerciseFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseArticleExerciseFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more MasterExercises that matches the filter.
+     * Find zero or more MasterCourseArticleExercises that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterExerciseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MasterCourseArticleExerciseFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all MasterExercises
-     * const masterExercises = await prisma.masterExercise.findMany()
+     * // Get all MasterCourseArticleExercises
+     * const masterCourseArticleExercises = await prisma.masterCourseArticleExercise.findMany()
      * 
-     * // Get first 10 MasterExercises
-     * const masterExercises = await prisma.masterExercise.findMany({ take: 10 })
+     * // Get first 10 MasterCourseArticleExercises
+     * const masterCourseArticleExercises = await prisma.masterCourseArticleExercise.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const masterExerciseWithIdOnly = await prisma.masterExercise.findMany({ select: { id: true } })
+     * const masterCourseArticleExerciseWithIdOnly = await prisma.masterCourseArticleExercise.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends MasterExerciseFindManyArgs>(args?: SelectSubset<T, MasterExerciseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends MasterCourseArticleExerciseFindManyArgs>(args?: SelectSubset<T, MasterCourseArticleExerciseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a MasterExercise.
-     * @param {MasterExerciseCreateArgs} args - Arguments to create a MasterExercise.
+     * Create a MasterCourseArticleExercise.
+     * @param {MasterCourseArticleExerciseCreateArgs} args - Arguments to create a MasterCourseArticleExercise.
      * @example
-     * // Create one MasterExercise
-     * const MasterExercise = await prisma.masterExercise.create({
+     * // Create one MasterCourseArticleExercise
+     * const MasterCourseArticleExercise = await prisma.masterCourseArticleExercise.create({
      *   data: {
-     *     // ... data to create a MasterExercise
+     *     // ... data to create a MasterCourseArticleExercise
      *   }
      * })
      * 
      */
-    create<T extends MasterExerciseCreateArgs>(args: SelectSubset<T, MasterExerciseCreateArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends MasterCourseArticleExerciseCreateArgs>(args: SelectSubset<T, MasterCourseArticleExerciseCreateArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many MasterExercises.
-     * @param {MasterExerciseCreateManyArgs} args - Arguments to create many MasterExercises.
+     * Create many MasterCourseArticleExercises.
+     * @param {MasterCourseArticleExerciseCreateManyArgs} args - Arguments to create many MasterCourseArticleExercises.
      * @example
-     * // Create many MasterExercises
-     * const masterExercise = await prisma.masterExercise.createMany({
+     * // Create many MasterCourseArticleExercises
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends MasterExerciseCreateManyArgs>(args?: SelectSubset<T, MasterExerciseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends MasterCourseArticleExerciseCreateManyArgs>(args?: SelectSubset<T, MasterCourseArticleExerciseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many MasterExercises and returns the data saved in the database.
-     * @param {MasterExerciseCreateManyAndReturnArgs} args - Arguments to create many MasterExercises.
+     * Create many MasterCourseArticleExercises and returns the data saved in the database.
+     * @param {MasterCourseArticleExerciseCreateManyAndReturnArgs} args - Arguments to create many MasterCourseArticleExercises.
      * @example
-     * // Create many MasterExercises
-     * const masterExercise = await prisma.masterExercise.createManyAndReturn({
+     * // Create many MasterCourseArticleExercises
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many MasterExercises and only return the `id`
-     * const masterExerciseWithIdOnly = await prisma.masterExercise.createManyAndReturn({
+     * // Create many MasterCourseArticleExercises and only return the `id`
+     * const masterCourseArticleExerciseWithIdOnly = await prisma.masterCourseArticleExercise.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -8586,28 +9560,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends MasterExerciseCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterExerciseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends MasterCourseArticleExerciseCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseArticleExerciseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a MasterExercise.
-     * @param {MasterExerciseDeleteArgs} args - Arguments to delete one MasterExercise.
+     * Delete a MasterCourseArticleExercise.
+     * @param {MasterCourseArticleExerciseDeleteArgs} args - Arguments to delete one MasterCourseArticleExercise.
      * @example
-     * // Delete one MasterExercise
-     * const MasterExercise = await prisma.masterExercise.delete({
+     * // Delete one MasterCourseArticleExercise
+     * const MasterCourseArticleExercise = await prisma.masterCourseArticleExercise.delete({
      *   where: {
-     *     // ... filter to delete one MasterExercise
+     *     // ... filter to delete one MasterCourseArticleExercise
      *   }
      * })
      * 
      */
-    delete<T extends MasterExerciseDeleteArgs>(args: SelectSubset<T, MasterExerciseDeleteArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends MasterCourseArticleExerciseDeleteArgs>(args: SelectSubset<T, MasterCourseArticleExerciseDeleteArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one MasterExercise.
-     * @param {MasterExerciseUpdateArgs} args - Arguments to update one MasterExercise.
+     * Update one MasterCourseArticleExercise.
+     * @param {MasterCourseArticleExerciseUpdateArgs} args - Arguments to update one MasterCourseArticleExercise.
      * @example
-     * // Update one MasterExercise
-     * const masterExercise = await prisma.masterExercise.update({
+     * // Update one MasterCourseArticleExercise
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8617,30 +9591,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends MasterExerciseUpdateArgs>(args: SelectSubset<T, MasterExerciseUpdateArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends MasterCourseArticleExerciseUpdateArgs>(args: SelectSubset<T, MasterCourseArticleExerciseUpdateArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more MasterExercises.
-     * @param {MasterExerciseDeleteManyArgs} args - Arguments to filter MasterExercises to delete.
+     * Delete zero or more MasterCourseArticleExercises.
+     * @param {MasterCourseArticleExerciseDeleteManyArgs} args - Arguments to filter MasterCourseArticleExercises to delete.
      * @example
-     * // Delete a few MasterExercises
-     * const { count } = await prisma.masterExercise.deleteMany({
+     * // Delete a few MasterCourseArticleExercises
+     * const { count } = await prisma.masterCourseArticleExercise.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends MasterExerciseDeleteManyArgs>(args?: SelectSubset<T, MasterExerciseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends MasterCourseArticleExerciseDeleteManyArgs>(args?: SelectSubset<T, MasterCourseArticleExerciseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more MasterExercises.
+     * Update zero or more MasterCourseArticleExercises.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterExerciseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {MasterCourseArticleExerciseUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many MasterExercises
-     * const masterExercise = await prisma.masterExercise.updateMany({
+     * // Update many MasterCourseArticleExercises
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8650,14 +9624,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends MasterExerciseUpdateManyArgs>(args: SelectSubset<T, MasterExerciseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends MasterCourseArticleExerciseUpdateManyArgs>(args: SelectSubset<T, MasterCourseArticleExerciseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more MasterExercises and returns the data updated in the database.
-     * @param {MasterExerciseUpdateManyAndReturnArgs} args - Arguments to update many MasterExercises.
+     * Update zero or more MasterCourseArticleExercises and returns the data updated in the database.
+     * @param {MasterCourseArticleExerciseUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseArticleExercises.
      * @example
-     * // Update many MasterExercises
-     * const masterExercise = await prisma.masterExercise.updateManyAndReturn({
+     * // Update many MasterCourseArticleExercises
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8666,8 +9640,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more MasterExercises and only return the `id`
-     * const masterExerciseWithIdOnly = await prisma.masterExercise.updateManyAndReturn({
+     * // Update zero or more MasterCourseArticleExercises and only return the `id`
+     * const masterCourseArticleExerciseWithIdOnly = await prisma.masterCourseArticleExercise.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -8680,56 +9654,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends MasterExerciseUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterExerciseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends MasterCourseArticleExerciseUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseArticleExerciseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one MasterExercise.
-     * @param {MasterExerciseUpsertArgs} args - Arguments to update or create a MasterExercise.
+     * Create or update one MasterCourseArticleExercise.
+     * @param {MasterCourseArticleExerciseUpsertArgs} args - Arguments to update or create a MasterCourseArticleExercise.
      * @example
-     * // Update or create a MasterExercise
-     * const masterExercise = await prisma.masterExercise.upsert({
+     * // Update or create a MasterCourseArticleExercise
+     * const masterCourseArticleExercise = await prisma.masterCourseArticleExercise.upsert({
      *   create: {
-     *     // ... data to create a MasterExercise
+     *     // ... data to create a MasterCourseArticleExercise
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the MasterExercise we want to update
+     *     // ... the filter for the MasterCourseArticleExercise we want to update
      *   }
      * })
      */
-    upsert<T extends MasterExerciseUpsertArgs>(args: SelectSubset<T, MasterExerciseUpsertArgs<ExtArgs>>): Prisma__MasterExerciseClient<$Result.GetResult<Prisma.$MasterExercisePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends MasterCourseArticleExerciseUpsertArgs>(args: SelectSubset<T, MasterCourseArticleExerciseUpsertArgs<ExtArgs>>): Prisma__MasterCourseArticleExerciseClient<$Result.GetResult<Prisma.$MasterCourseArticleExercisePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of MasterExercises.
+     * Count the number of MasterCourseArticleExercises.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterExerciseCountArgs} args - Arguments to filter MasterExercises to count.
+     * @param {MasterCourseArticleExerciseCountArgs} args - Arguments to filter MasterCourseArticleExercises to count.
      * @example
-     * // Count the number of MasterExercises
-     * const count = await prisma.masterExercise.count({
+     * // Count the number of MasterCourseArticleExercises
+     * const count = await prisma.masterCourseArticleExercise.count({
      *   where: {
-     *     // ... the filter for the MasterExercises we want to count
+     *     // ... the filter for the MasterCourseArticleExercises we want to count
      *   }
      * })
     **/
-    count<T extends MasterExerciseCountArgs>(
-      args?: Subset<T, MasterExerciseCountArgs>,
+    count<T extends MasterCourseArticleExerciseCountArgs>(
+      args?: Subset<T, MasterCourseArticleExerciseCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], MasterExerciseCountAggregateOutputType>
+          : GetScalarType<T['select'], MasterCourseArticleExerciseCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a MasterExercise.
+     * Allows you to perform aggregations operations on a MasterCourseArticleExercise.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterExerciseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {MasterCourseArticleExerciseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -8749,13 +9723,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends MasterExerciseAggregateArgs>(args: Subset<T, MasterExerciseAggregateArgs>): Prisma.PrismaPromise<GetMasterExerciseAggregateType<T>>
+    aggregate<T extends MasterCourseArticleExerciseAggregateArgs>(args: Subset<T, MasterCourseArticleExerciseAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseArticleExerciseAggregateType<T>>
 
     /**
-     * Group by MasterExercise.
+     * Group by MasterCourseArticleExercise.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterExerciseGroupByArgs} args - Group by arguments.
+     * @param {MasterCourseArticleExerciseGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -8770,14 +9744,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends MasterExerciseGroupByArgs,
+      T extends MasterCourseArticleExerciseGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MasterExerciseGroupByArgs['orderBy'] }
-        : { orderBy?: MasterExerciseGroupByArgs['orderBy'] },
+        ? { orderBy: MasterCourseArticleExerciseGroupByArgs['orderBy'] }
+        : { orderBy?: MasterCourseArticleExerciseGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -8826,22 +9800,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, MasterExerciseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterExerciseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, MasterCourseArticleExerciseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseArticleExerciseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the MasterExercise model
+   * Fields of the MasterCourseArticleExercise model
    */
-  readonly fields: MasterExerciseFieldRefs;
+  readonly fields: MasterCourseArticleExerciseFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for MasterExercise.
+   * The delegate class that acts as a "Promise-like" for MasterCourseArticleExercise.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__MasterExerciseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__MasterCourseArticleExerciseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    courseContent<T extends MasterCourseContentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseContentDefaultArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    courseArticle<T extends MasterCourseArticleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseArticleDefaultArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8868,427 +9842,427 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the MasterExercise model
+   * Fields of the MasterCourseArticleExercise model
    */ 
-  interface MasterExerciseFieldRefs {
-    readonly id: FieldRef<"MasterExercise", 'String'>
-    readonly courseContentId: FieldRef<"MasterExercise", 'String'>
-    readonly exerciseType: FieldRef<"MasterExercise", 'String'>
-    readonly question: FieldRef<"MasterExercise", 'String'>
-    readonly options: FieldRef<"MasterExercise", 'String'>
-    readonly correctAnswer: FieldRef<"MasterExercise", 'String'>
-    readonly createdAt: FieldRef<"MasterExercise", 'DateTime'>
+  interface MasterCourseArticleExerciseFieldRefs {
+    readonly id: FieldRef<"MasterCourseArticleExercise", 'String'>
+    readonly courseArticleId: FieldRef<"MasterCourseArticleExercise", 'String'>
+    readonly exerciseType: FieldRef<"MasterCourseArticleExercise", 'String'>
+    readonly question: FieldRef<"MasterCourseArticleExercise", 'String'>
+    readonly options: FieldRef<"MasterCourseArticleExercise", 'String'>
+    readonly correctAnswer: FieldRef<"MasterCourseArticleExercise", 'String'>
+    readonly createdAt: FieldRef<"MasterCourseArticleExercise", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * MasterExercise findUnique
+   * MasterCourseArticleExercise findUnique
    */
-  export type MasterExerciseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * Filter, which MasterExercise to fetch.
+     * Filter, which MasterCourseArticleExercise to fetch.
      */
-    where: MasterExerciseWhereUniqueInput
+    where: MasterCourseArticleExerciseWhereUniqueInput
   }
 
   /**
-   * MasterExercise findUniqueOrThrow
+   * MasterCourseArticleExercise findUniqueOrThrow
    */
-  export type MasterExerciseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * Filter, which MasterExercise to fetch.
+     * Filter, which MasterCourseArticleExercise to fetch.
      */
-    where: MasterExerciseWhereUniqueInput
+    where: MasterCourseArticleExerciseWhereUniqueInput
   }
 
   /**
-   * MasterExercise findFirst
+   * MasterCourseArticleExercise findFirst
    */
-  export type MasterExerciseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * Filter, which MasterExercise to fetch.
+     * Filter, which MasterCourseArticleExercise to fetch.
      */
-    where?: MasterExerciseWhereInput
+    where?: MasterCourseArticleExerciseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterExercises to fetch.
+     * Determine the order of MasterCourseArticleExercises to fetch.
      */
-    orderBy?: MasterExerciseOrderByWithRelationInput | MasterExerciseOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleExerciseOrderByWithRelationInput | MasterCourseArticleExerciseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for MasterExercises.
+     * Sets the position for searching for MasterCourseArticleExercises.
      */
-    cursor?: MasterExerciseWhereUniqueInput
+    cursor?: MasterCourseArticleExerciseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterExercises from the position of the cursor.
+     * Take `±n` MasterCourseArticleExercises from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterExercises.
+     * Skip the first `n` MasterCourseArticleExercises.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of MasterExercises.
+     * Filter by unique combinations of MasterCourseArticleExercises.
      */
-    distinct?: MasterExerciseScalarFieldEnum | MasterExerciseScalarFieldEnum[]
+    distinct?: MasterCourseArticleExerciseScalarFieldEnum | MasterCourseArticleExerciseScalarFieldEnum[]
   }
 
   /**
-   * MasterExercise findFirstOrThrow
+   * MasterCourseArticleExercise findFirstOrThrow
    */
-  export type MasterExerciseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * Filter, which MasterExercise to fetch.
+     * Filter, which MasterCourseArticleExercise to fetch.
      */
-    where?: MasterExerciseWhereInput
+    where?: MasterCourseArticleExerciseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterExercises to fetch.
+     * Determine the order of MasterCourseArticleExercises to fetch.
      */
-    orderBy?: MasterExerciseOrderByWithRelationInput | MasterExerciseOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleExerciseOrderByWithRelationInput | MasterCourseArticleExerciseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for MasterExercises.
+     * Sets the position for searching for MasterCourseArticleExercises.
      */
-    cursor?: MasterExerciseWhereUniqueInput
+    cursor?: MasterCourseArticleExerciseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterExercises from the position of the cursor.
+     * Take `±n` MasterCourseArticleExercises from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterExercises.
+     * Skip the first `n` MasterCourseArticleExercises.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of MasterExercises.
+     * Filter by unique combinations of MasterCourseArticleExercises.
      */
-    distinct?: MasterExerciseScalarFieldEnum | MasterExerciseScalarFieldEnum[]
+    distinct?: MasterCourseArticleExerciseScalarFieldEnum | MasterCourseArticleExerciseScalarFieldEnum[]
   }
 
   /**
-   * MasterExercise findMany
+   * MasterCourseArticleExercise findMany
    */
-  export type MasterExerciseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * Filter, which MasterExercises to fetch.
+     * Filter, which MasterCourseArticleExercises to fetch.
      */
-    where?: MasterExerciseWhereInput
+    where?: MasterCourseArticleExerciseWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterExercises to fetch.
+     * Determine the order of MasterCourseArticleExercises to fetch.
      */
-    orderBy?: MasterExerciseOrderByWithRelationInput | MasterExerciseOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleExerciseOrderByWithRelationInput | MasterCourseArticleExerciseOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing MasterExercises.
+     * Sets the position for listing MasterCourseArticleExercises.
      */
-    cursor?: MasterExerciseWhereUniqueInput
+    cursor?: MasterCourseArticleExerciseWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterExercises from the position of the cursor.
+     * Take `±n` MasterCourseArticleExercises from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterExercises.
+     * Skip the first `n` MasterCourseArticleExercises.
      */
     skip?: number
-    distinct?: MasterExerciseScalarFieldEnum | MasterExerciseScalarFieldEnum[]
+    distinct?: MasterCourseArticleExerciseScalarFieldEnum | MasterCourseArticleExerciseScalarFieldEnum[]
   }
 
   /**
-   * MasterExercise create
+   * MasterCourseArticleExercise create
    */
-  export type MasterExerciseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * The data needed to create a MasterExercise.
+     * The data needed to create a MasterCourseArticleExercise.
      */
-    data: XOR<MasterExerciseCreateInput, MasterExerciseUncheckedCreateInput>
+    data: XOR<MasterCourseArticleExerciseCreateInput, MasterCourseArticleExerciseUncheckedCreateInput>
   }
 
   /**
-   * MasterExercise createMany
+   * MasterCourseArticleExercise createMany
    */
-  export type MasterExerciseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many MasterExercises.
+     * The data used to create many MasterCourseArticleExercises.
      */
-    data: MasterExerciseCreateManyInput | MasterExerciseCreateManyInput[]
+    data: MasterCourseArticleExerciseCreateManyInput | MasterCourseArticleExerciseCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * MasterExercise createManyAndReturn
+   * MasterCourseArticleExercise createManyAndReturn
    */
-  export type MasterExerciseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelectCreateManyAndReturn<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
-     * The data used to create many MasterExercises.
+     * The data used to create many MasterCourseArticleExercises.
      */
-    data: MasterExerciseCreateManyInput | MasterExerciseCreateManyInput[]
+    data: MasterCourseArticleExerciseCreateManyInput | MasterCourseArticleExerciseCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: MasterCourseArticleExerciseIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * MasterExercise update
+   * MasterCourseArticleExercise update
    */
-  export type MasterExerciseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * The data needed to update a MasterExercise.
+     * The data needed to update a MasterCourseArticleExercise.
      */
-    data: XOR<MasterExerciseUpdateInput, MasterExerciseUncheckedUpdateInput>
+    data: XOR<MasterCourseArticleExerciseUpdateInput, MasterCourseArticleExerciseUncheckedUpdateInput>
     /**
-     * Choose, which MasterExercise to update.
+     * Choose, which MasterCourseArticleExercise to update.
      */
-    where: MasterExerciseWhereUniqueInput
+    where: MasterCourseArticleExerciseWhereUniqueInput
   }
 
   /**
-   * MasterExercise updateMany
+   * MasterCourseArticleExercise updateMany
    */
-  export type MasterExerciseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update MasterExercises.
+     * The data used to update MasterCourseArticleExercises.
      */
-    data: XOR<MasterExerciseUpdateManyMutationInput, MasterExerciseUncheckedUpdateManyInput>
+    data: XOR<MasterCourseArticleExerciseUpdateManyMutationInput, MasterCourseArticleExerciseUncheckedUpdateManyInput>
     /**
-     * Filter which MasterExercises to update
+     * Filter which MasterCourseArticleExercises to update
      */
-    where?: MasterExerciseWhereInput
+    where?: MasterCourseArticleExerciseWhereInput
     /**
-     * Limit how many MasterExercises to update.
+     * Limit how many MasterCourseArticleExercises to update.
      */
     limit?: number
   }
 
   /**
-   * MasterExercise updateManyAndReturn
+   * MasterCourseArticleExercise updateManyAndReturn
    */
-  export type MasterExerciseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
-     * The data used to update MasterExercises.
+     * The data used to update MasterCourseArticleExercises.
      */
-    data: XOR<MasterExerciseUpdateManyMutationInput, MasterExerciseUncheckedUpdateManyInput>
+    data: XOR<MasterCourseArticleExerciseUpdateManyMutationInput, MasterCourseArticleExerciseUncheckedUpdateManyInput>
     /**
-     * Filter which MasterExercises to update
+     * Filter which MasterCourseArticleExercises to update
      */
-    where?: MasterExerciseWhereInput
+    where?: MasterCourseArticleExerciseWhereInput
     /**
-     * Limit how many MasterExercises to update.
+     * Limit how many MasterCourseArticleExercises to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: MasterCourseArticleExerciseIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * MasterExercise upsert
+   * MasterCourseArticleExercise upsert
    */
-  export type MasterExerciseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * The filter to search for the MasterExercise to update in case it exists.
+     * The filter to search for the MasterCourseArticleExercise to update in case it exists.
      */
-    where: MasterExerciseWhereUniqueInput
+    where: MasterCourseArticleExerciseWhereUniqueInput
     /**
-     * In case the MasterExercise found by the `where` argument doesn't exist, create a new MasterExercise with this data.
+     * In case the MasterCourseArticleExercise found by the `where` argument doesn't exist, create a new MasterCourseArticleExercise with this data.
      */
-    create: XOR<MasterExerciseCreateInput, MasterExerciseUncheckedCreateInput>
+    create: XOR<MasterCourseArticleExerciseCreateInput, MasterCourseArticleExerciseUncheckedCreateInput>
     /**
-     * In case the MasterExercise was found with the provided `where` argument, update it with this data.
+     * In case the MasterCourseArticleExercise was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<MasterExerciseUpdateInput, MasterExerciseUncheckedUpdateInput>
+    update: XOR<MasterCourseArticleExerciseUpdateInput, MasterCourseArticleExerciseUncheckedUpdateInput>
   }
 
   /**
-   * MasterExercise delete
+   * MasterCourseArticleExercise delete
    */
-  export type MasterExerciseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
     /**
-     * Filter which MasterExercise to delete.
+     * Filter which MasterCourseArticleExercise to delete.
      */
-    where: MasterExerciseWhereUniqueInput
+    where: MasterCourseArticleExerciseWhereUniqueInput
   }
 
   /**
-   * MasterExercise deleteMany
+   * MasterCourseArticleExercise deleteMany
    */
-  export type MasterExerciseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which MasterExercises to delete
+     * Filter which MasterCourseArticleExercises to delete
      */
-    where?: MasterExerciseWhereInput
+    where?: MasterCourseArticleExerciseWhereInput
     /**
-     * Limit how many MasterExercises to delete.
+     * Limit how many MasterCourseArticleExercises to delete.
      */
     limit?: number
   }
 
   /**
-   * MasterExercise without action
+   * MasterCourseArticleExercise without action
    */
-  export type MasterExerciseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleExerciseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterExercise
+     * Select specific fields to fetch from the MasterCourseArticleExercise
      */
-    select?: MasterExerciseSelect<ExtArgs> | null
+    select?: MasterCourseArticleExerciseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterExercise
+     * Omit specific fields from the MasterCourseArticleExercise
      */
-    omit?: MasterExerciseOmit<ExtArgs> | null
+    omit?: MasterCourseArticleExerciseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterExerciseInclude<ExtArgs> | null
+    include?: MasterCourseArticleExerciseInclude<ExtArgs> | null
   }
 
 
@@ -9305,21 +10279,21 @@ export namespace Prisma {
   export type ChatRoomMinAggregateOutputType = {
     id: string | null
     userId: string | null
-    courseContentId: string | null
+    courseArticleId: string | null
     createdAt: Date | null
   }
 
   export type ChatRoomMaxAggregateOutputType = {
     id: string | null
     userId: string | null
-    courseContentId: string | null
+    courseArticleId: string | null
     createdAt: Date | null
   }
 
   export type ChatRoomCountAggregateOutputType = {
     id: number
     userId: number
-    courseContentId: number
+    courseArticleId: number
     createdAt: number
     _all: number
   }
@@ -9328,21 +10302,21 @@ export namespace Prisma {
   export type ChatRoomMinAggregateInputType = {
     id?: true
     userId?: true
-    courseContentId?: true
+    courseArticleId?: true
     createdAt?: true
   }
 
   export type ChatRoomMaxAggregateInputType = {
     id?: true
     userId?: true
-    courseContentId?: true
+    courseArticleId?: true
     createdAt?: true
   }
 
   export type ChatRoomCountAggregateInputType = {
     id?: true
     userId?: true
-    courseContentId?: true
+    courseArticleId?: true
     createdAt?: true
     _all?: true
   }
@@ -9422,7 +10396,7 @@ export namespace Prisma {
   export type ChatRoomGroupByOutputType = {
     id: string
     userId: string
-    courseContentId: string
+    courseArticleId: string
     createdAt: Date
     _count: ChatRoomCountAggregateOutputType | null
     _min: ChatRoomMinAggregateOutputType | null
@@ -9446,10 +10420,10 @@ export namespace Prisma {
   export type ChatRoomSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
     chatMessage?: boolean | ChatRoom$chatMessageArgs<ExtArgs>
     _count?: boolean | ChatRoomCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chatRoom"]>
@@ -9457,55 +10431,55 @@ export namespace Prisma {
   export type ChatRoomSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chatRoom"]>
 
   export type ChatRoomSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chatRoom"]>
 
   export type ChatRoomSelectScalar = {
     id?: boolean
     userId?: boolean
-    courseContentId?: boolean
+    courseArticleId?: boolean
     createdAt?: boolean
   }
 
-  export type ChatRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseContentId" | "createdAt", ExtArgs["result"]["chatRoom"]>
+  export type ChatRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "courseArticleId" | "createdAt", ExtArgs["result"]["chatRoom"]>
   export type ChatRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
     chatMessage?: boolean | ChatRoom$chatMessageArgs<ExtArgs>
     _count?: boolean | ChatRoomCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChatRoomIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
   export type ChatRoomIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    courseContent?: boolean | MasterCourseContentDefaultArgs<ExtArgs>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
 
   export type $ChatRoomPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ChatRoom"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      courseContent: Prisma.$MasterCourseContentPayload<ExtArgs>
+      courseArticle: Prisma.$MasterCourseArticlePayload<ExtArgs>
       chatMessage: Prisma.$ChatMessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       userId: string
-      courseContentId: string
+      courseArticleId: string
       createdAt: Date
     }, ExtArgs["result"]["chatRoom"]>
     composites: {}
@@ -9902,7 +10876,7 @@ export namespace Prisma {
   export interface Prisma__ChatRoomClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    courseContent<T extends MasterCourseContentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseContentDefaultArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    courseArticle<T extends MasterCourseArticleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseArticleDefaultArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     chatMessage<T extends ChatRoom$chatMessageArgs<ExtArgs> = {}>(args?: Subset<T, ChatRoom$chatMessageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChatMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9935,7 +10909,7 @@ export namespace Prisma {
   interface ChatRoomFieldRefs {
     readonly id: FieldRef<"ChatRoom", 'String'>
     readonly userId: FieldRef<"ChatRoom", 'String'>
-    readonly courseContentId: FieldRef<"ChatRoom", 'String'>
+    readonly courseArticleId: FieldRef<"ChatRoom", 'String'>
     readonly createdAt: FieldRef<"ChatRoom", 'DateTime'>
   }
     
@@ -10392,7 +11366,7 @@ export namespace Prisma {
     role: string | null
     message: string | null
     createdAt: Date | null
-    masterCourseContentId: string | null
+    masterCourseArticleId: string | null
   }
 
   export type ChatMessageMaxAggregateOutputType = {
@@ -10402,7 +11376,7 @@ export namespace Prisma {
     role: string | null
     message: string | null
     createdAt: Date | null
-    masterCourseContentId: string | null
+    masterCourseArticleId: string | null
   }
 
   export type ChatMessageCountAggregateOutputType = {
@@ -10412,7 +11386,7 @@ export namespace Prisma {
     role: number
     message: number
     createdAt: number
-    masterCourseContentId: number
+    masterCourseArticleId: number
     _all: number
   }
 
@@ -10424,7 +11398,7 @@ export namespace Prisma {
     role?: true
     message?: true
     createdAt?: true
-    masterCourseContentId?: true
+    masterCourseArticleId?: true
   }
 
   export type ChatMessageMaxAggregateInputType = {
@@ -10434,7 +11408,7 @@ export namespace Prisma {
     role?: true
     message?: true
     createdAt?: true
-    masterCourseContentId?: true
+    masterCourseArticleId?: true
   }
 
   export type ChatMessageCountAggregateInputType = {
@@ -10444,7 +11418,7 @@ export namespace Prisma {
     role?: true
     message?: true
     createdAt?: true
-    masterCourseContentId?: true
+    masterCourseArticleId?: true
     _all?: true
   }
 
@@ -10527,7 +11501,7 @@ export namespace Prisma {
     role: string
     message: string
     createdAt: Date
-    masterCourseContentId: string | null
+    masterCourseArticleId: string | null
     _count: ChatMessageCountAggregateOutputType | null
     _min: ChatMessageMinAggregateOutputType | null
     _max: ChatMessageMaxAggregateOutputType | null
@@ -10554,10 +11528,9 @@ export namespace Prisma {
     role?: boolean
     message?: boolean
     createdAt?: boolean
-    masterCourseContentId?: boolean
+    masterCourseArticleId?: boolean
     chatRoom?: boolean | ChatRoomDefaultArgs<ExtArgs>
     user?: boolean | ChatMessage$userArgs<ExtArgs>
-    MasterCourseContent?: boolean | ChatMessage$MasterCourseContentArgs<ExtArgs>
   }, ExtArgs["result"]["chatMessage"]>
 
   export type ChatMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10567,10 +11540,9 @@ export namespace Prisma {
     role?: boolean
     message?: boolean
     createdAt?: boolean
-    masterCourseContentId?: boolean
+    masterCourseArticleId?: boolean
     chatRoom?: boolean | ChatRoomDefaultArgs<ExtArgs>
     user?: boolean | ChatMessage$userArgs<ExtArgs>
-    MasterCourseContent?: boolean | ChatMessage$MasterCourseContentArgs<ExtArgs>
   }, ExtArgs["result"]["chatMessage"]>
 
   export type ChatMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10580,10 +11552,9 @@ export namespace Prisma {
     role?: boolean
     message?: boolean
     createdAt?: boolean
-    masterCourseContentId?: boolean
+    masterCourseArticleId?: boolean
     chatRoom?: boolean | ChatRoomDefaultArgs<ExtArgs>
     user?: boolean | ChatMessage$userArgs<ExtArgs>
-    MasterCourseContent?: boolean | ChatMessage$MasterCourseContentArgs<ExtArgs>
   }, ExtArgs["result"]["chatMessage"]>
 
   export type ChatMessageSelectScalar = {
@@ -10593,24 +11564,21 @@ export namespace Prisma {
     role?: boolean
     message?: boolean
     createdAt?: boolean
-    masterCourseContentId?: boolean
+    masterCourseArticleId?: boolean
   }
 
-  export type ChatMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chatRoomId" | "userId" | "role" | "message" | "createdAt" | "masterCourseContentId", ExtArgs["result"]["chatMessage"]>
+  export type ChatMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chatRoomId" | "userId" | "role" | "message" | "createdAt" | "masterCourseArticleId", ExtArgs["result"]["chatMessage"]>
   export type ChatMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     chatRoom?: boolean | ChatRoomDefaultArgs<ExtArgs>
     user?: boolean | ChatMessage$userArgs<ExtArgs>
-    MasterCourseContent?: boolean | ChatMessage$MasterCourseContentArgs<ExtArgs>
   }
   export type ChatMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     chatRoom?: boolean | ChatRoomDefaultArgs<ExtArgs>
     user?: boolean | ChatMessage$userArgs<ExtArgs>
-    MasterCourseContent?: boolean | ChatMessage$MasterCourseContentArgs<ExtArgs>
   }
   export type ChatMessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     chatRoom?: boolean | ChatRoomDefaultArgs<ExtArgs>
     user?: boolean | ChatMessage$userArgs<ExtArgs>
-    MasterCourseContent?: boolean | ChatMessage$MasterCourseContentArgs<ExtArgs>
   }
 
   export type $ChatMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10618,7 +11586,6 @@ export namespace Prisma {
     objects: {
       chatRoom: Prisma.$ChatRoomPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs> | null
-      MasterCourseContent: Prisma.$MasterCourseContentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10627,7 +11594,7 @@ export namespace Prisma {
       role: string
       message: string
       createdAt: Date
-      masterCourseContentId: string | null
+      masterCourseArticleId: string | null
     }, ExtArgs["result"]["chatMessage"]>
     composites: {}
   }
@@ -11024,7 +11991,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     chatRoom<T extends ChatRoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChatRoomDefaultArgs<ExtArgs>>): Prisma__ChatRoomClient<$Result.GetResult<Prisma.$ChatRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends ChatMessage$userArgs<ExtArgs> = {}>(args?: Subset<T, ChatMessage$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    MasterCourseContent<T extends ChatMessage$MasterCourseContentArgs<ExtArgs> = {}>(args?: Subset<T, ChatMessage$MasterCourseContentArgs<ExtArgs>>): Prisma__MasterCourseContentClient<$Result.GetResult<Prisma.$MasterCourseContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11060,7 +12026,7 @@ export namespace Prisma {
     readonly role: FieldRef<"ChatMessage", 'String'>
     readonly message: FieldRef<"ChatMessage", 'String'>
     readonly createdAt: FieldRef<"ChatMessage", 'DateTime'>
-    readonly masterCourseContentId: FieldRef<"ChatMessage", 'String'>
+    readonly masterCourseArticleId: FieldRef<"ChatMessage", 'String'>
   }
     
 
@@ -11476,25 +12442,6 @@ export namespace Prisma {
   }
 
   /**
-   * ChatMessage.MasterCourseContent
-   */
-  export type ChatMessage$MasterCourseContentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MasterCourseContent
-     */
-    select?: MasterCourseContentSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MasterCourseContent
-     */
-    omit?: MasterCourseContentOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MasterCourseContentInclude<ExtArgs> | null
-    where?: MasterCourseContentWhereInput
-  }
-
-  /**
    * ChatMessage without action
    */
   export type ChatMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11514,36 +12461,36 @@ export namespace Prisma {
 
 
   /**
-   * Model MasterCourseFAQ
+   * Model MasterCourseArticleFAQ
    */
 
-  export type AggregateMasterCourseFAQ = {
-    _count: MasterCourseFAQCountAggregateOutputType | null
-    _min: MasterCourseFAQMinAggregateOutputType | null
-    _max: MasterCourseFAQMaxAggregateOutputType | null
+  export type AggregateMasterCourseArticleFAQ = {
+    _count: MasterCourseArticleFAQCountAggregateOutputType | null
+    _min: MasterCourseArticleFAQMinAggregateOutputType | null
+    _max: MasterCourseArticleFAQMaxAggregateOutputType | null
   }
 
-  export type MasterCourseFAQMinAggregateOutputType = {
+  export type MasterCourseArticleFAQMinAggregateOutputType = {
     id: string | null
-    courseId: string | null
+    courseArticleId: string | null
     question: string | null
     answer: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type MasterCourseFAQMaxAggregateOutputType = {
+  export type MasterCourseArticleFAQMaxAggregateOutputType = {
     id: string | null
-    courseId: string | null
+    courseArticleId: string | null
     question: string | null
     answer: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
-  export type MasterCourseFAQCountAggregateOutputType = {
+  export type MasterCourseArticleFAQCountAggregateOutputType = {
     id: number
-    courseId: number
+    courseArticleId: number
     question: number
     answer: number
     createdAt: number
@@ -11552,27 +12499,27 @@ export namespace Prisma {
   }
 
 
-  export type MasterCourseFAQMinAggregateInputType = {
+  export type MasterCourseArticleFAQMinAggregateInputType = {
     id?: true
-    courseId?: true
+    courseArticleId?: true
     question?: true
     answer?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type MasterCourseFAQMaxAggregateInputType = {
+  export type MasterCourseArticleFAQMaxAggregateInputType = {
     id?: true
-    courseId?: true
+    courseArticleId?: true
     question?: true
     answer?: true
     createdAt?: true
     updatedAt?: true
   }
 
-  export type MasterCourseFAQCountAggregateInputType = {
+  export type MasterCourseArticleFAQCountAggregateInputType = {
     id?: true
-    courseId?: true
+    courseArticleId?: true
     question?: true
     answer?: true
     createdAt?: true
@@ -11580,296 +12527,296 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type MasterCourseFAQAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which MasterCourseFAQ to aggregate.
+     * Filter which MasterCourseArticleFAQ to aggregate.
      */
-    where?: MasterCourseFAQWhereInput
+    where?: MasterCourseArticleFAQWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseFAQS to fetch.
+     * Determine the order of MasterCourseArticleFAQS to fetch.
      */
-    orderBy?: MasterCourseFAQOrderByWithRelationInput | MasterCourseFAQOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleFAQOrderByWithRelationInput | MasterCourseArticleFAQOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: MasterCourseFAQWhereUniqueInput
+    cursor?: MasterCourseArticleFAQWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseFAQS from the position of the cursor.
+     * Take `±n` MasterCourseArticleFAQS from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseFAQS.
+     * Skip the first `n` MasterCourseArticleFAQS.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned MasterCourseFAQS
+     * Count returned MasterCourseArticleFAQS
     **/
-    _count?: true | MasterCourseFAQCountAggregateInputType
+    _count?: true | MasterCourseArticleFAQCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: MasterCourseFAQMinAggregateInputType
+    _min?: MasterCourseArticleFAQMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: MasterCourseFAQMaxAggregateInputType
+    _max?: MasterCourseArticleFAQMaxAggregateInputType
   }
 
-  export type GetMasterCourseFAQAggregateType<T extends MasterCourseFAQAggregateArgs> = {
-        [P in keyof T & keyof AggregateMasterCourseFAQ]: P extends '_count' | 'count'
+  export type GetMasterCourseArticleFAQAggregateType<T extends MasterCourseArticleFAQAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasterCourseArticleFAQ]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateMasterCourseFAQ[P]>
-      : GetScalarType<T[P], AggregateMasterCourseFAQ[P]>
+        : GetScalarType<T[P], AggregateMasterCourseArticleFAQ[P]>
+      : GetScalarType<T[P], AggregateMasterCourseArticleFAQ[P]>
   }
 
 
 
 
-  export type MasterCourseFAQGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MasterCourseFAQWhereInput
-    orderBy?: MasterCourseFAQOrderByWithAggregationInput | MasterCourseFAQOrderByWithAggregationInput[]
-    by: MasterCourseFAQScalarFieldEnum[] | MasterCourseFAQScalarFieldEnum
-    having?: MasterCourseFAQScalarWhereWithAggregatesInput
+  export type MasterCourseArticleFAQGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleFAQWhereInput
+    orderBy?: MasterCourseArticleFAQOrderByWithAggregationInput | MasterCourseArticleFAQOrderByWithAggregationInput[]
+    by: MasterCourseArticleFAQScalarFieldEnum[] | MasterCourseArticleFAQScalarFieldEnum
+    having?: MasterCourseArticleFAQScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: MasterCourseFAQCountAggregateInputType | true
-    _min?: MasterCourseFAQMinAggregateInputType
-    _max?: MasterCourseFAQMaxAggregateInputType
+    _count?: MasterCourseArticleFAQCountAggregateInputType | true
+    _min?: MasterCourseArticleFAQMinAggregateInputType
+    _max?: MasterCourseArticleFAQMaxAggregateInputType
   }
 
-  export type MasterCourseFAQGroupByOutputType = {
+  export type MasterCourseArticleFAQGroupByOutputType = {
     id: string
-    courseId: string
+    courseArticleId: string
     question: string
     answer: string
     createdAt: Date
     updatedAt: Date
-    _count: MasterCourseFAQCountAggregateOutputType | null
-    _min: MasterCourseFAQMinAggregateOutputType | null
-    _max: MasterCourseFAQMaxAggregateOutputType | null
+    _count: MasterCourseArticleFAQCountAggregateOutputType | null
+    _min: MasterCourseArticleFAQMinAggregateOutputType | null
+    _max: MasterCourseArticleFAQMaxAggregateOutputType | null
   }
 
-  type GetMasterCourseFAQGroupByPayload<T extends MasterCourseFAQGroupByArgs> = Prisma.PrismaPromise<
+  type GetMasterCourseArticleFAQGroupByPayload<T extends MasterCourseArticleFAQGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<MasterCourseFAQGroupByOutputType, T['by']> &
+      PickEnumerable<MasterCourseArticleFAQGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof MasterCourseFAQGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof MasterCourseArticleFAQGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], MasterCourseFAQGroupByOutputType[P]>
-            : GetScalarType<T[P], MasterCourseFAQGroupByOutputType[P]>
+              : GetScalarType<T[P], MasterCourseArticleFAQGroupByOutputType[P]>
+            : GetScalarType<T[P], MasterCourseArticleFAQGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type MasterCourseFAQSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseArticleFAQSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    courseId?: boolean
+    courseArticleId?: boolean
     question?: boolean
     answer?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterCourseFAQ"]>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticleFAQ"]>
 
-  export type MasterCourseFAQSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseArticleFAQSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    courseId?: boolean
+    courseArticleId?: boolean
     question?: boolean
     answer?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterCourseFAQ"]>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticleFAQ"]>
 
-  export type MasterCourseFAQSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MasterCourseArticleFAQSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    courseId?: boolean
+    courseArticleId?: boolean
     question?: boolean
     answer?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["masterCourseFAQ"]>
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["masterCourseArticleFAQ"]>
 
-  export type MasterCourseFAQSelectScalar = {
+  export type MasterCourseArticleFAQSelectScalar = {
     id?: boolean
-    courseId?: boolean
+    courseArticleId?: boolean
     question?: boolean
     answer?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MasterCourseFAQOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseId" | "question" | "answer" | "createdAt" | "updatedAt", ExtArgs["result"]["masterCourseFAQ"]>
-  export type MasterCourseFAQInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+  export type MasterCourseArticleFAQOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "courseArticleId" | "question" | "answer" | "createdAt" | "updatedAt", ExtArgs["result"]["masterCourseArticleFAQ"]>
+  export type MasterCourseArticleFAQInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
-  export type MasterCourseFAQIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+  export type MasterCourseArticleFAQIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
-  export type MasterCourseFAQIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    course?: boolean | MasterCourseDefaultArgs<ExtArgs>
+  export type MasterCourseArticleFAQIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    courseArticle?: boolean | MasterCourseArticleDefaultArgs<ExtArgs>
   }
 
-  export type $MasterCourseFAQPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "MasterCourseFAQ"
+  export type $MasterCourseArticleFAQPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MasterCourseArticleFAQ"
     objects: {
-      course: Prisma.$MasterCoursePayload<ExtArgs>
+      courseArticle: Prisma.$MasterCourseArticlePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      courseId: string
+      courseArticleId: string
       question: string
       answer: string
       createdAt: Date
       updatedAt: Date
-    }, ExtArgs["result"]["masterCourseFAQ"]>
+    }, ExtArgs["result"]["masterCourseArticleFAQ"]>
     composites: {}
   }
 
-  type MasterCourseFAQGetPayload<S extends boolean | null | undefined | MasterCourseFAQDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseFAQPayload, S>
+  type MasterCourseArticleFAQGetPayload<S extends boolean | null | undefined | MasterCourseArticleFAQDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseArticleFAQPayload, S>
 
-  type MasterCourseFAQCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MasterCourseFAQFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MasterCourseFAQCountAggregateInputType | true
+  type MasterCourseArticleFAQCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MasterCourseArticleFAQFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasterCourseArticleFAQCountAggregateInputType | true
     }
 
-  export interface MasterCourseFAQDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseFAQ'], meta: { name: 'MasterCourseFAQ' } }
+  export interface MasterCourseArticleFAQDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseArticleFAQ'], meta: { name: 'MasterCourseArticleFAQ' } }
     /**
-     * Find zero or one MasterCourseFAQ that matches the filter.
-     * @param {MasterCourseFAQFindUniqueArgs} args - Arguments to find a MasterCourseFAQ
+     * Find zero or one MasterCourseArticleFAQ that matches the filter.
+     * @param {MasterCourseArticleFAQFindUniqueArgs} args - Arguments to find a MasterCourseArticleFAQ
      * @example
-     * // Get one MasterCourseFAQ
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.findUnique({
+     * // Get one MasterCourseArticleFAQ
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends MasterCourseFAQFindUniqueArgs>(args: SelectSubset<T, MasterCourseFAQFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends MasterCourseArticleFAQFindUniqueArgs>(args: SelectSubset<T, MasterCourseArticleFAQFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one MasterCourseFAQ that matches the filter or throw an error with `error.code='P2025'`
+     * Find one MasterCourseArticleFAQ that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {MasterCourseFAQFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseFAQ
+     * @param {MasterCourseArticleFAQFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseArticleFAQ
      * @example
-     * // Get one MasterCourseFAQ
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.findUniqueOrThrow({
+     * // Get one MasterCourseArticleFAQ
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends MasterCourseFAQFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseFAQFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends MasterCourseArticleFAQFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseArticleFAQFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first MasterCourseFAQ that matches the filter.
+     * Find the first MasterCourseArticleFAQ that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseFAQFindFirstArgs} args - Arguments to find a MasterCourseFAQ
+     * @param {MasterCourseArticleFAQFindFirstArgs} args - Arguments to find a MasterCourseArticleFAQ
      * @example
-     * // Get one MasterCourseFAQ
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.findFirst({
+     * // Get one MasterCourseArticleFAQ
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends MasterCourseFAQFindFirstArgs>(args?: SelectSubset<T, MasterCourseFAQFindFirstArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends MasterCourseArticleFAQFindFirstArgs>(args?: SelectSubset<T, MasterCourseArticleFAQFindFirstArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first MasterCourseFAQ that matches the filter or
+     * Find the first MasterCourseArticleFAQ that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseFAQFindFirstOrThrowArgs} args - Arguments to find a MasterCourseFAQ
+     * @param {MasterCourseArticleFAQFindFirstOrThrowArgs} args - Arguments to find a MasterCourseArticleFAQ
      * @example
-     * // Get one MasterCourseFAQ
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.findFirstOrThrow({
+     * // Get one MasterCourseArticleFAQ
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends MasterCourseFAQFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseFAQFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends MasterCourseArticleFAQFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseArticleFAQFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more MasterCourseFAQS that matches the filter.
+     * Find zero or more MasterCourseArticleFAQS that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseFAQFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MasterCourseArticleFAQFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all MasterCourseFAQS
-     * const masterCourseFAQS = await prisma.masterCourseFAQ.findMany()
+     * // Get all MasterCourseArticleFAQS
+     * const masterCourseArticleFAQS = await prisma.masterCourseArticleFAQ.findMany()
      * 
-     * // Get first 10 MasterCourseFAQS
-     * const masterCourseFAQS = await prisma.masterCourseFAQ.findMany({ take: 10 })
+     * // Get first 10 MasterCourseArticleFAQS
+     * const masterCourseArticleFAQS = await prisma.masterCourseArticleFAQ.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const masterCourseFAQWithIdOnly = await prisma.masterCourseFAQ.findMany({ select: { id: true } })
+     * const masterCourseArticleFAQWithIdOnly = await prisma.masterCourseArticleFAQ.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends MasterCourseFAQFindManyArgs>(args?: SelectSubset<T, MasterCourseFAQFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends MasterCourseArticleFAQFindManyArgs>(args?: SelectSubset<T, MasterCourseArticleFAQFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a MasterCourseFAQ.
-     * @param {MasterCourseFAQCreateArgs} args - Arguments to create a MasterCourseFAQ.
+     * Create a MasterCourseArticleFAQ.
+     * @param {MasterCourseArticleFAQCreateArgs} args - Arguments to create a MasterCourseArticleFAQ.
      * @example
-     * // Create one MasterCourseFAQ
-     * const MasterCourseFAQ = await prisma.masterCourseFAQ.create({
+     * // Create one MasterCourseArticleFAQ
+     * const MasterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.create({
      *   data: {
-     *     // ... data to create a MasterCourseFAQ
+     *     // ... data to create a MasterCourseArticleFAQ
      *   }
      * })
      * 
      */
-    create<T extends MasterCourseFAQCreateArgs>(args: SelectSubset<T, MasterCourseFAQCreateArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends MasterCourseArticleFAQCreateArgs>(args: SelectSubset<T, MasterCourseArticleFAQCreateArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many MasterCourseFAQS.
-     * @param {MasterCourseFAQCreateManyArgs} args - Arguments to create many MasterCourseFAQS.
+     * Create many MasterCourseArticleFAQS.
+     * @param {MasterCourseArticleFAQCreateManyArgs} args - Arguments to create many MasterCourseArticleFAQS.
      * @example
-     * // Create many MasterCourseFAQS
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.createMany({
+     * // Create many MasterCourseArticleFAQS
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends MasterCourseFAQCreateManyArgs>(args?: SelectSubset<T, MasterCourseFAQCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends MasterCourseArticleFAQCreateManyArgs>(args?: SelectSubset<T, MasterCourseArticleFAQCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many MasterCourseFAQS and returns the data saved in the database.
-     * @param {MasterCourseFAQCreateManyAndReturnArgs} args - Arguments to create many MasterCourseFAQS.
+     * Create many MasterCourseArticleFAQS and returns the data saved in the database.
+     * @param {MasterCourseArticleFAQCreateManyAndReturnArgs} args - Arguments to create many MasterCourseArticleFAQS.
      * @example
-     * // Create many MasterCourseFAQS
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.createManyAndReturn({
+     * // Create many MasterCourseArticleFAQS
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many MasterCourseFAQS and only return the `id`
-     * const masterCourseFAQWithIdOnly = await prisma.masterCourseFAQ.createManyAndReturn({
+     * // Create many MasterCourseArticleFAQS and only return the `id`
+     * const masterCourseArticleFAQWithIdOnly = await prisma.masterCourseArticleFAQ.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -11879,28 +12826,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends MasterCourseFAQCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseFAQCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends MasterCourseArticleFAQCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseArticleFAQCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a MasterCourseFAQ.
-     * @param {MasterCourseFAQDeleteArgs} args - Arguments to delete one MasterCourseFAQ.
+     * Delete a MasterCourseArticleFAQ.
+     * @param {MasterCourseArticleFAQDeleteArgs} args - Arguments to delete one MasterCourseArticleFAQ.
      * @example
-     * // Delete one MasterCourseFAQ
-     * const MasterCourseFAQ = await prisma.masterCourseFAQ.delete({
+     * // Delete one MasterCourseArticleFAQ
+     * const MasterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.delete({
      *   where: {
-     *     // ... filter to delete one MasterCourseFAQ
+     *     // ... filter to delete one MasterCourseArticleFAQ
      *   }
      * })
      * 
      */
-    delete<T extends MasterCourseFAQDeleteArgs>(args: SelectSubset<T, MasterCourseFAQDeleteArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends MasterCourseArticleFAQDeleteArgs>(args: SelectSubset<T, MasterCourseArticleFAQDeleteArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one MasterCourseFAQ.
-     * @param {MasterCourseFAQUpdateArgs} args - Arguments to update one MasterCourseFAQ.
+     * Update one MasterCourseArticleFAQ.
+     * @param {MasterCourseArticleFAQUpdateArgs} args - Arguments to update one MasterCourseArticleFAQ.
      * @example
-     * // Update one MasterCourseFAQ
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.update({
+     * // Update one MasterCourseArticleFAQ
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11910,30 +12857,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends MasterCourseFAQUpdateArgs>(args: SelectSubset<T, MasterCourseFAQUpdateArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends MasterCourseArticleFAQUpdateArgs>(args: SelectSubset<T, MasterCourseArticleFAQUpdateArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more MasterCourseFAQS.
-     * @param {MasterCourseFAQDeleteManyArgs} args - Arguments to filter MasterCourseFAQS to delete.
+     * Delete zero or more MasterCourseArticleFAQS.
+     * @param {MasterCourseArticleFAQDeleteManyArgs} args - Arguments to filter MasterCourseArticleFAQS to delete.
      * @example
-     * // Delete a few MasterCourseFAQS
-     * const { count } = await prisma.masterCourseFAQ.deleteMany({
+     * // Delete a few MasterCourseArticleFAQS
+     * const { count } = await prisma.masterCourseArticleFAQ.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends MasterCourseFAQDeleteManyArgs>(args?: SelectSubset<T, MasterCourseFAQDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends MasterCourseArticleFAQDeleteManyArgs>(args?: SelectSubset<T, MasterCourseArticleFAQDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more MasterCourseFAQS.
+     * Update zero or more MasterCourseArticleFAQS.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseFAQUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {MasterCourseArticleFAQUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many MasterCourseFAQS
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.updateMany({
+     * // Update many MasterCourseArticleFAQS
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11943,14 +12890,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends MasterCourseFAQUpdateManyArgs>(args: SelectSubset<T, MasterCourseFAQUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends MasterCourseArticleFAQUpdateManyArgs>(args: SelectSubset<T, MasterCourseArticleFAQUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more MasterCourseFAQS and returns the data updated in the database.
-     * @param {MasterCourseFAQUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseFAQS.
+     * Update zero or more MasterCourseArticleFAQS and returns the data updated in the database.
+     * @param {MasterCourseArticleFAQUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseArticleFAQS.
      * @example
-     * // Update many MasterCourseFAQS
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.updateManyAndReturn({
+     * // Update many MasterCourseArticleFAQS
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -11959,8 +12906,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more MasterCourseFAQS and only return the `id`
-     * const masterCourseFAQWithIdOnly = await prisma.masterCourseFAQ.updateManyAndReturn({
+     * // Update zero or more MasterCourseArticleFAQS and only return the `id`
+     * const masterCourseArticleFAQWithIdOnly = await prisma.masterCourseArticleFAQ.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -11973,56 +12920,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends MasterCourseFAQUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseFAQUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends MasterCourseArticleFAQUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseArticleFAQUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one MasterCourseFAQ.
-     * @param {MasterCourseFAQUpsertArgs} args - Arguments to update or create a MasterCourseFAQ.
+     * Create or update one MasterCourseArticleFAQ.
+     * @param {MasterCourseArticleFAQUpsertArgs} args - Arguments to update or create a MasterCourseArticleFAQ.
      * @example
-     * // Update or create a MasterCourseFAQ
-     * const masterCourseFAQ = await prisma.masterCourseFAQ.upsert({
+     * // Update or create a MasterCourseArticleFAQ
+     * const masterCourseArticleFAQ = await prisma.masterCourseArticleFAQ.upsert({
      *   create: {
-     *     // ... data to create a MasterCourseFAQ
+     *     // ... data to create a MasterCourseArticleFAQ
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the MasterCourseFAQ we want to update
+     *     // ... the filter for the MasterCourseArticleFAQ we want to update
      *   }
      * })
      */
-    upsert<T extends MasterCourseFAQUpsertArgs>(args: SelectSubset<T, MasterCourseFAQUpsertArgs<ExtArgs>>): Prisma__MasterCourseFAQClient<$Result.GetResult<Prisma.$MasterCourseFAQPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends MasterCourseArticleFAQUpsertArgs>(args: SelectSubset<T, MasterCourseArticleFAQUpsertArgs<ExtArgs>>): Prisma__MasterCourseArticleFAQClient<$Result.GetResult<Prisma.$MasterCourseArticleFAQPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of MasterCourseFAQS.
+     * Count the number of MasterCourseArticleFAQS.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseFAQCountArgs} args - Arguments to filter MasterCourseFAQS to count.
+     * @param {MasterCourseArticleFAQCountArgs} args - Arguments to filter MasterCourseArticleFAQS to count.
      * @example
-     * // Count the number of MasterCourseFAQS
-     * const count = await prisma.masterCourseFAQ.count({
+     * // Count the number of MasterCourseArticleFAQS
+     * const count = await prisma.masterCourseArticleFAQ.count({
      *   where: {
-     *     // ... the filter for the MasterCourseFAQS we want to count
+     *     // ... the filter for the MasterCourseArticleFAQS we want to count
      *   }
      * })
     **/
-    count<T extends MasterCourseFAQCountArgs>(
-      args?: Subset<T, MasterCourseFAQCountArgs>,
+    count<T extends MasterCourseArticleFAQCountArgs>(
+      args?: Subset<T, MasterCourseArticleFAQCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], MasterCourseFAQCountAggregateOutputType>
+          : GetScalarType<T['select'], MasterCourseArticleFAQCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a MasterCourseFAQ.
+     * Allows you to perform aggregations operations on a MasterCourseArticleFAQ.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseFAQAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {MasterCourseArticleFAQAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -12042,13 +12989,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends MasterCourseFAQAggregateArgs>(args: Subset<T, MasterCourseFAQAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseFAQAggregateType<T>>
+    aggregate<T extends MasterCourseArticleFAQAggregateArgs>(args: Subset<T, MasterCourseArticleFAQAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseArticleFAQAggregateType<T>>
 
     /**
-     * Group by MasterCourseFAQ.
+     * Group by MasterCourseArticleFAQ.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {MasterCourseFAQGroupByArgs} args - Group by arguments.
+     * @param {MasterCourseArticleFAQGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -12063,14 +13010,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends MasterCourseFAQGroupByArgs,
+      T extends MasterCourseArticleFAQGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MasterCourseFAQGroupByArgs['orderBy'] }
-        : { orderBy?: MasterCourseFAQGroupByArgs['orderBy'] },
+        ? { orderBy: MasterCourseArticleFAQGroupByArgs['orderBy'] }
+        : { orderBy?: MasterCourseArticleFAQGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -12119,22 +13066,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, MasterCourseFAQGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseFAQGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, MasterCourseArticleFAQGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseArticleFAQGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the MasterCourseFAQ model
+   * Fields of the MasterCourseArticleFAQ model
    */
-  readonly fields: MasterCourseFAQFieldRefs;
+  readonly fields: MasterCourseArticleFAQFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for MasterCourseFAQ.
+   * The delegate class that acts as a "Promise-like" for MasterCourseArticleFAQ.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__MasterCourseFAQClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__MasterCourseArticleFAQClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    course<T extends MasterCourseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseDefaultArgs<ExtArgs>>): Prisma__MasterCourseClient<$Result.GetResult<Prisma.$MasterCoursePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    courseArticle<T extends MasterCourseArticleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MasterCourseArticleDefaultArgs<ExtArgs>>): Prisma__MasterCourseArticleClient<$Result.GetResult<Prisma.$MasterCourseArticlePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12161,426 +13108,426 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the MasterCourseFAQ model
+   * Fields of the MasterCourseArticleFAQ model
    */ 
-  interface MasterCourseFAQFieldRefs {
-    readonly id: FieldRef<"MasterCourseFAQ", 'String'>
-    readonly courseId: FieldRef<"MasterCourseFAQ", 'String'>
-    readonly question: FieldRef<"MasterCourseFAQ", 'String'>
-    readonly answer: FieldRef<"MasterCourseFAQ", 'String'>
-    readonly createdAt: FieldRef<"MasterCourseFAQ", 'DateTime'>
-    readonly updatedAt: FieldRef<"MasterCourseFAQ", 'DateTime'>
+  interface MasterCourseArticleFAQFieldRefs {
+    readonly id: FieldRef<"MasterCourseArticleFAQ", 'String'>
+    readonly courseArticleId: FieldRef<"MasterCourseArticleFAQ", 'String'>
+    readonly question: FieldRef<"MasterCourseArticleFAQ", 'String'>
+    readonly answer: FieldRef<"MasterCourseArticleFAQ", 'String'>
+    readonly createdAt: FieldRef<"MasterCourseArticleFAQ", 'DateTime'>
+    readonly updatedAt: FieldRef<"MasterCourseArticleFAQ", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * MasterCourseFAQ findUnique
+   * MasterCourseArticleFAQ findUnique
    */
-  export type MasterCourseFAQFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * Filter, which MasterCourseFAQ to fetch.
+     * Filter, which MasterCourseArticleFAQ to fetch.
      */
-    where: MasterCourseFAQWhereUniqueInput
+    where: MasterCourseArticleFAQWhereUniqueInput
   }
 
   /**
-   * MasterCourseFAQ findUniqueOrThrow
+   * MasterCourseArticleFAQ findUniqueOrThrow
    */
-  export type MasterCourseFAQFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * Filter, which MasterCourseFAQ to fetch.
+     * Filter, which MasterCourseArticleFAQ to fetch.
      */
-    where: MasterCourseFAQWhereUniqueInput
+    where: MasterCourseArticleFAQWhereUniqueInput
   }
 
   /**
-   * MasterCourseFAQ findFirst
+   * MasterCourseArticleFAQ findFirst
    */
-  export type MasterCourseFAQFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * Filter, which MasterCourseFAQ to fetch.
+     * Filter, which MasterCourseArticleFAQ to fetch.
      */
-    where?: MasterCourseFAQWhereInput
+    where?: MasterCourseArticleFAQWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseFAQS to fetch.
+     * Determine the order of MasterCourseArticleFAQS to fetch.
      */
-    orderBy?: MasterCourseFAQOrderByWithRelationInput | MasterCourseFAQOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleFAQOrderByWithRelationInput | MasterCourseArticleFAQOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for MasterCourseFAQS.
+     * Sets the position for searching for MasterCourseArticleFAQS.
      */
-    cursor?: MasterCourseFAQWhereUniqueInput
+    cursor?: MasterCourseArticleFAQWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseFAQS from the position of the cursor.
+     * Take `±n` MasterCourseArticleFAQS from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseFAQS.
+     * Skip the first `n` MasterCourseArticleFAQS.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of MasterCourseFAQS.
+     * Filter by unique combinations of MasterCourseArticleFAQS.
      */
-    distinct?: MasterCourseFAQScalarFieldEnum | MasterCourseFAQScalarFieldEnum[]
+    distinct?: MasterCourseArticleFAQScalarFieldEnum | MasterCourseArticleFAQScalarFieldEnum[]
   }
 
   /**
-   * MasterCourseFAQ findFirstOrThrow
+   * MasterCourseArticleFAQ findFirstOrThrow
    */
-  export type MasterCourseFAQFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * Filter, which MasterCourseFAQ to fetch.
+     * Filter, which MasterCourseArticleFAQ to fetch.
      */
-    where?: MasterCourseFAQWhereInput
+    where?: MasterCourseArticleFAQWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseFAQS to fetch.
+     * Determine the order of MasterCourseArticleFAQS to fetch.
      */
-    orderBy?: MasterCourseFAQOrderByWithRelationInput | MasterCourseFAQOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleFAQOrderByWithRelationInput | MasterCourseArticleFAQOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for MasterCourseFAQS.
+     * Sets the position for searching for MasterCourseArticleFAQS.
      */
-    cursor?: MasterCourseFAQWhereUniqueInput
+    cursor?: MasterCourseArticleFAQWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseFAQS from the position of the cursor.
+     * Take `±n` MasterCourseArticleFAQS from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseFAQS.
+     * Skip the first `n` MasterCourseArticleFAQS.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of MasterCourseFAQS.
+     * Filter by unique combinations of MasterCourseArticleFAQS.
      */
-    distinct?: MasterCourseFAQScalarFieldEnum | MasterCourseFAQScalarFieldEnum[]
+    distinct?: MasterCourseArticleFAQScalarFieldEnum | MasterCourseArticleFAQScalarFieldEnum[]
   }
 
   /**
-   * MasterCourseFAQ findMany
+   * MasterCourseArticleFAQ findMany
    */
-  export type MasterCourseFAQFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * Filter, which MasterCourseFAQS to fetch.
+     * Filter, which MasterCourseArticleFAQS to fetch.
      */
-    where?: MasterCourseFAQWhereInput
+    where?: MasterCourseArticleFAQWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of MasterCourseFAQS to fetch.
+     * Determine the order of MasterCourseArticleFAQS to fetch.
      */
-    orderBy?: MasterCourseFAQOrderByWithRelationInput | MasterCourseFAQOrderByWithRelationInput[]
+    orderBy?: MasterCourseArticleFAQOrderByWithRelationInput | MasterCourseArticleFAQOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing MasterCourseFAQS.
+     * Sets the position for listing MasterCourseArticleFAQS.
      */
-    cursor?: MasterCourseFAQWhereUniqueInput
+    cursor?: MasterCourseArticleFAQWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` MasterCourseFAQS from the position of the cursor.
+     * Take `±n` MasterCourseArticleFAQS from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` MasterCourseFAQS.
+     * Skip the first `n` MasterCourseArticleFAQS.
      */
     skip?: number
-    distinct?: MasterCourseFAQScalarFieldEnum | MasterCourseFAQScalarFieldEnum[]
+    distinct?: MasterCourseArticleFAQScalarFieldEnum | MasterCourseArticleFAQScalarFieldEnum[]
   }
 
   /**
-   * MasterCourseFAQ create
+   * MasterCourseArticleFAQ create
    */
-  export type MasterCourseFAQCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * The data needed to create a MasterCourseFAQ.
+     * The data needed to create a MasterCourseArticleFAQ.
      */
-    data: XOR<MasterCourseFAQCreateInput, MasterCourseFAQUncheckedCreateInput>
+    data: XOR<MasterCourseArticleFAQCreateInput, MasterCourseArticleFAQUncheckedCreateInput>
   }
 
   /**
-   * MasterCourseFAQ createMany
+   * MasterCourseArticleFAQ createMany
    */
-  export type MasterCourseFAQCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many MasterCourseFAQS.
+     * The data used to create many MasterCourseArticleFAQS.
      */
-    data: MasterCourseFAQCreateManyInput | MasterCourseFAQCreateManyInput[]
+    data: MasterCourseArticleFAQCreateManyInput | MasterCourseArticleFAQCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * MasterCourseFAQ createManyAndReturn
+   * MasterCourseArticleFAQ createManyAndReturn
    */
-  export type MasterCourseFAQCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelectCreateManyAndReturn<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
-     * The data used to create many MasterCourseFAQS.
+     * The data used to create many MasterCourseArticleFAQS.
      */
-    data: MasterCourseFAQCreateManyInput | MasterCourseFAQCreateManyInput[]
+    data: MasterCourseArticleFAQCreateManyInput | MasterCourseArticleFAQCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: MasterCourseArticleFAQIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * MasterCourseFAQ update
+   * MasterCourseArticleFAQ update
    */
-  export type MasterCourseFAQUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * The data needed to update a MasterCourseFAQ.
+     * The data needed to update a MasterCourseArticleFAQ.
      */
-    data: XOR<MasterCourseFAQUpdateInput, MasterCourseFAQUncheckedUpdateInput>
+    data: XOR<MasterCourseArticleFAQUpdateInput, MasterCourseArticleFAQUncheckedUpdateInput>
     /**
-     * Choose, which MasterCourseFAQ to update.
+     * Choose, which MasterCourseArticleFAQ to update.
      */
-    where: MasterCourseFAQWhereUniqueInput
+    where: MasterCourseArticleFAQWhereUniqueInput
   }
 
   /**
-   * MasterCourseFAQ updateMany
+   * MasterCourseArticleFAQ updateMany
    */
-  export type MasterCourseFAQUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update MasterCourseFAQS.
+     * The data used to update MasterCourseArticleFAQS.
      */
-    data: XOR<MasterCourseFAQUpdateManyMutationInput, MasterCourseFAQUncheckedUpdateManyInput>
+    data: XOR<MasterCourseArticleFAQUpdateManyMutationInput, MasterCourseArticleFAQUncheckedUpdateManyInput>
     /**
-     * Filter which MasterCourseFAQS to update
+     * Filter which MasterCourseArticleFAQS to update
      */
-    where?: MasterCourseFAQWhereInput
+    where?: MasterCourseArticleFAQWhereInput
     /**
-     * Limit how many MasterCourseFAQS to update.
+     * Limit how many MasterCourseArticleFAQS to update.
      */
     limit?: number
   }
 
   /**
-   * MasterCourseFAQ updateManyAndReturn
+   * MasterCourseArticleFAQ updateManyAndReturn
    */
-  export type MasterCourseFAQUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
-     * The data used to update MasterCourseFAQS.
+     * The data used to update MasterCourseArticleFAQS.
      */
-    data: XOR<MasterCourseFAQUpdateManyMutationInput, MasterCourseFAQUncheckedUpdateManyInput>
+    data: XOR<MasterCourseArticleFAQUpdateManyMutationInput, MasterCourseArticleFAQUncheckedUpdateManyInput>
     /**
-     * Filter which MasterCourseFAQS to update
+     * Filter which MasterCourseArticleFAQS to update
      */
-    where?: MasterCourseFAQWhereInput
+    where?: MasterCourseArticleFAQWhereInput
     /**
-     * Limit how many MasterCourseFAQS to update.
+     * Limit how many MasterCourseArticleFAQS to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: MasterCourseArticleFAQIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * MasterCourseFAQ upsert
+   * MasterCourseArticleFAQ upsert
    */
-  export type MasterCourseFAQUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * The filter to search for the MasterCourseFAQ to update in case it exists.
+     * The filter to search for the MasterCourseArticleFAQ to update in case it exists.
      */
-    where: MasterCourseFAQWhereUniqueInput
+    where: MasterCourseArticleFAQWhereUniqueInput
     /**
-     * In case the MasterCourseFAQ found by the `where` argument doesn't exist, create a new MasterCourseFAQ with this data.
+     * In case the MasterCourseArticleFAQ found by the `where` argument doesn't exist, create a new MasterCourseArticleFAQ with this data.
      */
-    create: XOR<MasterCourseFAQCreateInput, MasterCourseFAQUncheckedCreateInput>
+    create: XOR<MasterCourseArticleFAQCreateInput, MasterCourseArticleFAQUncheckedCreateInput>
     /**
-     * In case the MasterCourseFAQ was found with the provided `where` argument, update it with this data.
+     * In case the MasterCourseArticleFAQ was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<MasterCourseFAQUpdateInput, MasterCourseFAQUncheckedUpdateInput>
+    update: XOR<MasterCourseArticleFAQUpdateInput, MasterCourseArticleFAQUncheckedUpdateInput>
   }
 
   /**
-   * MasterCourseFAQ delete
+   * MasterCourseArticleFAQ delete
    */
-  export type MasterCourseFAQDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
     /**
-     * Filter which MasterCourseFAQ to delete.
+     * Filter which MasterCourseArticleFAQ to delete.
      */
-    where: MasterCourseFAQWhereUniqueInput
+    where: MasterCourseArticleFAQWhereUniqueInput
   }
 
   /**
-   * MasterCourseFAQ deleteMany
+   * MasterCourseArticleFAQ deleteMany
    */
-  export type MasterCourseFAQDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which MasterCourseFAQS to delete
+     * Filter which MasterCourseArticleFAQS to delete
      */
-    where?: MasterCourseFAQWhereInput
+    where?: MasterCourseArticleFAQWhereInput
     /**
-     * Limit how many MasterCourseFAQS to delete.
+     * Limit how many MasterCourseArticleFAQS to delete.
      */
     limit?: number
   }
 
   /**
-   * MasterCourseFAQ without action
+   * MasterCourseArticleFAQ without action
    */
-  export type MasterCourseFAQDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MasterCourseArticleFAQDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the MasterCourseFAQ
+     * Select specific fields to fetch from the MasterCourseArticleFAQ
      */
-    select?: MasterCourseFAQSelect<ExtArgs> | null
+    select?: MasterCourseArticleFAQSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the MasterCourseFAQ
+     * Omit specific fields from the MasterCourseArticleFAQ
      */
-    omit?: MasterCourseFAQOmit<ExtArgs> | null
+    omit?: MasterCourseArticleFAQOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: MasterCourseFAQInclude<ExtArgs> | null
+    include?: MasterCourseArticleFAQInclude<ExtArgs> | null
   }
 
 
@@ -12590,8 +13537,22 @@ export namespace Prisma {
 
   export type AggregateMasterExam = {
     _count: MasterExamCountAggregateOutputType | null
+    _avg: MasterExamAvgAggregateOutputType | null
+    _sum: MasterExamSumAggregateOutputType | null
     _min: MasterExamMinAggregateOutputType | null
     _max: MasterExamMaxAggregateOutputType | null
+  }
+
+  export type MasterExamAvgAggregateOutputType = {
+    level: number | null
+    timeLimitMin: number | null
+    passingScore: number | null
+  }
+
+  export type MasterExamSumAggregateOutputType = {
+    level: number | null
+    timeLimitMin: number | null
+    passingScore: number | null
   }
 
   export type MasterExamMinAggregateOutputType = {
@@ -12600,7 +13561,10 @@ export namespace Prisma {
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    level: number | null
+    timeLimitMin: number | null
     categoryId: string | null
+    passingScore: number | null
   }
 
   export type MasterExamMaxAggregateOutputType = {
@@ -12609,7 +13573,10 @@ export namespace Prisma {
     description: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    level: number | null
+    timeLimitMin: number | null
     categoryId: string | null
+    passingScore: number | null
   }
 
   export type MasterExamCountAggregateOutputType = {
@@ -12618,10 +13585,25 @@ export namespace Prisma {
     description: number
     createdAt: number
     updatedAt: number
+    level: number
+    timeLimitMin: number
     categoryId: number
+    passingScore: number
     _all: number
   }
 
+
+  export type MasterExamAvgAggregateInputType = {
+    level?: true
+    timeLimitMin?: true
+    passingScore?: true
+  }
+
+  export type MasterExamSumAggregateInputType = {
+    level?: true
+    timeLimitMin?: true
+    passingScore?: true
+  }
 
   export type MasterExamMinAggregateInputType = {
     id?: true
@@ -12629,7 +13611,10 @@ export namespace Prisma {
     description?: true
     createdAt?: true
     updatedAt?: true
+    level?: true
+    timeLimitMin?: true
     categoryId?: true
+    passingScore?: true
   }
 
   export type MasterExamMaxAggregateInputType = {
@@ -12638,7 +13623,10 @@ export namespace Prisma {
     description?: true
     createdAt?: true
     updatedAt?: true
+    level?: true
+    timeLimitMin?: true
     categoryId?: true
+    passingScore?: true
   }
 
   export type MasterExamCountAggregateInputType = {
@@ -12647,7 +13635,10 @@ export namespace Prisma {
     description?: true
     createdAt?: true
     updatedAt?: true
+    level?: true
+    timeLimitMin?: true
     categoryId?: true
+    passingScore?: true
     _all?: true
   }
 
@@ -12689,6 +13680,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MasterExamAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MasterExamSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MasterExamMinAggregateInputType
@@ -12719,6 +13722,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MasterExamCountAggregateInputType | true
+    _avg?: MasterExamAvgAggregateInputType
+    _sum?: MasterExamSumAggregateInputType
     _min?: MasterExamMinAggregateInputType
     _max?: MasterExamMaxAggregateInputType
   }
@@ -12729,8 +13734,13 @@ export namespace Prisma {
     description: string
     createdAt: Date
     updatedAt: Date
+    level: number
+    timeLimitMin: number
     categoryId: string
+    passingScore: number
     _count: MasterExamCountAggregateOutputType | null
+    _avg: MasterExamAvgAggregateOutputType | null
+    _sum: MasterExamSumAggregateOutputType | null
     _min: MasterExamMinAggregateOutputType | null
     _max: MasterExamMaxAggregateOutputType | null
   }
@@ -12755,7 +13765,10 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    level?: boolean
+    timeLimitMin?: boolean
     categoryId?: boolean
+    passingScore?: boolean
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
     examQuestions?: boolean | MasterExam$examQuestionsArgs<ExtArgs>
     ExamSubmission?: boolean | MasterExam$ExamSubmissionArgs<ExtArgs>
@@ -12768,7 +13781,10 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    level?: boolean
+    timeLimitMin?: boolean
     categoryId?: boolean
+    passingScore?: boolean
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterExam"]>
 
@@ -12778,7 +13794,10 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    level?: boolean
+    timeLimitMin?: boolean
     categoryId?: boolean
+    passingScore?: boolean
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["masterExam"]>
 
@@ -12788,10 +13807,13 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    level?: boolean
+    timeLimitMin?: boolean
     categoryId?: boolean
+    passingScore?: boolean
   }
 
-  export type MasterExamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["masterExam"]>
+  export type MasterExamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "createdAt" | "updatedAt" | "level" | "timeLimitMin" | "categoryId" | "passingScore", ExtArgs["result"]["masterExam"]>
   export type MasterExamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
     examQuestions?: boolean | MasterExam$examQuestionsArgs<ExtArgs>
@@ -12818,7 +13840,10 @@ export namespace Prisma {
       description: string
       createdAt: Date
       updatedAt: Date
+      level: number
+      timeLimitMin: number
       categoryId: string
+      passingScore: number
     }, ExtArgs["result"]["masterExam"]>
     composites: {}
   }
@@ -13250,7 +14275,10 @@ export namespace Prisma {
     readonly description: FieldRef<"MasterExam", 'String'>
     readonly createdAt: FieldRef<"MasterExam", 'DateTime'>
     readonly updatedAt: FieldRef<"MasterExam", 'DateTime'>
+    readonly level: FieldRef<"MasterExam", 'Int'>
+    readonly timeLimitMin: FieldRef<"MasterExam", 'Int'>
     readonly categoryId: FieldRef<"MasterExam", 'String'>
+    readonly passingScore: FieldRef<"MasterExam", 'Int'>
   }
     
 
@@ -13719,13 +14747,27 @@ export namespace Prisma {
 
   export type AggregateMasterExamQuestion = {
     _count: MasterExamQuestionCountAggregateOutputType | null
+    _avg: MasterExamQuestionAvgAggregateOutputType | null
+    _sum: MasterExamQuestionSumAggregateOutputType | null
     _min: MasterExamQuestionMinAggregateOutputType | null
     _max: MasterExamQuestionMaxAggregateOutputType | null
+  }
+
+  export type MasterExamQuestionAvgAggregateOutputType = {
+    sequence: number | null
+    score: number | null
+  }
+
+  export type MasterExamQuestionSumAggregateOutputType = {
+    sequence: number | null
+    score: number | null
   }
 
   export type MasterExamQuestionMinAggregateOutputType = {
     id: string | null
     examId: string | null
+    sequence: number | null
+    score: number | null
     question: string | null
     questionType: string | null
     options: string | null
@@ -13736,6 +14778,8 @@ export namespace Prisma {
   export type MasterExamQuestionMaxAggregateOutputType = {
     id: string | null
     examId: string | null
+    sequence: number | null
+    score: number | null
     question: string | null
     questionType: string | null
     options: string | null
@@ -13746,6 +14790,8 @@ export namespace Prisma {
   export type MasterExamQuestionCountAggregateOutputType = {
     id: number
     examId: number
+    sequence: number
+    score: number
     question: number
     questionType: number
     options: number
@@ -13755,9 +14801,21 @@ export namespace Prisma {
   }
 
 
+  export type MasterExamQuestionAvgAggregateInputType = {
+    sequence?: true
+    score?: true
+  }
+
+  export type MasterExamQuestionSumAggregateInputType = {
+    sequence?: true
+    score?: true
+  }
+
   export type MasterExamQuestionMinAggregateInputType = {
     id?: true
     examId?: true
+    sequence?: true
+    score?: true
     question?: true
     questionType?: true
     options?: true
@@ -13768,6 +14826,8 @@ export namespace Prisma {
   export type MasterExamQuestionMaxAggregateInputType = {
     id?: true
     examId?: true
+    sequence?: true
+    score?: true
     question?: true
     questionType?: true
     options?: true
@@ -13778,6 +14838,8 @@ export namespace Prisma {
   export type MasterExamQuestionCountAggregateInputType = {
     id?: true
     examId?: true
+    sequence?: true
+    score?: true
     question?: true
     questionType?: true
     options?: true
@@ -13824,6 +14886,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MasterExamQuestionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MasterExamQuestionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MasterExamQuestionMinAggregateInputType
@@ -13854,6 +14928,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MasterExamQuestionCountAggregateInputType | true
+    _avg?: MasterExamQuestionAvgAggregateInputType
+    _sum?: MasterExamQuestionSumAggregateInputType
     _min?: MasterExamQuestionMinAggregateInputType
     _max?: MasterExamQuestionMaxAggregateInputType
   }
@@ -13861,12 +14937,16 @@ export namespace Prisma {
   export type MasterExamQuestionGroupByOutputType = {
     id: string
     examId: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options: string | null
     correctAnswer: string | null
     createdAt: Date
     _count: MasterExamQuestionCountAggregateOutputType | null
+    _avg: MasterExamQuestionAvgAggregateOutputType | null
+    _sum: MasterExamQuestionSumAggregateOutputType | null
     _min: MasterExamQuestionMinAggregateOutputType | null
     _max: MasterExamQuestionMaxAggregateOutputType | null
   }
@@ -13888,6 +14968,8 @@ export namespace Prisma {
   export type MasterExamQuestionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     examId?: boolean
+    sequence?: boolean
+    score?: boolean
     question?: boolean
     questionType?: boolean
     options?: boolean
@@ -13901,6 +14983,8 @@ export namespace Prisma {
   export type MasterExamQuestionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     examId?: boolean
+    sequence?: boolean
+    score?: boolean
     question?: boolean
     questionType?: boolean
     options?: boolean
@@ -13912,6 +14996,8 @@ export namespace Prisma {
   export type MasterExamQuestionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     examId?: boolean
+    sequence?: boolean
+    score?: boolean
     question?: boolean
     questionType?: boolean
     options?: boolean
@@ -13923,6 +15009,8 @@ export namespace Prisma {
   export type MasterExamQuestionSelectScalar = {
     id?: boolean
     examId?: boolean
+    sequence?: boolean
+    score?: boolean
     question?: boolean
     questionType?: boolean
     options?: boolean
@@ -13930,7 +15018,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type MasterExamQuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "examId" | "question" | "questionType" | "options" | "correctAnswer" | "createdAt", ExtArgs["result"]["masterExamQuestion"]>
+  export type MasterExamQuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "examId" | "sequence" | "score" | "question" | "questionType" | "options" | "correctAnswer" | "createdAt", ExtArgs["result"]["masterExamQuestion"]>
   export type MasterExamQuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     exam?: boolean | MasterExamDefaultArgs<ExtArgs>
     ExamAnswer?: boolean | MasterExamQuestion$ExamAnswerArgs<ExtArgs>
@@ -13952,6 +15040,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       examId: string
+      sequence: number
+      score: number
       question: string
       questionType: string
       options: string | null
@@ -14384,6 +15474,8 @@ export namespace Prisma {
   interface MasterExamQuestionFieldRefs {
     readonly id: FieldRef<"MasterExamQuestion", 'String'>
     readonly examId: FieldRef<"MasterExamQuestion", 'String'>
+    readonly sequence: FieldRef<"MasterExamQuestion", 'Int'>
+    readonly score: FieldRef<"MasterExamQuestion", 'Int'>
     readonly question: FieldRef<"MasterExamQuestion", 'String'>
     readonly questionType: FieldRef<"MasterExamQuestion", 'String'>
     readonly options: FieldRef<"MasterExamQuestion", 'String'>
@@ -15534,7 +16626,7 @@ export namespace Prisma {
     readonly examId: FieldRef<"ExamSubmission", 'String'>
     readonly userId: FieldRef<"ExamSubmission", 'String'>
     readonly submittedAt: FieldRef<"ExamSubmission", 'DateTime'>
-    readonly score: FieldRef<"ExamSubmission", 'Float'>
+    readonly score: FieldRef<"ExamSubmission", 'Int'>
     readonly percentile: FieldRef<"ExamSubmission", 'Float'>
   }
     
@@ -17061,7 +18153,12 @@ export namespace Prisma {
     stripeUserId: 'stripeUserId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    plan: 'plan'
+    plan: 'plan',
+    name: 'name',
+    occupation: 'occupation',
+    birthDate: 'birthDate',
+    deletedAt: 'deletedAt',
+    deleteReason: 'deleteReason'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -17070,8 +18167,7 @@ export namespace Prisma {
   export const MasterCategoryScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    level: 'level',
-    parentId: 'parentId'
+    description: 'description'
   };
 
   export type MasterCategoryScalarFieldEnum = (typeof MasterCategoryScalarFieldEnum)[keyof typeof MasterCategoryScalarFieldEnum]
@@ -17091,6 +18187,7 @@ export namespace Prisma {
     summary: 'summary',
     description: 'description',
     targetAudience: 'targetAudience',
+    level: 'level',
     difficulty: 'difficulty',
     durationMin: 'durationMin',
     createdAt: 'createdAt',
@@ -17101,22 +18198,33 @@ export namespace Prisma {
   export type MasterCourseScalarFieldEnum = (typeof MasterCourseScalarFieldEnum)[keyof typeof MasterCourseScalarFieldEnum]
 
 
-  export const MasterCourseContentScalarFieldEnum: {
+  export const MasterCourseRelationScalarFieldEnum: {
+    id: 'id',
+    courseId: 'courseId',
+    relatedCourseId: 'relatedCourseId',
+    score: 'score'
+  };
+
+  export type MasterCourseRelationScalarFieldEnum = (typeof MasterCourseRelationScalarFieldEnum)[keyof typeof MasterCourseRelationScalarFieldEnum]
+
+
+  export const MasterCourseArticleScalarFieldEnum: {
     id: 'id',
     courseId: 'courseId',
     sequence: 'sequence',
     title: 'title',
     content: 'content',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    durationMin: 'durationMin'
   };
 
-  export type MasterCourseContentScalarFieldEnum = (typeof MasterCourseContentScalarFieldEnum)[keyof typeof MasterCourseContentScalarFieldEnum]
+  export type MasterCourseArticleScalarFieldEnum = (typeof MasterCourseArticleScalarFieldEnum)[keyof typeof MasterCourseArticleScalarFieldEnum]
 
 
-  export const MasterExerciseScalarFieldEnum: {
+  export const MasterCourseArticleExerciseScalarFieldEnum: {
     id: 'id',
-    courseContentId: 'courseContentId',
+    courseArticleId: 'courseArticleId',
     exerciseType: 'exerciseType',
     question: 'question',
     options: 'options',
@@ -17124,13 +18232,13 @@ export namespace Prisma {
     createdAt: 'createdAt'
   };
 
-  export type MasterExerciseScalarFieldEnum = (typeof MasterExerciseScalarFieldEnum)[keyof typeof MasterExerciseScalarFieldEnum]
+  export type MasterCourseArticleExerciseScalarFieldEnum = (typeof MasterCourseArticleExerciseScalarFieldEnum)[keyof typeof MasterCourseArticleExerciseScalarFieldEnum]
 
 
   export const ChatRoomScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
-    courseContentId: 'courseContentId',
+    courseArticleId: 'courseArticleId',
     createdAt: 'createdAt'
   };
 
@@ -17144,22 +18252,22 @@ export namespace Prisma {
     role: 'role',
     message: 'message',
     createdAt: 'createdAt',
-    masterCourseContentId: 'masterCourseContentId'
+    masterCourseArticleId: 'masterCourseArticleId'
   };
 
   export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[keyof typeof ChatMessageScalarFieldEnum]
 
 
-  export const MasterCourseFAQScalarFieldEnum: {
+  export const MasterCourseArticleFAQScalarFieldEnum: {
     id: 'id',
-    courseId: 'courseId',
+    courseArticleId: 'courseArticleId',
     question: 'question',
     answer: 'answer',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
-  export type MasterCourseFAQScalarFieldEnum = (typeof MasterCourseFAQScalarFieldEnum)[keyof typeof MasterCourseFAQScalarFieldEnum]
+  export type MasterCourseArticleFAQScalarFieldEnum = (typeof MasterCourseArticleFAQScalarFieldEnum)[keyof typeof MasterCourseArticleFAQScalarFieldEnum]
 
 
   export const MasterExamScalarFieldEnum: {
@@ -17168,7 +18276,10 @@ export namespace Prisma {
     description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    categoryId: 'categoryId'
+    level: 'level',
+    timeLimitMin: 'timeLimitMin',
+    categoryId: 'categoryId',
+    passingScore: 'passingScore'
   };
 
   export type MasterExamScalarFieldEnum = (typeof MasterExamScalarFieldEnum)[keyof typeof MasterExamScalarFieldEnum]
@@ -17177,6 +18288,8 @@ export namespace Prisma {
   export const MasterExamQuestionScalarFieldEnum: {
     id: 'id',
     examId: 'examId',
+    sequence: 'sequence',
+    score: 'score',
     question: 'question',
     questionType: 'questionType',
     options: 'options',
@@ -17316,6 +18429,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     plan?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
+    occupation?: StringNullableFilter<"User"> | string | null
+    birthDate?: StringNullableFilter<"User"> | string | null
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    deleteReason?: StringNullableFilter<"User"> | string | null
     examSubmissions?: ExamSubmissionListRelationFilter
     chatMessages?: ChatMessageListRelationFilter
     chatRoom?: ChatRoomListRelationFilter
@@ -17329,6 +18447,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     plan?: SortOrder
+    name?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
+    birthDate?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    deleteReason?: SortOrderInput | SortOrder
     examSubmissions?: ExamSubmissionOrderByRelationAggregateInput
     chatMessages?: ChatMessageOrderByRelationAggregateInput
     chatRoom?: ChatRoomOrderByRelationAggregateInput
@@ -17345,6 +18468,11 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     plan?: StringFilter<"User"> | string
+    name?: StringNullableFilter<"User"> | string | null
+    occupation?: StringNullableFilter<"User"> | string | null
+    birthDate?: StringNullableFilter<"User"> | string | null
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    deleteReason?: StringNullableFilter<"User"> | string | null
     examSubmissions?: ExamSubmissionListRelationFilter
     chatMessages?: ChatMessageListRelationFilter
     chatRoom?: ChatRoomListRelationFilter
@@ -17358,6 +18486,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     plan?: SortOrder
+    name?: SortOrderInput | SortOrder
+    occupation?: SortOrderInput | SortOrder
+    birthDate?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    deleteReason?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -17374,6 +18507,11 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     plan?: StringWithAggregatesFilter<"User"> | string
+    name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    occupation?: StringNullableWithAggregatesFilter<"User"> | string | null
+    birthDate?: StringNullableWithAggregatesFilter<"User"> | string | null
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    deleteReason?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type MasterCategoryWhereInput = {
@@ -17382,10 +18520,7 @@ export namespace Prisma {
     NOT?: MasterCategoryWhereInput | MasterCategoryWhereInput[]
     id?: StringFilter<"MasterCategory"> | string
     name?: StringFilter<"MasterCategory"> | string
-    level?: IntFilter<"MasterCategory"> | number
-    parentId?: StringNullableFilter<"MasterCategory"> | string | null
-    parent?: XOR<MasterCategoryNullableScalarRelationFilter, MasterCategoryWhereInput> | null
-    children?: MasterCategoryListRelationFilter
+    description?: StringFilter<"MasterCategory"> | string
     courses?: MasterCourseListRelationFilter
     exams?: MasterExamListRelationFilter
   }
@@ -17393,10 +18528,7 @@ export namespace Prisma {
   export type MasterCategoryOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    level?: SortOrder
-    parentId?: SortOrderInput | SortOrder
-    parent?: MasterCategoryOrderByWithRelationInput
-    children?: MasterCategoryOrderByRelationAggregateInput
+    description?: SortOrder
     courses?: MasterCourseOrderByRelationAggregateInput
     exams?: MasterExamOrderByRelationAggregateInput
   }
@@ -17407,10 +18539,7 @@ export namespace Prisma {
     OR?: MasterCategoryWhereInput[]
     NOT?: MasterCategoryWhereInput | MasterCategoryWhereInput[]
     name?: StringFilter<"MasterCategory"> | string
-    level?: IntFilter<"MasterCategory"> | number
-    parentId?: StringNullableFilter<"MasterCategory"> | string | null
-    parent?: XOR<MasterCategoryNullableScalarRelationFilter, MasterCategoryWhereInput> | null
-    children?: MasterCategoryListRelationFilter
+    description?: StringFilter<"MasterCategory"> | string
     courses?: MasterCourseListRelationFilter
     exams?: MasterExamListRelationFilter
   }, "id">
@@ -17418,13 +18547,10 @@ export namespace Prisma {
   export type MasterCategoryOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    level?: SortOrder
-    parentId?: SortOrderInput | SortOrder
+    description?: SortOrder
     _count?: MasterCategoryCountOrderByAggregateInput
-    _avg?: MasterCategoryAvgOrderByAggregateInput
     _max?: MasterCategoryMaxOrderByAggregateInput
     _min?: MasterCategoryMinOrderByAggregateInput
-    _sum?: MasterCategorySumOrderByAggregateInput
   }
 
   export type MasterCategoryScalarWhereWithAggregatesInput = {
@@ -17433,8 +18559,7 @@ export namespace Prisma {
     NOT?: MasterCategoryScalarWhereWithAggregatesInput | MasterCategoryScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MasterCategory"> | string
     name?: StringWithAggregatesFilter<"MasterCategory"> | string
-    level?: IntWithAggregatesFilter<"MasterCategory"> | number
-    parentId?: StringNullableWithAggregatesFilter<"MasterCategory"> | string | null
+    description?: StringWithAggregatesFilter<"MasterCategory"> | string
   }
 
   export type MasterTagWhereInput = {
@@ -17486,17 +18611,15 @@ export namespace Prisma {
     summary?: StringNullableFilter<"MasterCourse"> | string | null
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
-    difficulty?: StringNullableFilter<"MasterCourse"> | string | null
+    level?: StringFilter<"MasterCourse"> | string
+    difficulty?: IntNullableFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeFilter<"MasterCourse"> | Date | string
     categoryId?: StringFilter<"MasterCourse"> | string
     category?: XOR<MasterCategoryScalarRelationFilter, MasterCategoryWhereInput>
     tags?: MasterTagListRelationFilter
-    courseContents?: MasterCourseContentListRelationFilter
-    relatedCourses?: MasterCourseListRelationFilter
-    relatedToCourses?: MasterCourseListRelationFilter
-    courseFAQs?: MasterCourseFAQListRelationFilter
+    courseArticles?: MasterCourseArticleListRelationFilter
   }
 
   export type MasterCourseOrderByWithRelationInput = {
@@ -17505,6 +18628,7 @@ export namespace Prisma {
     summary?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
+    level?: SortOrder
     difficulty?: SortOrderInput | SortOrder
     durationMin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -17512,10 +18636,7 @@ export namespace Prisma {
     categoryId?: SortOrder
     category?: MasterCategoryOrderByWithRelationInput
     tags?: MasterTagOrderByRelationAggregateInput
-    courseContents?: MasterCourseContentOrderByRelationAggregateInput
-    relatedCourses?: MasterCourseOrderByRelationAggregateInput
-    relatedToCourses?: MasterCourseOrderByRelationAggregateInput
-    courseFAQs?: MasterCourseFAQOrderByRelationAggregateInput
+    courseArticles?: MasterCourseArticleOrderByRelationAggregateInput
   }
 
   export type MasterCourseWhereUniqueInput = Prisma.AtLeast<{
@@ -17527,17 +18648,15 @@ export namespace Prisma {
     summary?: StringNullableFilter<"MasterCourse"> | string | null
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
-    difficulty?: StringNullableFilter<"MasterCourse"> | string | null
+    level?: StringFilter<"MasterCourse"> | string
+    difficulty?: IntNullableFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeFilter<"MasterCourse"> | Date | string
     categoryId?: StringFilter<"MasterCourse"> | string
     category?: XOR<MasterCategoryScalarRelationFilter, MasterCategoryWhereInput>
     tags?: MasterTagListRelationFilter
-    courseContents?: MasterCourseContentListRelationFilter
-    relatedCourses?: MasterCourseListRelationFilter
-    relatedToCourses?: MasterCourseListRelationFilter
-    courseFAQs?: MasterCourseFAQListRelationFilter
+    courseArticles?: MasterCourseArticleListRelationFilter
   }, "id">
 
   export type MasterCourseOrderByWithAggregationInput = {
@@ -17546,6 +18665,7 @@ export namespace Prisma {
     summary?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
+    level?: SortOrder
     difficulty?: SortOrderInput | SortOrder
     durationMin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -17567,31 +18687,82 @@ export namespace Prisma {
     summary?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
     description?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
-    difficulty?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
+    level?: StringWithAggregatesFilter<"MasterCourse"> | string
+    difficulty?: IntNullableWithAggregatesFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableWithAggregatesFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MasterCourse"> | Date | string
     categoryId?: StringWithAggregatesFilter<"MasterCourse"> | string
   }
 
-  export type MasterCourseContentWhereInput = {
-    AND?: MasterCourseContentWhereInput | MasterCourseContentWhereInput[]
-    OR?: MasterCourseContentWhereInput[]
-    NOT?: MasterCourseContentWhereInput | MasterCourseContentWhereInput[]
-    id?: StringFilter<"MasterCourseContent"> | string
-    courseId?: StringFilter<"MasterCourseContent"> | string
-    sequence?: IntFilter<"MasterCourseContent"> | number
-    title?: StringNullableFilter<"MasterCourseContent"> | string | null
-    content?: StringNullableFilter<"MasterCourseContent"> | string | null
-    createdAt?: DateTimeFilter<"MasterCourseContent"> | Date | string
-    updatedAt?: DateTimeFilter<"MasterCourseContent"> | Date | string
-    course?: XOR<MasterCourseScalarRelationFilter, MasterCourseWhereInput>
-    exercises?: MasterExerciseListRelationFilter
-    chatMessages?: ChatMessageListRelationFilter
-    chatRoom?: ChatRoomListRelationFilter
+  export type MasterCourseRelationWhereInput = {
+    AND?: MasterCourseRelationWhereInput | MasterCourseRelationWhereInput[]
+    OR?: MasterCourseRelationWhereInput[]
+    NOT?: MasterCourseRelationWhereInput | MasterCourseRelationWhereInput[]
+    id?: StringFilter<"MasterCourseRelation"> | string
+    courseId?: StringFilter<"MasterCourseRelation"> | string
+    relatedCourseId?: StringFilter<"MasterCourseRelation"> | string
+    score?: FloatFilter<"MasterCourseRelation"> | number
   }
 
-  export type MasterCourseContentOrderByWithRelationInput = {
+  export type MasterCourseRelationOrderByWithRelationInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    relatedCourseId?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseRelationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MasterCourseRelationWhereInput | MasterCourseRelationWhereInput[]
+    OR?: MasterCourseRelationWhereInput[]
+    NOT?: MasterCourseRelationWhereInput | MasterCourseRelationWhereInput[]
+    courseId?: StringFilter<"MasterCourseRelation"> | string
+    relatedCourseId?: StringFilter<"MasterCourseRelation"> | string
+    score?: FloatFilter<"MasterCourseRelation"> | number
+  }, "id">
+
+  export type MasterCourseRelationOrderByWithAggregationInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    relatedCourseId?: SortOrder
+    score?: SortOrder
+    _count?: MasterCourseRelationCountOrderByAggregateInput
+    _avg?: MasterCourseRelationAvgOrderByAggregateInput
+    _max?: MasterCourseRelationMaxOrderByAggregateInput
+    _min?: MasterCourseRelationMinOrderByAggregateInput
+    _sum?: MasterCourseRelationSumOrderByAggregateInput
+  }
+
+  export type MasterCourseRelationScalarWhereWithAggregatesInput = {
+    AND?: MasterCourseRelationScalarWhereWithAggregatesInput | MasterCourseRelationScalarWhereWithAggregatesInput[]
+    OR?: MasterCourseRelationScalarWhereWithAggregatesInput[]
+    NOT?: MasterCourseRelationScalarWhereWithAggregatesInput | MasterCourseRelationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MasterCourseRelation"> | string
+    courseId?: StringWithAggregatesFilter<"MasterCourseRelation"> | string
+    relatedCourseId?: StringWithAggregatesFilter<"MasterCourseRelation"> | string
+    score?: FloatWithAggregatesFilter<"MasterCourseRelation"> | number
+  }
+
+  export type MasterCourseArticleWhereInput = {
+    AND?: MasterCourseArticleWhereInput | MasterCourseArticleWhereInput[]
+    OR?: MasterCourseArticleWhereInput[]
+    NOT?: MasterCourseArticleWhereInput | MasterCourseArticleWhereInput[]
+    id?: StringFilter<"MasterCourseArticle"> | string
+    courseId?: StringFilter<"MasterCourseArticle"> | string
+    sequence?: IntFilter<"MasterCourseArticle"> | number
+    title?: StringNullableFilter<"MasterCourseArticle"> | string | null
+    content?: StringNullableFilter<"MasterCourseArticle"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticle"> | Date | string
+    updatedAt?: DateTimeFilter<"MasterCourseArticle"> | Date | string
+    durationMin?: IntNullableFilter<"MasterCourseArticle"> | number | null
+    course?: XOR<MasterCourseScalarRelationFilter, MasterCourseWhereInput>
+    exercises?: MasterCourseArticleExerciseListRelationFilter
+    chatRoom?: ChatRoomListRelationFilter
+    faq?: MasterCourseArticleFAQListRelationFilter
+  }
+
+  export type MasterCourseArticleOrderByWithRelationInput = {
     id?: SortOrder
     courseId?: SortOrder
     sequence?: SortOrder
@@ -17599,30 +18770,32 @@ export namespace Prisma {
     content?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    durationMin?: SortOrderInput | SortOrder
     course?: MasterCourseOrderByWithRelationInput
-    exercises?: MasterExerciseOrderByRelationAggregateInput
-    chatMessages?: ChatMessageOrderByRelationAggregateInput
+    exercises?: MasterCourseArticleExerciseOrderByRelationAggregateInput
     chatRoom?: ChatRoomOrderByRelationAggregateInput
+    faq?: MasterCourseArticleFAQOrderByRelationAggregateInput
   }
 
-  export type MasterCourseContentWhereUniqueInput = Prisma.AtLeast<{
+  export type MasterCourseArticleWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: MasterCourseContentWhereInput | MasterCourseContentWhereInput[]
-    OR?: MasterCourseContentWhereInput[]
-    NOT?: MasterCourseContentWhereInput | MasterCourseContentWhereInput[]
-    courseId?: StringFilter<"MasterCourseContent"> | string
-    sequence?: IntFilter<"MasterCourseContent"> | number
-    title?: StringNullableFilter<"MasterCourseContent"> | string | null
-    content?: StringNullableFilter<"MasterCourseContent"> | string | null
-    createdAt?: DateTimeFilter<"MasterCourseContent"> | Date | string
-    updatedAt?: DateTimeFilter<"MasterCourseContent"> | Date | string
+    AND?: MasterCourseArticleWhereInput | MasterCourseArticleWhereInput[]
+    OR?: MasterCourseArticleWhereInput[]
+    NOT?: MasterCourseArticleWhereInput | MasterCourseArticleWhereInput[]
+    courseId?: StringFilter<"MasterCourseArticle"> | string
+    sequence?: IntFilter<"MasterCourseArticle"> | number
+    title?: StringNullableFilter<"MasterCourseArticle"> | string | null
+    content?: StringNullableFilter<"MasterCourseArticle"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticle"> | Date | string
+    updatedAt?: DateTimeFilter<"MasterCourseArticle"> | Date | string
+    durationMin?: IntNullableFilter<"MasterCourseArticle"> | number | null
     course?: XOR<MasterCourseScalarRelationFilter, MasterCourseWhereInput>
-    exercises?: MasterExerciseListRelationFilter
-    chatMessages?: ChatMessageListRelationFilter
+    exercises?: MasterCourseArticleExerciseListRelationFilter
     chatRoom?: ChatRoomListRelationFilter
+    faq?: MasterCourseArticleFAQListRelationFilter
   }, "id">
 
-  export type MasterCourseContentOrderByWithAggregationInput = {
+  export type MasterCourseArticleOrderByWithAggregationInput = {
     id?: SortOrder
     courseId?: SortOrder
     sequence?: SortOrder
@@ -17630,89 +18803,91 @@ export namespace Prisma {
     content?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: MasterCourseContentCountOrderByAggregateInput
-    _avg?: MasterCourseContentAvgOrderByAggregateInput
-    _max?: MasterCourseContentMaxOrderByAggregateInput
-    _min?: MasterCourseContentMinOrderByAggregateInput
-    _sum?: MasterCourseContentSumOrderByAggregateInput
+    durationMin?: SortOrderInput | SortOrder
+    _count?: MasterCourseArticleCountOrderByAggregateInput
+    _avg?: MasterCourseArticleAvgOrderByAggregateInput
+    _max?: MasterCourseArticleMaxOrderByAggregateInput
+    _min?: MasterCourseArticleMinOrderByAggregateInput
+    _sum?: MasterCourseArticleSumOrderByAggregateInput
   }
 
-  export type MasterCourseContentScalarWhereWithAggregatesInput = {
-    AND?: MasterCourseContentScalarWhereWithAggregatesInput | MasterCourseContentScalarWhereWithAggregatesInput[]
-    OR?: MasterCourseContentScalarWhereWithAggregatesInput[]
-    NOT?: MasterCourseContentScalarWhereWithAggregatesInput | MasterCourseContentScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"MasterCourseContent"> | string
-    courseId?: StringWithAggregatesFilter<"MasterCourseContent"> | string
-    sequence?: IntWithAggregatesFilter<"MasterCourseContent"> | number
-    title?: StringNullableWithAggregatesFilter<"MasterCourseContent"> | string | null
-    content?: StringNullableWithAggregatesFilter<"MasterCourseContent"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"MasterCourseContent"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"MasterCourseContent"> | Date | string
+  export type MasterCourseArticleScalarWhereWithAggregatesInput = {
+    AND?: MasterCourseArticleScalarWhereWithAggregatesInput | MasterCourseArticleScalarWhereWithAggregatesInput[]
+    OR?: MasterCourseArticleScalarWhereWithAggregatesInput[]
+    NOT?: MasterCourseArticleScalarWhereWithAggregatesInput | MasterCourseArticleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MasterCourseArticle"> | string
+    courseId?: StringWithAggregatesFilter<"MasterCourseArticle"> | string
+    sequence?: IntWithAggregatesFilter<"MasterCourseArticle"> | number
+    title?: StringNullableWithAggregatesFilter<"MasterCourseArticle"> | string | null
+    content?: StringNullableWithAggregatesFilter<"MasterCourseArticle"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MasterCourseArticle"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MasterCourseArticle"> | Date | string
+    durationMin?: IntNullableWithAggregatesFilter<"MasterCourseArticle"> | number | null
   }
 
-  export type MasterExerciseWhereInput = {
-    AND?: MasterExerciseWhereInput | MasterExerciseWhereInput[]
-    OR?: MasterExerciseWhereInput[]
-    NOT?: MasterExerciseWhereInput | MasterExerciseWhereInput[]
-    id?: StringFilter<"MasterExercise"> | string
-    courseContentId?: StringFilter<"MasterExercise"> | string
-    exerciseType?: StringFilter<"MasterExercise"> | string
-    question?: StringFilter<"MasterExercise"> | string
-    options?: StringNullableFilter<"MasterExercise"> | string | null
-    correctAnswer?: StringNullableFilter<"MasterExercise"> | string | null
-    createdAt?: DateTimeFilter<"MasterExercise"> | Date | string
-    courseContent?: XOR<MasterCourseContentScalarRelationFilter, MasterCourseContentWhereInput>
+  export type MasterCourseArticleExerciseWhereInput = {
+    AND?: MasterCourseArticleExerciseWhereInput | MasterCourseArticleExerciseWhereInput[]
+    OR?: MasterCourseArticleExerciseWhereInput[]
+    NOT?: MasterCourseArticleExerciseWhereInput | MasterCourseArticleExerciseWhereInput[]
+    id?: StringFilter<"MasterCourseArticleExercise"> | string
+    courseArticleId?: StringFilter<"MasterCourseArticleExercise"> | string
+    exerciseType?: StringFilter<"MasterCourseArticleExercise"> | string
+    question?: StringFilter<"MasterCourseArticleExercise"> | string
+    options?: StringNullableFilter<"MasterCourseArticleExercise"> | string | null
+    correctAnswer?: StringNullableFilter<"MasterCourseArticleExercise"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticleExercise"> | Date | string
+    courseArticle?: XOR<MasterCourseArticleScalarRelationFilter, MasterCourseArticleWhereInput>
   }
 
-  export type MasterExerciseOrderByWithRelationInput = {
+  export type MasterCourseArticleExerciseOrderByWithRelationInput = {
     id?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     exerciseType?: SortOrder
     question?: SortOrder
     options?: SortOrderInput | SortOrder
     correctAnswer?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    courseContent?: MasterCourseContentOrderByWithRelationInput
+    courseArticle?: MasterCourseArticleOrderByWithRelationInput
   }
 
-  export type MasterExerciseWhereUniqueInput = Prisma.AtLeast<{
+  export type MasterCourseArticleExerciseWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: MasterExerciseWhereInput | MasterExerciseWhereInput[]
-    OR?: MasterExerciseWhereInput[]
-    NOT?: MasterExerciseWhereInput | MasterExerciseWhereInput[]
-    courseContentId?: StringFilter<"MasterExercise"> | string
-    exerciseType?: StringFilter<"MasterExercise"> | string
-    question?: StringFilter<"MasterExercise"> | string
-    options?: StringNullableFilter<"MasterExercise"> | string | null
-    correctAnswer?: StringNullableFilter<"MasterExercise"> | string | null
-    createdAt?: DateTimeFilter<"MasterExercise"> | Date | string
-    courseContent?: XOR<MasterCourseContentScalarRelationFilter, MasterCourseContentWhereInput>
+    AND?: MasterCourseArticleExerciseWhereInput | MasterCourseArticleExerciseWhereInput[]
+    OR?: MasterCourseArticleExerciseWhereInput[]
+    NOT?: MasterCourseArticleExerciseWhereInput | MasterCourseArticleExerciseWhereInput[]
+    courseArticleId?: StringFilter<"MasterCourseArticleExercise"> | string
+    exerciseType?: StringFilter<"MasterCourseArticleExercise"> | string
+    question?: StringFilter<"MasterCourseArticleExercise"> | string
+    options?: StringNullableFilter<"MasterCourseArticleExercise"> | string | null
+    correctAnswer?: StringNullableFilter<"MasterCourseArticleExercise"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticleExercise"> | Date | string
+    courseArticle?: XOR<MasterCourseArticleScalarRelationFilter, MasterCourseArticleWhereInput>
   }, "id">
 
-  export type MasterExerciseOrderByWithAggregationInput = {
+  export type MasterCourseArticleExerciseOrderByWithAggregationInput = {
     id?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     exerciseType?: SortOrder
     question?: SortOrder
     options?: SortOrderInput | SortOrder
     correctAnswer?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    _count?: MasterExerciseCountOrderByAggregateInput
-    _max?: MasterExerciseMaxOrderByAggregateInput
-    _min?: MasterExerciseMinOrderByAggregateInput
+    _count?: MasterCourseArticleExerciseCountOrderByAggregateInput
+    _max?: MasterCourseArticleExerciseMaxOrderByAggregateInput
+    _min?: MasterCourseArticleExerciseMinOrderByAggregateInput
   }
 
-  export type MasterExerciseScalarWhereWithAggregatesInput = {
-    AND?: MasterExerciseScalarWhereWithAggregatesInput | MasterExerciseScalarWhereWithAggregatesInput[]
-    OR?: MasterExerciseScalarWhereWithAggregatesInput[]
-    NOT?: MasterExerciseScalarWhereWithAggregatesInput | MasterExerciseScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"MasterExercise"> | string
-    courseContentId?: StringWithAggregatesFilter<"MasterExercise"> | string
-    exerciseType?: StringWithAggregatesFilter<"MasterExercise"> | string
-    question?: StringWithAggregatesFilter<"MasterExercise"> | string
-    options?: StringNullableWithAggregatesFilter<"MasterExercise"> | string | null
-    correctAnswer?: StringNullableWithAggregatesFilter<"MasterExercise"> | string | null
-    createdAt?: DateTimeWithAggregatesFilter<"MasterExercise"> | Date | string
+  export type MasterCourseArticleExerciseScalarWhereWithAggregatesInput = {
+    AND?: MasterCourseArticleExerciseScalarWhereWithAggregatesInput | MasterCourseArticleExerciseScalarWhereWithAggregatesInput[]
+    OR?: MasterCourseArticleExerciseScalarWhereWithAggregatesInput[]
+    NOT?: MasterCourseArticleExerciseScalarWhereWithAggregatesInput | MasterCourseArticleExerciseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MasterCourseArticleExercise"> | string
+    courseArticleId?: StringWithAggregatesFilter<"MasterCourseArticleExercise"> | string
+    exerciseType?: StringWithAggregatesFilter<"MasterCourseArticleExercise"> | string
+    question?: StringWithAggregatesFilter<"MasterCourseArticleExercise"> | string
+    options?: StringNullableWithAggregatesFilter<"MasterCourseArticleExercise"> | string | null
+    correctAnswer?: StringNullableWithAggregatesFilter<"MasterCourseArticleExercise"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MasterCourseArticleExercise"> | Date | string
   }
 
   export type ChatRoomWhereInput = {
@@ -17721,20 +18896,20 @@ export namespace Prisma {
     NOT?: ChatRoomWhereInput | ChatRoomWhereInput[]
     id?: StringFilter<"ChatRoom"> | string
     userId?: StringFilter<"ChatRoom"> | string
-    courseContentId?: StringFilter<"ChatRoom"> | string
+    courseArticleId?: StringFilter<"ChatRoom"> | string
     createdAt?: DateTimeFilter<"ChatRoom"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    courseContent?: XOR<MasterCourseContentScalarRelationFilter, MasterCourseContentWhereInput>
+    courseArticle?: XOR<MasterCourseArticleScalarRelationFilter, MasterCourseArticleWhereInput>
     chatMessage?: ChatMessageListRelationFilter
   }
 
   export type ChatRoomOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    courseContent?: MasterCourseContentOrderByWithRelationInput
+    courseArticle?: MasterCourseArticleOrderByWithRelationInput
     chatMessage?: ChatMessageOrderByRelationAggregateInput
   }
 
@@ -17744,17 +18919,17 @@ export namespace Prisma {
     OR?: ChatRoomWhereInput[]
     NOT?: ChatRoomWhereInput | ChatRoomWhereInput[]
     userId?: StringFilter<"ChatRoom"> | string
-    courseContentId?: StringFilter<"ChatRoom"> | string
+    courseArticleId?: StringFilter<"ChatRoom"> | string
     createdAt?: DateTimeFilter<"ChatRoom"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    courseContent?: XOR<MasterCourseContentScalarRelationFilter, MasterCourseContentWhereInput>
+    courseArticle?: XOR<MasterCourseArticleScalarRelationFilter, MasterCourseArticleWhereInput>
     chatMessage?: ChatMessageListRelationFilter
   }, "id">
 
   export type ChatRoomOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     createdAt?: SortOrder
     _count?: ChatRoomCountOrderByAggregateInput
     _max?: ChatRoomMaxOrderByAggregateInput
@@ -17767,7 +18942,7 @@ export namespace Prisma {
     NOT?: ChatRoomScalarWhereWithAggregatesInput | ChatRoomScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"ChatRoom"> | string
     userId?: StringWithAggregatesFilter<"ChatRoom"> | string
-    courseContentId?: StringWithAggregatesFilter<"ChatRoom"> | string
+    courseArticleId?: StringWithAggregatesFilter<"ChatRoom"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ChatRoom"> | Date | string
   }
 
@@ -17781,10 +18956,9 @@ export namespace Prisma {
     role?: StringFilter<"ChatMessage"> | string
     message?: StringFilter<"ChatMessage"> | string
     createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
-    masterCourseContentId?: StringNullableFilter<"ChatMessage"> | string | null
+    masterCourseArticleId?: StringNullableFilter<"ChatMessage"> | string | null
     chatRoom?: XOR<ChatRoomScalarRelationFilter, ChatRoomWhereInput>
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    MasterCourseContent?: XOR<MasterCourseContentNullableScalarRelationFilter, MasterCourseContentWhereInput> | null
   }
 
   export type ChatMessageOrderByWithRelationInput = {
@@ -17794,10 +18968,9 @@ export namespace Prisma {
     role?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
-    masterCourseContentId?: SortOrderInput | SortOrder
+    masterCourseArticleId?: SortOrderInput | SortOrder
     chatRoom?: ChatRoomOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
-    MasterCourseContent?: MasterCourseContentOrderByWithRelationInput
   }
 
   export type ChatMessageWhereUniqueInput = Prisma.AtLeast<{
@@ -17810,10 +18983,9 @@ export namespace Prisma {
     role?: StringFilter<"ChatMessage"> | string
     message?: StringFilter<"ChatMessage"> | string
     createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
-    masterCourseContentId?: StringNullableFilter<"ChatMessage"> | string | null
+    masterCourseArticleId?: StringNullableFilter<"ChatMessage"> | string | null
     chatRoom?: XOR<ChatRoomScalarRelationFilter, ChatRoomWhereInput>
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-    MasterCourseContent?: XOR<MasterCourseContentNullableScalarRelationFilter, MasterCourseContentWhereInput> | null
   }, "id">
 
   export type ChatMessageOrderByWithAggregationInput = {
@@ -17823,7 +18995,7 @@ export namespace Prisma {
     role?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
-    masterCourseContentId?: SortOrderInput | SortOrder
+    masterCourseArticleId?: SortOrderInput | SortOrder
     _count?: ChatMessageCountOrderByAggregateInput
     _max?: ChatMessageMaxOrderByAggregateInput
     _min?: ChatMessageMinOrderByAggregateInput
@@ -17839,67 +19011,67 @@ export namespace Prisma {
     role?: StringWithAggregatesFilter<"ChatMessage"> | string
     message?: StringWithAggregatesFilter<"ChatMessage"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ChatMessage"> | Date | string
-    masterCourseContentId?: StringNullableWithAggregatesFilter<"ChatMessage"> | string | null
+    masterCourseArticleId?: StringNullableWithAggregatesFilter<"ChatMessage"> | string | null
   }
 
-  export type MasterCourseFAQWhereInput = {
-    AND?: MasterCourseFAQWhereInput | MasterCourseFAQWhereInput[]
-    OR?: MasterCourseFAQWhereInput[]
-    NOT?: MasterCourseFAQWhereInput | MasterCourseFAQWhereInput[]
-    id?: StringFilter<"MasterCourseFAQ"> | string
-    courseId?: StringFilter<"MasterCourseFAQ"> | string
-    question?: StringFilter<"MasterCourseFAQ"> | string
-    answer?: StringFilter<"MasterCourseFAQ"> | string
-    createdAt?: DateTimeFilter<"MasterCourseFAQ"> | Date | string
-    updatedAt?: DateTimeFilter<"MasterCourseFAQ"> | Date | string
-    course?: XOR<MasterCourseScalarRelationFilter, MasterCourseWhereInput>
+  export type MasterCourseArticleFAQWhereInput = {
+    AND?: MasterCourseArticleFAQWhereInput | MasterCourseArticleFAQWhereInput[]
+    OR?: MasterCourseArticleFAQWhereInput[]
+    NOT?: MasterCourseArticleFAQWhereInput | MasterCourseArticleFAQWhereInput[]
+    id?: StringFilter<"MasterCourseArticleFAQ"> | string
+    courseArticleId?: StringFilter<"MasterCourseArticleFAQ"> | string
+    question?: StringFilter<"MasterCourseArticleFAQ"> | string
+    answer?: StringFilter<"MasterCourseArticleFAQ"> | string
+    createdAt?: DateTimeFilter<"MasterCourseArticleFAQ"> | Date | string
+    updatedAt?: DateTimeFilter<"MasterCourseArticleFAQ"> | Date | string
+    courseArticle?: XOR<MasterCourseArticleScalarRelationFilter, MasterCourseArticleWhereInput>
   }
 
-  export type MasterCourseFAQOrderByWithRelationInput = {
+  export type MasterCourseArticleFAQOrderByWithRelationInput = {
     id?: SortOrder
-    courseId?: SortOrder
+    courseArticleId?: SortOrder
     question?: SortOrder
     answer?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    course?: MasterCourseOrderByWithRelationInput
+    courseArticle?: MasterCourseArticleOrderByWithRelationInput
   }
 
-  export type MasterCourseFAQWhereUniqueInput = Prisma.AtLeast<{
+  export type MasterCourseArticleFAQWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: MasterCourseFAQWhereInput | MasterCourseFAQWhereInput[]
-    OR?: MasterCourseFAQWhereInput[]
-    NOT?: MasterCourseFAQWhereInput | MasterCourseFAQWhereInput[]
-    courseId?: StringFilter<"MasterCourseFAQ"> | string
-    question?: StringFilter<"MasterCourseFAQ"> | string
-    answer?: StringFilter<"MasterCourseFAQ"> | string
-    createdAt?: DateTimeFilter<"MasterCourseFAQ"> | Date | string
-    updatedAt?: DateTimeFilter<"MasterCourseFAQ"> | Date | string
-    course?: XOR<MasterCourseScalarRelationFilter, MasterCourseWhereInput>
+    AND?: MasterCourseArticleFAQWhereInput | MasterCourseArticleFAQWhereInput[]
+    OR?: MasterCourseArticleFAQWhereInput[]
+    NOT?: MasterCourseArticleFAQWhereInput | MasterCourseArticleFAQWhereInput[]
+    courseArticleId?: StringFilter<"MasterCourseArticleFAQ"> | string
+    question?: StringFilter<"MasterCourseArticleFAQ"> | string
+    answer?: StringFilter<"MasterCourseArticleFAQ"> | string
+    createdAt?: DateTimeFilter<"MasterCourseArticleFAQ"> | Date | string
+    updatedAt?: DateTimeFilter<"MasterCourseArticleFAQ"> | Date | string
+    courseArticle?: XOR<MasterCourseArticleScalarRelationFilter, MasterCourseArticleWhereInput>
   }, "id">
 
-  export type MasterCourseFAQOrderByWithAggregationInput = {
+  export type MasterCourseArticleFAQOrderByWithAggregationInput = {
     id?: SortOrder
-    courseId?: SortOrder
+    courseArticleId?: SortOrder
     question?: SortOrder
     answer?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    _count?: MasterCourseFAQCountOrderByAggregateInput
-    _max?: MasterCourseFAQMaxOrderByAggregateInput
-    _min?: MasterCourseFAQMinOrderByAggregateInput
+    _count?: MasterCourseArticleFAQCountOrderByAggregateInput
+    _max?: MasterCourseArticleFAQMaxOrderByAggregateInput
+    _min?: MasterCourseArticleFAQMinOrderByAggregateInput
   }
 
-  export type MasterCourseFAQScalarWhereWithAggregatesInput = {
-    AND?: MasterCourseFAQScalarWhereWithAggregatesInput | MasterCourseFAQScalarWhereWithAggregatesInput[]
-    OR?: MasterCourseFAQScalarWhereWithAggregatesInput[]
-    NOT?: MasterCourseFAQScalarWhereWithAggregatesInput | MasterCourseFAQScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"MasterCourseFAQ"> | string
-    courseId?: StringWithAggregatesFilter<"MasterCourseFAQ"> | string
-    question?: StringWithAggregatesFilter<"MasterCourseFAQ"> | string
-    answer?: StringWithAggregatesFilter<"MasterCourseFAQ"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"MasterCourseFAQ"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"MasterCourseFAQ"> | Date | string
+  export type MasterCourseArticleFAQScalarWhereWithAggregatesInput = {
+    AND?: MasterCourseArticleFAQScalarWhereWithAggregatesInput | MasterCourseArticleFAQScalarWhereWithAggregatesInput[]
+    OR?: MasterCourseArticleFAQScalarWhereWithAggregatesInput[]
+    NOT?: MasterCourseArticleFAQScalarWhereWithAggregatesInput | MasterCourseArticleFAQScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MasterCourseArticleFAQ"> | string
+    courseArticleId?: StringWithAggregatesFilter<"MasterCourseArticleFAQ"> | string
+    question?: StringWithAggregatesFilter<"MasterCourseArticleFAQ"> | string
+    answer?: StringWithAggregatesFilter<"MasterCourseArticleFAQ"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MasterCourseArticleFAQ"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MasterCourseArticleFAQ"> | Date | string
   }
 
   export type MasterExamWhereInput = {
@@ -17911,7 +19083,10 @@ export namespace Prisma {
     description?: StringFilter<"MasterExam"> | string
     createdAt?: DateTimeFilter<"MasterExam"> | Date | string
     updatedAt?: DateTimeFilter<"MasterExam"> | Date | string
+    level?: IntFilter<"MasterExam"> | number
+    timeLimitMin?: IntFilter<"MasterExam"> | number
     categoryId?: StringFilter<"MasterExam"> | string
+    passingScore?: IntFilter<"MasterExam"> | number
     category?: XOR<MasterCategoryScalarRelationFilter, MasterCategoryWhereInput>
     examQuestions?: MasterExamQuestionListRelationFilter
     ExamSubmission?: ExamSubmissionListRelationFilter
@@ -17923,7 +19098,10 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    level?: SortOrder
+    timeLimitMin?: SortOrder
     categoryId?: SortOrder
+    passingScore?: SortOrder
     category?: MasterCategoryOrderByWithRelationInput
     examQuestions?: MasterExamQuestionOrderByRelationAggregateInput
     ExamSubmission?: ExamSubmissionOrderByRelationAggregateInput
@@ -17938,7 +19116,10 @@ export namespace Prisma {
     description?: StringFilter<"MasterExam"> | string
     createdAt?: DateTimeFilter<"MasterExam"> | Date | string
     updatedAt?: DateTimeFilter<"MasterExam"> | Date | string
+    level?: IntFilter<"MasterExam"> | number
+    timeLimitMin?: IntFilter<"MasterExam"> | number
     categoryId?: StringFilter<"MasterExam"> | string
+    passingScore?: IntFilter<"MasterExam"> | number
     category?: XOR<MasterCategoryScalarRelationFilter, MasterCategoryWhereInput>
     examQuestions?: MasterExamQuestionListRelationFilter
     ExamSubmission?: ExamSubmissionListRelationFilter
@@ -17950,10 +19131,15 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    level?: SortOrder
+    timeLimitMin?: SortOrder
     categoryId?: SortOrder
+    passingScore?: SortOrder
     _count?: MasterExamCountOrderByAggregateInput
+    _avg?: MasterExamAvgOrderByAggregateInput
     _max?: MasterExamMaxOrderByAggregateInput
     _min?: MasterExamMinOrderByAggregateInput
+    _sum?: MasterExamSumOrderByAggregateInput
   }
 
   export type MasterExamScalarWhereWithAggregatesInput = {
@@ -17965,7 +19151,10 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"MasterExam"> | string
     createdAt?: DateTimeWithAggregatesFilter<"MasterExam"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MasterExam"> | Date | string
+    level?: IntWithAggregatesFilter<"MasterExam"> | number
+    timeLimitMin?: IntWithAggregatesFilter<"MasterExam"> | number
     categoryId?: StringWithAggregatesFilter<"MasterExam"> | string
+    passingScore?: IntWithAggregatesFilter<"MasterExam"> | number
   }
 
   export type MasterExamQuestionWhereInput = {
@@ -17974,6 +19163,8 @@ export namespace Prisma {
     NOT?: MasterExamQuestionWhereInput | MasterExamQuestionWhereInput[]
     id?: StringFilter<"MasterExamQuestion"> | string
     examId?: StringFilter<"MasterExamQuestion"> | string
+    sequence?: IntFilter<"MasterExamQuestion"> | number
+    score?: IntFilter<"MasterExamQuestion"> | number
     question?: StringFilter<"MasterExamQuestion"> | string
     questionType?: StringFilter<"MasterExamQuestion"> | string
     options?: StringNullableFilter<"MasterExamQuestion"> | string | null
@@ -17986,6 +19177,8 @@ export namespace Prisma {
   export type MasterExamQuestionOrderByWithRelationInput = {
     id?: SortOrder
     examId?: SortOrder
+    sequence?: SortOrder
+    score?: SortOrder
     question?: SortOrder
     questionType?: SortOrder
     options?: SortOrderInput | SortOrder
@@ -18001,6 +19194,8 @@ export namespace Prisma {
     OR?: MasterExamQuestionWhereInput[]
     NOT?: MasterExamQuestionWhereInput | MasterExamQuestionWhereInput[]
     examId?: StringFilter<"MasterExamQuestion"> | string
+    sequence?: IntFilter<"MasterExamQuestion"> | number
+    score?: IntFilter<"MasterExamQuestion"> | number
     question?: StringFilter<"MasterExamQuestion"> | string
     questionType?: StringFilter<"MasterExamQuestion"> | string
     options?: StringNullableFilter<"MasterExamQuestion"> | string | null
@@ -18013,14 +19208,18 @@ export namespace Prisma {
   export type MasterExamQuestionOrderByWithAggregationInput = {
     id?: SortOrder
     examId?: SortOrder
+    sequence?: SortOrder
+    score?: SortOrder
     question?: SortOrder
     questionType?: SortOrder
     options?: SortOrderInput | SortOrder
     correctAnswer?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: MasterExamQuestionCountOrderByAggregateInput
+    _avg?: MasterExamQuestionAvgOrderByAggregateInput
     _max?: MasterExamQuestionMaxOrderByAggregateInput
     _min?: MasterExamQuestionMinOrderByAggregateInput
+    _sum?: MasterExamQuestionSumOrderByAggregateInput
   }
 
   export type MasterExamQuestionScalarWhereWithAggregatesInput = {
@@ -18029,6 +19228,8 @@ export namespace Prisma {
     NOT?: MasterExamQuestionScalarWhereWithAggregatesInput | MasterExamQuestionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"MasterExamQuestion"> | string
     examId?: StringWithAggregatesFilter<"MasterExamQuestion"> | string
+    sequence?: IntWithAggregatesFilter<"MasterExamQuestion"> | number
+    score?: IntWithAggregatesFilter<"MasterExamQuestion"> | number
     question?: StringWithAggregatesFilter<"MasterExamQuestion"> | string
     questionType?: StringWithAggregatesFilter<"MasterExamQuestion"> | string
     options?: StringNullableWithAggregatesFilter<"MasterExamQuestion"> | string | null
@@ -18044,7 +19245,7 @@ export namespace Prisma {
     examId?: StringFilter<"ExamSubmission"> | string
     userId?: StringFilter<"ExamSubmission"> | string
     submittedAt?: DateTimeFilter<"ExamSubmission"> | Date | string
-    score?: FloatFilter<"ExamSubmission"> | number
+    score?: IntFilter<"ExamSubmission"> | number
     percentile?: FloatFilter<"ExamSubmission"> | number
     exam?: XOR<MasterExamScalarRelationFilter, MasterExamWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -18071,7 +19272,7 @@ export namespace Prisma {
     examId?: StringFilter<"ExamSubmission"> | string
     userId?: StringFilter<"ExamSubmission"> | string
     submittedAt?: DateTimeFilter<"ExamSubmission"> | Date | string
-    score?: FloatFilter<"ExamSubmission"> | number
+    score?: IntFilter<"ExamSubmission"> | number
     percentile?: FloatFilter<"ExamSubmission"> | number
     exam?: XOR<MasterExamScalarRelationFilter, MasterExamWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -18100,7 +19301,7 @@ export namespace Prisma {
     examId?: StringWithAggregatesFilter<"ExamSubmission"> | string
     userId?: StringWithAggregatesFilter<"ExamSubmission"> | string
     submittedAt?: DateTimeWithAggregatesFilter<"ExamSubmission"> | Date | string
-    score?: FloatWithAggregatesFilter<"ExamSubmission"> | number
+    score?: IntWithAggregatesFilter<"ExamSubmission"> | number
     percentile?: FloatWithAggregatesFilter<"ExamSubmission"> | number
   }
 
@@ -18170,6 +19371,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     examSubmissions?: ExamSubmissionCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     chatRoom?: ChatRoomCreateNestedManyWithoutUserInput
@@ -18183,6 +19389,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     examSubmissions?: ExamSubmissionUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutUserInput
@@ -18196,6 +19407,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     examSubmissions?: ExamSubmissionUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     chatRoom?: ChatRoomUpdateManyWithoutUserNestedInput
@@ -18209,6 +19425,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     examSubmissions?: ExamSubmissionUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     chatRoom?: ChatRoomUncheckedUpdateManyWithoutUserNestedInput
@@ -18222,6 +19443,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -18232,6 +19458,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -18242,14 +19473,17 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MasterCategoryCreateInput = {
     id: string
     name: string
-    level: number
-    parent?: MasterCategoryCreateNestedOneWithoutChildrenInput
-    children?: MasterCategoryCreateNestedManyWithoutParentInput
+    description: string
     courses?: MasterCourseCreateNestedManyWithoutCategoryInput
     exams?: MasterExamCreateNestedManyWithoutCategoryInput
   }
@@ -18257,9 +19491,7 @@ export namespace Prisma {
   export type MasterCategoryUncheckedCreateInput = {
     id: string
     name: string
-    level: number
-    parentId?: string | null
-    children?: MasterCategoryUncheckedCreateNestedManyWithoutParentInput
+    description: string
     courses?: MasterCourseUncheckedCreateNestedManyWithoutCategoryInput
     exams?: MasterExamUncheckedCreateNestedManyWithoutCategoryInput
   }
@@ -18267,9 +19499,7 @@ export namespace Prisma {
   export type MasterCategoryUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parent?: MasterCategoryUpdateOneWithoutChildrenNestedInput
-    children?: MasterCategoryUpdateManyWithoutParentNestedInput
+    description?: StringFieldUpdateOperationsInput | string
     courses?: MasterCourseUpdateManyWithoutCategoryNestedInput
     exams?: MasterExamUpdateManyWithoutCategoryNestedInput
   }
@@ -18277,9 +19507,7 @@ export namespace Prisma {
   export type MasterCategoryUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    children?: MasterCategoryUncheckedUpdateManyWithoutParentNestedInput
+    description?: StringFieldUpdateOperationsInput | string
     courses?: MasterCourseUncheckedUpdateManyWithoutCategoryNestedInput
     exams?: MasterExamUncheckedUpdateManyWithoutCategoryNestedInput
   }
@@ -18287,21 +19515,19 @@ export namespace Prisma {
   export type MasterCategoryCreateManyInput = {
     id: string
     name: string
-    level: number
-    parentId?: string | null
+    description: string
   }
 
   export type MasterCategoryUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
+    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterCategoryUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type MasterTagCreateInput = {
@@ -18349,16 +19575,14 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
     tags?: MasterTagCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQCreateNestedManyWithoutCourseInput
+    courseArticles?: MasterCourseArticleCreateNestedManyWithoutCourseInput
   }
 
   export type MasterCourseUncheckedCreateInput = {
@@ -18367,16 +19591,14 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
     tags?: MasterTagUncheckedCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentUncheckedCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQUncheckedCreateNestedManyWithoutCourseInput
+    courseArticles?: MasterCourseArticleUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type MasterCourseUpdateInput = {
@@ -18385,16 +19607,14 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
     tags?: MasterTagUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUpdateManyWithoutCourseNestedInput
+    courseArticles?: MasterCourseArticleUpdateManyWithoutCourseNestedInput
   }
 
   export type MasterCourseUncheckedUpdateInput = {
@@ -18403,16 +19623,14 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
     tags?: MasterTagUncheckedUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUncheckedUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUncheckedUpdateManyWithoutCourseNestedInput
+    courseArticles?: MasterCourseArticleUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type MasterCourseCreateManyInput = {
@@ -18421,7 +19639,8 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -18434,7 +19653,8 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18446,27 +19666,78 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type MasterCourseContentCreateInput = {
+  export type MasterCourseRelationCreateInput = {
+    id: string
+    courseId: string
+    relatedCourseId: string
+    score: number
+  }
+
+  export type MasterCourseRelationUncheckedCreateInput = {
+    id: string
+    courseId: string
+    relatedCourseId: string
+    score: number
+  }
+
+  export type MasterCourseRelationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    relatedCourseId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type MasterCourseRelationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    relatedCourseId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type MasterCourseRelationCreateManyInput = {
+    id: string
+    courseId: string
+    relatedCourseId: string
+    score: number
+  }
+
+  export type MasterCourseRelationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    relatedCourseId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type MasterCourseRelationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseId?: StringFieldUpdateOperationsInput | string
+    relatedCourseId?: StringFieldUpdateOperationsInput | string
+    score?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type MasterCourseArticleCreateInput = {
     id: string
     sequence: number
     title?: string | null
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    course: MasterCourseCreateNestedOneWithoutCourseContentsInput
-    exercises?: MasterExerciseCreateNestedManyWithoutCourseContentInput
-    chatMessages?: ChatMessageCreateNestedManyWithoutMasterCourseContentInput
-    chatRoom?: ChatRoomCreateNestedManyWithoutCourseContentInput
+    durationMin?: number | null
+    course: MasterCourseCreateNestedOneWithoutCourseArticlesInput
+    exercises?: MasterCourseArticleExerciseCreateNestedManyWithoutCourseArticleInput
+    chatRoom?: ChatRoomCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentUncheckedCreateInput = {
+  export type MasterCourseArticleUncheckedCreateInput = {
     id: string
     courseId: string
     sequence: number
@@ -18474,25 +19745,27 @@ export namespace Prisma {
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    exercises?: MasterExerciseUncheckedCreateNestedManyWithoutCourseContentInput
-    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutMasterCourseContentInput
-    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseContentInput
+    durationMin?: number | null
+    exercises?: MasterCourseArticleExerciseUncheckedCreateNestedManyWithoutCourseArticleInput
+    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQUncheckedCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentUpdateInput = {
+  export type MasterCourseArticleUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    course?: MasterCourseUpdateOneRequiredWithoutCourseContentsNestedInput
-    exercises?: MasterExerciseUpdateManyWithoutCourseContentNestedInput
-    chatMessages?: ChatMessageUpdateManyWithoutMasterCourseContentNestedInput
-    chatRoom?: ChatRoomUpdateManyWithoutCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    course?: MasterCourseUpdateOneRequiredWithoutCourseArticlesNestedInput
+    exercises?: MasterCourseArticleExerciseUpdateManyWithoutCourseArticleNestedInput
+    chatRoom?: ChatRoomUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUpdateManyWithoutCourseArticleNestedInput
   }
 
-  export type MasterCourseContentUncheckedUpdateInput = {
+  export type MasterCourseArticleUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
@@ -18500,12 +19773,13 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    exercises?: MasterExerciseUncheckedUpdateManyWithoutCourseContentNestedInput
-    chatMessages?: ChatMessageUncheckedUpdateManyWithoutMasterCourseContentNestedInput
-    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    exercises?: MasterCourseArticleExerciseUncheckedUpdateManyWithoutCourseArticleNestedInput
+    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUncheckedUpdateManyWithoutCourseArticleNestedInput
   }
 
-  export type MasterCourseContentCreateManyInput = {
+  export type MasterCourseArticleCreateManyInput = {
     id: string
     courseId: string
     sequence: number
@@ -18513,18 +19787,20 @@ export namespace Prisma {
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    durationMin?: number | null
   }
 
-  export type MasterCourseContentUpdateManyMutationInput = {
+  export type MasterCourseArticleUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type MasterCourseContentUncheckedUpdateManyInput = {
+  export type MasterCourseArticleUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
@@ -18532,51 +19808,22 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type MasterExerciseCreateInput = {
+  export type MasterCourseArticleExerciseCreateInput = {
     id: string
     exerciseType: string
     question: string
     options?: string | null
     correctAnswer?: string | null
     createdAt?: Date | string
-    courseContent: MasterCourseContentCreateNestedOneWithoutExercisesInput
+    courseArticle: MasterCourseArticleCreateNestedOneWithoutExercisesInput
   }
 
-  export type MasterExerciseUncheckedCreateInput = {
+  export type MasterCourseArticleExerciseUncheckedCreateInput = {
     id: string
-    courseContentId: string
-    exerciseType: string
-    question: string
-    options?: string | null
-    correctAnswer?: string | null
-    createdAt?: Date | string
-  }
-
-  export type MasterExerciseUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    exerciseType?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    options?: NullableStringFieldUpdateOperationsInput | string | null
-    correctAnswer?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    courseContent?: MasterCourseContentUpdateOneRequiredWithoutExercisesNestedInput
-  }
-
-  export type MasterExerciseUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseContentId?: StringFieldUpdateOperationsInput | string
-    exerciseType?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    options?: NullableStringFieldUpdateOperationsInput | string | null
-    correctAnswer?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MasterExerciseCreateManyInput = {
-    id: string
-    courseContentId: string
+    courseArticleId: string
     exerciseType: string
     question: string
     options?: string | null
@@ -18584,7 +19831,37 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type MasterExerciseUpdateManyMutationInput = {
+  export type MasterCourseArticleExerciseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    exerciseType?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    correctAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseArticle?: MasterCourseArticleUpdateOneRequiredWithoutExercisesNestedInput
+  }
+
+  export type MasterCourseArticleExerciseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
+    exerciseType?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: NullableStringFieldUpdateOperationsInput | string | null
+    correctAnswer?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleExerciseCreateManyInput = {
+    id: string
+    courseArticleId: string
+    exerciseType: string
+    question: string
+    options?: string | null
+    correctAnswer?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MasterCourseArticleExerciseUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     exerciseType?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
@@ -18593,9 +19870,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MasterExerciseUncheckedUpdateManyInput = {
+  export type MasterCourseArticleExerciseUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    courseContentId?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
     exerciseType?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18607,14 +19884,14 @@ export namespace Prisma {
     id: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutChatRoomInput
-    courseContent: MasterCourseContentCreateNestedOneWithoutChatRoomInput
+    courseArticle: MasterCourseArticleCreateNestedOneWithoutChatRoomInput
     chatMessage?: ChatMessageCreateNestedManyWithoutChatRoomInput
   }
 
   export type ChatRoomUncheckedCreateInput = {
     id: string
     userId: string
-    courseContentId: string
+    courseArticleId: string
     createdAt?: Date | string
     chatMessage?: ChatMessageUncheckedCreateNestedManyWithoutChatRoomInput
   }
@@ -18623,14 +19900,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutChatRoomNestedInput
-    courseContent?: MasterCourseContentUpdateOneRequiredWithoutChatRoomNestedInput
+    courseArticle?: MasterCourseArticleUpdateOneRequiredWithoutChatRoomNestedInput
     chatMessage?: ChatMessageUpdateManyWithoutChatRoomNestedInput
   }
 
   export type ChatRoomUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    courseContentId?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatMessage?: ChatMessageUncheckedUpdateManyWithoutChatRoomNestedInput
   }
@@ -18638,7 +19915,7 @@ export namespace Prisma {
   export type ChatRoomCreateManyInput = {
     id: string
     userId: string
-    courseContentId: string
+    courseArticleId: string
     createdAt?: Date | string
   }
 
@@ -18650,7 +19927,7 @@ export namespace Prisma {
   export type ChatRoomUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    courseContentId?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18659,9 +19936,9 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
+    masterCourseArticleId?: string | null
     chatRoom: ChatRoomCreateNestedOneWithoutChatMessageInput
     user?: UserCreateNestedOneWithoutChatMessagesInput
-    MasterCourseContent?: MasterCourseContentCreateNestedOneWithoutChatMessagesInput
   }
 
   export type ChatMessageUncheckedCreateInput = {
@@ -18671,7 +19948,7 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
-    masterCourseContentId?: string | null
+    masterCourseArticleId?: string | null
   }
 
   export type ChatMessageUpdateInput = {
@@ -18679,9 +19956,9 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
     chatRoom?: ChatRoomUpdateOneRequiredWithoutChatMessageNestedInput
     user?: UserUpdateOneWithoutChatMessagesNestedInput
-    MasterCourseContent?: MasterCourseContentUpdateOneWithoutChatMessagesNestedInput
   }
 
   export type ChatMessageUncheckedUpdateInput = {
@@ -18691,7 +19968,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    masterCourseContentId?: NullableStringFieldUpdateOperationsInput | string | null
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessageCreateManyInput = {
@@ -18701,7 +19978,7 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
-    masterCourseContentId?: string | null
+    masterCourseArticleId?: string | null
   }
 
   export type ChatMessageUpdateManyMutationInput = {
@@ -18709,6 +19986,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessageUncheckedUpdateManyInput = {
@@ -18718,55 +19996,55 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    masterCourseContentId?: NullableStringFieldUpdateOperationsInput | string | null
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type MasterCourseFAQCreateInput = {
+  export type MasterCourseArticleFAQCreateInput = {
     id: string
     question: string
     answer: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    course: MasterCourseCreateNestedOneWithoutCourseFAQsInput
+    courseArticle: MasterCourseArticleCreateNestedOneWithoutFaqInput
   }
 
-  export type MasterCourseFAQUncheckedCreateInput = {
+  export type MasterCourseArticleFAQUncheckedCreateInput = {
     id: string
-    courseId: string
-    question: string
-    answer: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MasterCourseFAQUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    course?: MasterCourseUpdateOneRequiredWithoutCourseFAQsNestedInput
-  }
-
-  export type MasterCourseFAQUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MasterCourseFAQCreateManyInput = {
-    id: string
-    courseId: string
+    courseArticleId: string
     question: string
     answer: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type MasterCourseFAQUpdateManyMutationInput = {
+  export type MasterCourseArticleFAQUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    courseArticle?: MasterCourseArticleUpdateOneRequiredWithoutFaqNestedInput
+  }
+
+  export type MasterCourseArticleFAQUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleFAQCreateManyInput = {
+    id: string
+    courseArticleId: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MasterCourseArticleFAQUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
@@ -18774,9 +20052,9 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MasterCourseFAQUncheckedUpdateManyInput = {
+  export type MasterCourseArticleFAQUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    courseId?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
     answer?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -18789,6 +20067,9 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
+    passingScore: number
     category: MasterCategoryCreateNestedOneWithoutExamsInput
     examQuestions?: MasterExamQuestionCreateNestedManyWithoutExamInput
     ExamSubmission?: ExamSubmissionCreateNestedManyWithoutExamInput
@@ -18800,7 +20081,10 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
     categoryId: string
+    passingScore: number
     examQuestions?: MasterExamQuestionUncheckedCreateNestedManyWithoutExamInput
     ExamSubmission?: ExamSubmissionUncheckedCreateNestedManyWithoutExamInput
   }
@@ -18811,6 +20095,9 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
+    passingScore?: IntFieldUpdateOperationsInput | number
     category?: MasterCategoryUpdateOneRequiredWithoutExamsNestedInput
     examQuestions?: MasterExamQuestionUpdateManyWithoutExamNestedInput
     ExamSubmission?: ExamSubmissionUpdateManyWithoutExamNestedInput
@@ -18822,7 +20109,10 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
     categoryId?: StringFieldUpdateOperationsInput | string
+    passingScore?: IntFieldUpdateOperationsInput | number
     examQuestions?: MasterExamQuestionUncheckedUpdateManyWithoutExamNestedInput
     ExamSubmission?: ExamSubmissionUncheckedUpdateManyWithoutExamNestedInput
   }
@@ -18833,7 +20123,10 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
     categoryId: string
+    passingScore: number
   }
 
   export type MasterExamUpdateManyMutationInput = {
@@ -18842,6 +20135,9 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
+    passingScore?: IntFieldUpdateOperationsInput | number
   }
 
   export type MasterExamUncheckedUpdateManyInput = {
@@ -18850,11 +20146,16 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
     categoryId?: StringFieldUpdateOperationsInput | string
+    passingScore?: IntFieldUpdateOperationsInput | number
   }
 
   export type MasterExamQuestionCreateInput = {
     id: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -18867,6 +20168,8 @@ export namespace Prisma {
   export type MasterExamQuestionUncheckedCreateInput = {
     id: string
     examId: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -18877,6 +20180,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18889,6 +20194,8 @@ export namespace Prisma {
   export type MasterExamQuestionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     examId?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18900,6 +20207,8 @@ export namespace Prisma {
   export type MasterExamQuestionCreateManyInput = {
     id: string
     examId: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -18909,6 +20218,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18919,6 +20230,8 @@ export namespace Prisma {
   export type MasterExamQuestionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     examId?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18949,7 +20262,7 @@ export namespace Prisma {
   export type ExamSubmissionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
     exam?: MasterExamUpdateOneRequiredWithoutExamSubmissionNestedInput
     user?: UserUpdateOneRequiredWithoutExamSubmissionsNestedInput
@@ -18961,7 +20274,7 @@ export namespace Prisma {
     examId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
     examAnswers?: ExamAnswerUncheckedUpdateManyWithoutExamSubmissionNestedInput
   }
@@ -18978,7 +20291,7 @@ export namespace Prisma {
   export type ExamSubmissionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
   }
 
@@ -18987,7 +20300,7 @@ export namespace Prisma {
     examId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
   }
 
@@ -19086,6 +20399,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type ExamSubmissionListRelationFilter = {
     every?: ExamSubmissionWhereInput
     some?: ExamSubmissionWhereInput
@@ -19129,6 +20453,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     plan?: SortOrder
+    name?: SortOrder
+    occupation?: SortOrder
+    birthDate?: SortOrder
+    deletedAt?: SortOrder
+    deleteReason?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -19139,6 +20468,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     plan?: SortOrder
+    name?: SortOrder
+    occupation?: SortOrder
+    birthDate?: SortOrder
+    deletedAt?: SortOrder
+    deleteReason?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -19149,6 +20483,11 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     plan?: SortOrder
+    name?: SortOrder
+    occupation?: SortOrder
+    birthDate?: SortOrder
+    deletedAt?: SortOrder
+    deleteReason?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -19201,26 +20540,18 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type MasterCategoryNullableScalarRelationFilter = {
-    is?: MasterCategoryWhereInput | null
-    isNot?: MasterCategoryWhereInput | null
-  }
-
-  export type MasterCategoryListRelationFilter = {
-    every?: MasterCategoryWhereInput
-    some?: MasterCategoryWhereInput
-    none?: MasterCategoryWhereInput
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type MasterCourseListRelationFilter = {
@@ -19235,10 +20566,6 @@ export namespace Prisma {
     none?: MasterExamWhereInput
   }
 
-  export type MasterCategoryOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type MasterCourseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -19250,46 +20577,19 @@ export namespace Prisma {
   export type MasterCategoryCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    level?: SortOrder
-    parentId?: SortOrder
-  }
-
-  export type MasterCategoryAvgOrderByAggregateInput = {
-    level?: SortOrder
+    description?: SortOrder
   }
 
   export type MasterCategoryMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    level?: SortOrder
-    parentId?: SortOrder
+    description?: SortOrder
   }
 
   export type MasterCategoryMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
-    level?: SortOrder
-    parentId?: SortOrder
-  }
-
-  export type MasterCategorySumOrderByAggregateInput = {
-    level?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    description?: SortOrder
   }
 
   export type MasterTagCountOrderByAggregateInput = {
@@ -19329,27 +20629,17 @@ export namespace Prisma {
     none?: MasterTagWhereInput
   }
 
-  export type MasterCourseContentListRelationFilter = {
-    every?: MasterCourseContentWhereInput
-    some?: MasterCourseContentWhereInput
-    none?: MasterCourseContentWhereInput
-  }
-
-  export type MasterCourseFAQListRelationFilter = {
-    every?: MasterCourseFAQWhereInput
-    some?: MasterCourseFAQWhereInput
-    none?: MasterCourseFAQWhereInput
+  export type MasterCourseArticleListRelationFilter = {
+    every?: MasterCourseArticleWhereInput
+    some?: MasterCourseArticleWhereInput
+    none?: MasterCourseArticleWhereInput
   }
 
   export type MasterTagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type MasterCourseContentOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type MasterCourseFAQOrderByRelationAggregateInput = {
+  export type MasterCourseArticleOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -19359,6 +20649,7 @@ export namespace Prisma {
     summary?: SortOrder
     description?: SortOrder
     targetAudience?: SortOrder
+    level?: SortOrder
     difficulty?: SortOrder
     durationMin?: SortOrder
     createdAt?: SortOrder
@@ -19367,6 +20658,7 @@ export namespace Prisma {
   }
 
   export type MasterCourseAvgOrderByAggregateInput = {
+    difficulty?: SortOrder
     durationMin?: SortOrder
   }
 
@@ -19376,6 +20668,7 @@ export namespace Prisma {
     summary?: SortOrder
     description?: SortOrder
     targetAudience?: SortOrder
+    level?: SortOrder
     difficulty?: SortOrder
     durationMin?: SortOrder
     createdAt?: SortOrder
@@ -19389,6 +20682,7 @@ export namespace Prisma {
     summary?: SortOrder
     description?: SortOrder
     targetAudience?: SortOrder
+    level?: SortOrder
     difficulty?: SortOrder
     durationMin?: SortOrder
     createdAt?: SortOrder
@@ -19397,6 +20691,7 @@ export namespace Prisma {
   }
 
   export type MasterCourseSumOrderByAggregateInput = {
+    difficulty?: SortOrder
     durationMin?: SortOrder
   }
 
@@ -19416,22 +20711,99 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type MasterCourseRelationCountOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    relatedCourseId?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseRelationAvgOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type MasterCourseRelationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    relatedCourseId?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseRelationMinOrderByAggregateInput = {
+    id?: SortOrder
+    courseId?: SortOrder
+    relatedCourseId?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseRelationSumOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type MasterCourseScalarRelationFilter = {
     is?: MasterCourseWhereInput
     isNot?: MasterCourseWhereInput
   }
 
-  export type MasterExerciseListRelationFilter = {
-    every?: MasterExerciseWhereInput
-    some?: MasterExerciseWhereInput
-    none?: MasterExerciseWhereInput
+  export type MasterCourseArticleExerciseListRelationFilter = {
+    every?: MasterCourseArticleExerciseWhereInput
+    some?: MasterCourseArticleExerciseWhereInput
+    none?: MasterCourseArticleExerciseWhereInput
   }
 
-  export type MasterExerciseOrderByRelationAggregateInput = {
+  export type MasterCourseArticleFAQListRelationFilter = {
+    every?: MasterCourseArticleFAQWhereInput
+    some?: MasterCourseArticleFAQWhereInput
+    none?: MasterCourseArticleFAQWhereInput
+  }
+
+  export type MasterCourseArticleExerciseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type MasterCourseContentCountOrderByAggregateInput = {
+  export type MasterCourseArticleFAQOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MasterCourseArticleCountOrderByAggregateInput = {
     id?: SortOrder
     courseId?: SortOrder
     sequence?: SortOrder
@@ -19439,13 +20811,15 @@ export namespace Prisma {
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    durationMin?: SortOrder
   }
 
-  export type MasterCourseContentAvgOrderByAggregateInput = {
+  export type MasterCourseArticleAvgOrderByAggregateInput = {
     sequence?: SortOrder
+    durationMin?: SortOrder
   }
 
-  export type MasterCourseContentMaxOrderByAggregateInput = {
+  export type MasterCourseArticleMaxOrderByAggregateInput = {
     id?: SortOrder
     courseId?: SortOrder
     sequence?: SortOrder
@@ -19453,9 +20827,10 @@ export namespace Prisma {
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    durationMin?: SortOrder
   }
 
-  export type MasterCourseContentMinOrderByAggregateInput = {
+  export type MasterCourseArticleMinOrderByAggregateInput = {
     id?: SortOrder
     courseId?: SortOrder
     sequence?: SortOrder
@@ -19463,20 +20838,38 @@ export namespace Prisma {
     content?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    durationMin?: SortOrder
   }
 
-  export type MasterCourseContentSumOrderByAggregateInput = {
+  export type MasterCourseArticleSumOrderByAggregateInput = {
     sequence?: SortOrder
+    durationMin?: SortOrder
   }
 
-  export type MasterCourseContentScalarRelationFilter = {
-    is?: MasterCourseContentWhereInput
-    isNot?: MasterCourseContentWhereInput
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type MasterExerciseCountOrderByAggregateInput = {
+  export type MasterCourseArticleScalarRelationFilter = {
+    is?: MasterCourseArticleWhereInput
+    isNot?: MasterCourseArticleWhereInput
+  }
+
+  export type MasterCourseArticleExerciseCountOrderByAggregateInput = {
     id?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     exerciseType?: SortOrder
     question?: SortOrder
     options?: SortOrder
@@ -19484,9 +20877,9 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type MasterExerciseMaxOrderByAggregateInput = {
+  export type MasterCourseArticleExerciseMaxOrderByAggregateInput = {
     id?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     exerciseType?: SortOrder
     question?: SortOrder
     options?: SortOrder
@@ -19494,9 +20887,9 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type MasterExerciseMinOrderByAggregateInput = {
+  export type MasterCourseArticleExerciseMinOrderByAggregateInput = {
     id?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     exerciseType?: SortOrder
     question?: SortOrder
     options?: SortOrder
@@ -19512,21 +20905,21 @@ export namespace Prisma {
   export type ChatRoomCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ChatRoomMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     createdAt?: SortOrder
   }
 
   export type ChatRoomMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
-    courseContentId?: SortOrder
+    courseArticleId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -19540,11 +20933,6 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
-  export type MasterCourseContentNullableScalarRelationFilter = {
-    is?: MasterCourseContentWhereInput | null
-    isNot?: MasterCourseContentWhereInput | null
-  }
-
   export type ChatMessageCountOrderByAggregateInput = {
     id?: SortOrder
     chatRoomId?: SortOrder
@@ -19552,7 +20940,7 @@ export namespace Prisma {
     role?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
-    masterCourseContentId?: SortOrder
+    masterCourseArticleId?: SortOrder
   }
 
   export type ChatMessageMaxOrderByAggregateInput = {
@@ -19562,7 +20950,7 @@ export namespace Prisma {
     role?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
-    masterCourseContentId?: SortOrder
+    masterCourseArticleId?: SortOrder
   }
 
   export type ChatMessageMinOrderByAggregateInput = {
@@ -19572,30 +20960,30 @@ export namespace Prisma {
     role?: SortOrder
     message?: SortOrder
     createdAt?: SortOrder
-    masterCourseContentId?: SortOrder
+    masterCourseArticleId?: SortOrder
   }
 
-  export type MasterCourseFAQCountOrderByAggregateInput = {
+  export type MasterCourseArticleFAQCountOrderByAggregateInput = {
     id?: SortOrder
-    courseId?: SortOrder
+    courseArticleId?: SortOrder
     question?: SortOrder
     answer?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type MasterCourseFAQMaxOrderByAggregateInput = {
+  export type MasterCourseArticleFAQMaxOrderByAggregateInput = {
     id?: SortOrder
-    courseId?: SortOrder
+    courseArticleId?: SortOrder
     question?: SortOrder
     answer?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
-  export type MasterCourseFAQMinOrderByAggregateInput = {
+  export type MasterCourseArticleFAQMinOrderByAggregateInput = {
     id?: SortOrder
-    courseId?: SortOrder
+    courseArticleId?: SortOrder
     question?: SortOrder
     answer?: SortOrder
     createdAt?: SortOrder
@@ -19618,7 +21006,16 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    level?: SortOrder
+    timeLimitMin?: SortOrder
     categoryId?: SortOrder
+    passingScore?: SortOrder
+  }
+
+  export type MasterExamAvgOrderByAggregateInput = {
+    level?: SortOrder
+    timeLimitMin?: SortOrder
+    passingScore?: SortOrder
   }
 
   export type MasterExamMaxOrderByAggregateInput = {
@@ -19627,7 +21024,10 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    level?: SortOrder
+    timeLimitMin?: SortOrder
     categoryId?: SortOrder
+    passingScore?: SortOrder
   }
 
   export type MasterExamMinOrderByAggregateInput = {
@@ -19636,7 +21036,16 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    level?: SortOrder
+    timeLimitMin?: SortOrder
     categoryId?: SortOrder
+    passingScore?: SortOrder
+  }
+
+  export type MasterExamSumOrderByAggregateInput = {
+    level?: SortOrder
+    timeLimitMin?: SortOrder
+    passingScore?: SortOrder
   }
 
   export type MasterExamScalarRelationFilter = {
@@ -19657,6 +21066,8 @@ export namespace Prisma {
   export type MasterExamQuestionCountOrderByAggregateInput = {
     id?: SortOrder
     examId?: SortOrder
+    sequence?: SortOrder
+    score?: SortOrder
     question?: SortOrder
     questionType?: SortOrder
     options?: SortOrder
@@ -19664,9 +21075,16 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type MasterExamQuestionAvgOrderByAggregateInput = {
+    sequence?: SortOrder
+    score?: SortOrder
+  }
+
   export type MasterExamQuestionMaxOrderByAggregateInput = {
     id?: SortOrder
     examId?: SortOrder
+    sequence?: SortOrder
+    score?: SortOrder
     question?: SortOrder
     questionType?: SortOrder
     options?: SortOrder
@@ -19677,6 +21095,8 @@ export namespace Prisma {
   export type MasterExamQuestionMinOrderByAggregateInput = {
     id?: SortOrder
     examId?: SortOrder
+    sequence?: SortOrder
+    score?: SortOrder
     question?: SortOrder
     questionType?: SortOrder
     options?: SortOrder
@@ -19684,15 +21104,9 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type FloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type MasterExamQuestionSumOrderByAggregateInput = {
+    sequence?: SortOrder
+    score?: SortOrder
   }
 
   export type ExamSubmissionCountOrderByAggregateInput = {
@@ -19730,22 +21144,6 @@ export namespace Prisma {
   export type ExamSubmissionSumOrderByAggregateInput = {
     score?: SortOrder
     percentile?: SortOrder
-  }
-
-  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedFloatFilter<$PrismaModel>
-    _min?: NestedFloatFilter<$PrismaModel>
-    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -19849,6 +21247,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type ExamSubmissionUpdateManyWithoutUserNestedInput = {
     create?: XOR<ExamSubmissionCreateWithoutUserInput, ExamSubmissionUncheckedCreateWithoutUserInput> | ExamSubmissionCreateWithoutUserInput[] | ExamSubmissionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ExamSubmissionCreateOrConnectWithoutUserInput | ExamSubmissionCreateOrConnectWithoutUserInput[]
@@ -19933,19 +21335,6 @@ export namespace Prisma {
     deleteMany?: ChatRoomScalarWhereInput | ChatRoomScalarWhereInput[]
   }
 
-  export type MasterCategoryCreateNestedOneWithoutChildrenInput = {
-    create?: XOR<MasterCategoryCreateWithoutChildrenInput, MasterCategoryUncheckedCreateWithoutChildrenInput>
-    connectOrCreate?: MasterCategoryCreateOrConnectWithoutChildrenInput
-    connect?: MasterCategoryWhereUniqueInput
-  }
-
-  export type MasterCategoryCreateNestedManyWithoutParentInput = {
-    create?: XOR<MasterCategoryCreateWithoutParentInput, MasterCategoryUncheckedCreateWithoutParentInput> | MasterCategoryCreateWithoutParentInput[] | MasterCategoryUncheckedCreateWithoutParentInput[]
-    connectOrCreate?: MasterCategoryCreateOrConnectWithoutParentInput | MasterCategoryCreateOrConnectWithoutParentInput[]
-    createMany?: MasterCategoryCreateManyParentInputEnvelope
-    connect?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-  }
-
   export type MasterCourseCreateNestedManyWithoutCategoryInput = {
     create?: XOR<MasterCourseCreateWithoutCategoryInput, MasterCourseUncheckedCreateWithoutCategoryInput> | MasterCourseCreateWithoutCategoryInput[] | MasterCourseUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: MasterCourseCreateOrConnectWithoutCategoryInput | MasterCourseCreateOrConnectWithoutCategoryInput[]
@@ -19960,13 +21349,6 @@ export namespace Prisma {
     connect?: MasterExamWhereUniqueInput | MasterExamWhereUniqueInput[]
   }
 
-  export type MasterCategoryUncheckedCreateNestedManyWithoutParentInput = {
-    create?: XOR<MasterCategoryCreateWithoutParentInput, MasterCategoryUncheckedCreateWithoutParentInput> | MasterCategoryCreateWithoutParentInput[] | MasterCategoryUncheckedCreateWithoutParentInput[]
-    connectOrCreate?: MasterCategoryCreateOrConnectWithoutParentInput | MasterCategoryCreateOrConnectWithoutParentInput[]
-    createMany?: MasterCategoryCreateManyParentInputEnvelope
-    connect?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-  }
-
   export type MasterCourseUncheckedCreateNestedManyWithoutCategoryInput = {
     create?: XOR<MasterCourseCreateWithoutCategoryInput, MasterCourseUncheckedCreateWithoutCategoryInput> | MasterCourseCreateWithoutCategoryInput[] | MasterCourseUncheckedCreateWithoutCategoryInput[]
     connectOrCreate?: MasterCourseCreateOrConnectWithoutCategoryInput | MasterCourseCreateOrConnectWithoutCategoryInput[]
@@ -19979,38 +21361,6 @@ export namespace Prisma {
     connectOrCreate?: MasterExamCreateOrConnectWithoutCategoryInput | MasterExamCreateOrConnectWithoutCategoryInput[]
     createMany?: MasterExamCreateManyCategoryInputEnvelope
     connect?: MasterExamWhereUniqueInput | MasterExamWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type MasterCategoryUpdateOneWithoutChildrenNestedInput = {
-    create?: XOR<MasterCategoryCreateWithoutChildrenInput, MasterCategoryUncheckedCreateWithoutChildrenInput>
-    connectOrCreate?: MasterCategoryCreateOrConnectWithoutChildrenInput
-    upsert?: MasterCategoryUpsertWithoutChildrenInput
-    disconnect?: MasterCategoryWhereInput | boolean
-    delete?: MasterCategoryWhereInput | boolean
-    connect?: MasterCategoryWhereUniqueInput
-    update?: XOR<XOR<MasterCategoryUpdateToOneWithWhereWithoutChildrenInput, MasterCategoryUpdateWithoutChildrenInput>, MasterCategoryUncheckedUpdateWithoutChildrenInput>
-  }
-
-  export type MasterCategoryUpdateManyWithoutParentNestedInput = {
-    create?: XOR<MasterCategoryCreateWithoutParentInput, MasterCategoryUncheckedCreateWithoutParentInput> | MasterCategoryCreateWithoutParentInput[] | MasterCategoryUncheckedCreateWithoutParentInput[]
-    connectOrCreate?: MasterCategoryCreateOrConnectWithoutParentInput | MasterCategoryCreateOrConnectWithoutParentInput[]
-    upsert?: MasterCategoryUpsertWithWhereUniqueWithoutParentInput | MasterCategoryUpsertWithWhereUniqueWithoutParentInput[]
-    createMany?: MasterCategoryCreateManyParentInputEnvelope
-    set?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    disconnect?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    delete?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    connect?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    update?: MasterCategoryUpdateWithWhereUniqueWithoutParentInput | MasterCategoryUpdateWithWhereUniqueWithoutParentInput[]
-    updateMany?: MasterCategoryUpdateManyWithWhereWithoutParentInput | MasterCategoryUpdateManyWithWhereWithoutParentInput[]
-    deleteMany?: MasterCategoryScalarWhereInput | MasterCategoryScalarWhereInput[]
   }
 
   export type MasterCourseUpdateManyWithoutCategoryNestedInput = {
@@ -20039,20 +21389,6 @@ export namespace Prisma {
     update?: MasterExamUpdateWithWhereUniqueWithoutCategoryInput | MasterExamUpdateWithWhereUniqueWithoutCategoryInput[]
     updateMany?: MasterExamUpdateManyWithWhereWithoutCategoryInput | MasterExamUpdateManyWithWhereWithoutCategoryInput[]
     deleteMany?: MasterExamScalarWhereInput | MasterExamScalarWhereInput[]
-  }
-
-  export type MasterCategoryUncheckedUpdateManyWithoutParentNestedInput = {
-    create?: XOR<MasterCategoryCreateWithoutParentInput, MasterCategoryUncheckedCreateWithoutParentInput> | MasterCategoryCreateWithoutParentInput[] | MasterCategoryUncheckedCreateWithoutParentInput[]
-    connectOrCreate?: MasterCategoryCreateOrConnectWithoutParentInput | MasterCategoryCreateOrConnectWithoutParentInput[]
-    upsert?: MasterCategoryUpsertWithWhereUniqueWithoutParentInput | MasterCategoryUpsertWithWhereUniqueWithoutParentInput[]
-    createMany?: MasterCategoryCreateManyParentInputEnvelope
-    set?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    disconnect?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    delete?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    connect?: MasterCategoryWhereUniqueInput | MasterCategoryWhereUniqueInput[]
-    update?: MasterCategoryUpdateWithWhereUniqueWithoutParentInput | MasterCategoryUpdateWithWhereUniqueWithoutParentInput[]
-    updateMany?: MasterCategoryUpdateManyWithWhereWithoutParentInput | MasterCategoryUpdateManyWithWhereWithoutParentInput[]
-    deleteMany?: MasterCategoryScalarWhereInput | MasterCategoryScalarWhereInput[]
   }
 
   export type MasterCourseUncheckedUpdateManyWithoutCategoryNestedInput = {
@@ -20133,30 +21469,11 @@ export namespace Prisma {
     connect?: MasterTagWhereUniqueInput | MasterTagWhereUniqueInput[]
   }
 
-  export type MasterCourseContentCreateNestedManyWithoutCourseInput = {
-    create?: XOR<MasterCourseContentCreateWithoutCourseInput, MasterCourseContentUncheckedCreateWithoutCourseInput> | MasterCourseContentCreateWithoutCourseInput[] | MasterCourseContentUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutCourseInput | MasterCourseContentCreateOrConnectWithoutCourseInput[]
-    createMany?: MasterCourseContentCreateManyCourseInputEnvelope
-    connect?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-  }
-
-  export type MasterCourseCreateNestedManyWithoutRelatedToCoursesInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedToCoursesInput, MasterCourseUncheckedCreateWithoutRelatedToCoursesInput> | MasterCourseCreateWithoutRelatedToCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedToCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedToCoursesInput | MasterCourseCreateOrConnectWithoutRelatedToCoursesInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-  }
-
-  export type MasterCourseCreateNestedManyWithoutRelatedCoursesInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedCoursesInput, MasterCourseUncheckedCreateWithoutRelatedCoursesInput> | MasterCourseCreateWithoutRelatedCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedCoursesInput | MasterCourseCreateOrConnectWithoutRelatedCoursesInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-  }
-
-  export type MasterCourseFAQCreateNestedManyWithoutCourseInput = {
-    create?: XOR<MasterCourseFAQCreateWithoutCourseInput, MasterCourseFAQUncheckedCreateWithoutCourseInput> | MasterCourseFAQCreateWithoutCourseInput[] | MasterCourseFAQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseFAQCreateOrConnectWithoutCourseInput | MasterCourseFAQCreateOrConnectWithoutCourseInput[]
-    createMany?: MasterCourseFAQCreateManyCourseInputEnvelope
-    connect?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
+  export type MasterCourseArticleCreateNestedManyWithoutCourseInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutCourseInput, MasterCourseArticleUncheckedCreateWithoutCourseInput> | MasterCourseArticleCreateWithoutCourseInput[] | MasterCourseArticleUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutCourseInput | MasterCourseArticleCreateOrConnectWithoutCourseInput[]
+    createMany?: MasterCourseArticleCreateManyCourseInputEnvelope
+    connect?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
   }
 
   export type MasterTagUncheckedCreateNestedManyWithoutCoursesInput = {
@@ -20165,30 +21482,11 @@ export namespace Prisma {
     connect?: MasterTagWhereUniqueInput | MasterTagWhereUniqueInput[]
   }
 
-  export type MasterCourseContentUncheckedCreateNestedManyWithoutCourseInput = {
-    create?: XOR<MasterCourseContentCreateWithoutCourseInput, MasterCourseContentUncheckedCreateWithoutCourseInput> | MasterCourseContentCreateWithoutCourseInput[] | MasterCourseContentUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutCourseInput | MasterCourseContentCreateOrConnectWithoutCourseInput[]
-    createMany?: MasterCourseContentCreateManyCourseInputEnvelope
-    connect?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-  }
-
-  export type MasterCourseUncheckedCreateNestedManyWithoutRelatedToCoursesInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedToCoursesInput, MasterCourseUncheckedCreateWithoutRelatedToCoursesInput> | MasterCourseCreateWithoutRelatedToCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedToCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedToCoursesInput | MasterCourseCreateOrConnectWithoutRelatedToCoursesInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-  }
-
-  export type MasterCourseUncheckedCreateNestedManyWithoutRelatedCoursesInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedCoursesInput, MasterCourseUncheckedCreateWithoutRelatedCoursesInput> | MasterCourseCreateWithoutRelatedCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedCoursesInput | MasterCourseCreateOrConnectWithoutRelatedCoursesInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-  }
-
-  export type MasterCourseFAQUncheckedCreateNestedManyWithoutCourseInput = {
-    create?: XOR<MasterCourseFAQCreateWithoutCourseInput, MasterCourseFAQUncheckedCreateWithoutCourseInput> | MasterCourseFAQCreateWithoutCourseInput[] | MasterCourseFAQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseFAQCreateOrConnectWithoutCourseInput | MasterCourseFAQCreateOrConnectWithoutCourseInput[]
-    createMany?: MasterCourseFAQCreateManyCourseInputEnvelope
-    connect?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
+  export type MasterCourseArticleUncheckedCreateNestedManyWithoutCourseInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutCourseInput, MasterCourseArticleUncheckedCreateWithoutCourseInput> | MasterCourseArticleCreateWithoutCourseInput[] | MasterCourseArticleUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutCourseInput | MasterCourseArticleCreateOrConnectWithoutCourseInput[]
+    createMany?: MasterCourseArticleCreateManyCourseInputEnvelope
+    connect?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -20220,58 +21518,18 @@ export namespace Prisma {
     deleteMany?: MasterTagScalarWhereInput | MasterTagScalarWhereInput[]
   }
 
-  export type MasterCourseContentUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<MasterCourseContentCreateWithoutCourseInput, MasterCourseContentUncheckedCreateWithoutCourseInput> | MasterCourseContentCreateWithoutCourseInput[] | MasterCourseContentUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutCourseInput | MasterCourseContentCreateOrConnectWithoutCourseInput[]
-    upsert?: MasterCourseContentUpsertWithWhereUniqueWithoutCourseInput | MasterCourseContentUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: MasterCourseContentCreateManyCourseInputEnvelope
-    set?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    disconnect?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    delete?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    connect?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    update?: MasterCourseContentUpdateWithWhereUniqueWithoutCourseInput | MasterCourseContentUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: MasterCourseContentUpdateManyWithWhereWithoutCourseInput | MasterCourseContentUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: MasterCourseContentScalarWhereInput | MasterCourseContentScalarWhereInput[]
-  }
-
-  export type MasterCourseUpdateManyWithoutRelatedToCoursesNestedInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedToCoursesInput, MasterCourseUncheckedCreateWithoutRelatedToCoursesInput> | MasterCourseCreateWithoutRelatedToCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedToCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedToCoursesInput | MasterCourseCreateOrConnectWithoutRelatedToCoursesInput[]
-    upsert?: MasterCourseUpsertWithWhereUniqueWithoutRelatedToCoursesInput | MasterCourseUpsertWithWhereUniqueWithoutRelatedToCoursesInput[]
-    set?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    disconnect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    delete?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    update?: MasterCourseUpdateWithWhereUniqueWithoutRelatedToCoursesInput | MasterCourseUpdateWithWhereUniqueWithoutRelatedToCoursesInput[]
-    updateMany?: MasterCourseUpdateManyWithWhereWithoutRelatedToCoursesInput | MasterCourseUpdateManyWithWhereWithoutRelatedToCoursesInput[]
-    deleteMany?: MasterCourseScalarWhereInput | MasterCourseScalarWhereInput[]
-  }
-
-  export type MasterCourseUpdateManyWithoutRelatedCoursesNestedInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedCoursesInput, MasterCourseUncheckedCreateWithoutRelatedCoursesInput> | MasterCourseCreateWithoutRelatedCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedCoursesInput | MasterCourseCreateOrConnectWithoutRelatedCoursesInput[]
-    upsert?: MasterCourseUpsertWithWhereUniqueWithoutRelatedCoursesInput | MasterCourseUpsertWithWhereUniqueWithoutRelatedCoursesInput[]
-    set?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    disconnect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    delete?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    update?: MasterCourseUpdateWithWhereUniqueWithoutRelatedCoursesInput | MasterCourseUpdateWithWhereUniqueWithoutRelatedCoursesInput[]
-    updateMany?: MasterCourseUpdateManyWithWhereWithoutRelatedCoursesInput | MasterCourseUpdateManyWithWhereWithoutRelatedCoursesInput[]
-    deleteMany?: MasterCourseScalarWhereInput | MasterCourseScalarWhereInput[]
-  }
-
-  export type MasterCourseFAQUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<MasterCourseFAQCreateWithoutCourseInput, MasterCourseFAQUncheckedCreateWithoutCourseInput> | MasterCourseFAQCreateWithoutCourseInput[] | MasterCourseFAQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseFAQCreateOrConnectWithoutCourseInput | MasterCourseFAQCreateOrConnectWithoutCourseInput[]
-    upsert?: MasterCourseFAQUpsertWithWhereUniqueWithoutCourseInput | MasterCourseFAQUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: MasterCourseFAQCreateManyCourseInputEnvelope
-    set?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    disconnect?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    delete?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    connect?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    update?: MasterCourseFAQUpdateWithWhereUniqueWithoutCourseInput | MasterCourseFAQUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: MasterCourseFAQUpdateManyWithWhereWithoutCourseInput | MasterCourseFAQUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: MasterCourseFAQScalarWhereInput | MasterCourseFAQScalarWhereInput[]
+  export type MasterCourseArticleUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutCourseInput, MasterCourseArticleUncheckedCreateWithoutCourseInput> | MasterCourseArticleCreateWithoutCourseInput[] | MasterCourseArticleUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutCourseInput | MasterCourseArticleCreateOrConnectWithoutCourseInput[]
+    upsert?: MasterCourseArticleUpsertWithWhereUniqueWithoutCourseInput | MasterCourseArticleUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: MasterCourseArticleCreateManyCourseInputEnvelope
+    set?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    disconnect?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    delete?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    connect?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    update?: MasterCourseArticleUpdateWithWhereUniqueWithoutCourseInput | MasterCourseArticleUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: MasterCourseArticleUpdateManyWithWhereWithoutCourseInput | MasterCourseArticleUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: MasterCourseArticleScalarWhereInput | MasterCourseArticleScalarWhereInput[]
   }
 
   export type MasterTagUncheckedUpdateManyWithoutCoursesNestedInput = {
@@ -20287,212 +21545,188 @@ export namespace Prisma {
     deleteMany?: MasterTagScalarWhereInput | MasterTagScalarWhereInput[]
   }
 
-  export type MasterCourseContentUncheckedUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<MasterCourseContentCreateWithoutCourseInput, MasterCourseContentUncheckedCreateWithoutCourseInput> | MasterCourseContentCreateWithoutCourseInput[] | MasterCourseContentUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutCourseInput | MasterCourseContentCreateOrConnectWithoutCourseInput[]
-    upsert?: MasterCourseContentUpsertWithWhereUniqueWithoutCourseInput | MasterCourseContentUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: MasterCourseContentCreateManyCourseInputEnvelope
-    set?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    disconnect?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    delete?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    connect?: MasterCourseContentWhereUniqueInput | MasterCourseContentWhereUniqueInput[]
-    update?: MasterCourseContentUpdateWithWhereUniqueWithoutCourseInput | MasterCourseContentUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: MasterCourseContentUpdateManyWithWhereWithoutCourseInput | MasterCourseContentUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: MasterCourseContentScalarWhereInput | MasterCourseContentScalarWhereInput[]
+  export type MasterCourseArticleUncheckedUpdateManyWithoutCourseNestedInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutCourseInput, MasterCourseArticleUncheckedCreateWithoutCourseInput> | MasterCourseArticleCreateWithoutCourseInput[] | MasterCourseArticleUncheckedCreateWithoutCourseInput[]
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutCourseInput | MasterCourseArticleCreateOrConnectWithoutCourseInput[]
+    upsert?: MasterCourseArticleUpsertWithWhereUniqueWithoutCourseInput | MasterCourseArticleUpsertWithWhereUniqueWithoutCourseInput[]
+    createMany?: MasterCourseArticleCreateManyCourseInputEnvelope
+    set?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    disconnect?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    delete?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    connect?: MasterCourseArticleWhereUniqueInput | MasterCourseArticleWhereUniqueInput[]
+    update?: MasterCourseArticleUpdateWithWhereUniqueWithoutCourseInput | MasterCourseArticleUpdateWithWhereUniqueWithoutCourseInput[]
+    updateMany?: MasterCourseArticleUpdateManyWithWhereWithoutCourseInput | MasterCourseArticleUpdateManyWithWhereWithoutCourseInput[]
+    deleteMany?: MasterCourseArticleScalarWhereInput | MasterCourseArticleScalarWhereInput[]
   }
 
-  export type MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesNestedInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedToCoursesInput, MasterCourseUncheckedCreateWithoutRelatedToCoursesInput> | MasterCourseCreateWithoutRelatedToCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedToCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedToCoursesInput | MasterCourseCreateOrConnectWithoutRelatedToCoursesInput[]
-    upsert?: MasterCourseUpsertWithWhereUniqueWithoutRelatedToCoursesInput | MasterCourseUpsertWithWhereUniqueWithoutRelatedToCoursesInput[]
-    set?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    disconnect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    delete?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    update?: MasterCourseUpdateWithWhereUniqueWithoutRelatedToCoursesInput | MasterCourseUpdateWithWhereUniqueWithoutRelatedToCoursesInput[]
-    updateMany?: MasterCourseUpdateManyWithWhereWithoutRelatedToCoursesInput | MasterCourseUpdateManyWithWhereWithoutRelatedToCoursesInput[]
-    deleteMany?: MasterCourseScalarWhereInput | MasterCourseScalarWhereInput[]
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
-  export type MasterCourseUncheckedUpdateManyWithoutRelatedCoursesNestedInput = {
-    create?: XOR<MasterCourseCreateWithoutRelatedCoursesInput, MasterCourseUncheckedCreateWithoutRelatedCoursesInput> | MasterCourseCreateWithoutRelatedCoursesInput[] | MasterCourseUncheckedCreateWithoutRelatedCoursesInput[]
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutRelatedCoursesInput | MasterCourseCreateOrConnectWithoutRelatedCoursesInput[]
-    upsert?: MasterCourseUpsertWithWhereUniqueWithoutRelatedCoursesInput | MasterCourseUpsertWithWhereUniqueWithoutRelatedCoursesInput[]
-    set?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    disconnect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    delete?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    connect?: MasterCourseWhereUniqueInput | MasterCourseWhereUniqueInput[]
-    update?: MasterCourseUpdateWithWhereUniqueWithoutRelatedCoursesInput | MasterCourseUpdateWithWhereUniqueWithoutRelatedCoursesInput[]
-    updateMany?: MasterCourseUpdateManyWithWhereWithoutRelatedCoursesInput | MasterCourseUpdateManyWithWhereWithoutRelatedCoursesInput[]
-    deleteMany?: MasterCourseScalarWhereInput | MasterCourseScalarWhereInput[]
-  }
-
-  export type MasterCourseFAQUncheckedUpdateManyWithoutCourseNestedInput = {
-    create?: XOR<MasterCourseFAQCreateWithoutCourseInput, MasterCourseFAQUncheckedCreateWithoutCourseInput> | MasterCourseFAQCreateWithoutCourseInput[] | MasterCourseFAQUncheckedCreateWithoutCourseInput[]
-    connectOrCreate?: MasterCourseFAQCreateOrConnectWithoutCourseInput | MasterCourseFAQCreateOrConnectWithoutCourseInput[]
-    upsert?: MasterCourseFAQUpsertWithWhereUniqueWithoutCourseInput | MasterCourseFAQUpsertWithWhereUniqueWithoutCourseInput[]
-    createMany?: MasterCourseFAQCreateManyCourseInputEnvelope
-    set?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    disconnect?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    delete?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    connect?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
-    update?: MasterCourseFAQUpdateWithWhereUniqueWithoutCourseInput | MasterCourseFAQUpdateWithWhereUniqueWithoutCourseInput[]
-    updateMany?: MasterCourseFAQUpdateManyWithWhereWithoutCourseInput | MasterCourseFAQUpdateManyWithWhereWithoutCourseInput[]
-    deleteMany?: MasterCourseFAQScalarWhereInput | MasterCourseFAQScalarWhereInput[]
-  }
-
-  export type MasterCourseCreateNestedOneWithoutCourseContentsInput = {
-    create?: XOR<MasterCourseCreateWithoutCourseContentsInput, MasterCourseUncheckedCreateWithoutCourseContentsInput>
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutCourseContentsInput
+  export type MasterCourseCreateNestedOneWithoutCourseArticlesInput = {
+    create?: XOR<MasterCourseCreateWithoutCourseArticlesInput, MasterCourseUncheckedCreateWithoutCourseArticlesInput>
+    connectOrCreate?: MasterCourseCreateOrConnectWithoutCourseArticlesInput
     connect?: MasterCourseWhereUniqueInput
   }
 
-  export type MasterExerciseCreateNestedManyWithoutCourseContentInput = {
-    create?: XOR<MasterExerciseCreateWithoutCourseContentInput, MasterExerciseUncheckedCreateWithoutCourseContentInput> | MasterExerciseCreateWithoutCourseContentInput[] | MasterExerciseUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: MasterExerciseCreateOrConnectWithoutCourseContentInput | MasterExerciseCreateOrConnectWithoutCourseContentInput[]
-    createMany?: MasterExerciseCreateManyCourseContentInputEnvelope
-    connect?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
+  export type MasterCourseArticleExerciseCreateNestedManyWithoutCourseArticleInput = {
+    create?: XOR<MasterCourseArticleExerciseCreateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleExerciseCreateWithoutCourseArticleInput[] | MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleExerciseCreateManyCourseArticleInputEnvelope
+    connect?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
   }
 
-  export type ChatMessageCreateNestedManyWithoutMasterCourseContentInput = {
-    create?: XOR<ChatMessageCreateWithoutMasterCourseContentInput, ChatMessageUncheckedCreateWithoutMasterCourseContentInput> | ChatMessageCreateWithoutMasterCourseContentInput[] | ChatMessageUncheckedCreateWithoutMasterCourseContentInput[]
-    connectOrCreate?: ChatMessageCreateOrConnectWithoutMasterCourseContentInput | ChatMessageCreateOrConnectWithoutMasterCourseContentInput[]
-    createMany?: ChatMessageCreateManyMasterCourseContentInputEnvelope
-    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-  }
-
-  export type ChatRoomCreateNestedManyWithoutCourseContentInput = {
-    create?: XOR<ChatRoomCreateWithoutCourseContentInput, ChatRoomUncheckedCreateWithoutCourseContentInput> | ChatRoomCreateWithoutCourseContentInput[] | ChatRoomUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseContentInput | ChatRoomCreateOrConnectWithoutCourseContentInput[]
-    createMany?: ChatRoomCreateManyCourseContentInputEnvelope
+  export type ChatRoomCreateNestedManyWithoutCourseArticleInput = {
+    create?: XOR<ChatRoomCreateWithoutCourseArticleInput, ChatRoomUncheckedCreateWithoutCourseArticleInput> | ChatRoomCreateWithoutCourseArticleInput[] | ChatRoomUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseArticleInput | ChatRoomCreateOrConnectWithoutCourseArticleInput[]
+    createMany?: ChatRoomCreateManyCourseArticleInputEnvelope
     connect?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
   }
 
-  export type MasterExerciseUncheckedCreateNestedManyWithoutCourseContentInput = {
-    create?: XOR<MasterExerciseCreateWithoutCourseContentInput, MasterExerciseUncheckedCreateWithoutCourseContentInput> | MasterExerciseCreateWithoutCourseContentInput[] | MasterExerciseUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: MasterExerciseCreateOrConnectWithoutCourseContentInput | MasterExerciseCreateOrConnectWithoutCourseContentInput[]
-    createMany?: MasterExerciseCreateManyCourseContentInputEnvelope
-    connect?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
+  export type MasterCourseArticleFAQCreateNestedManyWithoutCourseArticleInput = {
+    create?: XOR<MasterCourseArticleFAQCreateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleFAQCreateWithoutCourseArticleInput[] | MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleFAQCreateManyCourseArticleInputEnvelope
+    connect?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
   }
 
-  export type ChatMessageUncheckedCreateNestedManyWithoutMasterCourseContentInput = {
-    create?: XOR<ChatMessageCreateWithoutMasterCourseContentInput, ChatMessageUncheckedCreateWithoutMasterCourseContentInput> | ChatMessageCreateWithoutMasterCourseContentInput[] | ChatMessageUncheckedCreateWithoutMasterCourseContentInput[]
-    connectOrCreate?: ChatMessageCreateOrConnectWithoutMasterCourseContentInput | ChatMessageCreateOrConnectWithoutMasterCourseContentInput[]
-    createMany?: ChatMessageCreateManyMasterCourseContentInputEnvelope
-    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
+  export type MasterCourseArticleExerciseUncheckedCreateNestedManyWithoutCourseArticleInput = {
+    create?: XOR<MasterCourseArticleExerciseCreateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleExerciseCreateWithoutCourseArticleInput[] | MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleExerciseCreateManyCourseArticleInputEnvelope
+    connect?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
   }
 
-  export type ChatRoomUncheckedCreateNestedManyWithoutCourseContentInput = {
-    create?: XOR<ChatRoomCreateWithoutCourseContentInput, ChatRoomUncheckedCreateWithoutCourseContentInput> | ChatRoomCreateWithoutCourseContentInput[] | ChatRoomUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseContentInput | ChatRoomCreateOrConnectWithoutCourseContentInput[]
-    createMany?: ChatRoomCreateManyCourseContentInputEnvelope
+  export type ChatRoomUncheckedCreateNestedManyWithoutCourseArticleInput = {
+    create?: XOR<ChatRoomCreateWithoutCourseArticleInput, ChatRoomUncheckedCreateWithoutCourseArticleInput> | ChatRoomCreateWithoutCourseArticleInput[] | ChatRoomUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseArticleInput | ChatRoomCreateOrConnectWithoutCourseArticleInput[]
+    createMany?: ChatRoomCreateManyCourseArticleInputEnvelope
     connect?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
   }
 
-  export type MasterCourseUpdateOneRequiredWithoutCourseContentsNestedInput = {
-    create?: XOR<MasterCourseCreateWithoutCourseContentsInput, MasterCourseUncheckedCreateWithoutCourseContentsInput>
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutCourseContentsInput
-    upsert?: MasterCourseUpsertWithoutCourseContentsInput
+  export type MasterCourseArticleFAQUncheckedCreateNestedManyWithoutCourseArticleInput = {
+    create?: XOR<MasterCourseArticleFAQCreateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleFAQCreateWithoutCourseArticleInput[] | MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleFAQCreateManyCourseArticleInputEnvelope
+    connect?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type MasterCourseUpdateOneRequiredWithoutCourseArticlesNestedInput = {
+    create?: XOR<MasterCourseCreateWithoutCourseArticlesInput, MasterCourseUncheckedCreateWithoutCourseArticlesInput>
+    connectOrCreate?: MasterCourseCreateOrConnectWithoutCourseArticlesInput
+    upsert?: MasterCourseUpsertWithoutCourseArticlesInput
     connect?: MasterCourseWhereUniqueInput
-    update?: XOR<XOR<MasterCourseUpdateToOneWithWhereWithoutCourseContentsInput, MasterCourseUpdateWithoutCourseContentsInput>, MasterCourseUncheckedUpdateWithoutCourseContentsInput>
+    update?: XOR<XOR<MasterCourseUpdateToOneWithWhereWithoutCourseArticlesInput, MasterCourseUpdateWithoutCourseArticlesInput>, MasterCourseUncheckedUpdateWithoutCourseArticlesInput>
   }
 
-  export type MasterExerciseUpdateManyWithoutCourseContentNestedInput = {
-    create?: XOR<MasterExerciseCreateWithoutCourseContentInput, MasterExerciseUncheckedCreateWithoutCourseContentInput> | MasterExerciseCreateWithoutCourseContentInput[] | MasterExerciseUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: MasterExerciseCreateOrConnectWithoutCourseContentInput | MasterExerciseCreateOrConnectWithoutCourseContentInput[]
-    upsert?: MasterExerciseUpsertWithWhereUniqueWithoutCourseContentInput | MasterExerciseUpsertWithWhereUniqueWithoutCourseContentInput[]
-    createMany?: MasterExerciseCreateManyCourseContentInputEnvelope
-    set?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    disconnect?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    delete?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    connect?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    update?: MasterExerciseUpdateWithWhereUniqueWithoutCourseContentInput | MasterExerciseUpdateWithWhereUniqueWithoutCourseContentInput[]
-    updateMany?: MasterExerciseUpdateManyWithWhereWithoutCourseContentInput | MasterExerciseUpdateManyWithWhereWithoutCourseContentInput[]
-    deleteMany?: MasterExerciseScalarWhereInput | MasterExerciseScalarWhereInput[]
+  export type MasterCourseArticleExerciseUpdateManyWithoutCourseArticleNestedInput = {
+    create?: XOR<MasterCourseArticleExerciseCreateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleExerciseCreateWithoutCourseArticleInput[] | MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput[]
+    upsert?: MasterCourseArticleExerciseUpsertWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleExerciseUpsertWithWhereUniqueWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleExerciseCreateManyCourseArticleInputEnvelope
+    set?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    disconnect?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    delete?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    connect?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    update?: MasterCourseArticleExerciseUpdateWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleExerciseUpdateWithWhereUniqueWithoutCourseArticleInput[]
+    updateMany?: MasterCourseArticleExerciseUpdateManyWithWhereWithoutCourseArticleInput | MasterCourseArticleExerciseUpdateManyWithWhereWithoutCourseArticleInput[]
+    deleteMany?: MasterCourseArticleExerciseScalarWhereInput | MasterCourseArticleExerciseScalarWhereInput[]
   }
 
-  export type ChatMessageUpdateManyWithoutMasterCourseContentNestedInput = {
-    create?: XOR<ChatMessageCreateWithoutMasterCourseContentInput, ChatMessageUncheckedCreateWithoutMasterCourseContentInput> | ChatMessageCreateWithoutMasterCourseContentInput[] | ChatMessageUncheckedCreateWithoutMasterCourseContentInput[]
-    connectOrCreate?: ChatMessageCreateOrConnectWithoutMasterCourseContentInput | ChatMessageCreateOrConnectWithoutMasterCourseContentInput[]
-    upsert?: ChatMessageUpsertWithWhereUniqueWithoutMasterCourseContentInput | ChatMessageUpsertWithWhereUniqueWithoutMasterCourseContentInput[]
-    createMany?: ChatMessageCreateManyMasterCourseContentInputEnvelope
-    set?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    disconnect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    delete?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    update?: ChatMessageUpdateWithWhereUniqueWithoutMasterCourseContentInput | ChatMessageUpdateWithWhereUniqueWithoutMasterCourseContentInput[]
-    updateMany?: ChatMessageUpdateManyWithWhereWithoutMasterCourseContentInput | ChatMessageUpdateManyWithWhereWithoutMasterCourseContentInput[]
-    deleteMany?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
-  }
-
-  export type ChatRoomUpdateManyWithoutCourseContentNestedInput = {
-    create?: XOR<ChatRoomCreateWithoutCourseContentInput, ChatRoomUncheckedCreateWithoutCourseContentInput> | ChatRoomCreateWithoutCourseContentInput[] | ChatRoomUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseContentInput | ChatRoomCreateOrConnectWithoutCourseContentInput[]
-    upsert?: ChatRoomUpsertWithWhereUniqueWithoutCourseContentInput | ChatRoomUpsertWithWhereUniqueWithoutCourseContentInput[]
-    createMany?: ChatRoomCreateManyCourseContentInputEnvelope
+  export type ChatRoomUpdateManyWithoutCourseArticleNestedInput = {
+    create?: XOR<ChatRoomCreateWithoutCourseArticleInput, ChatRoomUncheckedCreateWithoutCourseArticleInput> | ChatRoomCreateWithoutCourseArticleInput[] | ChatRoomUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseArticleInput | ChatRoomCreateOrConnectWithoutCourseArticleInput[]
+    upsert?: ChatRoomUpsertWithWhereUniqueWithoutCourseArticleInput | ChatRoomUpsertWithWhereUniqueWithoutCourseArticleInput[]
+    createMany?: ChatRoomCreateManyCourseArticleInputEnvelope
     set?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
     disconnect?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
     delete?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
     connect?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
-    update?: ChatRoomUpdateWithWhereUniqueWithoutCourseContentInput | ChatRoomUpdateWithWhereUniqueWithoutCourseContentInput[]
-    updateMany?: ChatRoomUpdateManyWithWhereWithoutCourseContentInput | ChatRoomUpdateManyWithWhereWithoutCourseContentInput[]
+    update?: ChatRoomUpdateWithWhereUniqueWithoutCourseArticleInput | ChatRoomUpdateWithWhereUniqueWithoutCourseArticleInput[]
+    updateMany?: ChatRoomUpdateManyWithWhereWithoutCourseArticleInput | ChatRoomUpdateManyWithWhereWithoutCourseArticleInput[]
     deleteMany?: ChatRoomScalarWhereInput | ChatRoomScalarWhereInput[]
   }
 
-  export type MasterExerciseUncheckedUpdateManyWithoutCourseContentNestedInput = {
-    create?: XOR<MasterExerciseCreateWithoutCourseContentInput, MasterExerciseUncheckedCreateWithoutCourseContentInput> | MasterExerciseCreateWithoutCourseContentInput[] | MasterExerciseUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: MasterExerciseCreateOrConnectWithoutCourseContentInput | MasterExerciseCreateOrConnectWithoutCourseContentInput[]
-    upsert?: MasterExerciseUpsertWithWhereUniqueWithoutCourseContentInput | MasterExerciseUpsertWithWhereUniqueWithoutCourseContentInput[]
-    createMany?: MasterExerciseCreateManyCourseContentInputEnvelope
-    set?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    disconnect?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    delete?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    connect?: MasterExerciseWhereUniqueInput | MasterExerciseWhereUniqueInput[]
-    update?: MasterExerciseUpdateWithWhereUniqueWithoutCourseContentInput | MasterExerciseUpdateWithWhereUniqueWithoutCourseContentInput[]
-    updateMany?: MasterExerciseUpdateManyWithWhereWithoutCourseContentInput | MasterExerciseUpdateManyWithWhereWithoutCourseContentInput[]
-    deleteMany?: MasterExerciseScalarWhereInput | MasterExerciseScalarWhereInput[]
+  export type MasterCourseArticleFAQUpdateManyWithoutCourseArticleNestedInput = {
+    create?: XOR<MasterCourseArticleFAQCreateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleFAQCreateWithoutCourseArticleInput[] | MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput[]
+    upsert?: MasterCourseArticleFAQUpsertWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleFAQUpsertWithWhereUniqueWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleFAQCreateManyCourseArticleInputEnvelope
+    set?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    disconnect?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    delete?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    connect?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    update?: MasterCourseArticleFAQUpdateWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleFAQUpdateWithWhereUniqueWithoutCourseArticleInput[]
+    updateMany?: MasterCourseArticleFAQUpdateManyWithWhereWithoutCourseArticleInput | MasterCourseArticleFAQUpdateManyWithWhereWithoutCourseArticleInput[]
+    deleteMany?: MasterCourseArticleFAQScalarWhereInput | MasterCourseArticleFAQScalarWhereInput[]
   }
 
-  export type ChatMessageUncheckedUpdateManyWithoutMasterCourseContentNestedInput = {
-    create?: XOR<ChatMessageCreateWithoutMasterCourseContentInput, ChatMessageUncheckedCreateWithoutMasterCourseContentInput> | ChatMessageCreateWithoutMasterCourseContentInput[] | ChatMessageUncheckedCreateWithoutMasterCourseContentInput[]
-    connectOrCreate?: ChatMessageCreateOrConnectWithoutMasterCourseContentInput | ChatMessageCreateOrConnectWithoutMasterCourseContentInput[]
-    upsert?: ChatMessageUpsertWithWhereUniqueWithoutMasterCourseContentInput | ChatMessageUpsertWithWhereUniqueWithoutMasterCourseContentInput[]
-    createMany?: ChatMessageCreateManyMasterCourseContentInputEnvelope
-    set?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    disconnect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    delete?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    connect?: ChatMessageWhereUniqueInput | ChatMessageWhereUniqueInput[]
-    update?: ChatMessageUpdateWithWhereUniqueWithoutMasterCourseContentInput | ChatMessageUpdateWithWhereUniqueWithoutMasterCourseContentInput[]
-    updateMany?: ChatMessageUpdateManyWithWhereWithoutMasterCourseContentInput | ChatMessageUpdateManyWithWhereWithoutMasterCourseContentInput[]
-    deleteMany?: ChatMessageScalarWhereInput | ChatMessageScalarWhereInput[]
+  export type MasterCourseArticleExerciseUncheckedUpdateManyWithoutCourseArticleNestedInput = {
+    create?: XOR<MasterCourseArticleExerciseCreateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleExerciseCreateWithoutCourseArticleInput[] | MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput[]
+    upsert?: MasterCourseArticleExerciseUpsertWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleExerciseUpsertWithWhereUniqueWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleExerciseCreateManyCourseArticleInputEnvelope
+    set?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    disconnect?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    delete?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    connect?: MasterCourseArticleExerciseWhereUniqueInput | MasterCourseArticleExerciseWhereUniqueInput[]
+    update?: MasterCourseArticleExerciseUpdateWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleExerciseUpdateWithWhereUniqueWithoutCourseArticleInput[]
+    updateMany?: MasterCourseArticleExerciseUpdateManyWithWhereWithoutCourseArticleInput | MasterCourseArticleExerciseUpdateManyWithWhereWithoutCourseArticleInput[]
+    deleteMany?: MasterCourseArticleExerciseScalarWhereInput | MasterCourseArticleExerciseScalarWhereInput[]
   }
 
-  export type ChatRoomUncheckedUpdateManyWithoutCourseContentNestedInput = {
-    create?: XOR<ChatRoomCreateWithoutCourseContentInput, ChatRoomUncheckedCreateWithoutCourseContentInput> | ChatRoomCreateWithoutCourseContentInput[] | ChatRoomUncheckedCreateWithoutCourseContentInput[]
-    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseContentInput | ChatRoomCreateOrConnectWithoutCourseContentInput[]
-    upsert?: ChatRoomUpsertWithWhereUniqueWithoutCourseContentInput | ChatRoomUpsertWithWhereUniqueWithoutCourseContentInput[]
-    createMany?: ChatRoomCreateManyCourseContentInputEnvelope
+  export type ChatRoomUncheckedUpdateManyWithoutCourseArticleNestedInput = {
+    create?: XOR<ChatRoomCreateWithoutCourseArticleInput, ChatRoomUncheckedCreateWithoutCourseArticleInput> | ChatRoomCreateWithoutCourseArticleInput[] | ChatRoomUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: ChatRoomCreateOrConnectWithoutCourseArticleInput | ChatRoomCreateOrConnectWithoutCourseArticleInput[]
+    upsert?: ChatRoomUpsertWithWhereUniqueWithoutCourseArticleInput | ChatRoomUpsertWithWhereUniqueWithoutCourseArticleInput[]
+    createMany?: ChatRoomCreateManyCourseArticleInputEnvelope
     set?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
     disconnect?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
     delete?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
     connect?: ChatRoomWhereUniqueInput | ChatRoomWhereUniqueInput[]
-    update?: ChatRoomUpdateWithWhereUniqueWithoutCourseContentInput | ChatRoomUpdateWithWhereUniqueWithoutCourseContentInput[]
-    updateMany?: ChatRoomUpdateManyWithWhereWithoutCourseContentInput | ChatRoomUpdateManyWithWhereWithoutCourseContentInput[]
+    update?: ChatRoomUpdateWithWhereUniqueWithoutCourseArticleInput | ChatRoomUpdateWithWhereUniqueWithoutCourseArticleInput[]
+    updateMany?: ChatRoomUpdateManyWithWhereWithoutCourseArticleInput | ChatRoomUpdateManyWithWhereWithoutCourseArticleInput[]
     deleteMany?: ChatRoomScalarWhereInput | ChatRoomScalarWhereInput[]
   }
 
-  export type MasterCourseContentCreateNestedOneWithoutExercisesInput = {
-    create?: XOR<MasterCourseContentCreateWithoutExercisesInput, MasterCourseContentUncheckedCreateWithoutExercisesInput>
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutExercisesInput
-    connect?: MasterCourseContentWhereUniqueInput
+  export type MasterCourseArticleFAQUncheckedUpdateManyWithoutCourseArticleNestedInput = {
+    create?: XOR<MasterCourseArticleFAQCreateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput> | MasterCourseArticleFAQCreateWithoutCourseArticleInput[] | MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput[]
+    connectOrCreate?: MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput | MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput[]
+    upsert?: MasterCourseArticleFAQUpsertWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleFAQUpsertWithWhereUniqueWithoutCourseArticleInput[]
+    createMany?: MasterCourseArticleFAQCreateManyCourseArticleInputEnvelope
+    set?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    disconnect?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    delete?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    connect?: MasterCourseArticleFAQWhereUniqueInput | MasterCourseArticleFAQWhereUniqueInput[]
+    update?: MasterCourseArticleFAQUpdateWithWhereUniqueWithoutCourseArticleInput | MasterCourseArticleFAQUpdateWithWhereUniqueWithoutCourseArticleInput[]
+    updateMany?: MasterCourseArticleFAQUpdateManyWithWhereWithoutCourseArticleInput | MasterCourseArticleFAQUpdateManyWithWhereWithoutCourseArticleInput[]
+    deleteMany?: MasterCourseArticleFAQScalarWhereInput | MasterCourseArticleFAQScalarWhereInput[]
   }
 
-  export type MasterCourseContentUpdateOneRequiredWithoutExercisesNestedInput = {
-    create?: XOR<MasterCourseContentCreateWithoutExercisesInput, MasterCourseContentUncheckedCreateWithoutExercisesInput>
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutExercisesInput
-    upsert?: MasterCourseContentUpsertWithoutExercisesInput
-    connect?: MasterCourseContentWhereUniqueInput
-    update?: XOR<XOR<MasterCourseContentUpdateToOneWithWhereWithoutExercisesInput, MasterCourseContentUpdateWithoutExercisesInput>, MasterCourseContentUncheckedUpdateWithoutExercisesInput>
+  export type MasterCourseArticleCreateNestedOneWithoutExercisesInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutExercisesInput, MasterCourseArticleUncheckedCreateWithoutExercisesInput>
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutExercisesInput
+    connect?: MasterCourseArticleWhereUniqueInput
+  }
+
+  export type MasterCourseArticleUpdateOneRequiredWithoutExercisesNestedInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutExercisesInput, MasterCourseArticleUncheckedCreateWithoutExercisesInput>
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutExercisesInput
+    upsert?: MasterCourseArticleUpsertWithoutExercisesInput
+    connect?: MasterCourseArticleWhereUniqueInput
+    update?: XOR<XOR<MasterCourseArticleUpdateToOneWithWhereWithoutExercisesInput, MasterCourseArticleUpdateWithoutExercisesInput>, MasterCourseArticleUncheckedUpdateWithoutExercisesInput>
   }
 
   export type UserCreateNestedOneWithoutChatRoomInput = {
@@ -20501,10 +21735,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type MasterCourseContentCreateNestedOneWithoutChatRoomInput = {
-    create?: XOR<MasterCourseContentCreateWithoutChatRoomInput, MasterCourseContentUncheckedCreateWithoutChatRoomInput>
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutChatRoomInput
-    connect?: MasterCourseContentWhereUniqueInput
+  export type MasterCourseArticleCreateNestedOneWithoutChatRoomInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutChatRoomInput, MasterCourseArticleUncheckedCreateWithoutChatRoomInput>
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutChatRoomInput
+    connect?: MasterCourseArticleWhereUniqueInput
   }
 
   export type ChatMessageCreateNestedManyWithoutChatRoomInput = {
@@ -20529,12 +21763,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChatRoomInput, UserUpdateWithoutChatRoomInput>, UserUncheckedUpdateWithoutChatRoomInput>
   }
 
-  export type MasterCourseContentUpdateOneRequiredWithoutChatRoomNestedInput = {
-    create?: XOR<MasterCourseContentCreateWithoutChatRoomInput, MasterCourseContentUncheckedCreateWithoutChatRoomInput>
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutChatRoomInput
-    upsert?: MasterCourseContentUpsertWithoutChatRoomInput
-    connect?: MasterCourseContentWhereUniqueInput
-    update?: XOR<XOR<MasterCourseContentUpdateToOneWithWhereWithoutChatRoomInput, MasterCourseContentUpdateWithoutChatRoomInput>, MasterCourseContentUncheckedUpdateWithoutChatRoomInput>
+  export type MasterCourseArticleUpdateOneRequiredWithoutChatRoomNestedInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutChatRoomInput, MasterCourseArticleUncheckedCreateWithoutChatRoomInput>
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutChatRoomInput
+    upsert?: MasterCourseArticleUpsertWithoutChatRoomInput
+    connect?: MasterCourseArticleWhereUniqueInput
+    update?: XOR<XOR<MasterCourseArticleUpdateToOneWithWhereWithoutChatRoomInput, MasterCourseArticleUpdateWithoutChatRoomInput>, MasterCourseArticleUncheckedUpdateWithoutChatRoomInput>
   }
 
   export type ChatMessageUpdateManyWithoutChatRoomNestedInput = {
@@ -20577,12 +21811,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type MasterCourseContentCreateNestedOneWithoutChatMessagesInput = {
-    create?: XOR<MasterCourseContentCreateWithoutChatMessagesInput, MasterCourseContentUncheckedCreateWithoutChatMessagesInput>
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutChatMessagesInput
-    connect?: MasterCourseContentWhereUniqueInput
-  }
-
   export type ChatRoomUpdateOneRequiredWithoutChatMessageNestedInput = {
     create?: XOR<ChatRoomCreateWithoutChatMessageInput, ChatRoomUncheckedCreateWithoutChatMessageInput>
     connectOrCreate?: ChatRoomCreateOrConnectWithoutChatMessageInput
@@ -20601,28 +21829,18 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChatMessagesInput, UserUpdateWithoutChatMessagesInput>, UserUncheckedUpdateWithoutChatMessagesInput>
   }
 
-  export type MasterCourseContentUpdateOneWithoutChatMessagesNestedInput = {
-    create?: XOR<MasterCourseContentCreateWithoutChatMessagesInput, MasterCourseContentUncheckedCreateWithoutChatMessagesInput>
-    connectOrCreate?: MasterCourseContentCreateOrConnectWithoutChatMessagesInput
-    upsert?: MasterCourseContentUpsertWithoutChatMessagesInput
-    disconnect?: MasterCourseContentWhereInput | boolean
-    delete?: MasterCourseContentWhereInput | boolean
-    connect?: MasterCourseContentWhereUniqueInput
-    update?: XOR<XOR<MasterCourseContentUpdateToOneWithWhereWithoutChatMessagesInput, MasterCourseContentUpdateWithoutChatMessagesInput>, MasterCourseContentUncheckedUpdateWithoutChatMessagesInput>
+  export type MasterCourseArticleCreateNestedOneWithoutFaqInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutFaqInput, MasterCourseArticleUncheckedCreateWithoutFaqInput>
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutFaqInput
+    connect?: MasterCourseArticleWhereUniqueInput
   }
 
-  export type MasterCourseCreateNestedOneWithoutCourseFAQsInput = {
-    create?: XOR<MasterCourseCreateWithoutCourseFAQsInput, MasterCourseUncheckedCreateWithoutCourseFAQsInput>
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutCourseFAQsInput
-    connect?: MasterCourseWhereUniqueInput
-  }
-
-  export type MasterCourseUpdateOneRequiredWithoutCourseFAQsNestedInput = {
-    create?: XOR<MasterCourseCreateWithoutCourseFAQsInput, MasterCourseUncheckedCreateWithoutCourseFAQsInput>
-    connectOrCreate?: MasterCourseCreateOrConnectWithoutCourseFAQsInput
-    upsert?: MasterCourseUpsertWithoutCourseFAQsInput
-    connect?: MasterCourseWhereUniqueInput
-    update?: XOR<XOR<MasterCourseUpdateToOneWithWhereWithoutCourseFAQsInput, MasterCourseUpdateWithoutCourseFAQsInput>, MasterCourseUncheckedUpdateWithoutCourseFAQsInput>
+  export type MasterCourseArticleUpdateOneRequiredWithoutFaqNestedInput = {
+    create?: XOR<MasterCourseArticleCreateWithoutFaqInput, MasterCourseArticleUncheckedCreateWithoutFaqInput>
+    connectOrCreate?: MasterCourseArticleCreateOrConnectWithoutFaqInput
+    upsert?: MasterCourseArticleUpsertWithoutFaqInput
+    connect?: MasterCourseArticleWhereUniqueInput
+    update?: XOR<XOR<MasterCourseArticleUpdateToOneWithWhereWithoutFaqInput, MasterCourseArticleUpdateWithoutFaqInput>, MasterCourseArticleUncheckedUpdateWithoutFaqInput>
   }
 
   export type MasterCategoryCreateNestedOneWithoutExamsInput = {
@@ -20805,14 +22023,6 @@ export namespace Prisma {
     connect?: ExamAnswerWhereUniqueInput | ExamAnswerWhereUniqueInput[]
   }
 
-  export type FloatFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type MasterExamUpdateOneRequiredWithoutExamSubmissionNestedInput = {
     create?: XOR<MasterExamCreateWithoutExamSubmissionInput, MasterExamUncheckedCreateWithoutExamSubmissionInput>
     connectOrCreate?: MasterExamCreateOrConnectWithoutExamSubmissionInput
@@ -20928,6 +22138,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -20998,31 +22219,18 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21052,6 +22260,17 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -21066,6 +22285,22 @@ export namespace Prisma {
     _sum?: NestedFloatFilter<$PrismaModel>
     _min?: NestedFloatFilter<$PrismaModel>
     _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -21114,8 +22349,8 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
+    masterCourseArticleId?: string | null
     chatRoom: ChatRoomCreateNestedOneWithoutChatMessageInput
-    MasterCourseContent?: MasterCourseContentCreateNestedOneWithoutChatMessagesInput
   }
 
   export type ChatMessageUncheckedCreateWithoutUserInput = {
@@ -21124,7 +22359,7 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
-    masterCourseContentId?: string | null
+    masterCourseArticleId?: string | null
   }
 
   export type ChatMessageCreateOrConnectWithoutUserInput = {
@@ -21140,13 +22375,13 @@ export namespace Prisma {
   export type ChatRoomCreateWithoutUserInput = {
     id: string
     createdAt?: Date | string
-    courseContent: MasterCourseContentCreateNestedOneWithoutChatRoomInput
+    courseArticle: MasterCourseArticleCreateNestedOneWithoutChatRoomInput
     chatMessage?: ChatMessageCreateNestedManyWithoutChatRoomInput
   }
 
   export type ChatRoomUncheckedCreateWithoutUserInput = {
     id: string
-    courseContentId: string
+    courseArticleId: string
     createdAt?: Date | string
     chatMessage?: ChatMessageUncheckedCreateNestedManyWithoutChatRoomInput
   }
@@ -21185,7 +22420,7 @@ export namespace Prisma {
     examId?: StringFilter<"ExamSubmission"> | string
     userId?: StringFilter<"ExamSubmission"> | string
     submittedAt?: DateTimeFilter<"ExamSubmission"> | Date | string
-    score?: FloatFilter<"ExamSubmission"> | number
+    score?: IntFilter<"ExamSubmission"> | number
     percentile?: FloatFilter<"ExamSubmission"> | number
   }
 
@@ -21215,7 +22450,7 @@ export namespace Prisma {
     role?: StringFilter<"ChatMessage"> | string
     message?: StringFilter<"ChatMessage"> | string
     createdAt?: DateTimeFilter<"ChatMessage"> | Date | string
-    masterCourseContentId?: StringNullableFilter<"ChatMessage"> | string | null
+    masterCourseArticleId?: StringNullableFilter<"ChatMessage"> | string | null
   }
 
   export type ChatRoomUpsertWithWhereUniqueWithoutUserInput = {
@@ -21240,59 +22475,8 @@ export namespace Prisma {
     NOT?: ChatRoomScalarWhereInput | ChatRoomScalarWhereInput[]
     id?: StringFilter<"ChatRoom"> | string
     userId?: StringFilter<"ChatRoom"> | string
-    courseContentId?: StringFilter<"ChatRoom"> | string
+    courseArticleId?: StringFilter<"ChatRoom"> | string
     createdAt?: DateTimeFilter<"ChatRoom"> | Date | string
-  }
-
-  export type MasterCategoryCreateWithoutChildrenInput = {
-    id: string
-    name: string
-    level: number
-    parent?: MasterCategoryCreateNestedOneWithoutChildrenInput
-    courses?: MasterCourseCreateNestedManyWithoutCategoryInput
-    exams?: MasterExamCreateNestedManyWithoutCategoryInput
-  }
-
-  export type MasterCategoryUncheckedCreateWithoutChildrenInput = {
-    id: string
-    name: string
-    level: number
-    parentId?: string | null
-    courses?: MasterCourseUncheckedCreateNestedManyWithoutCategoryInput
-    exams?: MasterExamUncheckedCreateNestedManyWithoutCategoryInput
-  }
-
-  export type MasterCategoryCreateOrConnectWithoutChildrenInput = {
-    where: MasterCategoryWhereUniqueInput
-    create: XOR<MasterCategoryCreateWithoutChildrenInput, MasterCategoryUncheckedCreateWithoutChildrenInput>
-  }
-
-  export type MasterCategoryCreateWithoutParentInput = {
-    id: string
-    name: string
-    level: number
-    children?: MasterCategoryCreateNestedManyWithoutParentInput
-    courses?: MasterCourseCreateNestedManyWithoutCategoryInput
-    exams?: MasterExamCreateNestedManyWithoutCategoryInput
-  }
-
-  export type MasterCategoryUncheckedCreateWithoutParentInput = {
-    id: string
-    name: string
-    level: number
-    children?: MasterCategoryUncheckedCreateNestedManyWithoutParentInput
-    courses?: MasterCourseUncheckedCreateNestedManyWithoutCategoryInput
-    exams?: MasterExamUncheckedCreateNestedManyWithoutCategoryInput
-  }
-
-  export type MasterCategoryCreateOrConnectWithoutParentInput = {
-    where: MasterCategoryWhereUniqueInput
-    create: XOR<MasterCategoryCreateWithoutParentInput, MasterCategoryUncheckedCreateWithoutParentInput>
-  }
-
-  export type MasterCategoryCreateManyParentInputEnvelope = {
-    data: MasterCategoryCreateManyParentInput | MasterCategoryCreateManyParentInput[]
-    skipDuplicates?: boolean
   }
 
   export type MasterCourseCreateWithoutCategoryInput = {
@@ -21301,15 +22485,13 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: MasterTagCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQCreateNestedManyWithoutCourseInput
+    courseArticles?: MasterCourseArticleCreateNestedManyWithoutCourseInput
   }
 
   export type MasterCourseUncheckedCreateWithoutCategoryInput = {
@@ -21318,15 +22500,13 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: MasterTagUncheckedCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentUncheckedCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQUncheckedCreateNestedManyWithoutCourseInput
+    courseArticles?: MasterCourseArticleUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type MasterCourseCreateOrConnectWithoutCategoryInput = {
@@ -21345,6 +22525,9 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
+    passingScore: number
     examQuestions?: MasterExamQuestionCreateNestedManyWithoutExamInput
     ExamSubmission?: ExamSubmissionCreateNestedManyWithoutExamInput
   }
@@ -21355,6 +22538,9 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
+    passingScore: number
     examQuestions?: MasterExamQuestionUncheckedCreateNestedManyWithoutExamInput
     ExamSubmission?: ExamSubmissionUncheckedCreateNestedManyWithoutExamInput
   }
@@ -21367,61 +22553,6 @@ export namespace Prisma {
   export type MasterExamCreateManyCategoryInputEnvelope = {
     data: MasterExamCreateManyCategoryInput | MasterExamCreateManyCategoryInput[]
     skipDuplicates?: boolean
-  }
-
-  export type MasterCategoryUpsertWithoutChildrenInput = {
-    update: XOR<MasterCategoryUpdateWithoutChildrenInput, MasterCategoryUncheckedUpdateWithoutChildrenInput>
-    create: XOR<MasterCategoryCreateWithoutChildrenInput, MasterCategoryUncheckedCreateWithoutChildrenInput>
-    where?: MasterCategoryWhereInput
-  }
-
-  export type MasterCategoryUpdateToOneWithWhereWithoutChildrenInput = {
-    where?: MasterCategoryWhereInput
-    data: XOR<MasterCategoryUpdateWithoutChildrenInput, MasterCategoryUncheckedUpdateWithoutChildrenInput>
-  }
-
-  export type MasterCategoryUpdateWithoutChildrenInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parent?: MasterCategoryUpdateOneWithoutChildrenNestedInput
-    courses?: MasterCourseUpdateManyWithoutCategoryNestedInput
-    exams?: MasterExamUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type MasterCategoryUncheckedUpdateWithoutChildrenInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    courses?: MasterCourseUncheckedUpdateManyWithoutCategoryNestedInput
-    exams?: MasterExamUncheckedUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type MasterCategoryUpsertWithWhereUniqueWithoutParentInput = {
-    where: MasterCategoryWhereUniqueInput
-    update: XOR<MasterCategoryUpdateWithoutParentInput, MasterCategoryUncheckedUpdateWithoutParentInput>
-    create: XOR<MasterCategoryCreateWithoutParentInput, MasterCategoryUncheckedCreateWithoutParentInput>
-  }
-
-  export type MasterCategoryUpdateWithWhereUniqueWithoutParentInput = {
-    where: MasterCategoryWhereUniqueInput
-    data: XOR<MasterCategoryUpdateWithoutParentInput, MasterCategoryUncheckedUpdateWithoutParentInput>
-  }
-
-  export type MasterCategoryUpdateManyWithWhereWithoutParentInput = {
-    where: MasterCategoryScalarWhereInput
-    data: XOR<MasterCategoryUpdateManyMutationInput, MasterCategoryUncheckedUpdateManyWithoutParentInput>
-  }
-
-  export type MasterCategoryScalarWhereInput = {
-    AND?: MasterCategoryScalarWhereInput | MasterCategoryScalarWhereInput[]
-    OR?: MasterCategoryScalarWhereInput[]
-    NOT?: MasterCategoryScalarWhereInput | MasterCategoryScalarWhereInput[]
-    id?: StringFilter<"MasterCategory"> | string
-    name?: StringFilter<"MasterCategory"> | string
-    level?: IntFilter<"MasterCategory"> | number
-    parentId?: StringNullableFilter<"MasterCategory"> | string | null
   }
 
   export type MasterCourseUpsertWithWhereUniqueWithoutCategoryInput = {
@@ -21449,7 +22580,8 @@ export namespace Prisma {
     summary?: StringNullableFilter<"MasterCourse"> | string | null
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
-    difficulty?: StringNullableFilter<"MasterCourse"> | string | null
+    level?: StringFilter<"MasterCourse"> | string
+    difficulty?: IntNullableFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeFilter<"MasterCourse"> | Date | string
@@ -21481,7 +22613,10 @@ export namespace Prisma {
     description?: StringFilter<"MasterExam"> | string
     createdAt?: DateTimeFilter<"MasterExam"> | Date | string
     updatedAt?: DateTimeFilter<"MasterExam"> | Date | string
+    level?: IntFilter<"MasterExam"> | number
+    timeLimitMin?: IntFilter<"MasterExam"> | number
     categoryId?: StringFilter<"MasterExam"> | string
+    passingScore?: IntFilter<"MasterExam"> | number
   }
 
   export type MasterCourseCreateWithoutTagsInput = {
@@ -21490,15 +22625,13 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
-    courseContents?: MasterCourseContentCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQCreateNestedManyWithoutCourseInput
+    courseArticles?: MasterCourseArticleCreateNestedManyWithoutCourseInput
   }
 
   export type MasterCourseUncheckedCreateWithoutTagsInput = {
@@ -21507,15 +22640,13 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
-    courseContents?: MasterCourseContentUncheckedCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQUncheckedCreateNestedManyWithoutCourseInput
+    courseArticles?: MasterCourseArticleUncheckedCreateNestedManyWithoutCourseInput
   }
 
   export type MasterCourseCreateOrConnectWithoutTagsInput = {
@@ -21542,18 +22673,14 @@ export namespace Prisma {
   export type MasterCategoryCreateWithoutCoursesInput = {
     id: string
     name: string
-    level: number
-    parent?: MasterCategoryCreateNestedOneWithoutChildrenInput
-    children?: MasterCategoryCreateNestedManyWithoutParentInput
+    description: string
     exams?: MasterExamCreateNestedManyWithoutCategoryInput
   }
 
   export type MasterCategoryUncheckedCreateWithoutCoursesInput = {
     id: string
     name: string
-    level: number
-    parentId?: string | null
-    children?: MasterCategoryUncheckedCreateNestedManyWithoutParentInput
+    description: string
     exams?: MasterExamUncheckedCreateNestedManyWithoutCategoryInput
   }
 
@@ -21577,141 +22704,39 @@ export namespace Prisma {
     create: XOR<MasterTagCreateWithoutCoursesInput, MasterTagUncheckedCreateWithoutCoursesInput>
   }
 
-  export type MasterCourseContentCreateWithoutCourseInput = {
+  export type MasterCourseArticleCreateWithoutCourseInput = {
     id: string
     sequence: number
     title?: string | null
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    exercises?: MasterExerciseCreateNestedManyWithoutCourseContentInput
-    chatMessages?: ChatMessageCreateNestedManyWithoutMasterCourseContentInput
-    chatRoom?: ChatRoomCreateNestedManyWithoutCourseContentInput
+    durationMin?: number | null
+    exercises?: MasterCourseArticleExerciseCreateNestedManyWithoutCourseArticleInput
+    chatRoom?: ChatRoomCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentUncheckedCreateWithoutCourseInput = {
+  export type MasterCourseArticleUncheckedCreateWithoutCourseInput = {
     id: string
     sequence: number
     title?: string | null
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    exercises?: MasterExerciseUncheckedCreateNestedManyWithoutCourseContentInput
-    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutMasterCourseContentInput
-    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseContentInput
-  }
-
-  export type MasterCourseContentCreateOrConnectWithoutCourseInput = {
-    where: MasterCourseContentWhereUniqueInput
-    create: XOR<MasterCourseContentCreateWithoutCourseInput, MasterCourseContentUncheckedCreateWithoutCourseInput>
-  }
-
-  export type MasterCourseContentCreateManyCourseInputEnvelope = {
-    data: MasterCourseContentCreateManyCourseInput | MasterCourseContentCreateManyCourseInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MasterCourseCreateWithoutRelatedToCoursesInput = {
-    id: string
-    title?: string | null
-    summary?: string | null
-    description?: string | null
-    targetAudience?: string | null
-    difficulty?: string | null
     durationMin?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: MasterCategoryCreateNestedOneWithoutCoursesInput
-    tags?: MasterTagCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseCreateNestedManyWithoutRelatedToCoursesInput
-    courseFAQs?: MasterCourseFAQCreateNestedManyWithoutCourseInput
+    exercises?: MasterCourseArticleExerciseUncheckedCreateNestedManyWithoutCourseArticleInput
+    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQUncheckedCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseUncheckedCreateWithoutRelatedToCoursesInput = {
-    id: string
-    title?: string | null
-    summary?: string | null
-    description?: string | null
-    targetAudience?: string | null
-    difficulty?: string | null
-    durationMin?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryId: string
-    tags?: MasterTagUncheckedCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentUncheckedCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedToCoursesInput
-    courseFAQs?: MasterCourseFAQUncheckedCreateNestedManyWithoutCourseInput
+  export type MasterCourseArticleCreateOrConnectWithoutCourseInput = {
+    where: MasterCourseArticleWhereUniqueInput
+    create: XOR<MasterCourseArticleCreateWithoutCourseInput, MasterCourseArticleUncheckedCreateWithoutCourseInput>
   }
 
-  export type MasterCourseCreateOrConnectWithoutRelatedToCoursesInput = {
-    where: MasterCourseWhereUniqueInput
-    create: XOR<MasterCourseCreateWithoutRelatedToCoursesInput, MasterCourseUncheckedCreateWithoutRelatedToCoursesInput>
-  }
-
-  export type MasterCourseCreateWithoutRelatedCoursesInput = {
-    id: string
-    title?: string | null
-    summary?: string | null
-    description?: string | null
-    targetAudience?: string | null
-    difficulty?: string | null
-    durationMin?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: MasterCategoryCreateNestedOneWithoutCoursesInput
-    tags?: MasterTagCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentCreateNestedManyWithoutCourseInput
-    relatedToCourses?: MasterCourseCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQCreateNestedManyWithoutCourseInput
-  }
-
-  export type MasterCourseUncheckedCreateWithoutRelatedCoursesInput = {
-    id: string
-    title?: string | null
-    summary?: string | null
-    description?: string | null
-    targetAudience?: string | null
-    difficulty?: string | null
-    durationMin?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryId: string
-    tags?: MasterTagUncheckedCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentUncheckedCreateNestedManyWithoutCourseInput
-    relatedToCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQUncheckedCreateNestedManyWithoutCourseInput
-  }
-
-  export type MasterCourseCreateOrConnectWithoutRelatedCoursesInput = {
-    where: MasterCourseWhereUniqueInput
-    create: XOR<MasterCourseCreateWithoutRelatedCoursesInput, MasterCourseUncheckedCreateWithoutRelatedCoursesInput>
-  }
-
-  export type MasterCourseFAQCreateWithoutCourseInput = {
-    id: string
-    question: string
-    answer: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MasterCourseFAQUncheckedCreateWithoutCourseInput = {
-    id: string
-    question: string
-    answer: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type MasterCourseFAQCreateOrConnectWithoutCourseInput = {
-    where: MasterCourseFAQWhereUniqueInput
-    create: XOR<MasterCourseFAQCreateWithoutCourseInput, MasterCourseFAQUncheckedCreateWithoutCourseInput>
-  }
-
-  export type MasterCourseFAQCreateManyCourseInputEnvelope = {
-    data: MasterCourseFAQCreateManyCourseInput | MasterCourseFAQCreateManyCourseInput[]
+  export type MasterCourseArticleCreateManyCourseInputEnvelope = {
+    data: MasterCourseArticleCreateManyCourseInput | MasterCourseArticleCreateManyCourseInput[]
     skipDuplicates?: boolean
   }
 
@@ -21729,18 +22754,14 @@ export namespace Prisma {
   export type MasterCategoryUpdateWithoutCoursesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parent?: MasterCategoryUpdateOneWithoutChildrenNestedInput
-    children?: MasterCategoryUpdateManyWithoutParentNestedInput
+    description?: StringFieldUpdateOperationsInput | string
     exams?: MasterExamUpdateManyWithoutCategoryNestedInput
   }
 
   export type MasterCategoryUncheckedUpdateWithoutCoursesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    children?: MasterCategoryUncheckedUpdateManyWithoutParentNestedInput
+    description?: StringFieldUpdateOperationsInput | string
     exams?: MasterExamUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
@@ -21768,135 +22789,72 @@ export namespace Prisma {
     name?: StringFilter<"MasterTag"> | string
   }
 
-  export type MasterCourseContentUpsertWithWhereUniqueWithoutCourseInput = {
-    where: MasterCourseContentWhereUniqueInput
-    update: XOR<MasterCourseContentUpdateWithoutCourseInput, MasterCourseContentUncheckedUpdateWithoutCourseInput>
-    create: XOR<MasterCourseContentCreateWithoutCourseInput, MasterCourseContentUncheckedCreateWithoutCourseInput>
+  export type MasterCourseArticleUpsertWithWhereUniqueWithoutCourseInput = {
+    where: MasterCourseArticleWhereUniqueInput
+    update: XOR<MasterCourseArticleUpdateWithoutCourseInput, MasterCourseArticleUncheckedUpdateWithoutCourseInput>
+    create: XOR<MasterCourseArticleCreateWithoutCourseInput, MasterCourseArticleUncheckedCreateWithoutCourseInput>
   }
 
-  export type MasterCourseContentUpdateWithWhereUniqueWithoutCourseInput = {
-    where: MasterCourseContentWhereUniqueInput
-    data: XOR<MasterCourseContentUpdateWithoutCourseInput, MasterCourseContentUncheckedUpdateWithoutCourseInput>
+  export type MasterCourseArticleUpdateWithWhereUniqueWithoutCourseInput = {
+    where: MasterCourseArticleWhereUniqueInput
+    data: XOR<MasterCourseArticleUpdateWithoutCourseInput, MasterCourseArticleUncheckedUpdateWithoutCourseInput>
   }
 
-  export type MasterCourseContentUpdateManyWithWhereWithoutCourseInput = {
-    where: MasterCourseContentScalarWhereInput
-    data: XOR<MasterCourseContentUpdateManyMutationInput, MasterCourseContentUncheckedUpdateManyWithoutCourseInput>
+  export type MasterCourseArticleUpdateManyWithWhereWithoutCourseInput = {
+    where: MasterCourseArticleScalarWhereInput
+    data: XOR<MasterCourseArticleUpdateManyMutationInput, MasterCourseArticleUncheckedUpdateManyWithoutCourseInput>
   }
 
-  export type MasterCourseContentScalarWhereInput = {
-    AND?: MasterCourseContentScalarWhereInput | MasterCourseContentScalarWhereInput[]
-    OR?: MasterCourseContentScalarWhereInput[]
-    NOT?: MasterCourseContentScalarWhereInput | MasterCourseContentScalarWhereInput[]
-    id?: StringFilter<"MasterCourseContent"> | string
-    courseId?: StringFilter<"MasterCourseContent"> | string
-    sequence?: IntFilter<"MasterCourseContent"> | number
-    title?: StringNullableFilter<"MasterCourseContent"> | string | null
-    content?: StringNullableFilter<"MasterCourseContent"> | string | null
-    createdAt?: DateTimeFilter<"MasterCourseContent"> | Date | string
-    updatedAt?: DateTimeFilter<"MasterCourseContent"> | Date | string
+  export type MasterCourseArticleScalarWhereInput = {
+    AND?: MasterCourseArticleScalarWhereInput | MasterCourseArticleScalarWhereInput[]
+    OR?: MasterCourseArticleScalarWhereInput[]
+    NOT?: MasterCourseArticleScalarWhereInput | MasterCourseArticleScalarWhereInput[]
+    id?: StringFilter<"MasterCourseArticle"> | string
+    courseId?: StringFilter<"MasterCourseArticle"> | string
+    sequence?: IntFilter<"MasterCourseArticle"> | number
+    title?: StringNullableFilter<"MasterCourseArticle"> | string | null
+    content?: StringNullableFilter<"MasterCourseArticle"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticle"> | Date | string
+    updatedAt?: DateTimeFilter<"MasterCourseArticle"> | Date | string
+    durationMin?: IntNullableFilter<"MasterCourseArticle"> | number | null
   }
 
-  export type MasterCourseUpsertWithWhereUniqueWithoutRelatedToCoursesInput = {
-    where: MasterCourseWhereUniqueInput
-    update: XOR<MasterCourseUpdateWithoutRelatedToCoursesInput, MasterCourseUncheckedUpdateWithoutRelatedToCoursesInput>
-    create: XOR<MasterCourseCreateWithoutRelatedToCoursesInput, MasterCourseUncheckedCreateWithoutRelatedToCoursesInput>
-  }
-
-  export type MasterCourseUpdateWithWhereUniqueWithoutRelatedToCoursesInput = {
-    where: MasterCourseWhereUniqueInput
-    data: XOR<MasterCourseUpdateWithoutRelatedToCoursesInput, MasterCourseUncheckedUpdateWithoutRelatedToCoursesInput>
-  }
-
-  export type MasterCourseUpdateManyWithWhereWithoutRelatedToCoursesInput = {
-    where: MasterCourseScalarWhereInput
-    data: XOR<MasterCourseUpdateManyMutationInput, MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesInput>
-  }
-
-  export type MasterCourseUpsertWithWhereUniqueWithoutRelatedCoursesInput = {
-    where: MasterCourseWhereUniqueInput
-    update: XOR<MasterCourseUpdateWithoutRelatedCoursesInput, MasterCourseUncheckedUpdateWithoutRelatedCoursesInput>
-    create: XOR<MasterCourseCreateWithoutRelatedCoursesInput, MasterCourseUncheckedCreateWithoutRelatedCoursesInput>
-  }
-
-  export type MasterCourseUpdateWithWhereUniqueWithoutRelatedCoursesInput = {
-    where: MasterCourseWhereUniqueInput
-    data: XOR<MasterCourseUpdateWithoutRelatedCoursesInput, MasterCourseUncheckedUpdateWithoutRelatedCoursesInput>
-  }
-
-  export type MasterCourseUpdateManyWithWhereWithoutRelatedCoursesInput = {
-    where: MasterCourseScalarWhereInput
-    data: XOR<MasterCourseUpdateManyMutationInput, MasterCourseUncheckedUpdateManyWithoutRelatedCoursesInput>
-  }
-
-  export type MasterCourseFAQUpsertWithWhereUniqueWithoutCourseInput = {
-    where: MasterCourseFAQWhereUniqueInput
-    update: XOR<MasterCourseFAQUpdateWithoutCourseInput, MasterCourseFAQUncheckedUpdateWithoutCourseInput>
-    create: XOR<MasterCourseFAQCreateWithoutCourseInput, MasterCourseFAQUncheckedCreateWithoutCourseInput>
-  }
-
-  export type MasterCourseFAQUpdateWithWhereUniqueWithoutCourseInput = {
-    where: MasterCourseFAQWhereUniqueInput
-    data: XOR<MasterCourseFAQUpdateWithoutCourseInput, MasterCourseFAQUncheckedUpdateWithoutCourseInput>
-  }
-
-  export type MasterCourseFAQUpdateManyWithWhereWithoutCourseInput = {
-    where: MasterCourseFAQScalarWhereInput
-    data: XOR<MasterCourseFAQUpdateManyMutationInput, MasterCourseFAQUncheckedUpdateManyWithoutCourseInput>
-  }
-
-  export type MasterCourseFAQScalarWhereInput = {
-    AND?: MasterCourseFAQScalarWhereInput | MasterCourseFAQScalarWhereInput[]
-    OR?: MasterCourseFAQScalarWhereInput[]
-    NOT?: MasterCourseFAQScalarWhereInput | MasterCourseFAQScalarWhereInput[]
-    id?: StringFilter<"MasterCourseFAQ"> | string
-    courseId?: StringFilter<"MasterCourseFAQ"> | string
-    question?: StringFilter<"MasterCourseFAQ"> | string
-    answer?: StringFilter<"MasterCourseFAQ"> | string
-    createdAt?: DateTimeFilter<"MasterCourseFAQ"> | Date | string
-    updatedAt?: DateTimeFilter<"MasterCourseFAQ"> | Date | string
-  }
-
-  export type MasterCourseCreateWithoutCourseContentsInput = {
+  export type MasterCourseCreateWithoutCourseArticlesInput = {
     id: string
     title?: string | null
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
     tags?: MasterTagCreateNestedManyWithoutCoursesInput
-    relatedCourses?: MasterCourseCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQCreateNestedManyWithoutCourseInput
   }
 
-  export type MasterCourseUncheckedCreateWithoutCourseContentsInput = {
+  export type MasterCourseUncheckedCreateWithoutCourseArticlesInput = {
     id: string
     title?: string | null
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
     tags?: MasterTagUncheckedCreateNestedManyWithoutCoursesInput
-    relatedCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedCoursesInput
-    courseFAQs?: MasterCourseFAQUncheckedCreateNestedManyWithoutCourseInput
   }
 
-  export type MasterCourseCreateOrConnectWithoutCourseContentsInput = {
+  export type MasterCourseCreateOrConnectWithoutCourseArticlesInput = {
     where: MasterCourseWhereUniqueInput
-    create: XOR<MasterCourseCreateWithoutCourseContentsInput, MasterCourseUncheckedCreateWithoutCourseContentsInput>
+    create: XOR<MasterCourseCreateWithoutCourseArticlesInput, MasterCourseUncheckedCreateWithoutCourseArticlesInput>
   }
 
-  export type MasterExerciseCreateWithoutCourseContentInput = {
+  export type MasterCourseArticleExerciseCreateWithoutCourseArticleInput = {
     id: string
     exerciseType: string
     question: string
@@ -21905,7 +22863,7 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type MasterExerciseUncheckedCreateWithoutCourseContentInput = {
+  export type MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput = {
     id: string
     exerciseType: string
     question: string
@@ -21914,187 +22872,194 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type MasterExerciseCreateOrConnectWithoutCourseContentInput = {
-    where: MasterExerciseWhereUniqueInput
-    create: XOR<MasterExerciseCreateWithoutCourseContentInput, MasterExerciseUncheckedCreateWithoutCourseContentInput>
+  export type MasterCourseArticleExerciseCreateOrConnectWithoutCourseArticleInput = {
+    where: MasterCourseArticleExerciseWhereUniqueInput
+    create: XOR<MasterCourseArticleExerciseCreateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput>
   }
 
-  export type MasterExerciseCreateManyCourseContentInputEnvelope = {
-    data: MasterExerciseCreateManyCourseContentInput | MasterExerciseCreateManyCourseContentInput[]
+  export type MasterCourseArticleExerciseCreateManyCourseArticleInputEnvelope = {
+    data: MasterCourseArticleExerciseCreateManyCourseArticleInput | MasterCourseArticleExerciseCreateManyCourseArticleInput[]
     skipDuplicates?: boolean
   }
 
-  export type ChatMessageCreateWithoutMasterCourseContentInput = {
-    id: string
-    role: string
-    message: string
-    createdAt?: Date | string
-    chatRoom: ChatRoomCreateNestedOneWithoutChatMessageInput
-    user?: UserCreateNestedOneWithoutChatMessagesInput
-  }
-
-  export type ChatMessageUncheckedCreateWithoutMasterCourseContentInput = {
-    id: string
-    chatRoomId: string
-    userId?: string | null
-    role: string
-    message: string
-    createdAt?: Date | string
-  }
-
-  export type ChatMessageCreateOrConnectWithoutMasterCourseContentInput = {
-    where: ChatMessageWhereUniqueInput
-    create: XOR<ChatMessageCreateWithoutMasterCourseContentInput, ChatMessageUncheckedCreateWithoutMasterCourseContentInput>
-  }
-
-  export type ChatMessageCreateManyMasterCourseContentInputEnvelope = {
-    data: ChatMessageCreateManyMasterCourseContentInput | ChatMessageCreateManyMasterCourseContentInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ChatRoomCreateWithoutCourseContentInput = {
+  export type ChatRoomCreateWithoutCourseArticleInput = {
     id: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutChatRoomInput
     chatMessage?: ChatMessageCreateNestedManyWithoutChatRoomInput
   }
 
-  export type ChatRoomUncheckedCreateWithoutCourseContentInput = {
+  export type ChatRoomUncheckedCreateWithoutCourseArticleInput = {
     id: string
     userId: string
     createdAt?: Date | string
     chatMessage?: ChatMessageUncheckedCreateNestedManyWithoutChatRoomInput
   }
 
-  export type ChatRoomCreateOrConnectWithoutCourseContentInput = {
+  export type ChatRoomCreateOrConnectWithoutCourseArticleInput = {
     where: ChatRoomWhereUniqueInput
-    create: XOR<ChatRoomCreateWithoutCourseContentInput, ChatRoomUncheckedCreateWithoutCourseContentInput>
+    create: XOR<ChatRoomCreateWithoutCourseArticleInput, ChatRoomUncheckedCreateWithoutCourseArticleInput>
   }
 
-  export type ChatRoomCreateManyCourseContentInputEnvelope = {
-    data: ChatRoomCreateManyCourseContentInput | ChatRoomCreateManyCourseContentInput[]
+  export type ChatRoomCreateManyCourseArticleInputEnvelope = {
+    data: ChatRoomCreateManyCourseArticleInput | ChatRoomCreateManyCourseArticleInput[]
     skipDuplicates?: boolean
   }
 
-  export type MasterCourseUpsertWithoutCourseContentsInput = {
-    update: XOR<MasterCourseUpdateWithoutCourseContentsInput, MasterCourseUncheckedUpdateWithoutCourseContentsInput>
-    create: XOR<MasterCourseCreateWithoutCourseContentsInput, MasterCourseUncheckedCreateWithoutCourseContentsInput>
+  export type MasterCourseArticleFAQCreateWithoutCourseArticleInput = {
+    id: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput = {
+    id: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MasterCourseArticleFAQCreateOrConnectWithoutCourseArticleInput = {
+    where: MasterCourseArticleFAQWhereUniqueInput
+    create: XOR<MasterCourseArticleFAQCreateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput>
+  }
+
+  export type MasterCourseArticleFAQCreateManyCourseArticleInputEnvelope = {
+    data: MasterCourseArticleFAQCreateManyCourseArticleInput | MasterCourseArticleFAQCreateManyCourseArticleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MasterCourseUpsertWithoutCourseArticlesInput = {
+    update: XOR<MasterCourseUpdateWithoutCourseArticlesInput, MasterCourseUncheckedUpdateWithoutCourseArticlesInput>
+    create: XOR<MasterCourseCreateWithoutCourseArticlesInput, MasterCourseUncheckedCreateWithoutCourseArticlesInput>
     where?: MasterCourseWhereInput
   }
 
-  export type MasterCourseUpdateToOneWithWhereWithoutCourseContentsInput = {
+  export type MasterCourseUpdateToOneWithWhereWithoutCourseArticlesInput = {
     where?: MasterCourseWhereInput
-    data: XOR<MasterCourseUpdateWithoutCourseContentsInput, MasterCourseUncheckedUpdateWithoutCourseContentsInput>
+    data: XOR<MasterCourseUpdateWithoutCourseArticlesInput, MasterCourseUncheckedUpdateWithoutCourseArticlesInput>
   }
 
-  export type MasterCourseUpdateWithoutCourseContentsInput = {
+  export type MasterCourseUpdateWithoutCourseArticlesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
     tags?: MasterTagUpdateManyWithoutCoursesNestedInput
-    relatedCourses?: MasterCourseUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUpdateManyWithoutCourseNestedInput
   }
 
-  export type MasterCourseUncheckedUpdateWithoutCourseContentsInput = {
+  export type MasterCourseUncheckedUpdateWithoutCourseArticlesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
     tags?: MasterTagUncheckedUpdateManyWithoutCoursesNestedInput
-    relatedCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUncheckedUpdateManyWithoutCourseNestedInput
   }
 
-  export type MasterExerciseUpsertWithWhereUniqueWithoutCourseContentInput = {
-    where: MasterExerciseWhereUniqueInput
-    update: XOR<MasterExerciseUpdateWithoutCourseContentInput, MasterExerciseUncheckedUpdateWithoutCourseContentInput>
-    create: XOR<MasterExerciseCreateWithoutCourseContentInput, MasterExerciseUncheckedCreateWithoutCourseContentInput>
+  export type MasterCourseArticleExerciseUpsertWithWhereUniqueWithoutCourseArticleInput = {
+    where: MasterCourseArticleExerciseWhereUniqueInput
+    update: XOR<MasterCourseArticleExerciseUpdateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedUpdateWithoutCourseArticleInput>
+    create: XOR<MasterCourseArticleExerciseCreateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedCreateWithoutCourseArticleInput>
   }
 
-  export type MasterExerciseUpdateWithWhereUniqueWithoutCourseContentInput = {
-    where: MasterExerciseWhereUniqueInput
-    data: XOR<MasterExerciseUpdateWithoutCourseContentInput, MasterExerciseUncheckedUpdateWithoutCourseContentInput>
+  export type MasterCourseArticleExerciseUpdateWithWhereUniqueWithoutCourseArticleInput = {
+    where: MasterCourseArticleExerciseWhereUniqueInput
+    data: XOR<MasterCourseArticleExerciseUpdateWithoutCourseArticleInput, MasterCourseArticleExerciseUncheckedUpdateWithoutCourseArticleInput>
   }
 
-  export type MasterExerciseUpdateManyWithWhereWithoutCourseContentInput = {
-    where: MasterExerciseScalarWhereInput
-    data: XOR<MasterExerciseUpdateManyMutationInput, MasterExerciseUncheckedUpdateManyWithoutCourseContentInput>
+  export type MasterCourseArticleExerciseUpdateManyWithWhereWithoutCourseArticleInput = {
+    where: MasterCourseArticleExerciseScalarWhereInput
+    data: XOR<MasterCourseArticleExerciseUpdateManyMutationInput, MasterCourseArticleExerciseUncheckedUpdateManyWithoutCourseArticleInput>
   }
 
-  export type MasterExerciseScalarWhereInput = {
-    AND?: MasterExerciseScalarWhereInput | MasterExerciseScalarWhereInput[]
-    OR?: MasterExerciseScalarWhereInput[]
-    NOT?: MasterExerciseScalarWhereInput | MasterExerciseScalarWhereInput[]
-    id?: StringFilter<"MasterExercise"> | string
-    courseContentId?: StringFilter<"MasterExercise"> | string
-    exerciseType?: StringFilter<"MasterExercise"> | string
-    question?: StringFilter<"MasterExercise"> | string
-    options?: StringNullableFilter<"MasterExercise"> | string | null
-    correctAnswer?: StringNullableFilter<"MasterExercise"> | string | null
-    createdAt?: DateTimeFilter<"MasterExercise"> | Date | string
+  export type MasterCourseArticleExerciseScalarWhereInput = {
+    AND?: MasterCourseArticleExerciseScalarWhereInput | MasterCourseArticleExerciseScalarWhereInput[]
+    OR?: MasterCourseArticleExerciseScalarWhereInput[]
+    NOT?: MasterCourseArticleExerciseScalarWhereInput | MasterCourseArticleExerciseScalarWhereInput[]
+    id?: StringFilter<"MasterCourseArticleExercise"> | string
+    courseArticleId?: StringFilter<"MasterCourseArticleExercise"> | string
+    exerciseType?: StringFilter<"MasterCourseArticleExercise"> | string
+    question?: StringFilter<"MasterCourseArticleExercise"> | string
+    options?: StringNullableFilter<"MasterCourseArticleExercise"> | string | null
+    correctAnswer?: StringNullableFilter<"MasterCourseArticleExercise"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticleExercise"> | Date | string
   }
 
-  export type ChatMessageUpsertWithWhereUniqueWithoutMasterCourseContentInput = {
-    where: ChatMessageWhereUniqueInput
-    update: XOR<ChatMessageUpdateWithoutMasterCourseContentInput, ChatMessageUncheckedUpdateWithoutMasterCourseContentInput>
-    create: XOR<ChatMessageCreateWithoutMasterCourseContentInput, ChatMessageUncheckedCreateWithoutMasterCourseContentInput>
-  }
-
-  export type ChatMessageUpdateWithWhereUniqueWithoutMasterCourseContentInput = {
-    where: ChatMessageWhereUniqueInput
-    data: XOR<ChatMessageUpdateWithoutMasterCourseContentInput, ChatMessageUncheckedUpdateWithoutMasterCourseContentInput>
-  }
-
-  export type ChatMessageUpdateManyWithWhereWithoutMasterCourseContentInput = {
-    where: ChatMessageScalarWhereInput
-    data: XOR<ChatMessageUpdateManyMutationInput, ChatMessageUncheckedUpdateManyWithoutMasterCourseContentInput>
-  }
-
-  export type ChatRoomUpsertWithWhereUniqueWithoutCourseContentInput = {
+  export type ChatRoomUpsertWithWhereUniqueWithoutCourseArticleInput = {
     where: ChatRoomWhereUniqueInput
-    update: XOR<ChatRoomUpdateWithoutCourseContentInput, ChatRoomUncheckedUpdateWithoutCourseContentInput>
-    create: XOR<ChatRoomCreateWithoutCourseContentInput, ChatRoomUncheckedCreateWithoutCourseContentInput>
+    update: XOR<ChatRoomUpdateWithoutCourseArticleInput, ChatRoomUncheckedUpdateWithoutCourseArticleInput>
+    create: XOR<ChatRoomCreateWithoutCourseArticleInput, ChatRoomUncheckedCreateWithoutCourseArticleInput>
   }
 
-  export type ChatRoomUpdateWithWhereUniqueWithoutCourseContentInput = {
+  export type ChatRoomUpdateWithWhereUniqueWithoutCourseArticleInput = {
     where: ChatRoomWhereUniqueInput
-    data: XOR<ChatRoomUpdateWithoutCourseContentInput, ChatRoomUncheckedUpdateWithoutCourseContentInput>
+    data: XOR<ChatRoomUpdateWithoutCourseArticleInput, ChatRoomUncheckedUpdateWithoutCourseArticleInput>
   }
 
-  export type ChatRoomUpdateManyWithWhereWithoutCourseContentInput = {
+  export type ChatRoomUpdateManyWithWhereWithoutCourseArticleInput = {
     where: ChatRoomScalarWhereInput
-    data: XOR<ChatRoomUpdateManyMutationInput, ChatRoomUncheckedUpdateManyWithoutCourseContentInput>
+    data: XOR<ChatRoomUpdateManyMutationInput, ChatRoomUncheckedUpdateManyWithoutCourseArticleInput>
   }
 
-  export type MasterCourseContentCreateWithoutExercisesInput = {
+  export type MasterCourseArticleFAQUpsertWithWhereUniqueWithoutCourseArticleInput = {
+    where: MasterCourseArticleFAQWhereUniqueInput
+    update: XOR<MasterCourseArticleFAQUpdateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedUpdateWithoutCourseArticleInput>
+    create: XOR<MasterCourseArticleFAQCreateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedCreateWithoutCourseArticleInput>
+  }
+
+  export type MasterCourseArticleFAQUpdateWithWhereUniqueWithoutCourseArticleInput = {
+    where: MasterCourseArticleFAQWhereUniqueInput
+    data: XOR<MasterCourseArticleFAQUpdateWithoutCourseArticleInput, MasterCourseArticleFAQUncheckedUpdateWithoutCourseArticleInput>
+  }
+
+  export type MasterCourseArticleFAQUpdateManyWithWhereWithoutCourseArticleInput = {
+    where: MasterCourseArticleFAQScalarWhereInput
+    data: XOR<MasterCourseArticleFAQUpdateManyMutationInput, MasterCourseArticleFAQUncheckedUpdateManyWithoutCourseArticleInput>
+  }
+
+  export type MasterCourseArticleFAQScalarWhereInput = {
+    AND?: MasterCourseArticleFAQScalarWhereInput | MasterCourseArticleFAQScalarWhereInput[]
+    OR?: MasterCourseArticleFAQScalarWhereInput[]
+    NOT?: MasterCourseArticleFAQScalarWhereInput | MasterCourseArticleFAQScalarWhereInput[]
+    id?: StringFilter<"MasterCourseArticleFAQ"> | string
+    courseArticleId?: StringFilter<"MasterCourseArticleFAQ"> | string
+    question?: StringFilter<"MasterCourseArticleFAQ"> | string
+    answer?: StringFilter<"MasterCourseArticleFAQ"> | string
+    createdAt?: DateTimeFilter<"MasterCourseArticleFAQ"> | Date | string
+    updatedAt?: DateTimeFilter<"MasterCourseArticleFAQ"> | Date | string
+  }
+
+  export type MasterCourseArticleCreateWithoutExercisesInput = {
     id: string
     sequence: number
     title?: string | null
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    course: MasterCourseCreateNestedOneWithoutCourseContentsInput
-    chatMessages?: ChatMessageCreateNestedManyWithoutMasterCourseContentInput
-    chatRoom?: ChatRoomCreateNestedManyWithoutCourseContentInput
+    durationMin?: number | null
+    course: MasterCourseCreateNestedOneWithoutCourseArticlesInput
+    chatRoom?: ChatRoomCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentUncheckedCreateWithoutExercisesInput = {
+  export type MasterCourseArticleUncheckedCreateWithoutExercisesInput = {
     id: string
     courseId: string
     sequence: number
@@ -22102,39 +23067,41 @@ export namespace Prisma {
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutMasterCourseContentInput
-    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseContentInput
+    durationMin?: number | null
+    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQUncheckedCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentCreateOrConnectWithoutExercisesInput = {
-    where: MasterCourseContentWhereUniqueInput
-    create: XOR<MasterCourseContentCreateWithoutExercisesInput, MasterCourseContentUncheckedCreateWithoutExercisesInput>
+  export type MasterCourseArticleCreateOrConnectWithoutExercisesInput = {
+    where: MasterCourseArticleWhereUniqueInput
+    create: XOR<MasterCourseArticleCreateWithoutExercisesInput, MasterCourseArticleUncheckedCreateWithoutExercisesInput>
   }
 
-  export type MasterCourseContentUpsertWithoutExercisesInput = {
-    update: XOR<MasterCourseContentUpdateWithoutExercisesInput, MasterCourseContentUncheckedUpdateWithoutExercisesInput>
-    create: XOR<MasterCourseContentCreateWithoutExercisesInput, MasterCourseContentUncheckedCreateWithoutExercisesInput>
-    where?: MasterCourseContentWhereInput
+  export type MasterCourseArticleUpsertWithoutExercisesInput = {
+    update: XOR<MasterCourseArticleUpdateWithoutExercisesInput, MasterCourseArticleUncheckedUpdateWithoutExercisesInput>
+    create: XOR<MasterCourseArticleCreateWithoutExercisesInput, MasterCourseArticleUncheckedCreateWithoutExercisesInput>
+    where?: MasterCourseArticleWhereInput
   }
 
-  export type MasterCourseContentUpdateToOneWithWhereWithoutExercisesInput = {
-    where?: MasterCourseContentWhereInput
-    data: XOR<MasterCourseContentUpdateWithoutExercisesInput, MasterCourseContentUncheckedUpdateWithoutExercisesInput>
+  export type MasterCourseArticleUpdateToOneWithWhereWithoutExercisesInput = {
+    where?: MasterCourseArticleWhereInput
+    data: XOR<MasterCourseArticleUpdateWithoutExercisesInput, MasterCourseArticleUncheckedUpdateWithoutExercisesInput>
   }
 
-  export type MasterCourseContentUpdateWithoutExercisesInput = {
+  export type MasterCourseArticleUpdateWithoutExercisesInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    course?: MasterCourseUpdateOneRequiredWithoutCourseContentsNestedInput
-    chatMessages?: ChatMessageUpdateManyWithoutMasterCourseContentNestedInput
-    chatRoom?: ChatRoomUpdateManyWithoutCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    course?: MasterCourseUpdateOneRequiredWithoutCourseArticlesNestedInput
+    chatRoom?: ChatRoomUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUpdateManyWithoutCourseArticleNestedInput
   }
 
-  export type MasterCourseContentUncheckedUpdateWithoutExercisesInput = {
+  export type MasterCourseArticleUncheckedUpdateWithoutExercisesInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
@@ -22142,8 +23109,9 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    chatMessages?: ChatMessageUncheckedUpdateManyWithoutMasterCourseContentNestedInput
-    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUncheckedUpdateManyWithoutCourseArticleNestedInput
   }
 
   export type UserCreateWithoutChatRoomInput = {
@@ -22154,6 +23122,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     examSubmissions?: ExamSubmissionCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
   }
@@ -22166,6 +23139,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     examSubmissions?: ExamSubmissionUncheckedCreateNestedManyWithoutUserInput
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22175,19 +23153,20 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutChatRoomInput, UserUncheckedCreateWithoutChatRoomInput>
   }
 
-  export type MasterCourseContentCreateWithoutChatRoomInput = {
+  export type MasterCourseArticleCreateWithoutChatRoomInput = {
     id: string
     sequence: number
     title?: string | null
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    course: MasterCourseCreateNestedOneWithoutCourseContentsInput
-    exercises?: MasterExerciseCreateNestedManyWithoutCourseContentInput
-    chatMessages?: ChatMessageCreateNestedManyWithoutMasterCourseContentInput
+    durationMin?: number | null
+    course: MasterCourseCreateNestedOneWithoutCourseArticlesInput
+    exercises?: MasterCourseArticleExerciseCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentUncheckedCreateWithoutChatRoomInput = {
+  export type MasterCourseArticleUncheckedCreateWithoutChatRoomInput = {
     id: string
     courseId: string
     sequence: number
@@ -22195,13 +23174,14 @@ export namespace Prisma {
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    exercises?: MasterExerciseUncheckedCreateNestedManyWithoutCourseContentInput
-    chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutMasterCourseContentInput
+    durationMin?: number | null
+    exercises?: MasterCourseArticleExerciseUncheckedCreateNestedManyWithoutCourseArticleInput
+    faq?: MasterCourseArticleFAQUncheckedCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentCreateOrConnectWithoutChatRoomInput = {
-    where: MasterCourseContentWhereUniqueInput
-    create: XOR<MasterCourseContentCreateWithoutChatRoomInput, MasterCourseContentUncheckedCreateWithoutChatRoomInput>
+  export type MasterCourseArticleCreateOrConnectWithoutChatRoomInput = {
+    where: MasterCourseArticleWhereUniqueInput
+    create: XOR<MasterCourseArticleCreateWithoutChatRoomInput, MasterCourseArticleUncheckedCreateWithoutChatRoomInput>
   }
 
   export type ChatMessageCreateWithoutChatRoomInput = {
@@ -22209,8 +23189,8 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
+    masterCourseArticleId?: string | null
     user?: UserCreateNestedOneWithoutChatMessagesInput
-    MasterCourseContent?: MasterCourseContentCreateNestedOneWithoutChatMessagesInput
   }
 
   export type ChatMessageUncheckedCreateWithoutChatRoomInput = {
@@ -22219,7 +23199,7 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
-    masterCourseContentId?: string | null
+    masterCourseArticleId?: string | null
   }
 
   export type ChatMessageCreateOrConnectWithoutChatRoomInput = {
@@ -22251,6 +23231,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     examSubmissions?: ExamSubmissionUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
   }
@@ -22263,34 +23248,40 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     examSubmissions?: ExamSubmissionUncheckedUpdateManyWithoutUserNestedInput
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type MasterCourseContentUpsertWithoutChatRoomInput = {
-    update: XOR<MasterCourseContentUpdateWithoutChatRoomInput, MasterCourseContentUncheckedUpdateWithoutChatRoomInput>
-    create: XOR<MasterCourseContentCreateWithoutChatRoomInput, MasterCourseContentUncheckedCreateWithoutChatRoomInput>
-    where?: MasterCourseContentWhereInput
+  export type MasterCourseArticleUpsertWithoutChatRoomInput = {
+    update: XOR<MasterCourseArticleUpdateWithoutChatRoomInput, MasterCourseArticleUncheckedUpdateWithoutChatRoomInput>
+    create: XOR<MasterCourseArticleCreateWithoutChatRoomInput, MasterCourseArticleUncheckedCreateWithoutChatRoomInput>
+    where?: MasterCourseArticleWhereInput
   }
 
-  export type MasterCourseContentUpdateToOneWithWhereWithoutChatRoomInput = {
-    where?: MasterCourseContentWhereInput
-    data: XOR<MasterCourseContentUpdateWithoutChatRoomInput, MasterCourseContentUncheckedUpdateWithoutChatRoomInput>
+  export type MasterCourseArticleUpdateToOneWithWhereWithoutChatRoomInput = {
+    where?: MasterCourseArticleWhereInput
+    data: XOR<MasterCourseArticleUpdateWithoutChatRoomInput, MasterCourseArticleUncheckedUpdateWithoutChatRoomInput>
   }
 
-  export type MasterCourseContentUpdateWithoutChatRoomInput = {
+  export type MasterCourseArticleUpdateWithoutChatRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    course?: MasterCourseUpdateOneRequiredWithoutCourseContentsNestedInput
-    exercises?: MasterExerciseUpdateManyWithoutCourseContentNestedInput
-    chatMessages?: ChatMessageUpdateManyWithoutMasterCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    course?: MasterCourseUpdateOneRequiredWithoutCourseArticlesNestedInput
+    exercises?: MasterCourseArticleExerciseUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUpdateManyWithoutCourseArticleNestedInput
   }
 
-  export type MasterCourseContentUncheckedUpdateWithoutChatRoomInput = {
+  export type MasterCourseArticleUncheckedUpdateWithoutChatRoomInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
@@ -22298,8 +23289,9 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    exercises?: MasterExerciseUncheckedUpdateManyWithoutCourseContentNestedInput
-    chatMessages?: ChatMessageUncheckedUpdateManyWithoutMasterCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    exercises?: MasterCourseArticleExerciseUncheckedUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUncheckedUpdateManyWithoutCourseArticleNestedInput
   }
 
   export type ChatMessageUpsertWithWhereUniqueWithoutChatRoomInput = {
@@ -22322,13 +23314,13 @@ export namespace Prisma {
     id: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutChatRoomInput
-    courseContent: MasterCourseContentCreateNestedOneWithoutChatRoomInput
+    courseArticle: MasterCourseArticleCreateNestedOneWithoutChatRoomInput
   }
 
   export type ChatRoomUncheckedCreateWithoutChatMessageInput = {
     id: string
     userId: string
-    courseContentId: string
+    courseArticleId: string
     createdAt?: Date | string
   }
 
@@ -22345,6 +23337,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     examSubmissions?: ExamSubmissionCreateNestedManyWithoutUserInput
     chatRoom?: ChatRoomCreateNestedManyWithoutUserInput
   }
@@ -22357,6 +23354,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     examSubmissions?: ExamSubmissionUncheckedCreateNestedManyWithoutUserInput
     chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22364,35 +23366,6 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutChatMessagesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutChatMessagesInput, UserUncheckedCreateWithoutChatMessagesInput>
-  }
-
-  export type MasterCourseContentCreateWithoutChatMessagesInput = {
-    id: string
-    sequence: number
-    title?: string | null
-    content?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    course: MasterCourseCreateNestedOneWithoutCourseContentsInput
-    exercises?: MasterExerciseCreateNestedManyWithoutCourseContentInput
-    chatRoom?: ChatRoomCreateNestedManyWithoutCourseContentInput
-  }
-
-  export type MasterCourseContentUncheckedCreateWithoutChatMessagesInput = {
-    id: string
-    courseId: string
-    sequence: number
-    title?: string | null
-    content?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    exercises?: MasterExerciseUncheckedCreateNestedManyWithoutCourseContentInput
-    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseContentInput
-  }
-
-  export type MasterCourseContentCreateOrConnectWithoutChatMessagesInput = {
-    where: MasterCourseContentWhereUniqueInput
-    create: XOR<MasterCourseContentCreateWithoutChatMessagesInput, MasterCourseContentUncheckedCreateWithoutChatMessagesInput>
   }
 
   export type ChatRoomUpsertWithoutChatMessageInput = {
@@ -22410,13 +23383,13 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutChatRoomNestedInput
-    courseContent?: MasterCourseContentUpdateOneRequiredWithoutChatRoomNestedInput
+    courseArticle?: MasterCourseArticleUpdateOneRequiredWithoutChatRoomNestedInput
   }
 
   export type ChatRoomUncheckedUpdateWithoutChatMessageInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    courseContentId?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22439,6 +23412,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     examSubmissions?: ExamSubmissionUpdateManyWithoutUserNestedInput
     chatRoom?: ChatRoomUpdateManyWithoutUserNestedInput
   }
@@ -22451,34 +23429,71 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     examSubmissions?: ExamSubmissionUncheckedUpdateManyWithoutUserNestedInput
     chatRoom?: ChatRoomUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type MasterCourseContentUpsertWithoutChatMessagesInput = {
-    update: XOR<MasterCourseContentUpdateWithoutChatMessagesInput, MasterCourseContentUncheckedUpdateWithoutChatMessagesInput>
-    create: XOR<MasterCourseContentCreateWithoutChatMessagesInput, MasterCourseContentUncheckedCreateWithoutChatMessagesInput>
-    where?: MasterCourseContentWhereInput
+  export type MasterCourseArticleCreateWithoutFaqInput = {
+    id: string
+    sequence: number
+    title?: string | null
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    durationMin?: number | null
+    course: MasterCourseCreateNestedOneWithoutCourseArticlesInput
+    exercises?: MasterCourseArticleExerciseCreateNestedManyWithoutCourseArticleInput
+    chatRoom?: ChatRoomCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentUpdateToOneWithWhereWithoutChatMessagesInput = {
-    where?: MasterCourseContentWhereInput
-    data: XOR<MasterCourseContentUpdateWithoutChatMessagesInput, MasterCourseContentUncheckedUpdateWithoutChatMessagesInput>
+  export type MasterCourseArticleUncheckedCreateWithoutFaqInput = {
+    id: string
+    courseId: string
+    sequence: number
+    title?: string | null
+    content?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    durationMin?: number | null
+    exercises?: MasterCourseArticleExerciseUncheckedCreateNestedManyWithoutCourseArticleInput
+    chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutCourseArticleInput
   }
 
-  export type MasterCourseContentUpdateWithoutChatMessagesInput = {
+  export type MasterCourseArticleCreateOrConnectWithoutFaqInput = {
+    where: MasterCourseArticleWhereUniqueInput
+    create: XOR<MasterCourseArticleCreateWithoutFaqInput, MasterCourseArticleUncheckedCreateWithoutFaqInput>
+  }
+
+  export type MasterCourseArticleUpsertWithoutFaqInput = {
+    update: XOR<MasterCourseArticleUpdateWithoutFaqInput, MasterCourseArticleUncheckedUpdateWithoutFaqInput>
+    create: XOR<MasterCourseArticleCreateWithoutFaqInput, MasterCourseArticleUncheckedCreateWithoutFaqInput>
+    where?: MasterCourseArticleWhereInput
+  }
+
+  export type MasterCourseArticleUpdateToOneWithWhereWithoutFaqInput = {
+    where?: MasterCourseArticleWhereInput
+    data: XOR<MasterCourseArticleUpdateWithoutFaqInput, MasterCourseArticleUncheckedUpdateWithoutFaqInput>
+  }
+
+  export type MasterCourseArticleUpdateWithoutFaqInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    course?: MasterCourseUpdateOneRequiredWithoutCourseContentsNestedInput
-    exercises?: MasterExerciseUpdateManyWithoutCourseContentNestedInput
-    chatRoom?: ChatRoomUpdateManyWithoutCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    course?: MasterCourseUpdateOneRequiredWithoutCourseArticlesNestedInput
+    exercises?: MasterCourseArticleExerciseUpdateManyWithoutCourseArticleNestedInput
+    chatRoom?: ChatRoomUpdateManyWithoutCourseArticleNestedInput
   }
 
-  export type MasterCourseContentUncheckedUpdateWithoutChatMessagesInput = {
+  export type MasterCourseArticleUncheckedUpdateWithoutFaqInput = {
     id?: StringFieldUpdateOperationsInput | string
     courseId?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
@@ -22486,109 +23501,22 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    exercises?: MasterExerciseUncheckedUpdateManyWithoutCourseContentNestedInput
-    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseContentNestedInput
-  }
-
-  export type MasterCourseCreateWithoutCourseFAQsInput = {
-    id: string
-    title?: string | null
-    summary?: string | null
-    description?: string | null
-    targetAudience?: string | null
-    difficulty?: string | null
-    durationMin?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: MasterCategoryCreateNestedOneWithoutCoursesInput
-    tags?: MasterTagCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseCreateNestedManyWithoutRelatedCoursesInput
-  }
-
-  export type MasterCourseUncheckedCreateWithoutCourseFAQsInput = {
-    id: string
-    title?: string | null
-    summary?: string | null
-    description?: string | null
-    targetAudience?: string | null
-    difficulty?: string | null
-    durationMin?: number | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryId: string
-    tags?: MasterTagUncheckedCreateNestedManyWithoutCoursesInput
-    courseContents?: MasterCourseContentUncheckedCreateNestedManyWithoutCourseInput
-    relatedCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedToCoursesInput
-    relatedToCourses?: MasterCourseUncheckedCreateNestedManyWithoutRelatedCoursesInput
-  }
-
-  export type MasterCourseCreateOrConnectWithoutCourseFAQsInput = {
-    where: MasterCourseWhereUniqueInput
-    create: XOR<MasterCourseCreateWithoutCourseFAQsInput, MasterCourseUncheckedCreateWithoutCourseFAQsInput>
-  }
-
-  export type MasterCourseUpsertWithoutCourseFAQsInput = {
-    update: XOR<MasterCourseUpdateWithoutCourseFAQsInput, MasterCourseUncheckedUpdateWithoutCourseFAQsInput>
-    create: XOR<MasterCourseCreateWithoutCourseFAQsInput, MasterCourseUncheckedCreateWithoutCourseFAQsInput>
-    where?: MasterCourseWhereInput
-  }
-
-  export type MasterCourseUpdateToOneWithWhereWithoutCourseFAQsInput = {
-    where?: MasterCourseWhereInput
-    data: XOR<MasterCourseUpdateWithoutCourseFAQsInput, MasterCourseUncheckedUpdateWithoutCourseFAQsInput>
-  }
-
-  export type MasterCourseUpdateWithoutCourseFAQsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
-    tags?: MasterTagUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUpdateManyWithoutRelatedCoursesNestedInput
-  }
-
-  export type MasterCourseUncheckedUpdateWithoutCourseFAQsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryId?: StringFieldUpdateOperationsInput | string
-    tags?: MasterTagUncheckedUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUncheckedUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedCoursesNestedInput
+    exercises?: MasterCourseArticleExerciseUncheckedUpdateManyWithoutCourseArticleNestedInput
+    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseArticleNestedInput
   }
 
   export type MasterCategoryCreateWithoutExamsInput = {
     id: string
     name: string
-    level: number
-    parent?: MasterCategoryCreateNestedOneWithoutChildrenInput
-    children?: MasterCategoryCreateNestedManyWithoutParentInput
+    description: string
     courses?: MasterCourseCreateNestedManyWithoutCategoryInput
   }
 
   export type MasterCategoryUncheckedCreateWithoutExamsInput = {
     id: string
     name: string
-    level: number
-    parentId?: string | null
-    children?: MasterCategoryUncheckedCreateNestedManyWithoutParentInput
+    description: string
     courses?: MasterCourseUncheckedCreateNestedManyWithoutCategoryInput
   }
 
@@ -22599,6 +23527,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionCreateWithoutExamInput = {
     id: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -22609,6 +23539,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionUncheckedCreateWithoutExamInput = {
     id: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -22669,18 +23601,14 @@ export namespace Prisma {
   export type MasterCategoryUpdateWithoutExamsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parent?: MasterCategoryUpdateOneWithoutChildrenNestedInput
-    children?: MasterCategoryUpdateManyWithoutParentNestedInput
+    description?: StringFieldUpdateOperationsInput | string
     courses?: MasterCourseUpdateManyWithoutCategoryNestedInput
   }
 
   export type MasterCategoryUncheckedUpdateWithoutExamsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    parentId?: NullableStringFieldUpdateOperationsInput | string | null
-    children?: MasterCategoryUncheckedUpdateManyWithoutParentNestedInput
+    description?: StringFieldUpdateOperationsInput | string
     courses?: MasterCourseUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
@@ -22706,6 +23634,8 @@ export namespace Prisma {
     NOT?: MasterExamQuestionScalarWhereInput | MasterExamQuestionScalarWhereInput[]
     id?: StringFilter<"MasterExamQuestion"> | string
     examId?: StringFilter<"MasterExamQuestion"> | string
+    sequence?: IntFilter<"MasterExamQuestion"> | number
+    score?: IntFilter<"MasterExamQuestion"> | number
     question?: StringFilter<"MasterExamQuestion"> | string
     questionType?: StringFilter<"MasterExamQuestion"> | string
     options?: StringNullableFilter<"MasterExamQuestion"> | string | null
@@ -22735,6 +23665,9 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
+    passingScore: number
     category: MasterCategoryCreateNestedOneWithoutExamsInput
     ExamSubmission?: ExamSubmissionCreateNestedManyWithoutExamInput
   }
@@ -22745,7 +23678,10 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
     categoryId: string
+    passingScore: number
     ExamSubmission?: ExamSubmissionUncheckedCreateNestedManyWithoutExamInput
   }
 
@@ -22795,6 +23731,9 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
+    passingScore?: IntFieldUpdateOperationsInput | number
     category?: MasterCategoryUpdateOneRequiredWithoutExamsNestedInput
     ExamSubmission?: ExamSubmissionUpdateManyWithoutExamNestedInput
   }
@@ -22805,7 +23744,10 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
     categoryId?: StringFieldUpdateOperationsInput | string
+    passingScore?: IntFieldUpdateOperationsInput | number
     ExamSubmission?: ExamSubmissionUncheckedUpdateManyWithoutExamNestedInput
   }
 
@@ -22842,6 +23784,9 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
+    passingScore: number
     category: MasterCategoryCreateNestedOneWithoutExamsInput
     examQuestions?: MasterExamQuestionCreateNestedManyWithoutExamInput
   }
@@ -22852,7 +23797,10 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    level: number
+    timeLimitMin: number
     categoryId: string
+    passingScore: number
     examQuestions?: MasterExamQuestionUncheckedCreateNestedManyWithoutExamInput
   }
 
@@ -22869,6 +23817,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     chatMessages?: ChatMessageCreateNestedManyWithoutUserInput
     chatRoom?: ChatRoomCreateNestedManyWithoutUserInput
   }
@@ -22881,6 +23834,11 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     plan?: string
+    name?: string | null
+    occupation?: string | null
+    birthDate?: string | null
+    deletedAt?: Date | string | null
+    deleteReason?: string | null
     chatMessages?: ChatMessageUncheckedCreateNestedManyWithoutUserInput
     chatRoom?: ChatRoomUncheckedCreateNestedManyWithoutUserInput
   }
@@ -22931,6 +23889,9 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
+    passingScore?: IntFieldUpdateOperationsInput | number
     category?: MasterCategoryUpdateOneRequiredWithoutExamsNestedInput
     examQuestions?: MasterExamQuestionUpdateManyWithoutExamNestedInput
   }
@@ -22941,7 +23902,10 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
     categoryId?: StringFieldUpdateOperationsInput | string
+    passingScore?: IntFieldUpdateOperationsInput | number
     examQuestions?: MasterExamQuestionUncheckedUpdateManyWithoutExamNestedInput
   }
 
@@ -22964,6 +23928,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     chatMessages?: ChatMessageUpdateManyWithoutUserNestedInput
     chatRoom?: ChatRoomUpdateManyWithoutUserNestedInput
   }
@@ -22976,6 +23945,11 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     plan?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    occupation?: NullableStringFieldUpdateOperationsInput | string | null
+    birthDate?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleteReason?: NullableStringFieldUpdateOperationsInput | string | null
     chatMessages?: ChatMessageUncheckedUpdateManyWithoutUserNestedInput
     chatRoom?: ChatRoomUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -23021,6 +23995,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionCreateWithoutExamAnswerInput = {
     id: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -23032,6 +24008,8 @@ export namespace Prisma {
   export type MasterExamQuestionUncheckedCreateWithoutExamAnswerInput = {
     id: string
     examId: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -23058,7 +24036,7 @@ export namespace Prisma {
   export type ExamSubmissionUpdateWithoutExamAnswersInput = {
     id?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
     exam?: MasterExamUpdateOneRequiredWithoutExamSubmissionNestedInput
     user?: UserUpdateOneRequiredWithoutExamSubmissionsNestedInput
@@ -23069,7 +24047,7 @@ export namespace Prisma {
     examId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
   }
 
@@ -23086,6 +24064,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionUpdateWithoutExamAnswerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23097,6 +24077,8 @@ export namespace Prisma {
   export type MasterExamQuestionUncheckedUpdateWithoutExamAnswerInput = {
     id?: StringFieldUpdateOperationsInput | string
     examId?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23118,19 +24100,19 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
-    masterCourseContentId?: string | null
+    masterCourseArticleId?: string | null
   }
 
   export type ChatRoomCreateManyUserInput = {
     id: string
-    courseContentId: string
+    courseArticleId: string
     createdAt?: Date | string
   }
 
   export type ExamSubmissionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
     exam?: MasterExamUpdateOneRequiredWithoutExamSubmissionNestedInput
     examAnswers?: ExamAnswerUpdateManyWithoutExamSubmissionNestedInput
@@ -23140,7 +24122,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     examId?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
     examAnswers?: ExamAnswerUncheckedUpdateManyWithoutExamSubmissionNestedInput
   }
@@ -23149,7 +24131,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     examId?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
   }
 
@@ -23158,8 +24140,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
     chatRoom?: ChatRoomUpdateOneRequiredWithoutChatMessageNestedInput
-    MasterCourseContent?: MasterCourseContentUpdateOneWithoutChatMessagesNestedInput
   }
 
   export type ChatMessageUncheckedUpdateWithoutUserInput = {
@@ -23168,7 +24150,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    masterCourseContentId?: NullableStringFieldUpdateOperationsInput | string | null
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessageUncheckedUpdateManyWithoutUserInput = {
@@ -23177,33 +24159,27 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    masterCourseContentId?: NullableStringFieldUpdateOperationsInput | string | null
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatRoomUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    courseContent?: MasterCourseContentUpdateOneRequiredWithoutChatRoomNestedInput
+    courseArticle?: MasterCourseArticleUpdateOneRequiredWithoutChatRoomNestedInput
     chatMessage?: ChatMessageUpdateManyWithoutChatRoomNestedInput
   }
 
   export type ChatRoomUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    courseContentId?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatMessage?: ChatMessageUncheckedUpdateManyWithoutChatRoomNestedInput
   }
 
   export type ChatRoomUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    courseContentId?: StringFieldUpdateOperationsInput | string
+    courseArticleId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MasterCategoryCreateManyParentInput = {
-    id: string
-    name: string
-    level: number
   }
 
   export type MasterCourseCreateManyCategoryInput = {
@@ -23212,7 +24188,8 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
-    difficulty?: string | null
+    level: string
+    difficulty?: number | null
     durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23224,30 +24201,9 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type MasterCategoryUpdateWithoutParentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    children?: MasterCategoryUpdateManyWithoutParentNestedInput
-    courses?: MasterCourseUpdateManyWithoutCategoryNestedInput
-    exams?: MasterExamUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type MasterCategoryUncheckedUpdateWithoutParentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
-    children?: MasterCategoryUncheckedUpdateManyWithoutParentNestedInput
-    courses?: MasterCourseUncheckedUpdateManyWithoutCategoryNestedInput
-    exams?: MasterExamUncheckedUpdateManyWithoutCategoryNestedInput
-  }
-
-  export type MasterCategoryUncheckedUpdateManyWithoutParentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    level?: IntFieldUpdateOperationsInput | number
+    level: number
+    timeLimitMin: number
+    passingScore: number
   }
 
   export type MasterCourseUpdateWithoutCategoryInput = {
@@ -23256,15 +24212,13 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: MasterTagUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUpdateManyWithoutCourseNestedInput
+    courseArticles?: MasterCourseArticleUpdateManyWithoutCourseNestedInput
   }
 
   export type MasterCourseUncheckedUpdateWithoutCategoryInput = {
@@ -23273,15 +24227,13 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: MasterTagUncheckedUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUncheckedUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUncheckedUpdateManyWithoutCourseNestedInput
+    courseArticles?: MasterCourseArticleUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type MasterCourseUncheckedUpdateManyWithoutCategoryInput = {
@@ -23290,7 +24242,8 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23302,6 +24255,9 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
+    passingScore?: IntFieldUpdateOperationsInput | number
     examQuestions?: MasterExamQuestionUpdateManyWithoutExamNestedInput
     ExamSubmission?: ExamSubmissionUpdateManyWithoutExamNestedInput
   }
@@ -23312,6 +24268,9 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
+    passingScore?: IntFieldUpdateOperationsInput | number
     examQuestions?: MasterExamQuestionUncheckedUpdateManyWithoutExamNestedInput
     ExamSubmission?: ExamSubmissionUncheckedUpdateManyWithoutExamNestedInput
   }
@@ -23322,6 +24281,9 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    level?: IntFieldUpdateOperationsInput | number
+    timeLimitMin?: IntFieldUpdateOperationsInput | number
+    passingScore?: IntFieldUpdateOperationsInput | number
   }
 
   export type MasterCourseUpdateWithoutTagsInput = {
@@ -23330,15 +24292,13 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUpdateManyWithoutCourseNestedInput
+    courseArticles?: MasterCourseArticleUpdateManyWithoutCourseNestedInput
   }
 
   export type MasterCourseUncheckedUpdateWithoutTagsInput = {
@@ -23347,15 +24307,13 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
-    courseContents?: MasterCourseContentUncheckedUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesNestedInput
-    relatedToCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUncheckedUpdateManyWithoutCourseNestedInput
+    courseArticles?: MasterCourseArticleUncheckedUpdateManyWithoutCourseNestedInput
   }
 
   export type MasterCourseUncheckedUpdateManyWithoutTagsInput = {
@@ -23364,28 +24322,22 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: StringFieldUpdateOperationsInput | string
+    difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type MasterCourseContentCreateManyCourseInput = {
+  export type MasterCourseArticleCreateManyCourseInput = {
     id: string
     sequence: number
     title?: string | null
     content?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type MasterCourseFAQCreateManyCourseInput = {
-    id: string
-    question: string
-    answer: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    durationMin?: number | null
   }
 
   export type MasterTagUpdateWithoutCoursesInput = {
@@ -23403,158 +24355,43 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type MasterCourseContentUpdateWithoutCourseInput = {
+  export type MasterCourseArticleUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    exercises?: MasterExerciseUpdateManyWithoutCourseContentNestedInput
-    chatMessages?: ChatMessageUpdateManyWithoutMasterCourseContentNestedInput
-    chatRoom?: ChatRoomUpdateManyWithoutCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    exercises?: MasterCourseArticleExerciseUpdateManyWithoutCourseArticleNestedInput
+    chatRoom?: ChatRoomUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUpdateManyWithoutCourseArticleNestedInput
   }
 
-  export type MasterCourseContentUncheckedUpdateWithoutCourseInput = {
+  export type MasterCourseArticleUncheckedUpdateWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    exercises?: MasterExerciseUncheckedUpdateManyWithoutCourseContentNestedInput
-    chatMessages?: ChatMessageUncheckedUpdateManyWithoutMasterCourseContentNestedInput
-    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseContentNestedInput
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+    exercises?: MasterCourseArticleExerciseUncheckedUpdateManyWithoutCourseArticleNestedInput
+    chatRoom?: ChatRoomUncheckedUpdateManyWithoutCourseArticleNestedInput
+    faq?: MasterCourseArticleFAQUncheckedUpdateManyWithoutCourseArticleNestedInput
   }
 
-  export type MasterCourseContentUncheckedUpdateManyWithoutCourseInput = {
+  export type MasterCourseArticleUncheckedUpdateManyWithoutCourseInput = {
     id?: StringFieldUpdateOperationsInput | string
     sequence?: IntFieldUpdateOperationsInput | number
     title?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MasterCourseUpdateWithoutRelatedToCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
-    tags?: MasterTagUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUpdateManyWithoutRelatedToCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUpdateManyWithoutCourseNestedInput
   }
 
-  export type MasterCourseUncheckedUpdateWithoutRelatedToCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryId?: StringFieldUpdateOperationsInput | string
-    tags?: MasterTagUncheckedUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUncheckedUpdateManyWithoutCourseNestedInput
-    relatedCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUncheckedUpdateManyWithoutCourseNestedInput
-  }
-
-  export type MasterCourseUncheckedUpdateManyWithoutRelatedToCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type MasterCourseUpdateWithoutRelatedCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
-    tags?: MasterTagUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUpdateManyWithoutCourseNestedInput
-    relatedToCourses?: MasterCourseUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUpdateManyWithoutCourseNestedInput
-  }
-
-  export type MasterCourseUncheckedUpdateWithoutRelatedCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryId?: StringFieldUpdateOperationsInput | string
-    tags?: MasterTagUncheckedUpdateManyWithoutCoursesNestedInput
-    courseContents?: MasterCourseContentUncheckedUpdateManyWithoutCourseNestedInput
-    relatedToCourses?: MasterCourseUncheckedUpdateManyWithoutRelatedCoursesNestedInput
-    courseFAQs?: MasterCourseFAQUncheckedUpdateManyWithoutCourseNestedInput
-  }
-
-  export type MasterCourseUncheckedUpdateManyWithoutRelatedCoursesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
-    difficulty?: NullableStringFieldUpdateOperationsInput | string | null
-    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type MasterCourseFAQUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MasterCourseFAQUncheckedUpdateWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MasterCourseFAQUncheckedUpdateManyWithoutCourseInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    question?: StringFieldUpdateOperationsInput | string
-    answer?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type MasterExerciseCreateManyCourseContentInput = {
+  export type MasterCourseArticleExerciseCreateManyCourseArticleInput = {
     id: string
     exerciseType: string
     question: string
@@ -23563,22 +24400,21 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type ChatMessageCreateManyMasterCourseContentInput = {
-    id: string
-    chatRoomId: string
-    userId?: string | null
-    role: string
-    message: string
-    createdAt?: Date | string
-  }
-
-  export type ChatRoomCreateManyCourseContentInput = {
+  export type ChatRoomCreateManyCourseArticleInput = {
     id: string
     userId: string
     createdAt?: Date | string
   }
 
-  export type MasterExerciseUpdateWithoutCourseContentInput = {
+  export type MasterCourseArticleFAQCreateManyCourseArticleInput = {
+    id: string
+    question: string
+    answer: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MasterCourseArticleExerciseUpdateWithoutCourseArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     exerciseType?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
@@ -23587,7 +24423,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MasterExerciseUncheckedUpdateWithoutCourseContentInput = {
+  export type MasterCourseArticleExerciseUncheckedUpdateWithoutCourseArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     exerciseType?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
@@ -23596,7 +24432,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MasterExerciseUncheckedUpdateManyWithoutCourseContentInput = {
+  export type MasterCourseArticleExerciseUncheckedUpdateManyWithoutCourseArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     exerciseType?: StringFieldUpdateOperationsInput | string
     question?: StringFieldUpdateOperationsInput | string
@@ -23605,51 +24441,48 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ChatMessageUpdateWithoutMasterCourseContentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    chatRoom?: ChatRoomUpdateOneRequiredWithoutChatMessageNestedInput
-    user?: UserUpdateOneWithoutChatMessagesNestedInput
-  }
-
-  export type ChatMessageUncheckedUpdateWithoutMasterCourseContentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    chatRoomId?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ChatMessageUncheckedUpdateManyWithoutMasterCourseContentInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    chatRoomId?: StringFieldUpdateOperationsInput | string
-    userId?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: StringFieldUpdateOperationsInput | string
-    message?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ChatRoomUpdateWithoutCourseContentInput = {
+  export type ChatRoomUpdateWithoutCourseArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutChatRoomNestedInput
     chatMessage?: ChatMessageUpdateManyWithoutChatRoomNestedInput
   }
 
-  export type ChatRoomUncheckedUpdateWithoutCourseContentInput = {
+  export type ChatRoomUncheckedUpdateWithoutCourseArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chatMessage?: ChatMessageUncheckedUpdateManyWithoutChatRoomNestedInput
   }
 
-  export type ChatRoomUncheckedUpdateManyWithoutCourseContentInput = {
+  export type ChatRoomUncheckedUpdateManyWithoutCourseArticleInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleFAQUpdateWithoutCourseArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleFAQUncheckedUpdateWithoutCourseArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleFAQUncheckedUpdateManyWithoutCourseArticleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ChatMessageCreateManyChatRoomInput = {
@@ -23658,7 +24491,7 @@ export namespace Prisma {
     role: string
     message: string
     createdAt?: Date | string
-    masterCourseContentId?: string | null
+    masterCourseArticleId?: string | null
   }
 
   export type ChatMessageUpdateWithoutChatRoomInput = {
@@ -23666,8 +24499,8 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
     user?: UserUpdateOneWithoutChatMessagesNestedInput
-    MasterCourseContent?: MasterCourseContentUpdateOneWithoutChatMessagesNestedInput
   }
 
   export type ChatMessageUncheckedUpdateWithoutChatRoomInput = {
@@ -23676,7 +24509,7 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    masterCourseContentId?: NullableStringFieldUpdateOperationsInput | string | null
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ChatMessageUncheckedUpdateManyWithoutChatRoomInput = {
@@ -23685,11 +24518,13 @@ export namespace Prisma {
     role?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    masterCourseContentId?: NullableStringFieldUpdateOperationsInput | string | null
+    masterCourseArticleId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MasterExamQuestionCreateManyExamInput = {
     id: string
+    sequence: number
+    score: number
     question: string
     questionType: string
     options?: string | null
@@ -23707,6 +24542,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionUpdateWithoutExamInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23717,6 +24554,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionUncheckedUpdateWithoutExamInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23727,6 +24566,8 @@ export namespace Prisma {
 
   export type MasterExamQuestionUncheckedUpdateManyWithoutExamInput = {
     id?: StringFieldUpdateOperationsInput | string
+    sequence?: IntFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     question?: StringFieldUpdateOperationsInput | string
     questionType?: StringFieldUpdateOperationsInput | string
     options?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23737,7 +24578,7 @@ export namespace Prisma {
   export type ExamSubmissionUpdateWithoutExamInput = {
     id?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
     user?: UserUpdateOneRequiredWithoutExamSubmissionsNestedInput
     examAnswers?: ExamAnswerUpdateManyWithoutExamSubmissionNestedInput
@@ -23747,7 +24588,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
     examAnswers?: ExamAnswerUncheckedUpdateManyWithoutExamSubmissionNestedInput
   }
@@ -23756,7 +24597,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     submittedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    score?: FloatFieldUpdateOperationsInput | number
+    score?: IntFieldUpdateOperationsInput | number
     percentile?: FloatFieldUpdateOperationsInput | number
   }
 

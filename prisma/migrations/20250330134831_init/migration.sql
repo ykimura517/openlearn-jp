@@ -7,6 +7,11 @@ CREATE TABLE "User" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "plan" TEXT NOT NULL DEFAULT 'FREE',
+    "name" TEXT,
+    "occupation" TEXT,
+    "birthDate" TEXT,
+    "deletedAt" TIMESTAMP(3),
+    "deleteReason" TEXT,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -15,8 +20,7 @@ CREATE TABLE "User" (
 CREATE TABLE "MasterCategory" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "level" INTEGER NOT NULL,
-    "parentId" TEXT,
+    "description" TEXT NOT NULL,
 
     CONSTRAINT "MasterCategory_pkey" PRIMARY KEY ("id")
 );
@@ -36,7 +40,9 @@ CREATE TABLE "MasterCourse" (
     "summary" TEXT,
     "description" TEXT,
     "targetAudience" TEXT,
-    "difficulty" TEXT,
+    "level" TEXT NOT NULL,
+    "difficulty" INTEGER,
+    "durationMin" INTEGER,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "categoryId" TEXT NOT NULL,
@@ -45,7 +51,17 @@ CREATE TABLE "MasterCourse" (
 );
 
 -- CreateTable
-CREATE TABLE "MasterCourseContent" (
+CREATE TABLE "MasterCourseRelation" (
+    "id" TEXT NOT NULL,
+    "courseId" TEXT NOT NULL,
+    "relatedCourseId" TEXT NOT NULL,
+    "score" DOUBLE PRECISION NOT NULL,
+
+    CONSTRAINT "MasterCourseRelation_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "MasterCourseArticle" (
     "id" TEXT NOT NULL,
     "courseId" TEXT NOT NULL,
     "sequence" INTEGER NOT NULL,
@@ -53,28 +69,29 @@ CREATE TABLE "MasterCourseContent" (
     "content" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "durationMin" INTEGER,
 
-    CONSTRAINT "MasterCourseContent_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "MasterCourseArticle_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "MasterExercise" (
+CREATE TABLE "MasterCourseArticleExercise" (
     "id" TEXT NOT NULL,
-    "courseContentId" TEXT NOT NULL,
+    "courseArticleId" TEXT NOT NULL,
     "exerciseType" TEXT NOT NULL,
     "question" TEXT NOT NULL,
     "options" TEXT,
     "correctAnswer" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "MasterExercise_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "MasterCourseArticleExercise_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "ChatRoom" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "courseContentId" TEXT NOT NULL,
+    "courseArticleId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "ChatRoom_pkey" PRIMARY KEY ("id")
@@ -88,21 +105,21 @@ CREATE TABLE "ChatMessage" (
     "role" TEXT NOT NULL,
     "message" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "masterCourseContentId" TEXT,
+    "masterCourseArticleId" TEXT,
 
     CONSTRAINT "ChatMessage_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "MasterCourseFAQ" (
+CREATE TABLE "MasterCourseArticleFAQ" (
     "id" TEXT NOT NULL,
-    "courseId" TEXT NOT NULL,
+    "courseArticleId" TEXT NOT NULL,
     "question" TEXT NOT NULL,
     "answer" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "MasterCourseFAQ_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "MasterCourseArticleFAQ_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -112,7 +129,10 @@ CREATE TABLE "MasterExam" (
     "description" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "level" INTEGER NOT NULL,
+    "timeLimitMin" INTEGER NOT NULL,
     "categoryId" TEXT NOT NULL,
+    "passingScore" INTEGER NOT NULL,
 
     CONSTRAINT "MasterExam_pkey" PRIMARY KEY ("id")
 );
@@ -121,6 +141,8 @@ CREATE TABLE "MasterExam" (
 CREATE TABLE "MasterExamQuestion" (
     "id" TEXT NOT NULL,
     "examId" TEXT NOT NULL,
+    "sequence" INTEGER NOT NULL,
+    "score" INTEGER NOT NULL,
     "question" TEXT NOT NULL,
     "questionType" TEXT NOT NULL,
     "options" TEXT,
@@ -136,7 +158,7 @@ CREATE TABLE "ExamSubmission" (
     "examId" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "submittedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "score" DOUBLE PRECISION NOT NULL,
+    "score" INTEGER NOT NULL,
     "percentile" DOUBLE PRECISION NOT NULL,
 
     CONSTRAINT "ExamSubmission_pkey" PRIMARY KEY ("id")
@@ -161,14 +183,6 @@ CREATE TABLE "_CourseTags" (
     CONSTRAINT "_CourseTags_AB_pkey" PRIMARY KEY ("A","B")
 );
 
--- CreateTable
-CREATE TABLE "_RelatedCourses" (
-    "A" TEXT NOT NULL,
-    "B" TEXT NOT NULL,
-
-    CONSTRAINT "_RelatedCourses_AB_pkey" PRIMARY KEY ("A","B")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "User_displayId_key" ON "User"("displayId");
 
@@ -179,13 +193,19 @@ CREATE UNIQUE INDEX "User_firebaseUserId_key" ON "User"("firebaseUserId");
 CREATE UNIQUE INDEX "MasterTag_name_key" ON "MasterTag"("name");
 
 -- CreateIndex
-CREATE INDEX "ChatRoom_courseContentId_idx" ON "ChatRoom"("courseContentId");
+CREATE INDEX "MasterCourseRelation_courseId_idx" ON "MasterCourseRelation"("courseId");
+
+-- CreateIndex
+CREATE INDEX "MasterCourseRelation_relatedCourseId_idx" ON "MasterCourseRelation"("relatedCourseId");
+
+-- CreateIndex
+CREATE INDEX "ChatRoom_courseArticleId_idx" ON "ChatRoom"("courseArticleId");
 
 -- CreateIndex
 CREATE INDEX "idx_chatroom_createdAt" ON "ChatMessage"("chatRoomId", "createdAt");
 
 -- CreateIndex
-CREATE INDEX "MasterCourseFAQ_courseId_idx" ON "MasterCourseFAQ"("courseId");
+CREATE INDEX "MasterCourseArticleFAQ_courseArticleId_idx" ON "MasterCourseArticleFAQ"("courseArticleId");
 
 -- CreateIndex
 CREATE INDEX "MasterExamQuestion_examId_idx" ON "MasterExamQuestion"("examId");
@@ -202,26 +222,20 @@ CREATE INDEX "ExamAnswer_examSubmissionId_idx" ON "ExamAnswer"("examSubmissionId
 -- CreateIndex
 CREATE INDEX "_CourseTags_B_index" ON "_CourseTags"("B");
 
--- CreateIndex
-CREATE INDEX "_RelatedCourses_B_index" ON "_RelatedCourses"("B");
-
--- AddForeignKey
-ALTER TABLE "MasterCategory" ADD CONSTRAINT "MasterCategory_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES "MasterCategory"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
 -- AddForeignKey
 ALTER TABLE "MasterCourse" ADD CONSTRAINT "MasterCourse_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "MasterCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MasterCourseContent" ADD CONSTRAINT "MasterCourseContent_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "MasterCourse"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "MasterCourseArticle" ADD CONSTRAINT "MasterCourseArticle_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "MasterCourse"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "MasterExercise" ADD CONSTRAINT "MasterExercise_courseContentId_fkey" FOREIGN KEY ("courseContentId") REFERENCES "MasterCourseContent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "MasterCourseArticleExercise" ADD CONSTRAINT "MasterCourseArticleExercise_courseArticleId_fkey" FOREIGN KEY ("courseArticleId") REFERENCES "MasterCourseArticle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ChatRoom" ADD CONSTRAINT "ChatRoom_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ChatRoom" ADD CONSTRAINT "ChatRoom_courseContentId_fkey" FOREIGN KEY ("courseContentId") REFERENCES "MasterCourseContent"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ChatRoom" ADD CONSTRAINT "ChatRoom_courseArticleId_fkey" FOREIGN KEY ("courseArticleId") REFERENCES "MasterCourseArticle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ChatMessage" ADD CONSTRAINT "ChatMessage_chatRoomId_fkey" FOREIGN KEY ("chatRoomId") REFERENCES "ChatRoom"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -230,10 +244,7 @@ ALTER TABLE "ChatMessage" ADD CONSTRAINT "ChatMessage_chatRoomId_fkey" FOREIGN K
 ALTER TABLE "ChatMessage" ADD CONSTRAINT "ChatMessage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ChatMessage" ADD CONSTRAINT "ChatMessage_masterCourseContentId_fkey" FOREIGN KEY ("masterCourseContentId") REFERENCES "MasterCourseContent"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "MasterCourseFAQ" ADD CONSTRAINT "MasterCourseFAQ_courseId_fkey" FOREIGN KEY ("courseId") REFERENCES "MasterCourse"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "MasterCourseArticleFAQ" ADD CONSTRAINT "MasterCourseArticleFAQ_courseArticleId_fkey" FOREIGN KEY ("courseArticleId") REFERENCES "MasterCourseArticle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "MasterExam" ADD CONSTRAINT "MasterExam_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "MasterCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -258,9 +269,3 @@ ALTER TABLE "_CourseTags" ADD CONSTRAINT "_CourseTags_A_fkey" FOREIGN KEY ("A") 
 
 -- AddForeignKey
 ALTER TABLE "_CourseTags" ADD CONSTRAINT "_CourseTags_B_fkey" FOREIGN KEY ("B") REFERENCES "MasterTag"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_RelatedCourses" ADD CONSTRAINT "_RelatedCourses_A_fkey" FOREIGN KEY ("A") REFERENCES "MasterCourse"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_RelatedCourses" ADD CONSTRAINT "_RelatedCourses_B_fkey" FOREIGN KEY ("B") REFERENCES "MasterCourse"("id") ON DELETE CASCADE ON UPDATE CASCADE;

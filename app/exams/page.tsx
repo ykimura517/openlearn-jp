@@ -17,7 +17,12 @@ export default function ExamsPage() {
     totalExams: 0,
     totalPages: 0,
   });
-
+  //最終的にフロントのマップで、カテゴリーのアイコンを指定する想定
+  const mapCategoryIdToIcon: Record<string, JSX.Element> = {
+    ai: <Brain className="h-8 w-8 text-orange-500" />,
+    programming: <Code className="h-8 w-8 text-orange-500" />,
+    "web-development": <BookOpen className="h-8 w-8 text-orange-500" />,
+  };
   // カテゴリー一覧（ベタ書き）
   const categories = [
     {
