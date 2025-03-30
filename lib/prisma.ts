@@ -1,5 +1,5 @@
 // lib/prisma.ts
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../lib/__generated__/prisma';
 
 // Supabase の接続文字列は .env 内の DATABASE_URL に設定
 // （例：postgres://USER:PASSWORD@HOST:PORT/DBNAME）

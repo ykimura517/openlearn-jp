@@ -1,9 +1,9 @@
 # Makefile
 
-.PHONY: prisma-generate mig prisma-studio seed dev reset
+.PHONY: pgen mig prisma-studio seed dev reset
 
 # Prisma Client の再生成
-prisma-generate:
+pgen:
 	npx prisma generate
 
 # マイグレーションの実行（引数 name にマイグレーション名を指定）
@@ -15,6 +15,7 @@ prisma-studio:
 	npx prisma studio
 
 # シードデータの投入（prisma/seed.ts の実行例。ts-node等を利用）
+# npx prisma db seed
 seed:
 	npx ts-node prisma/seed.ts
 

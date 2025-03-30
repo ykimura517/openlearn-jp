@@ -2,9 +2,231 @@
 あなたは優秀なエンジニアです。OpenLearn JPというプロダクトのソースコード等の解説を行います。
 経験が浅いエンジニア（ユーザー）からの質問が提出されるので、それに答えてください。
 その際、あとにたくさん追記している参考情報を参考にしてください。
+ソースコードを出力するときは、基本的に変更箇所だけでなくコード全体を出力してください。
+また既存のコードはコメントなどを含め必要箇所以外は変更しないでください。
 
 ## ユーザーからの質問
-{{{{{{{{}}}}}}}}
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/__generated__/prisma"
+}
+
+datasource db {
+  provider = "postgresql" // ご利用のDBに合わせて変更
+  url      = env("DATABASE_URL")
+}
+
+// 方針：ENUM型は、DBスキーマでは使わず、必要な場合はアプリケーション側で定義する
+
+model User {
+  id             String   @id // firebaseUserIdと同じにする
+  displayId      String   @unique
+  firebaseUserId String   @unique
+  stripeUserId   String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  plan           String   @default("FREE") // プラン名（例：FREE, PRO,）
+
+  // リレーション
+  examSubmissions ExamSubmission[]
+  chatMessages    ChatMessage[]
+  chatRoom        ChatRoom[]
+}
+
+model MasterCategory {
+  id       String  @id
+  name     String
+  level    Int // 例：1: 大, 2: 中, 3: 小
+  parentId String?
+
+  parent   MasterCategory?  @relation("CategoryChildren", fields: [parentId], references: [id])
+  children MasterCategory[] @relation("CategoryChildren")
+
+  // 関連するコースや試験
+  courses MasterCourse[]
+  exams   MasterExam[]
+}
+
+model MasterTag {
+  id   String @id
+  name String @unique
+
+  // Many-to-many: Course ↔ Tag
+  courses MasterCourse[] @relation("CourseTags")
+}
+
+model MasterCourse {
+  id             String   @id
+  title          String? // 初期はテーブルでなく、ファイルで管理するのでnull可
+  summary        String?
+  description    String?
+  targetAudience String?
+  difficulty     String?
+  durationMin    Int? // コースの所要時間（分）
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // カテゴリー（例：大・中・小の階層はCategoryテーブルの親子関係で管理）
+  categoryId String
+  category   MasterCategory @relation(fields: [categoryId], references: [id])
+
+  // Many-to-many: Course ↔ Tag
+  tags MasterTag[] @relation("CourseTags")
+
+  // コースを構成するコンテンツ（各記事）
+  courseContents MasterCourseContent[]
+
+  // 関連コース（自己相互の多対多リレーション）
+  relatedCourses   MasterCourse[] @relation("RelatedCourses")
+  relatedToCourses MasterCourse[] @relation("RelatedCourses")
+
+  // FAQ（よくある質問）
+  courseFAQs MasterCourseFAQ[]
+}
+
+model MasterCourseContent {
+  id       String       @id
+  courseId String
+  course   MasterCourse @relation(fields: [courseId], references: [id])
+
+  sequence  Int // コース内での連番
+  title     String? // 初期はテーブルでなく、ファイルで管理するのでnull可
+  content   String? // 記事本文（ブログ記事形式） 初期はテーブルでなく、ファイルで管理するのでnull可
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 演習問題（記事末尾の練習問題）
+  exercises MasterExercise[]
+
+  // チャットメッセージ（「AIに質問する」用）
+  chatMessages ChatMessage[]
+  chatRoom     ChatRoom[]
+}
+
+// コース内の演習問題（記事末尾の練習問題）
+model MasterExercise {
+  id              String              @id
+  courseContentId String
+  courseContent   MasterCourseContent @relation(fields: [courseContentId], references: [id])
+
+  exerciseType  String // SELECTION or TEXT, 自由記述か選択肢式か
+  question      String
+  // 複数選択式の場合、optionsをJSON文字列などで保存（例："[\"選択肢1\", \"選択肢2\", ...]"）
+  options       String?
+  correctAnswer String? // 自由記述の場合はnull可
+
+  createdAt DateTime @default(now())
+}
+
+// course内でユーザーとAIのチャットを行うためのテーブル
+model ChatRoom {
+  id              String              @id
+  userId          String
+  user            User                @relation(fields: [userId], references: [id])
+  courseContentId String
+  courseContent   MasterCourseContent @relation(fields: [courseContentId], references: [id])
+  createdAt       DateTime            @default(now())
+  chatMessage     ChatMessage[]
+
+  @@index([courseContentId])
+}
+
+model ChatMessage {
+  id String @id
+
+  chatRoomId String
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  // チャット発言者。未ログインの場合も想定できるため、userはオプショナル
+  userId     String? // AIの場合はnull
+  user       User?    @relation(fields: [userId], references: [id])
+
+  role                  String // 発言者の役割（例：USER or AI）
+  message               String
+  createdAt             DateTime             @default(now())
+  MasterCourseContent   MasterCourseContent? @relation(fields: [masterCourseContentId], references: [id])
+  masterCourseContentId String?
+
+  @@index([chatRoomId, createdAt], name: "idx_chatroom_createdAt")
+}
+
+model MasterCourseFAQ {
+  id       String       @id
+  courseId String
+  course   MasterCourse @relation(fields: [courseId], references: [id])
+
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model MasterExam {
+  id          String   @id
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // 試験もジャンル（カテゴリー）で分類。※各試験は大・中・小のうちいずれかのカテゴリーに所属する
+  categoryId String
+  category   MasterCategory @relation(fields: [categoryId], references: [id])
+
+  examQuestions  MasterExamQuestion[]
+  ExamSubmission ExamSubmission[]
+}
+
+model MasterExamQuestion {
+  id     String     @id
+  examId String
+  exam   MasterExam @relation(fields: [examId], references: [id])
+
+  question      String
+  questionType  String // 問題の種類（例：選択肢式、自由記述式）
+  // ラジオボタン式の場合、optionsはJSON形式の文字列で保存（例："[\"選択肢1\", \"選択肢2\"]"）
+  options       String?
+  correctAnswer String? // 自由記述はnull可
+
+  createdAt  DateTime     @default(now())
+  ExamAnswer ExamAnswer[]
+
+  @@index([examId])
+}
+
+model ExamSubmission {
+  id     String     @id
+  examId String
+  exam   MasterExam @relation(fields: [examId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  submittedAt DateTime @default(now())
+  score       Float
+  percentile  Float
+
+  examAnswers ExamAnswer[]
+
+  @@index([userId])
+  @@index([examId])
+}
+
+model ExamAnswer {
+  id               String         @id
+  examSubmissionId String
+  examSubmission   ExamSubmission @relation(fields: [examSubmissionId], references: [id])
+
+  examQuestionId String
+  examQuestion   MasterExamQuestion @relation(fields: [examQuestionId], references: [id])
+
+  answer    String
+  isCorrect Boolean
+
+  @@index([examSubmissionId])
+}
+
+
 
 ## プロダクト(OpenLearn)について
 解説対象のOpenLearnについての情報は下記です。
@@ -67,6 +289,9 @@
 FE, BEともにApp routerのNextjs(typescript)で作成されています。
 認証はfirebaseを使っています。
 ORMはprismaを使っています。
+
+### APIについて
+APIは/api/v1以下に作っていってます。
 
 ## 主要なファイル
 ### prisma/schema.prisma
@@ -547,7 +772,7 @@ export const useAuth = () => {
 };
 
 
-### lib/apiClient.ts
+### lib/apiClient.ts(APIへのリクエストをするときは基本このラッパーを使ってください)
 // lib/apiClient.ts
 import { auth } from './firebase';
 
@@ -586,7 +811,7 @@ export async function apiFetch<T>(
   options: RequestInit = {},
   requiresAuth: boolean = false
 ): Promise<T> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   if (!baseUrl) {
     throw new Error('APIのBASE URLが設定されていません');
   }
@@ -611,7 +836,7 @@ export async function apiFetch<T>(
   return res.json();
 }
 
-### lib/apiHandler.ts
+### lib/apiHandler.ts(APIでリクエストを処理するときは基本このライブラリを使ってください)
 // lib/apiHandler.ts
 import admin from './firebase-admin';
 
@@ -650,4 +875,201 @@ export function joinURL(...parts: string[]): string {
       return part.replace(/^\/+|\/+$/g, '');
     })
     .join('/');
+}
+
+
+### sample.env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
+NEXT_PUBLIC_FIREBASE_API_KEY=
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=
+NEXT_PUBLIC_FIREBASE_APP_ID=
+FIREBASE_ADMIN_PROJECT_ID=
+FIREBASE_ADMIN_CLIENT_EMAIL=
+FIREBASE_ADMIN_PRIVATE_KEY=
+DATABASE_URL=
+
+### app/page.tsx
+// app/page.tsx
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { ArrowRight, BookOpen, Code, Brain, Share2 } from 'lucide-react';
+import { apiFetch } from '@/lib/apiClient';
+
+interface Category {
+  id: string;
+  title: string;
+  description: string;
+  courses: {
+    id: string;
+    title: string;
+    level: string;
+    duration: string;
+  }[];
+}
+
+export default async function Home() {
+  // APIからトップページ用のカテゴリ＋代表コース情報を取得
+  const categories = await apiFetch<Category[]>(`/api/v1/home`, {
+    cache: 'default',
+  });
+
+  // カテゴリIDに応じたアイコンのマッピング
+  const iconMap: Record<string, JSX.Element> = {
+    ai: <Brain className='h-8 w-8 text-orange-500' />,
+    programming: <Code className='h-8 w-8 text-orange-500' />,
+    'web-development': <BookOpen className='h-8 w-8 text-orange-500' />,
+  };
+
+  return (
+    <div className='container mx-auto px-4 py-8'>
+      {/* Hero Section */}
+      <section className='bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-8 mb-12'>
+        <div className='max-w-3xl mx-auto text-center'>
+          <h1 className='text-4xl md:text-5xl font-bold text-orange-600 mb-4'>
+            生成AIとプログラミングを学ぼう
+          </h1>
+          <p className='text-xl text-gray-700 mb-8'>
+            OpenLearn
+            JPは、最新の生成AIやプログラミングについての学習コースを提供するプラットフォームです。
+            初心者から上級者まで、あなたのレベルに合わせた学習体験を提供します。
+          </p>
+          <div className='flex flex-col sm:flex-row justify-center gap-4'>
+            <Button className='bg-orange-500 hover:bg-orange-600 text-white text-lg py-6 px-8'>
+              コースを探す
+            </Button>
+            <Button
+              variant='outline'
+              className='border-orange-500 text-orange-500 hover:bg-orange-50 text-lg py-6 px-8'
+            >
+              試験に挑戦する
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Section */}
+      {categories.map((category) => (
+        <section key={category.id} className='mb-16'>
+          <div className='flex justify-between items-center mb-6'>
+            <div className='flex items-center gap-3'>
+              {iconMap[category.id] || (
+                <BookOpen className='h-8 w-8 text-orange-500' />
+              )}
+              <h2 className='text-2xl font-bold text-gray-800'>
+                {category.title}
+              </h2>
+            </div>
+            <Link
+              href={`/courses?category=${category.id}`}
+              className='text-orange-500 hover:underline flex items-center'
+            >
+              すべて見る <ArrowRight className='ml-1 h-4 w-4' />
+            </Link>
+          </div>
+          <p className='text-gray-600 mb-6'>{category.description}</p>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+            {category.courses.map((course) => (
+              <Card
+                key={course.id}
+                className='hover:shadow-md transition-shadow'
+              >
+                <CardHeader className='pb-2'>
+                  <div className='flex justify-between items-start'>
+                    <CardTitle className='text-xl text-gray-800'>
+                      {course.title}
+                    </CardTitle>
+                    <button className='text-gray-400 hover:text-orange-500'>
+                      <Share2 className='h-5 w-5' />
+                    </button>
+                  </div>
+                  <CardDescription className='flex gap-3 mt-2'>
+                    <span className='bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs'>
+                      {course.level}
+                    </span>
+                    <span className='bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs'>
+                      {course.duration}
+                    </span>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className='text-gray-600 line-clamp-3'>
+                    {course.title}
+                    に関する基礎から応用までを学べるコースです。実践的な例を通して理解を深めることができます。
+                  </p>
+                </CardContent>
+                <CardFooter>
+                  <Link href={`/courses/${course.id}`} className='w-full'>
+                    <Button
+                      variant='outline'
+                      className='w-full border-orange-500 text-orange-500 hover:bg-orange-50'
+                    >
+                      コースを見る
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      {/* Exams Section */}
+      <section className='bg-orange-50 rounded-xl p-8 mb-12'>
+        <div className='text-center mb-8'>
+          <h2 className='text-3xl font-bold text-orange-600 mb-4'>
+            知識をテストしよう
+          </h2>
+          <p className='text-xl text-gray-700'>
+            学んだ知識を試験で確認し、あなたのスキルレベルを証明しましょう。
+          </p>
+        </div>
+
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          {categories.map((category) => (
+            <Card
+              key={category.id}
+              className='hover:shadow-md transition-shadow'
+            >
+              <CardHeader>
+                <div className='flex items-center gap-3'>
+                  {iconMap[category.id] || (
+                    <BookOpen className='h-8 w-8 text-orange-500' />
+                  )}
+                  <CardTitle>{category.title}試験</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className='text-gray-600'>
+                  {category.title}
+                  の知識を確認するための試験です。合格すると認定証が発行されます。
+                </p>
+              </CardContent>
+              <CardFooter>
+                <Link
+                  href={`/exams?category=${category.id}`}
+                  className='w-full'
+                >
+                  <Button className='w-full bg-orange-500 hover:bg-orange-600 text-white'>
+                    試験に挑戦する
+                  </Button>
+                </Link>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
 }

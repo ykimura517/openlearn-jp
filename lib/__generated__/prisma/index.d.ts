@@ -5711,8 +5711,18 @@ export namespace Prisma {
 
   export type AggregateMasterCourse = {
     _count: MasterCourseCountAggregateOutputType | null
+    _avg: MasterCourseAvgAggregateOutputType | null
+    _sum: MasterCourseSumAggregateOutputType | null
     _min: MasterCourseMinAggregateOutputType | null
     _max: MasterCourseMaxAggregateOutputType | null
+  }
+
+  export type MasterCourseAvgAggregateOutputType = {
+    durationMin: number | null
+  }
+
+  export type MasterCourseSumAggregateOutputType = {
+    durationMin: number | null
   }
 
   export type MasterCourseMinAggregateOutputType = {
@@ -5722,6 +5732,7 @@ export namespace Prisma {
     description: string | null
     targetAudience: string | null
     difficulty: string | null
+    durationMin: number | null
     createdAt: Date | null
     updatedAt: Date | null
     categoryId: string | null
@@ -5734,6 +5745,7 @@ export namespace Prisma {
     description: string | null
     targetAudience: string | null
     difficulty: string | null
+    durationMin: number | null
     createdAt: Date | null
     updatedAt: Date | null
     categoryId: string | null
@@ -5746,12 +5758,21 @@ export namespace Prisma {
     description: number
     targetAudience: number
     difficulty: number
+    durationMin: number
     createdAt: number
     updatedAt: number
     categoryId: number
     _all: number
   }
 
+
+  export type MasterCourseAvgAggregateInputType = {
+    durationMin?: true
+  }
+
+  export type MasterCourseSumAggregateInputType = {
+    durationMin?: true
+  }
 
   export type MasterCourseMinAggregateInputType = {
     id?: true
@@ -5760,6 +5781,7 @@ export namespace Prisma {
     description?: true
     targetAudience?: true
     difficulty?: true
+    durationMin?: true
     createdAt?: true
     updatedAt?: true
     categoryId?: true
@@ -5772,6 +5794,7 @@ export namespace Prisma {
     description?: true
     targetAudience?: true
     difficulty?: true
+    durationMin?: true
     createdAt?: true
     updatedAt?: true
     categoryId?: true
@@ -5784,6 +5807,7 @@ export namespace Prisma {
     description?: true
     targetAudience?: true
     difficulty?: true
+    durationMin?: true
     createdAt?: true
     updatedAt?: true
     categoryId?: true
@@ -5828,6 +5852,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: MasterCourseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MasterCourseSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: MasterCourseMinAggregateInputType
@@ -5858,6 +5894,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: MasterCourseCountAggregateInputType | true
+    _avg?: MasterCourseAvgAggregateInputType
+    _sum?: MasterCourseSumAggregateInputType
     _min?: MasterCourseMinAggregateInputType
     _max?: MasterCourseMaxAggregateInputType
   }
@@ -5869,10 +5907,13 @@ export namespace Prisma {
     description: string | null
     targetAudience: string | null
     difficulty: string | null
+    durationMin: number | null
     createdAt: Date
     updatedAt: Date
     categoryId: string
     _count: MasterCourseCountAggregateOutputType | null
+    _avg: MasterCourseAvgAggregateOutputType | null
+    _sum: MasterCourseSumAggregateOutputType | null
     _min: MasterCourseMinAggregateOutputType | null
     _max: MasterCourseMaxAggregateOutputType | null
   }
@@ -5898,6 +5939,7 @@ export namespace Prisma {
     description?: boolean
     targetAudience?: boolean
     difficulty?: boolean
+    durationMin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     categoryId?: boolean
@@ -5917,6 +5959,7 @@ export namespace Prisma {
     description?: boolean
     targetAudience?: boolean
     difficulty?: boolean
+    durationMin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     categoryId?: boolean
@@ -5930,6 +5973,7 @@ export namespace Prisma {
     description?: boolean
     targetAudience?: boolean
     difficulty?: boolean
+    durationMin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     categoryId?: boolean
@@ -5943,12 +5987,13 @@ export namespace Prisma {
     description?: boolean
     targetAudience?: boolean
     difficulty?: boolean
+    durationMin?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     categoryId?: boolean
   }
 
-  export type MasterCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "description" | "targetAudience" | "difficulty" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["masterCourse"]>
+  export type MasterCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "description" | "targetAudience" | "difficulty" | "durationMin" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["masterCourse"]>
   export type MasterCourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
     tags?: boolean | MasterCourse$tagsArgs<ExtArgs>
@@ -5982,6 +6027,7 @@ export namespace Prisma {
       description: string | null
       targetAudience: string | null
       difficulty: string | null
+      durationMin: number | null
       createdAt: Date
       updatedAt: Date
       categoryId: string
@@ -6420,6 +6466,7 @@ export namespace Prisma {
     readonly description: FieldRef<"MasterCourse", 'String'>
     readonly targetAudience: FieldRef<"MasterCourse", 'String'>
     readonly difficulty: FieldRef<"MasterCourse", 'String'>
+    readonly durationMin: FieldRef<"MasterCourse", 'Int'>
     readonly createdAt: FieldRef<"MasterCourse", 'DateTime'>
     readonly updatedAt: FieldRef<"MasterCourse", 'DateTime'>
     readonly categoryId: FieldRef<"MasterCourse", 'String'>
@@ -17045,6 +17092,7 @@ export namespace Prisma {
     description: 'description',
     targetAudience: 'targetAudience',
     difficulty: 'difficulty',
+    durationMin: 'durationMin',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     categoryId: 'categoryId'
@@ -17439,6 +17487,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
     difficulty?: StringNullableFilter<"MasterCourse"> | string | null
+    durationMin?: IntNullableFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeFilter<"MasterCourse"> | Date | string
     categoryId?: StringFilter<"MasterCourse"> | string
@@ -17457,6 +17506,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
     difficulty?: SortOrderInput | SortOrder
+    durationMin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     categoryId?: SortOrder
@@ -17478,6 +17528,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
     difficulty?: StringNullableFilter<"MasterCourse"> | string | null
+    durationMin?: IntNullableFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeFilter<"MasterCourse"> | Date | string
     categoryId?: StringFilter<"MasterCourse"> | string
@@ -17496,12 +17547,15 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
     difficulty?: SortOrderInput | SortOrder
+    durationMin?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     categoryId?: SortOrder
     _count?: MasterCourseCountOrderByAggregateInput
+    _avg?: MasterCourseAvgOrderByAggregateInput
     _max?: MasterCourseMaxOrderByAggregateInput
     _min?: MasterCourseMinOrderByAggregateInput
+    _sum?: MasterCourseSumOrderByAggregateInput
   }
 
   export type MasterCourseScalarWhereWithAggregatesInput = {
@@ -17514,6 +17568,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
     difficulty?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
+    durationMin?: IntNullableWithAggregatesFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MasterCourse"> | Date | string
     categoryId?: StringWithAggregatesFilter<"MasterCourse"> | string
@@ -18295,6 +18350,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
@@ -18312,6 +18368,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
@@ -18329,6 +18386,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -18346,6 +18404,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -18363,6 +18422,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
@@ -18375,6 +18435,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18386,6 +18447,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -19245,6 +19307,17 @@ export namespace Prisma {
     name?: SortOrder
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type MasterCategoryScalarRelationFilter = {
     is?: MasterCategoryWhereInput
     isNot?: MasterCategoryWhereInput
@@ -19287,9 +19360,14 @@ export namespace Prisma {
     description?: SortOrder
     targetAudience?: SortOrder
     difficulty?: SortOrder
+    durationMin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     categoryId?: SortOrder
+  }
+
+  export type MasterCourseAvgOrderByAggregateInput = {
+    durationMin?: SortOrder
   }
 
   export type MasterCourseMaxOrderByAggregateInput = {
@@ -19299,6 +19377,7 @@ export namespace Prisma {
     description?: SortOrder
     targetAudience?: SortOrder
     difficulty?: SortOrder
+    durationMin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     categoryId?: SortOrder
@@ -19311,9 +19390,30 @@ export namespace Prisma {
     description?: SortOrder
     targetAudience?: SortOrder
     difficulty?: SortOrder
+    durationMin?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     categoryId?: SortOrder
+  }
+
+  export type MasterCourseSumOrderByAggregateInput = {
+    durationMin?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type MasterCourseScalarRelationFilter = {
@@ -20089,6 +20189,14 @@ export namespace Prisma {
     connectOrCreate?: MasterCourseFAQCreateOrConnectWithoutCourseInput | MasterCourseFAQCreateOrConnectWithoutCourseInput[]
     createMany?: MasterCourseFAQCreateManyCourseInputEnvelope
     connect?: MasterCourseFAQWhereUniqueInput | MasterCourseFAQWhereUniqueInput[]
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput = {
@@ -20917,6 +21025,33 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -21167,6 +21302,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: MasterTagCreateNestedManyWithoutCoursesInput
@@ -21183,6 +21319,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     tags?: MasterTagUncheckedCreateNestedManyWithoutCoursesInput
@@ -21313,6 +21450,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
     difficulty?: StringNullableFilter<"MasterCourse"> | string | null
+    durationMin?: IntNullableFilter<"MasterCourse"> | number | null
     createdAt?: DateTimeFilter<"MasterCourse"> | Date | string
     updatedAt?: DateTimeFilter<"MasterCourse"> | Date | string
     categoryId?: StringFilter<"MasterCourse"> | string
@@ -21353,6 +21491,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
@@ -21369,6 +21508,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
@@ -21478,6 +21618,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
@@ -21494,6 +21635,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
@@ -21515,6 +21657,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
@@ -21531,6 +21674,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
@@ -21720,6 +21864,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
@@ -21736,6 +21881,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
@@ -21848,6 +21994,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -21864,6 +22011,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -22349,6 +22497,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     category: MasterCategoryCreateNestedOneWithoutCoursesInput
@@ -22365,6 +22514,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryId: string
@@ -22397,6 +22547,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -22413,6 +22564,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -23061,6 +23213,7 @@ export namespace Prisma {
     description?: string | null
     targetAudience?: string | null
     difficulty?: string | null
+    durationMin?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -23104,6 +23257,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: MasterTagUpdateManyWithoutCoursesNestedInput
@@ -23120,6 +23274,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tags?: MasterTagUncheckedUpdateManyWithoutCoursesNestedInput
@@ -23136,6 +23291,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23175,6 +23331,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -23191,6 +23348,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -23207,6 +23365,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -23284,6 +23443,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -23300,6 +23460,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -23316,6 +23477,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -23328,6 +23490,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     category?: MasterCategoryUpdateOneRequiredWithoutCoursesNestedInput
@@ -23344,6 +23507,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string
@@ -23360,6 +23524,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
     difficulty?: NullableStringFieldUpdateOperationsInput | string | null
+    durationMin?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryId?: StringFieldUpdateOperationsInput | string

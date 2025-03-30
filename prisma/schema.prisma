@@ -54,6 +54,7 @@ model MasterCourse {
   description    String?
   targetAudience String?
   difficulty     String?
+  durationMin    Int? // コースの所要時間（分）
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 

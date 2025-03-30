@@ -14,6 +14,7 @@ import { ArrowRight, Clock, Share2 } from 'lucide-react';
 import MarkdownContent from '@/components/markdown-content';
 import SocialShareButtons from '@/components/social-share-buttons';
 import type { CourseDetail, RelatedCoursesResponse } from '@/types/api';
+import { apiFetch } from '@/lib/apiClient';
 
 interface CoursePageProps {
   params: {
@@ -23,43 +24,27 @@ interface CoursePageProps {
 
 // サーバーコンポーネントでのデータフェッチング
 async function getCourseData(courseId: string) {
-  try {
-    // コース詳細の取得
-    const courseResponse = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_BASE_URL || ''
-      }/api/v1/courses/${courseId}`,
-      {
-        cache: 'no-store',
-      }
-    );
-    if (!courseResponse.ok) {
-      throw new Error('Failed to fetch course details');
+  // コース詳細の取得
+  const courseResponse = await apiFetch<CourseDetail>(
+    `/api/v1/courses/${courseId}`,
+    {
+      cache: 'no-store',
     }
-    return (await courseResponse.json()) as CourseDetail;
-  } catch (error) {
-    console.error('Error fetching course data:', error);
-    throw error;
-  }
+  );
+
+  return courseResponse;
 }
 
 // 関連コースの取得
 async function getRelatedCourses(courseId: string) {
-  try {
-    const relatedResponse = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_BASE_URL || ''
-      }/api/v1/courses/${courseId}/related`,
-      { cache: 'no-store' }
-    );
-    if (!relatedResponse.ok) {
-      throw new Error('Failed to fetch related courses');
+  // APIから関連コース情報を取得
+  const relatedResponse = await apiFetch<RelatedCoursesResponse>(
+    `/api/v1/courses/${courseId}/related`,
+    {
+      cache: 'no-store',
     }
-    return (await relatedResponse.json()) as RelatedCoursesResponse;
-  } catch (error) {
-    console.error('Error fetching related courses:', error);
-    return { courses: [] };
-  }
+  );
+  return relatedResponse;
 }
 
 export default async function CoursePage({ params }: CoursePageProps) {
@@ -201,7 +186,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
         <p className='text-gray-700 mb-4'>
           このコースの最初のレッスンから学習を開始できます。
         </p>
-        <Link href={`/courses/${courseId}/lessons/${course.lessons[0].id}`}>
+        <Link href={`/courses/${courseId}/lessons/${course.content}`}>
           <Button className='bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg'>
             コースを始める <ArrowRight className='ml-2 h-5 w-5' />
           </Button>

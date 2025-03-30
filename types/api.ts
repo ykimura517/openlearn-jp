@@ -2,190 +2,189 @@
 
 // コース関連
 export interface Course {
-  id: string
-  title: string
-  description: string
-  category: string
-  categoryName: string
-  level: string
-  duration: string
-  lessons: number
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  categoryName: string;
+  level: string;
+  duration: string;
+  contentsCount: number;
 }
 
 export interface CoursesResponse {
-  courses: Course[]
-  totalCourses: number
-  totalPages: number
+  courses: Course[];
+  totalCourses: number;
+  totalPages: number;
 }
 
 export interface CourseDetail {
-  id: string
-  title: string
-  description: string
-  category: string
-  categoryName: string
-  level: string
-  duration: string
-  targetAudience: string
-  prerequisites: string
-  lessons: LessonSummary[]
-  content: string
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  categoryName: string;
+  level: string;
+  duration: string;
+  targetAudience: string;
+  prerequisites: string;
+  contentSummaries: CourseContentSummary[];
+  content: string;
 }
 
-export interface LessonSummary {
-  id: string
-  title: string
-  duration: string
+export interface CourseContentSummary {
+  id: string;
+  title: string;
+  duration: string;
 }
 
 export interface RelatedCoursesResponse {
-  courses: RelatedCourse[]
+  courses: RelatedCourse[];
 }
 
 export interface RelatedCourse {
-  id: string
-  title: string
-  level: string
-  duration: string
+  id: string;
+  title: string;
+  level: string;
+  duration: string;
 }
 
 // レッスン関連
-export interface LessonDetail {
-  id: string
-  title: string
-  content: string
-  courseId: string
-  courseTitle: string
-  duration: string
+export interface CourseContentDetail {
+  id: string;
+  title: string;
+  content: string;
+  courseId: string;
+  courseTitle: string;
+  duration: string;
 }
 
-export interface LessonNavigationResponse {
-  currentLesson: LessonSummary
-  prevLesson: LessonSummary | null
-  nextLesson: LessonSummary | null
-  currentLessonIndex: number
-  totalLessons: number
+export interface CourseContentNavigationResponse {
+  currentCourseContent: CourseContentSummary;
+  prevCourseContent: CourseContentSummary | null;
+  nextCourseContent: CourseContentSummary | null;
+  currentCourseContentIndex: number;
+  totalCourseContents: number;
 }
 
 export interface PracticeQuestion {
-  id: number
-  type: "multiple-choice" | "free-text"
-  question: string
-  options?: string[]
-  correctAnswer: string
+  id: number;
+  type: 'multiple-choice' | 'free-text';
+  question: string;
+  options?: string[];
+  correctAnswer: string;
 }
 
 export interface PracticeQuestionsResponse {
-  questions: PracticeQuestion[]
+  questions: PracticeQuestion[];
 }
 
 export interface Reference {
-  title: string
-  url: string
-  description: string
+  title: string;
+  url: string;
+  description: string;
 }
 
 export interface ReferencesResponse {
-  references: Reference[]
+  references: Reference[];
 }
 
 // 試験関連
 export interface Exam {
-  id: string
-  title: string
-  description: string
-  category: string
-  categoryName: string
-  level: string
-  questions: number
-  time: string
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  categoryName: string;
+  level: string;
+  questions: number;
+  time: string;
 }
 
 export interface ExamsResponse {
-  exams: Exam[]
-  totalExams: number
-  totalPages: number
+  exams: Exam[];
+  totalExams: number;
+  totalPages: number;
 }
 
 export interface ExamDetail {
-  id: string
-  title: string
-  description: string
-  category: string
-  categoryName: string
-  level: string
-  questions: ExamQuestion[]
-  timeLimit: string
-  passingScore: number
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  categoryName: string;
+  level: string;
+  questions: ExamQuestion[];
+  timeLimit: string;
+  passingScore: number;
 }
 
 export interface ExamQuestion {
-  id: number
-  type: "multiple-choice" | "free-text"
-  question: string
-  options?: string[]
-  correctAnswer: string
+  id: number;
+  type: 'multiple-choice' | 'free-text';
+  question: string;
+  options?: string[];
+  correctAnswer: string;
 }
 
 export interface ExamSubmission {
-  examId: string
-  answers: Record<number, string>
+  examId: string;
+  answers: Record<number, string>;
 }
 
 export interface ExamResult {
-  score: number
-  correctAnswers: number
-  totalQuestions: number
-  passed: boolean
-  passingScore: number
-  feedback: Record<number, string>
+  score: number;
+  correctAnswers: number;
+  totalQuestions: number;
+  passed: boolean;
+  passingScore: number;
+  feedback: Record<number, string>;
 }
 
 // ユーザー関連
 export interface UserProfile {
-  id: string
-  name: string
-  email: string
-  occupation: string
-  birthDate: string
-  joinedDate: string
+  id: string;
+  name: string;
+  email: string;
+  occupation: string;
+  birthDate: string;
+  joinedDate: string;
 }
 
 export interface UserExamResult {
-  id: string
-  examId: string
-  title: string
-  date: string
-  score: number
-  passingScore: number
-  category: string
-  level: string
-  passed: boolean
+  id: string;
+  examId: string;
+  title: string;
+  date: string;
+  score: number;
+  passingScore: number;
+  category: string;
+  level: string;
+  passed: boolean;
 }
 
 export interface UserExamResultsResponse {
-  results: UserExamResult[]
+  results: UserExamResult[];
 }
 
 export interface DeleteAccountRequest {
-  reason: string
-  confirmation: string
+  reason: string;
+  confirmation: string;
 }
 
 export interface DeleteAccountResponse {
-  success: boolean
-  message: string
+  success: boolean;
+  message: string;
 }
 
 // AIチャット関連
 export interface AIChatRequest {
-  message: string
-  lessonTitle: string
-  history: { role: "user" | "assistant"; content: string }[]
+  message: string;
+  CourseContentTitle: string;
+  history: { role: 'user' | 'assistant'; content: string }[];
 }
 
 export interface AIChatResponse {
-  message: string
-  timestamp: string
+  message: string;
+  timestamp: string;
 }
-

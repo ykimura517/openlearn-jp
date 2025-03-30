@@ -36,7 +36,7 @@ export async function apiFetch<T>(
   options: RequestInit = {},
   requiresAuth: boolean = false
 ): Promise<T> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   if (!baseUrl) {
     throw new Error('APIのBASE URLが設定されていません');
   }
