@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card';
 import { ArrowRight, BookOpen, Code, Brain, Share2 } from 'lucide-react';
 import { apiFetch } from '@/lib/apiClient';
+import type { CategoryWithRepresentativeCourse } from '@/types/api';
 
 interface Category {
   id: string;
@@ -26,9 +27,24 @@ interface Category {
 
 export default async function Home() {
   // APIからトップページ用のカテゴリ＋代表コース情報を取得
-  const categories = await apiFetch<Category[]>(`/api/v1/home`, {
-    cache: 'default',
-  });
+  const data = await apiFetch<CategoryWithRepresentativeCourse[]>(
+    `/api/v1/home`,
+    {
+      cache: 'default',
+    }
+  );
+
+  const categories: Category[] = data.map((category) => ({
+    id: category.categoryId,
+    title: category.title,
+    description: category.description,
+    courses: category.courses.map((course) => ({
+      id: course.id,
+      title: course.title,
+      level: course.level,
+      duration: course.duration,
+    })),
+  }));
 
   // カテゴリIDに応じたアイコンのマッピング
   const iconMap: Record<string, JSX.Element> = {

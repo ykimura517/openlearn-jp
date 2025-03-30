@@ -4,14 +4,20 @@
 その際、あとにたくさん追記している参考情報を参考にしてください。
 ソースコードを出力するときは、基本的に変更箇所だけでなくコード全体を出力してください。
 また既存のコードはコメントなどを含め必要箇所以外は変更しないでください。
-APIのインターフェースは、下記のapi.ts内の型にしてください。
+APIのインターフェースは、下記のapi.ts内の型にしてください(つまり、必要に応じて、api.tsから型やinterfaceをimportして使ってください)。
 もし、それだとUIページなどの既存の実装と整合性が取れにくい場合は、既存のUIを変更してください。
 
 
 ## ユーザーからの質問
 下記のページで必要なAPIを全て作成してください。
-### app/page.tsx
-// app/page.tsx
+UI側もtotalPagesという不要な変数をもっているかもなので、
+そこも修正必要そうなら修正して
+
+
+### app/courses/page.tsx
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,84 +28,252 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ArrowRight, BookOpen, Code, Brain, Share2 } from 'lucide-react';
-import { apiFetch } from '@/lib/apiClient';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Share2, Search } from 'lucide-react';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
+import type { CoursesResponse } from '@/types/api';
 
-interface Category {
-  id: string;
-  title: string;
-  description: string;
-  courses: {
-    id: string;
-    title: string;
-    level: string;
-    duration: string;
-  }[];
-}
-
-export default async function Home() {
-  // APIからトップページ用のカテゴリ＋代表コース情報を取得
-  const categories = await apiFetch<Category[]>(`/api/v1/home`, {
-    cache: 'default',
+export default function CoursesPage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  const [levelFilter, setLevelFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(9);
+  const [isLoading, setIsLoading] = useState(true);
+  const [coursesData, setCoursesData] = useState<CoursesResponse>({
+    courses: [],
+    totalCourses: 0,
+    totalPages: 0,
   });
 
-  // カテゴリIDに応じたアイコンのマッピング
-  const iconMap: Record<string, JSX.Element> = {
-    ai: <Brain className='h-8 w-8 text-orange-500' />,
-    programming: <Code className='h-8 w-8 text-orange-500' />,
-    'web-development': <BookOpen className='h-8 w-8 text-orange-500' />,
+  // APIからコース一覧を取得
+  const fetchCourses = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(
+        `/api/v1/courses?page=${currentPage}&pageSize=${pageSize}&search=${searchQuery}&category=${categoryFilter}&level=${levelFilter}`
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch courses');
+      }
+
+      const data: CoursesResponse = await response.json();
+      setCoursesData(data);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      // エラー処理
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // フィルターやページネーションが変更されたときにコースを再取得
+  useEffect(() => {
+    fetchCourses();
+  }, [searchQuery, categoryFilter, levelFilter, currentPage, pageSize]);
+
+  // ページ変更ハンドラー
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // ページネーションアイテムの生成
+  const renderPaginationItems = () => {
+    const items = [];
+    const maxVisiblePages = 5;
+
+    if (coursesData.totalPages <= maxVisiblePages) {
+      // 全ページ数が表示可能な最大数以下の場合、すべてのページを表示
+      for (let i = 1; i <= coursesData.totalPages; i++) {
+        items.push(
+          <PaginationItem key={i}>
+            <PaginationLink
+              isActive={currentPage === i}
+              onClick={() => handlePageChange(i)}
+            >
+              {i}
+            </PaginationLink>
+          </PaginationItem>
+        );
+      }
+    } else {
+      // 最初のページを表示
+      items.push(
+        <PaginationItem key={1}>
+          <PaginationLink
+            isActive={currentPage === 1}
+            onClick={() => handlePageChange(1)}
+          >
+            1
+          </PaginationLink>
+        </PaginationItem>
+      );
+
+      // 現在のページが最初のページから離れている場合、省略記号を表示
+      if (currentPage > 3) {
+        items.push(
+          <PaginationItem key='ellipsis-start'>
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+
+      // 現在のページの周辺のページを表示
+      const startPage = Math.max(2, currentPage - 1);
+      const endPage = Math.min(coursesData.totalPages - 1, currentPage + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        items.push(
+          <PaginationItem key={i}>
+            <PaginationLink
+              isActive={currentPage === i}
+              onClick={() => handlePageChange(i)}
+            >
+              {i}
+            </PaginationLink>
+          </PaginationItem>
+        );
+      }
+
+      // 現在のページが最後のページから離れている場合、省略記号を表示
+      if (currentPage < coursesData.totalPages - 2) {
+        items.push(
+          <PaginationItem key='ellipsis-end'>
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+
+      // 最後のページを表示
+      items.push(
+        <PaginationItem key={coursesData.totalPages}>
+          <PaginationLink
+            isActive={currentPage === coursesData.totalPages}
+            onClick={() => handlePageChange(coursesData.totalPages)}
+          >
+            {coursesData.totalPages}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return items;
   };
 
   return (
     <div className='container mx-auto px-4 py-8'>
-      {/* Hero Section */}
-      <section className='bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-8 mb-12'>
-        <div className='max-w-3xl mx-auto text-center'>
-          <h1 className='text-4xl md:text-5xl font-bold text-orange-600 mb-4'>
-            生成AIとプログラミングを学ぼう
-          </h1>
-          <p className='text-xl text-gray-700 mb-8'>
-            OpenLearn
-            JPは、最新の生成AIやプログラミングについての学習コースを提供するプラットフォームです。
-            初心者から上級者まで、あなたのレベルに合わせた学習体験を提供します。
-          </p>
-          <div className='flex flex-col sm:flex-row justify-center gap-4'>
-            <Button className='bg-orange-500 hover:bg-orange-600 text-white text-lg py-6 px-8'>
-              コースを探す
-            </Button>
-            <Button
-              variant='outline'
-              className='border-orange-500 text-orange-500 hover:bg-orange-50 text-lg py-6 px-8'
-            >
-              試験に挑戦する
-            </Button>
+      <h1 className='text-3xl font-bold text-gray-800 mb-8'>コース一覧</h1>
+
+      {/* フィルター */}
+      <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-4 mb-8'>
+        <div className='flex flex-col md:flex-row gap-4'>
+          <div className='flex-1'>
+            <div className='relative'>
+              <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
+              <Input
+                placeholder='コースを検索...'
+                className='pl-10'
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1); // 検索時は1ページ目に戻る
+                }}
+              />
+            </div>
+          </div>
+          <div className='flex flex-col sm:flex-row gap-4'>
+            <div className='w-full sm:w-48'>
+              <Select
+                value={categoryFilter}
+                onValueChange={(value) => {
+                  setCategoryFilter(value);
+                  setCurrentPage(1); // フィルター変更時は1ページ目に戻る
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder='カテゴリー' />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value='all'>すべてのカテゴリー</SelectItem>
+                  <SelectItem value='ai'>生成AI</SelectItem>
+                  <SelectItem value='programming'>プログラミング</SelectItem>
+                  <SelectItem value='web-development'>Web開発</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className='w-full sm:w-48'>
+              <Select
+                value={levelFilter}
+                onValueChange={(value) => {
+                  setLevelFilter(value);
+                  setCurrentPage(1); // フィルター変更時は1ページ目に戻る
+                }}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder='レベル' />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value='all'>すべてのレベル</SelectItem>
+                  <SelectItem value='初級'>初級</SelectItem>
+                  <SelectItem value='中級'>中級</SelectItem>
+                  <SelectItem value='上級'>上級</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Categories Section */}
-      {categories.map((category) => (
-        <section key={category.id} className='mb-16'>
-          <div className='flex justify-between items-center mb-6'>
-            <div className='flex items-center gap-3'>
-              {iconMap[category.id] || (
-                <BookOpen className='h-8 w-8 text-orange-500' />
-              )}
-              <h2 className='text-2xl font-bold text-gray-800'>
-                {category.title}
-              </h2>
-            </div>
-            <Link
-              href={`/courses?category=${category.id}`}
-              className='text-orange-500 hover:underline flex items-center'
-            >
-              すべて見る <ArrowRight className='ml-1 h-4 w-4' />
-            </Link>
-          </div>
-          <p className='text-gray-600 mb-6'>{category.description}</p>
+      {/* 結果 */}
+      <div className='mb-4'>
+        <p className='text-gray-600'>
+          {coursesData.totalCourses} コースが見つかりました
+        </p>
+      </div>
 
+      {/* ローディング状態 */}
+      {isLoading ? (
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {[...Array(6)].map((_, index) => (
+            <Card key={index} className='animate-pulse'>
+              <CardHeader className='pb-2'>
+                <div className='h-6 bg-gray-200 rounded w-3/4 mb-2'></div>
+                <div className='h-4 bg-gray-200 rounded w-1/2'></div>
+              </CardHeader>
+              <CardContent>
+                <div className='h-4 bg-gray-200 rounded w-full mb-2'></div>
+                <div className='h-4 bg-gray-200 rounded w-full mb-2'></div>
+                <div className='h-4 bg-gray-200 rounded w-3/4'></div>
+              </CardContent>
+              <CardFooter>
+                <div className='h-10 bg-gray-200 rounded w-full'></div>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <>
+          {/* コース一覧 */}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {category.courses.map((course) => (
+            {coursesData.courses.map((course) => (
               <Card
                 key={course.id}
                 className='hover:shadow-md transition-shadow'
@@ -113,19 +287,24 @@ export default async function Home() {
                       <Share2 className='h-5 w-5' />
                     </button>
                   </div>
-                  <CardDescription className='flex gap-3 mt-2'>
+                  <CardDescription className='flex flex-wrap gap-2 mt-2'>
+                    <span className='bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs'>
+                      {course.categoryName}
+                    </span>
                     <span className='bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs'>
                       {course.level}
                     </span>
                     <span className='bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs'>
-                      {course.duration}
+                      {course.durationMin}分
+                    </span>
+                    <span className='bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs'>
+                      レッスン数: {course.articleCount}
                     </span>
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className='text-gray-600 line-clamp-3'>
-                    {course.title}
-                    に関する基礎から応用までを学べるコースです。実践的な例を通して理解を深めることができます。
+                    {course.description}
                   </p>
                 </CardContent>
                 <CardFooter>
@@ -141,60 +320,62 @@ export default async function Home() {
               </Card>
             ))}
           </div>
-        </section>
-      ))}
 
-      {/* Exams Section */}
-      <section className='bg-orange-50 rounded-xl p-8 mb-12'>
-        <div className='text-center mb-8'>
-          <h2 className='text-3xl font-bold text-orange-600 mb-4'>
-            知識をテストしよう
-          </h2>
-          <p className='text-xl text-gray-700'>
-            学んだ知識を試験で確認し、あなたのスキルレベルを証明しましょう。
-          </p>
-        </div>
+          {/* 空の状態 */}
+          {coursesData.courses.length === 0 && (
+            <div className='text-center py-12'>
+              <p className='text-gray-500 text-lg mb-4'>
+                検索条件に一致するコースが見つかりませんでした。
+              </p>
+              <p className='text-gray-500'>
+                検索条件を変更して、もう一度お試しください。
+              </p>
+            </div>
+          )}
 
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-          {categories.map((category) => (
-            <Card
-              key={category.id}
-              className='hover:shadow-md transition-shadow'
-            >
-              <CardHeader>
-                <div className='flex items-center gap-3'>
-                  {iconMap[category.id] || (
-                    <BookOpen className='h-8 w-8 text-orange-500' />
-                  )}
-                  <CardTitle>{category.title}試験</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className='text-gray-600'>
-                  {category.title}
-                  の知識を確認するための試験です。合格すると認定証が発行されます。
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  href={`/exams?category=${category.id}`}
-                  className='w-full'
-                >
-                  <Button className='w-full bg-orange-500 hover:bg-orange-600 text-white'>
-                    試験に挑戦する
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </section>
+          {/* ページネーション */}
+          {coursesData.totalPages > 1 && (
+            <div className='mt-8'>
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() =>
+                        handlePageChange(Math.max(1, currentPage - 1))
+                      }
+                      className={
+                        currentPage === 1
+                          ? 'pointer-events-none opacity-50'
+                          : ''
+                      }
+                    />
+                  </PaginationItem>
+
+                  {renderPaginationItems()}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() =>
+                        handlePageChange(
+                          Math.min(coursesData.totalPages, currentPage + 1)
+                        )
+                      }
+                      className={
+                        currentPage === coursesData.totalPages
+                          ? 'pointer-events-none opacity-50'
+                          : ''
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
-
-
-
 
 ## プロダクト(OpenLearn)について
 解説対象のOpenLearnについての情報は下記です。
@@ -942,6 +1123,7 @@ import {
 } from '@/components/ui/card';
 import { ArrowRight, BookOpen, Code, Brain, Share2 } from 'lucide-react';
 import { apiFetch } from '@/lib/apiClient';
+import type { CategoryWithRepresentativeCourse } from '@/types/api';
 
 interface Category {
   id: string;
@@ -957,9 +1139,24 @@ interface Category {
 
 export default async function Home() {
   // APIからトップページ用のカテゴリ＋代表コース情報を取得
-  const categories = await apiFetch<Category[]>(`/api/v1/home`, {
-    cache: 'default',
-  });
+  const data = await apiFetch<CategoryWithRepresentativeCourse[]>(
+    `/api/v1/home`,
+    {
+      cache: 'default',
+    }
+  );
+
+  const categories: Category[] = data.map((category) => ({
+    id: category.categoryId,
+    title: category.title,
+    description: category.description,
+    courses: category.courses.map((course) => ({
+      id: course.id,
+      title: course.title,
+      level: course.level,
+      duration: course.duration,
+    })),
+  }));
 
   // カテゴリIDに応じたアイコンのマッピング
   const iconMap: Record<string, JSX.Element> = {
@@ -1109,4 +1306,51 @@ export default async function Home() {
       </section>
     </div>
   );
+}
+
+
+### app/api/v1/home/route.ts 
+// app/api/v1/home/route.ts
+
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import type { CategoryWithRepresentativeCourse } from '@/types/api';
+
+export async function GET(request: Request) {
+  try {
+    // MasterCategoryとその関連するコース情報を取得
+    const categories = await prisma.masterCategory.findMany({
+      include: {
+        courses: {
+          // トップページ用として、代表となる上位3件のコースを取得
+          take: 3,
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
+      },
+    });
+
+    // PrismaのデータをAPIのレスポンス型に合わせて変換
+    const result: CategoryWithRepresentativeCourse[] = categories.map(
+      (category) => ({
+        categoryId: category.id,
+        title: category.name,
+        description: category.description,
+        courses: category.courses.map((course) => ({
+          id: course.id,
+          // course.title は nullable の可能性があるため、nullの場合は空文字にしています
+          title: course.title || '',
+          level: course.level,
+          // 所要時間 (durationMin) が設定されていれば「○分」として表示
+          duration: course.durationMin ? `${course.durationMin}分` : 'N/A',
+        })),
+      })
+    );
+
+    return NextResponse.json(result);
+  } catch (error: any) {
+    // エラー発生時はエラーメッセージと共に 500 エラーを返す
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
 }
