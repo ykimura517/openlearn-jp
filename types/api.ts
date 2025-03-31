@@ -197,3 +197,14 @@ export interface AIChatResponse {
   message: string;
   timestamp: string;
 }
+
+export interface UserExamResult {
+  subMissionId: string;
+  examId: string;
+  examTitle: string;
+  date: string;
+  score: number;
+  passingScore: number;
+  examCategoryName: string;
+  examLevel: string;
+}

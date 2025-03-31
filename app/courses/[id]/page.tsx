@@ -49,7 +49,6 @@ async function getRelatedCourses(courseId: string) {
 
 export default async function CoursePage({ params }: CoursePageProps) {
   const courseId = params.id;
-
   // データフェッチング
   let course: CourseDetail | null = null;
   let error: string | null = null;
@@ -136,14 +135,16 @@ export default async function CoursePage({ params }: CoursePageProps) {
             <h3 className='text-lg font-semibold text-gray-800 mb-2'>
               このコースについて
             </h3>
-            <p className='text-gray-700 mb-4'>{course.description}</p>
+            <p className='text-gray-700 mb-4'>{course.summary}</p>
             <div className='mb-4'>
               <h4 className='font-medium text-gray-800 mb-1'>対象者</h4>
               <p className='text-gray-700'>{course.targetAudience}</p>
             </div>
             <div>
               <h4 className='font-medium text-gray-800 mb-1'>前提条件</h4>
-              <p className='text-gray-700'>{course.prerequisites}</p>
+              <p className='text-gray-700'>
+                {course.prerequisites ? course.prerequisites : '特になし'}
+              </p>
             </div>
           </div>
           <div>
@@ -224,7 +225,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                       {relatedCourse.level}
                     </span>
                     <span className='bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs'>
-                      {relatedCourse.duration}
+                      {relatedCourse.durationMin}分
                     </span>
                   </CardDescription>
                 </CardHeader>

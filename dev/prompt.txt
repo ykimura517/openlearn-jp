@@ -1,5 +1,5 @@
 ## 指示
-あなたは優秀なエンジニアです。OpenLearn JPというプロダクトのソースコード等の解説を行います。
+あなたは超優秀なエンジニアです。OpenLearn JPというプロダクトのソースコード等の解説を行います。
 経験が浅いエンジニア（ユーザー）からの質問が提出されるので、それに答えてください。
 その際、あとにたくさん追記している参考情報を参考にしてください。
 ソースコードを出力するときは、基本的に変更箇所だけでなくコード全体を出力してください。
@@ -9,159 +9,517 @@ APIのインターフェースは、下記のapi.ts内の型にしてくださ�
 
 
 ## ユーザーからの質問
-下記ページの実装が途中で終わっているので、残りを補完してください。
-その後、下記のページで必要なAPIを全て作成してください。
+下記のページで必要なAPIを全て作成してください。
+なお、コース進捗などのコメントアウトされているところのAPIは無視してOKです。
+そして、下記ページもモックデータを使っているところなどは、作成したAPIを叩くように改修してください。
+### app/mypage/page.tsx
+'use client';
 
-### app/exams/page.tsx
-"use client"
+import { useState } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import {
+  Trophy,
+  BookOpen,
+  Settings,
+  LogOut,
+  Calendar,
+  Award,
+} from 'lucide-react';
 
-import { useState, useEffect } from "react"
-import { Brain, Code, BookOpen } from "lucide-react"
-import { PaginationEllipsis, PaginationItem, PaginationLink } from "@/components/ui/pagination"
-import type { ExamsResponse } from "@/types/api"
+export default function MyPage() {
+  const [activeTab, setActiveTab] = useState('profile');
 
-export default function ExamsPage() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
-  const [levelFilter, setLevelFilter] = useState("all");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
-  const [isLoading, setIsLoading] = useState(true);
-  const [examsData, setExamsData] = useState<ExamsResponse>({
-    exams: [],
-    totalExams: 0,
-    totalPages: 0,
-  });
-  //最終的にフロントのマップで、カテゴリーのアイコンを指定する想定
-  const mapCategoryIdToIcon: Record<string, JSX.Element> = {
-    ai: <Brain className="h-8 w-8 text-orange-500" />,
-    programming: <Code className="h-8 w-8 text-orange-500" />,
-    "web-development": <BookOpen className="h-8 w-8 text-orange-500" />,
+  // Mock user data
+  const user = {
+    id: 'yamada123',
+    name: '山田 太郎',
+    email: 'yamada@example.com',
+    occupation: 'エンジニア・開発者',
+    birthDate: '1990-01-01',
+    joinedDate: '2023-05-15',
   };
-  // カテゴリー一覧（ベタ書き）
-  const categories = [
+
+  // Mock exam results
+  const examResults = [
     {
-      id: "ai",
-      title: "生成AI",
-      description: "生成AIの基礎知識や応用についての試験です。ChatGPT、Stable Diffusionなどの理解度を測定します。",
-      icon: <Brain className="h-8 w-8 text-orange-500" />,
+      id: 'ai-basics-1',
+      title: '生成AI基礎試験',
+      date: '2023-06-10',
+      score: 85,
+      passingScore: 70,
+      category: '生成AI',
+      level: '初級',
     },
     {
-      id: "programming",
-      title: "プログラミング",
-      description: "JavaScript、Python、Reactなどのプログラミング言語やフレームワークの知識を測定します。",
-      icon: <Code className="h-8 w-8 text-orange-500" />,
+      id: 'javascript-1',
+      title: 'JavaScript試験',
+      date: '2023-07-22',
+      score: 92,
+      passingScore: 70,
+      category: 'プログラミング',
+      level: '初級',
     },
     {
-      id: "web-development",
-      title: "Web開発",
-      description: "HTML、CSS、レスポンシブデザイン、Webアクセシビリティなどの知識を測定します。",
-      icon: <BookOpen className="h-8 w-8 text-orange-500" />,
+      id: 'prompt-engineering-1',
+      title: 'プロンプトエンジニアリング試験',
+      date: '2023-08-15',
+      score: 78,
+      passingScore: 70,
+      category: '生成AI',
+      level: '中級',
+    },
+    {
+      id: 'python-1',
+      title: 'Python試験',
+      date: '2023-09-05',
+      score: 65,
+      passingScore: 70,
+      category: 'プログラミング',
+      level: '中級',
+      failed: true,
     },
   ];
 
-  // APIから試験一覧を取得
-  const fetchExams = async () => {
-    setIsLoading(true);
+  // Mock course progress
+  // const courseProgress = [
+  //   {
+  //     id: "intro-to-ai",
+  //     title: "生成AIの基礎",
+  //     progress: 100,
+  //     completed: true,
+  //     completedDate: "2023-06-05",
+  //     category: "生成AI",
+  //   },
+  //   {
+  //     id: "javascript-basics",
+  //     title: "JavaScript基礎",
+  //     progress: 100,
+  //     completed: true,
+  //     completedDate: "2023-07-18",
+  //     category: "プログラミング",
+  //   },
+  //   {
+  //     id: "prompt-engineering",
+  //     title: "プロンプトエンジニアリング入門",
+  //     progress: 80,
+  //     completed: false,
+  //     category: "生成AI",
+  //   },
+  //   {
+  //     id: "python-data-science",
+  //     title: "PythonによるデータサイエンスⅠ",
+  //     progress: 45,
+  //     completed: false,
+  //     category: "プログラミング",
+  //   },
+  // ]
 
-    try {
-      const response = await fetch(
-        `/api/v1/exams?page=${currentPage}&pageSize=${pageSize}&search=${searchQuery}&category=${categoryFilter}&level=${levelFilter}`
-      );
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch exams');
-      }
-      
-      const data: ExamsResponse = await response.json();
-      setExamsData(data);
-    } catch (error) {
-      console.error("Error fetching exams:", error);
-      // エラー処理
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  return (
+    <div className='container mx-auto px-4 py-8'>
+      <div className='flex flex-col md:flex-row gap-8'>
+        {/* Sidebar */}
+        <div className='w-full md:w-64 space-y-6'>
+          <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-6 text-center'>
+            <Avatar className='h-24 w-24 mx-auto mb-4'>
+              <AvatarImage src='/placeholder.svg?height=96&width=96' />
+              <AvatarFallback>{user.name.substring(0, 2)}</AvatarFallback>
+            </Avatar>
+            <h2 className='text-xl font-bold text-gray-800'>{user.name}</h2>
+            <p className='text-gray-600 text-sm mb-2'>@{user.id}</p>
+            <Badge
+              variant='outline'
+              className='bg-orange-100 text-orange-600 border-orange-200'
+            >
+              {user.occupation}
+            </Badge>
+            <div className='mt-4 text-sm text-gray-500 flex items-center justify-center'>
+              <Calendar className='h-4 w-4 mr-1' />
+              {new Date(user.joinedDate).toLocaleDateString('ja-JP')}に登録
+            </div>
+          </div>
 
-  // フィルターやページネーションが変更されたときに試験を再取得
-  useEffect(() => {
-    fetchExams();
-  }, [searchQuery, categoryFilter, levelFilter, currentPage, pageSize]);
+          <div className='bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden'>
+            <div className='p-4 border-b border-gray-100'>
+              <h3 className='font-medium text-gray-800'>メニュー</h3>
+            </div>
+            <nav className='p-2'>
+              <ul className='space-y-1'>
+                <li>
+                  <Link
+                    href='/mypage'
+                    className={`flex items-center px-3 py-2 rounded-md ${
+                      activeTab === 'profile'
+                        ? 'bg-orange-50 text-orange-600'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                    onClick={() => setActiveTab('profile')}
+                  >
+                    <Award className='h-5 w-5 mr-3' />
+                    プロフィール
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/mypage?tab=exams'
+                    className={`flex items-center px-3 py-2 rounded-md ${
+                      activeTab === 'exams'
+                        ? 'bg-orange-50 text-orange-600'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                    onClick={() => setActiveTab('exams')}
+                  >
+                    <Trophy className='h-5 w-5 mr-3' />
+                    試験結果
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/mypage?tab=courses'
+                    className={`flex items-center px-3 py-2 rounded-md ${
+                      activeTab === 'courses'
+                        ? 'bg-orange-50 text-orange-600'
+                        : 'text-gray-700 hover:bg-gray-100'
+                    }`}
+                    onClick={() => setActiveTab('courses')}
+                  >
+                    <BookOpen className='h-5 w-5 mr-3' />
+                    コース進捗
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/mypage/settings'
+                    className='flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100'
+                  >
+                    <Settings className='h-5 w-5 mr-3' />
+                    設定
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/mypage/delete-account'
+                    className='flex items-center px-3 py-2 rounded-md text-red-600 hover:bg-red-50'
+                  >
+                    <LogOut className='h-5 w-5 mr-3' />
+                    退会
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
 
-  // ページ変更ハンドラー
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  // ページネーションアイテムの生成
-  const renderPaginationItems = () => {
-    const items = [];
-    const maxVisiblePages = 5;
-
-    if (examsData.totalPages <= maxVisiblePages) {
-      // 全ページ数が表示可能な最大数以下の場合、すべてのページを表示
-      for (let i = 1; i <= examsData.totalPages; i++) {
-        items.push(
-          <PaginationItem key={i}>
-            <PaginationLink isActive={currentPage === i} onClick={() => handlePageChange(i)}>
-              {i}
-            </PaginationLink>
-          </PaginationItem>
-        );
-      }
-    } else {
-      // 最初のページを表示
-      items.push(
-        <PaginationItem key={1}>
-          <PaginationLink isActive={currentPage === 1} onClick={() => handlePageChange(1)}>
-            1
-          </PaginationLink>
-        </PaginationItem>
-      );
-
-      // 現在のページが最初のページから離れている場合、省略記号を表示
-      if (currentPage > 3) {
-        items.push(
-          <PaginationItem key="ellipsis-start">
-            <PaginationEllipsis />
-          </PaginationItem>
-        );
-      }
-
-      // 現在のページの周辺のページを表示
-      const startPage = Math.max(2, currentPage - 1);
-      const endPage = Math.min(examsData.totalPages - 1, currentPage + 1);
-
-      for (let i = startPage; i <= endPage; i++) {
-        items.push(
-          <PaginationItem key={i}>
-            <PaginationLink isActive={currentPage === i} onClick={() => handlePageChange(i)}>
-              {i}
-            </PaginationLink>
-          </PaginationItem>
-        );
-      }
-
-      // 現在のページが最後のページから離れている場合、省略記号を表示
-      if (currentPage < examsData.totalPages - 2) {
-        items.push(
-          <PaginationItem key="ellipsis-end">
-            <PaginationEllipsis />
-          </PaginationItem>
-        );
-      }
-
-      // 最後のページを表示
-      items.push(
-        <PaginationItem key={examsData.totalPages}>
-          <PaginationLink
-            isActive={currentPage === examsData.totalPages}
-            onClick={() => handlePageChange(examsData.totalPages)}
+        {/* Main Content */}
+        <div className='flex-1'>
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className='w-full'
           >
-            {examsData.totalPages}
-          </P
+            <TabsList className='grid w-full grid-cols-3 mb-8'>
+              <TabsTrigger value='profile'>プロフィール</TabsTrigger>
+              <TabsTrigger value='exams'>試験結果</TabsTrigger>
+              <TabsTrigger value='courses'>コース進捗</TabsTrigger>
+            </TabsList>
 
+            {/* Profile Tab */}
+            <TabsContent value='profile'>
+              <Card>
+                <CardHeader>
+                  <CardTitle>プロフィール情報</CardTitle>
+                  <CardDescription>
+                    あなたのアカウント情報です。
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className='space-y-4'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div>
+                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                        ユーザーID
+                      </h4>
+                      <p className='text-gray-800'>{user.id}</p>
+                    </div>
+                    <div>
+                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                        ユーザー名
+                      </h4>
+                      <p className='text-gray-800'>{user.name}</p>
+                    </div>
+                    <div>
+                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                        メールアドレス
+                      </h4>
+                      <p className='text-gray-800'>{user.email}</p>
+                    </div>
+                    <div>
+                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                        職種
+                      </h4>
+                      <p className='text-gray-800'>{user.occupation}</p>
+                    </div>
+                    <div>
+                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                        生年月日
+                      </h4>
+                      <p className='text-gray-800'>
+                        {new Date(user.birthDate).toLocaleDateString('ja-JP')}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button
+                    variant='outline'
+                    className='border-orange-500 text-orange-500 hover:bg-orange-50'
+                  >
+                    プロフィールを編集
+                  </Button>
+                </CardFooter>
+              </Card>
+
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>試験成績</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className='space-y-2'>
+                      <div className='flex justify-between'>
+                        <span className='text-gray-600'>合格した試験</span>
+                        <span className='font-medium'>
+                          {examResults.filter((exam) => !exam.failed).length}
+                        </span>
+                      </div>
+                      <div className='flex justify-between'>
+                        <span className='text-gray-600'>平均スコア</span>
+                        <span className='font-medium'>
+                          {Math.round(
+                            examResults.reduce(
+                              (acc, exam) => acc + exam.score,
+                              0
+                            ) / examResults.length
+                          )}
+                          %
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* <Card>
+                  <CardHeader>
+                    <CardTitle>コース進捗</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">完了したコース</span>
+                        <span className="font-medium">
+                          {courseProgress.filter((course) => course.completed).length}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">進行中のコース</span>
+                        <span className="font-medium">
+                          {courseProgress.filter((course) => !course.completed).length}
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card> */}
+              </div>
+            </TabsContent>
+
+            {/* Exams Tab */}
+            <TabsContent value='exams'>
+              <Card>
+                <CardHeader>
+                  <CardTitle>試験結果</CardTitle>
+                  <CardDescription>
+                    あなたが受験した試験の結果一覧です。
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className='space-y-6'>
+                    {examResults.map((exam) => (
+                      <div
+                        key={exam.id}
+                        className='border border-gray-200 rounded-lg p-4'
+                      >
+                        <div className='flex flex-col md:flex-row justify-between mb-2'>
+                          <div>
+                            <h3 className='text-lg font-medium text-gray-800'>
+                              {exam.title}
+                            </h3>
+                            <div className='flex flex-wrap gap-2 mt-1'>
+                              <Badge
+                                variant='outline'
+                                className='bg-orange-100 text-orange-600 border-orange-200'
+                              >
+                                {exam.category}
+                              </Badge>
+                              <Badge
+                                variant='outline'
+                                className='bg-orange-100 text-orange-600 border-orange-200'
+                              >
+                                {exam.level}
+                              </Badge>
+                              <Badge
+                                variant='outline'
+                                className='bg-gray-100 text-gray-600 border-gray-200'
+                              >
+                                {new Date(exam.date).toLocaleDateString(
+                                  'ja-JP'
+                                )}
+                              </Badge>
+                            </div>
+                          </div>
+                          <div className='mt-2 md:mt-0 text-right'>
+                            <div className='text-2xl font-bold flex items-center justify-end'>
+                              <span
+                                className={
+                                  exam.failed
+                                    ? 'text-red-500'
+                                    : 'text-green-500'
+                                }
+                              >
+                                {exam.score}%
+                              </span>
+                              {!exam.failed && (
+                                <Trophy className='ml-2 h-5 w-5 text-yellow-500' />
+                              )}
+                            </div>
+                            <p className='text-sm text-gray-500'>
+                              合格ライン: {exam.passingScore}%
+                            </p>
+                          </div>
+                        </div>
+                        <div className='mt-2'>
+                          <div className='flex justify-between text-sm mb-1'>
+                            <span>スコア</span>
+                            <span>{exam.score}%</span>
+                          </div>
+                          <Progress
+                            value={exam.score}
+                            className={`h-2 ${
+                              exam.failed ? 'bg-red-100' : 'bg-green-100'
+                            }`}
+                            indicatorClassName={
+                              exam.failed ? 'bg-red-500' : 'bg-green-500'
+                            }
+                          />
+                        </div>
+                        <div className='mt-4 flex justify-end'>
+                          <Button
+                            variant='outline'
+                            size='sm'
+                            className='text-sm border-orange-500 text-orange-500 hover:bg-orange-50'
+                          >
+                            詳細を見る
+                          </Button>
+                          {exam.failed && (
+                            <Button
+                              size='sm'
+                              className='ml-2 text-sm bg-orange-500 hover:bg-orange-600 text-white'
+                            >
+                              再受験する
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className='bg-orange-500 hover:bg-orange-600 text-white'>
+                    新しい試験に挑戦する
+                  </Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
+
+            {/* Courses Tab */}
+            {/* <TabsContent value="courses">
+              <Card>
+                <CardHeader>
+                  <CardTitle>コース進捗</CardTitle>
+                  <CardDescription>あなたが受講中のコースの進捗状況です。</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-6">
+                    {courseProgress.map((course) => (
+                      <div key={course.id} className="border border-gray-200 rounded-lg p-4">
+                        <div className="flex flex-col md:flex-row justify-between mb-2">
+                          <div>
+                            <h3 className="text-lg font-medium text-gray-800">{course.title}</h3>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                              <Badge variant="outline" className="bg-orange-100 text-orange-600 border-orange-200">
+                                {course.category}
+                              </Badge>
+                              {course.completed && (
+                                <Badge variant="outline" className="bg-green-100 text-green-600 border-green-200">
+                                  完了
+                                </Badge>
+                              )}
+                            </div>
+                          </div>
+                          <div className="mt-2 md:mt-0 text-right">
+                            <div className="text-2xl font-bold">{course.progress}%</div>
+                            {course.completed && (
+                              <p className="text-sm text-gray-500">
+                                {new Date(course.completedDate).toLocaleDateString("ja-JP")}に完了
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="mt-2">
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>進捗</span>
+                            <span>{course.progress}%</span>
+                          </div>
+                          <Progress
+                            value={course.progress}
+                            className="h-2 bg-orange-100"
+                            indicatorClassName="bg-orange-500"
+                          />
+                        </div>
+                        <div className="mt-4 flex justify-end">
+                          <Link href={`/courses/${course.id}`}>
+                            <Button className="bg-orange-500 hover:bg-orange-600 text-white" size="sm">
+                              {course.completed ? "復習する" : "続ける"}
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Link href="/courses">
+                    <Button className="bg-orange-500 hover:bg-orange-600 text-white">新しいコースを探す</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </TabsContent> */}
+          </Tabs>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 ## プロダクト(OpenLearn)について
 解説対象のOpenLearnについての情報は下記です。
