@@ -33,13 +33,14 @@ export async function PUT(request: Request) {
     const decodedToken = await authenticate(request);
     const userId = decodedToken.uid;
     const body = await request.json();
-    const { name, occupation } = body;
+    const { name, occupation, displayId } = body;
 
     const user = await prisma.user.update({
       where: { id: userId },
       data: {
         name,
         occupation,
+        displayId,
       },
     });
 

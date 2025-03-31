@@ -83,7 +83,7 @@ export default function MyPage() {
         <div className='w-full md:w-64 space-y-6'>
           <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-6 text-center'>
             <Avatar className='h-24 w-24 mx-auto mb-4'>
-              <AvatarImage src='/placeholder.svg?height=96&width=96' />
+              <AvatarImage src='/default-profile.webp?height=96&width=96' />
               <AvatarFallback>{user?.name.substring(0, 2)}</AvatarFallback>
             </Avatar>
             <h2 className='text-xl font-bold text-gray-800'>{user?.name}</h2>
@@ -228,12 +228,14 @@ export default function MyPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button
-                    variant='outline'
-                    className='border-orange-500 text-orange-500 hover:bg-orange-50'
-                  >
-                    プロフィールを編集
-                  </Button>
+                  <Link href='/mypage/settings'>
+                    <Button
+                      variant='outline'
+                      className='border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600'
+                    >
+                      プロフィールを編集
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
 

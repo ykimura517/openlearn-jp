@@ -61,6 +61,7 @@ export default function SettingsPage() {
       const payload = {
         name: username,
         occupation: occupation,
+        displayId: userId,
       };
       await apiFetch<ApiUser>(
         '/api/v1/mypage/profile',
@@ -98,7 +99,7 @@ export default function SettingsPage() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full'>
         <TabsList className='grid w-full grid-cols-2 mb-8'>
           <TabsTrigger value='account'>アカウント情報</TabsTrigger>
-          <TabsTrigger value='notifications'>通知設定</TabsTrigger>
+          {/* <TabsTrigger value='notifications'>通知設定</TabsTrigger> */}
         </TabsList>
 
         <TabsContent value='account'>
@@ -124,12 +125,11 @@ export default function SettingsPage() {
                       <Input
                         id='userId'
                         value={userId}
-                        disabled
-                        className='bg-gray-50'
+                        // disabled
+                        // className='bg-gray-50'
+                        onChange={(e) => setUserId(e.target.value)}
                       />
-                      <p className='text-xs text-gray-500'>
-                        ユーザーIDは変更できません。
-                      </p>
+                      <p className='text-xs text-gray-500'></p>
                     </div>
                   </div>
 
