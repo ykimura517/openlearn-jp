@@ -1,10 +1,8 @@
 'use client';
 
 import type React from 'react';
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-// import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -15,24 +13,44 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-// import { Separator } from '@/components/ui/separator';
-// import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AlertCircle, ArrowLeft, CheckCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { useAuth } from '@/contexts/auth-context';
+import { apiFetch } from '@/lib/apiClient';
+import type { User as ApiUser } from '@/types/api';
 
 export default function SettingsPage() {
-  // const router = useRouter();
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('account');
-  const [username, setUsername] = useState('山田 太郎');
-  const [userId, setUserId] = useState('yamada123');
-  const [occupation, setOccupation] = useState('エンジニア・開発者');
+  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
+  const [occupation, setOccupation] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // プロフィール情報の取得
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const data = await apiFetch<ApiUser>(
+          '/api/v1/mypage/profile',
+          { cache: 'no-store' },
+          true
+        );
+        setUsername(data.name);
+        setUserId(data.displayId);
+        setOccupation(data.occupation);
+      } catch (err) {
+        console.error('プロフィール取得エラー:', err);
+        setError('プロフィール情報の取得に失敗しました。');
+      }
+    }
+    fetchProfile();
+  }, []);
+
+  // プロフィール更新処理（PUTリクエスト）
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -40,11 +58,20 @@ export default function SettingsPage() {
     setIsLoading(true);
 
     try {
-      // 実際のアプリケーションではAPIを呼び出してプロフィールを更新
-      // ここではモック処理
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const payload = {
+        name: username,
+        occupation: occupation,
+      };
+      await apiFetch<ApiUser>(
+        '/api/v1/mypage/profile',
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        },
+        true
+      );
 
-      // 成功メッセージを表示
       setSuccess('プロフィール情報が正常に更新されました。');
     } catch (err) {
       setError('プロフィールの更新に失敗しました。もう一度お試しください。');

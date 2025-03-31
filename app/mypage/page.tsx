@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { apiFetch } from '@/lib/apiClient';
 import type { User, UserExamResult } from '@/types/api';
+import { useRouter } from 'next/navigation';
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState('profile');
@@ -33,6 +34,7 @@ export default function MyPage() {
   const [examResults, setExamResults] = useState<UserExamResult[]>([]);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [loadingExams, setLoadingExams] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchProfile() {
@@ -351,19 +353,19 @@ export default function MyPage() {
                                 className={`h-2 ${
                                   failed ? 'bg-red-100' : 'bg-green-100'
                                 }`}
-                                indicatorClassName={
-                                  failed ? 'bg-red-500' : 'bg-green-500'
-                                }
+                                // indicatorClassName={
+                                //   failed ? 'bg-red-500' : 'bg-green-500'
+                                // }
                               />
                             </div>
                             <div className='mt-4 flex justify-end'>
-                              <Button
+                              {/* <Button
                                 variant='outline'
                                 size='sm'
                                 className='text-sm border-orange-500 text-orange-500 hover:bg-orange-50'
                               >
                                 詳細を見る
-                              </Button>
+                              </Button> */}
                               {failed && (
                                 <Button
                                   size='sm'
@@ -379,9 +381,14 @@ export default function MyPage() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button className='bg-orange-500 hover:bg-orange-600 text-white'>
-                      新しい試験に挑戦する
-                    </Button>
+                    <Link href={`/exams`} className='w-full'>
+                      <Button
+                        className='bg-orange-500 hover:bg-orange-600 text-white'
+                        onClick={() => router.push('/exams')}
+                      >
+                        新しい試験に挑戦する
+                      </Button>
+                    </Link>
                   </CardFooter>
                 </Card>
               )}

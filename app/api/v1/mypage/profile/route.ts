@@ -27,3 +27,33 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+export async function PUT(request: Request) {
+  try {
+    const decodedToken = await authenticate(request);
+    const userId = decodedToken.uid;
+    const body = await request.json();
+    const { name, occupation } = body;
+
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        name,
+        occupation,
+      },
+    });
+
+    const responseUser = {
+      id: user.id,
+      displayId: user.displayId,
+      name: user.name || '',
+      occupation: user.occupation || '',
+      birthDate: user.birthDate || '',
+      joinedDate: user.createdAt.toISOString(),
+    };
+
+    return NextResponse.json(responseUser);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

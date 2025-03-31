@@ -67,15 +67,19 @@ export default async function Home() {
             初心者から上級者まで、あなたのレベルに合わせた学習体験を提供します。
           </p>
           <div className='flex flex-col sm:flex-row justify-center gap-4'>
-            <Button className='bg-orange-500 hover:bg-orange-600 text-white text-lg py-6 px-8'>
-              コースを探す
-            </Button>
-            <Button
-              variant='outline'
-              className='border-orange-500 text-orange-500 hover:bg-orange-50 text-lg py-6 px-8'
-            >
-              試験に挑戦する
-            </Button>
+            <Link href='/courses'>
+              <Button className='bg-orange-500 hover:bg-orange-600 text-white text-lg py-6 px-8'>
+                コースを探す
+              </Button>
+            </Link>
+            <Link href='/exams'>
+              <Button
+                variant='outline'
+                className='border-orange-500 text-orange-500 hover:bg-orange-50 text-lg py-6 px-8'
+              >
+                試験に挑戦する
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
