@@ -1,6 +1,7 @@
+// app/exams/[id]/page.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +19,12 @@ import {
 } from '@/components/ui/dialog';
 import { ArrowLeft, Clock, Trophy } from 'lucide-react';
 import SocialShareButtons from '@/components/social-share-buttons';
+import { apiFetch } from '@/lib/apiClient';
+import type {
+  ExamDetail,
+  ExamSubmission as ExamSubmissionReq,
+  ExamResult,
+} from '@/types/api';
 
 interface ExamParams {
   params: {
@@ -27,66 +34,29 @@ interface ExamParams {
 
 export default function ExamPage({ params }: ExamParams) {
   const examId = params.id;
+  const [exam, setExam] = useState<ExamDetail | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(1800); // 30分
+  const [result, setResult] = useState<ExamResult | null>(null);
 
-  // 実際のアプリケーションではAPIからデータを取得します
-  const exam = {
-    id: examId,
-    title: examId === 'ai-basics' ? '生成AI基礎試験' : '試験タイトル',
-    description:
-      '生成AIの基礎知識を測定する試験です。ChatGPT、Stable Diffusion、AIの歴史などについての問題が出題されます。',
-    category: 'ai',
-    categoryName: '生成AI',
-    level: '初級',
-    questions: [
-      {
-        id: 1,
-        type: 'multiple-choice',
-        question: '生成AIの主な種類として正しくないものはどれですか？',
-        options: ['テキスト生成AI', '画像生成AI', '音楽生成AI', '物理演算AI'],
-        correctAnswer: '物理演算AI',
-      },
-      {
-        id: 2,
-        type: 'multiple-choice',
-        question: 'ChatGPTの開発元として正しいのはどれですか？',
-        options: ['Google', 'OpenAI', 'Microsoft', 'Meta'],
-        correctAnswer: 'OpenAI',
-      },
-      {
-        id: 3,
-        type: 'multiple-choice',
-        question: 'Transformerアーキテクチャが発表されたのは何年ですか？',
-        options: ['2015年', '2017年', '2019年', '2021年'],
-        correctAnswer: '2017年',
-      },
-      {
-        id: 4,
-        type: 'multiple-choice',
-        question: '生成AIのトレーニングに使用される主な手法はどれですか？',
-        options: ['教師あり学習', '強化学習', '教師なし学習', '以上すべて'],
-        correctAnswer: '以上すべて',
-      },
-      {
-        id: 5,
-        type: 'free-text',
-        question:
-          '生成AIの倫理的課題について、あなたの考えを100字以内で述べてください。',
-        correctAnswer: '',
-      },
-    ],
-    timeLimit: '30分',
-    passingScore: 70,
-  };
+  useEffect(() => {
+    // APIから試験詳細を取得
+    apiFetch<ExamDetail>(`/api/v1/exams/${examId}`)
+      .then((data) => {
+        setExam(data);
+      })
+      .catch((err) => {
+        console.error('試験の取得に失敗しました:', err);
+      });
+  }, [examId]);
 
-  const handleAnswerChange = (questionIndex: number, answer: string) => {
+  const handleAnswerChange = (questionId: string, answer: string) => {
     setAnswers({
       ...answers,
-      [questionIndex]: answer,
+      [questionId]: answer,
     });
   };
 
@@ -97,60 +67,45 @@ export default function ExamPage({ params }: ExamParams) {
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestionIndex < exam.questions.length - 1) {
+    if (exam && currentQuestionIndex < exam.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (!exam) return;
     setIsSubmitted(true);
 
-    // Calculate score
-    let correctAnswers = 0;
-    exam.questions.forEach((question, index) => {
-      if (
-        question.type === 'multiple-choice' &&
-        answers[index] === question.correctAnswer
-      ) {
-        correctAnswers++;
-      } else if (question.type === 'free-text') {
-        // For free-text questions, we'll give a point if they answered something
-        if (answers[index] && answers[index].trim().length > 0) {
-          correctAnswers++;
-        }
-      }
-    });
+    const submissionPayload: ExamSubmissionReq = {
+      examId: exam.id,
+      MapQuestionIdToAnswer: answers,
+    };
 
-    const score = Math.round((correctAnswers / exam.questions.length) * 100);
-
-    setShowResults(true);
+    try {
+      const res = await apiFetch<ExamResult>(
+        `/api/v1/exams/${examId}/submit`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(submissionPayload),
+        },
+        true
+      );
+      setResult(res);
+      setShowResults(true);
+    } catch (error) {
+      console.error('試験提出に失敗しました:', error);
+    }
   };
+
+  if (!exam) {
+    return <div>試験データを読み込み中...</div>;
+  }
 
   const currentQuestion = exam.questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / exam.questions.length) * 100;
-
-  // Calculate score for results
-  const calculateScore = () => {
-    let correctAnswers = 0;
-    exam.questions.forEach((question, index) => {
-      if (
-        question.type === 'multiple-choice' &&
-        answers[index] === question.correctAnswer
-      ) {
-        correctAnswers++;
-      } else if (question.type === 'free-text') {
-        // For free-text questions, we'll give a point if they answered something
-        if (answers[index] && answers[index].trim().length > 0) {
-          correctAnswers++;
-        }
-      }
-    });
-
-    return Math.round((correctAnswers / exam.questions.length) * 100);
-  };
-
-  const score = calculateScore();
-  const isPassed = score >= exam.passingScore;
 
   return (
     <div className='container mx-auto px-4 py-8'>
@@ -171,12 +126,12 @@ export default function ExamPage({ params }: ExamParams) {
             {exam.level}
           </span>
           <span className='bg-gray-100 text-gray-600 px-2 py-1 rounded text-sm flex items-center'>
-            <Clock className='mr-1 h-4 w-4' /> {exam.timeLimit}
+            <Clock className='mr-1 h-4 w-4' /> {exam.timeLimitMin}分
           </span>
         </div>
       </div>
 
-      {/* Exam Progress */}
+      {/* 試験進捗 */}
       <div className='mb-6'>
         <div className='flex justify-between items-center mb-2'>
           <span className='text-gray-600'>
@@ -187,7 +142,7 @@ export default function ExamPage({ params }: ExamParams) {
         <Progress value={progress} className='h-2' />
       </div>
 
-      {/* Question Card */}
+      {/* 問題カード */}
       <Card className='mb-8'>
         <CardHeader>
           <CardTitle className='text-xl text-gray-800'>
@@ -195,11 +150,11 @@ export default function ExamPage({ params }: ExamParams) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {currentQuestion.type === 'multiple-choice' ? (
+          {currentQuestion.questionType === 'SELECTION' ? (
             <RadioGroup
-              value={answers[currentQuestionIndex] || ''}
+              value={answers[currentQuestion.id] || ''}
               onValueChange={(value) =>
-                handleAnswerChange(currentQuestionIndex, value)
+                handleAnswerChange(currentQuestion.id, value)
               }
             >
               {currentQuestion.options?.map((option, index) => (
@@ -216,9 +171,9 @@ export default function ExamPage({ params }: ExamParams) {
               <Textarea
                 placeholder='回答を入力してください...'
                 className='min-h-32'
-                value={answers[currentQuestionIndex] || ''}
+                value={answers[currentQuestion.id] || ''}
                 onChange={(e) =>
-                  handleAnswerChange(currentQuestionIndex, e.target.value)
+                  handleAnswerChange(currentQuestion.id, e.target.value)
                 }
               />
               <p className='text-gray-500 text-sm mt-2'>
@@ -229,7 +184,7 @@ export default function ExamPage({ params }: ExamParams) {
         </CardContent>
       </Card>
 
-      {/* Navigation Buttons */}
+      {/* ナビゲーションボタン */}
       <div className='flex justify-between mb-8'>
         <Button
           variant='outline'
@@ -258,12 +213,12 @@ export default function ExamPage({ params }: ExamParams) {
         )}
       </div>
 
-      {/* Results Dialog */}
+      {/* 結果ダイアログ */}
       <Dialog open={showResults} onOpenChange={setShowResults}>
         <DialogContent className='sm:max-w-md'>
           <DialogHeader>
             <DialogTitle className='text-center text-2xl'>
-              {isPassed ? (
+              {result && result.passed ? (
                 <span className='text-green-600'>
                   合格おめでとうございます！
                 </span>
@@ -273,7 +228,7 @@ export default function ExamPage({ params }: ExamParams) {
             </DialogTitle>
             <DialogDescription className='text-center'>
               <div className='my-6 flex justify-center'>
-                {isPassed ? (
+                {result && result.passed ? (
                   <Trophy className='h-16 w-16 text-yellow-500' />
                 ) : (
                   <div className='h-16 w-16 rounded-full bg-red-100 flex items-center justify-center'>
@@ -281,18 +236,26 @@ export default function ExamPage({ params }: ExamParams) {
                   </div>
                 )}
               </div>
-              <p className='text-xl mb-2'>
-                あなたのスコア: <span className='font-bold'>{score}%</span>
-              </p>
-              <p className='mb-4'>合格ライン: {exam.passingScore}%</p>
-              <p className='text-sm text-gray-600 mb-4'>
-                あなたは上位30%のパフォーマンスを達成しました！
-              </p>
+              {result && (
+                <>
+                  <p className='text-xl mb-2'>
+                    あなたのスコア:{' '}
+                    <span className='font-bold'>{result.score}%</span>
+                  </p>
+                  <p className='mb-4'>合格ライン: {exam.passingScore}%</p>
+                  <p className='text-sm text-gray-600 mb-4'>
+                    あなたは上位{result.percentile}
+                    %のパフォーマンスを達成しました！
+                  </p>
+                </>
+              )}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className='flex-col sm:flex-col gap-2'>
             <SocialShareButtons
-              title={`OpenLearn JPの${exam.title}で${score}%のスコアを獲得しました！`}
+              title={`OpenLearn JPの${exam.title}で${
+                result?.score || 0
+              }%のスコアを獲得しました！`}
               className='mb-4 justify-center'
             />
             <div className='flex gap-2 w-full'>
@@ -304,6 +267,7 @@ export default function ExamPage({ params }: ExamParams) {
                   setIsSubmitted(false);
                   setCurrentQuestionIndex(0);
                   setAnswers({});
+                  setResult(null);
                 }}
               >
                 もう一度挑戦

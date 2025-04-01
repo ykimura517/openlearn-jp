@@ -61,7 +61,8 @@ export interface ExamsResponse {
 }
 
 export interface ExamQuestion {
-  id: number;
+  id: string;
+  sequence: number;
   questionType: 'SELECTION' | 'TEXT';
   question: string;
   options?: string[];
@@ -161,7 +162,7 @@ export interface CourseArticleNavigationResponse {
 }
 
 export interface ArticleExercise {
-  id: number;
+  id: string;
   type: 'multiple-choice' | 'free-text';
   question: string;
   options?: string[];

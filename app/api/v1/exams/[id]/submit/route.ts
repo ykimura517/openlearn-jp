@@ -1,114 +1,127 @@
-import { type NextRequest, NextResponse } from "next/server"
-import type { ExamSubmission, ExamResult } from "@/types/api"
+// app/api/v1/exams/[examId]/submit/route.ts
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import type {
+  ExamSubmission as ExamSubmissionReq,
+  ExamResult,
+} from '@/types/api';
+import { ulid } from 'ulid';
+import { authenticate } from '@/lib/apiHandler';
 
-interface RouteParams {
-  params: {
-    id: string
-  }
-}
-
-export async function POST(request: NextRequest, { params }: RouteParams) {
-  const examId = params.id
-
+export async function POST(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
-    // リクエストボディの解析
-    const body: ExamSubmission = await request.json()
-    const { answers } = body
+    const body: ExamSubmissionReq = await request.json();
 
-    if (!answers || Object.keys(answers).length === 0) {
-      return NextResponse.json({ error: "Answers are required" }, { status: 400 })
-    }
-
-    // モックデータ（実際のアプリケーションではDBから正解を取得）
-    const mockCorrectAnswers: Record<string, Record<number, string>> = {
-      "ai-basics": {
-        1: "物理演算AI",
-        2: "OpenAI",
-        3: "2017年",
-        4: "以上すべて",
+    // 対象試験とその問題を正解情報付きで取得
+    const exam = await prisma.masterExam.findUnique({
+      where: { id: params.id },
+      include: {
+        examQuestions: true,
+        category: true,
       },
-      "prompt-engineering": {
-        1: "AIモデルから望ましい結果を得るための入力を最適化する",
-        2: "AIモデルのアーキテクチャの詳細",
-        3: "プロンプトに少数の例を含めてから指示を与える",
-        4: "AIモデルのパラメータを調整する",
-      },
+    });
+    if (!exam) {
+      return NextResponse.json({ error: 'Exam not found' }, { status: 404 });
     }
 
-    // 正解の答えと比較して採点
-    let correctAnswers = 0
-    let totalQuestions = 0
-    const feedback: Record<number, string> = {}
+    const questions = exam.examQuestions;
+    let correctAnswers = 0;
+    const MapQuestionIdToCorrectAnswerValue: Record<string, string> = {};
 
-    // 試験IDに対応する正解がある場合
-    if (mockCorrectAnswers[examId]) {
-      const correctAnswersForExam = mockCorrectAnswers[examId]
-
-      // 各問題をチェック
-      Object.keys(answers).forEach((questionIdStr) => {
-        const questionId = Number.parseInt(questionIdStr)
-        totalQuestions++
-
-        // 選択問題の場合
-        if (correctAnswersForExam[questionId]) {
-          if (answers[questionId] === correctAnswersForExam[questionId]) {
-            correctAnswers++
-            feedback[questionId] = "正解です！"
-          } else {
-            feedback[questionId] = `不正解です。正解は「${correctAnswersForExam[questionId]}」です。`
-          }
+    // 各問題ごとに採点
+    for (const q of questions) {
+      const userAnswer = body.MapQuestionIdToAnswer[q.id];
+      if (q.questionType === 'multiple-choice') {
+        if (userAnswer === q.correctAnswer) {
+          correctAnswers++;
         }
-        // 記述問題の場合
-        else {
-          // 記述問題は内容があれば正解とする（実際のアプリケーションではAIなどで評価）
-          if (answers[questionId] && answers[questionId].trim().length > 0) {
-            correctAnswers++
-            feedback[questionId] = "回答を受け付けました。自己評価のために参考解答をご確認ください。"
-          } else {
-            feedback[questionId] = "回答が入力されていません。"
-          }
-        }
-      })
-    }
-    // 試験IDに対応する正解がない場合（デフォルト処理）
-    else {
-      totalQuestions = Object.keys(answers).length
-
-      // ランダムに採点（デモ用）
-      Object.keys(answers).forEach((questionIdStr) => {
-        const questionId = Number.parseInt(questionIdStr)
-
-        // 70%の確率で正解とする
-        if (Math.random() > 0.3) {
-          correctAnswers++
-          feedback[questionId] = "正解です！"
+        MapQuestionIdToCorrectAnswerValue[q.id] = q.correctAnswer || '';
+      } else {
+        // 自由記述は回答が入力されていれば採点（※実際は内容の評価ロジックが必要）
+        if (userAnswer && userAnswer.trim().length > 0) {
+          correctAnswers++;
+          MapQuestionIdToCorrectAnswerValue[q.id] = '評価不要';
         } else {
-          feedback[questionId] = "不正解です。"
+          MapQuestionIdToCorrectAnswerValue[q.id] = '';
         }
-      })
+      }
     }
 
-    // スコアの計算
-    const score = Math.round((correctAnswers / totalQuestions) * 100)
-    const passingScore = 70 // デフォルトの合格ライン
+    const totalQuestions = questions.length;
+    const score = Math.round((correctAnswers / totalQuestions) * 100);
+    const passed = score >= exam.passingScore;
 
-    // 結果の作成
+    // ユーザー情報は認証から取得すべきですが、ここでは簡略化のため固定値を使用
+    const decodedToken = await authenticate(request);
+    const userId = decodedToken.uid;
+    const submissionId = ulid();
+
+    // 試験提出レコードを作成
+    const submission = await prisma.examSubmission.create({
+      data: {
+        id: submissionId,
+        examId: exam.id,
+        userId: userId,
+        score: score,
+        percentile: 0, // 後で更新
+      },
+    });
+
+    // 各問題の回答レコードを作成
+    for (const q of questions) {
+      const userAnswer = body.MapQuestionIdToAnswer[q.id] || '';
+      const isCorrect =
+        (q.questionType === 'multiple-choice' &&
+          userAnswer === q.correctAnswer) ||
+        (q.questionType !== 'multiple-choice' && userAnswer.trim().length > 0);
+      await prisma.examAnswer.create({
+        data: {
+          id: ulid(),
+          examSubmissionId: submission.id,
+          examQuestionId: q.id,
+          answer: userAnswer,
+          isCorrect: isCorrect,
+        },
+      });
+    }
+
+    // 同一試験の提出結果を全件取得し、パーセンタイルを計算
+    const submissions = await prisma.examSubmission.findMany({
+      where: { examId: exam.id },
+    });
+    const totalSubmissions = submissions.length;
+    const countLower = submissions.filter((s) => s.score < score).length;
+    const percentile =
+      totalSubmissions > 0
+        ? Math.round((countLower / totalSubmissions) * 100)
+        : 100;
+
+    // パーセンタイルを更新
+    await prisma.examSubmission.update({
+      where: { id: submission.id },
+      data: { percentile },
+    });
+
     const result: ExamResult = {
+      subMissionId: submissionId,
+      examId: exam.id,
+      examTitle: exam.title,
+      examCategoryName: exam.category.name,
+      examLevel: String(exam.level),
       score,
       correctAnswers,
       totalQuestions,
-      passed: score >= passingScore,
-      passingScore,
-      feedback,
-    }
+      passed,
+      passingScore: exam.passingScore,
+      percentile,
+      MapQuestionIdToCorrectAnswerValue,
+    };
 
-    // 遅延をシミュレート
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-
-    return NextResponse.json(result)
-  } catch (error) {
-    console.error("Exam submission error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json(result);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
-

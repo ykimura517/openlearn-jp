@@ -1,9 +1,8 @@
 // app/api/v1/auth/register/route.ts
 import { NextResponse } from 'next/server';
 import admin from '@/lib/firebase-admin';
-
-// DBへのユーザー登録処理を実装する場合、ここで呼び出す
-// import { createUserProfile } from "@/lib/db"
+import { prisma } from '@/lib/prisma';
+import { ulid } from 'ulid';
 
 export async function POST(request: Request) {
   try {
@@ -16,39 +15,35 @@ export async function POST(request: Request) {
     }
     const token = authHeader.split(' ')[1];
     const decodedToken = await admin.auth().verifyIdToken(token);
-    // console.log(decodedToken)
-    // {
-    //     name: 'hoge山',
-    //     picture: 'https://lh3.googleusercontent.com/a/hoge',
-    //     iss: 'https://securetoken.google.com/hoge',
-    //     aud: 'hoge',
-    //     auth_time: 1742984689,
-    //     user_id: 'fhowghoerg',
-    //     sub: 'foweirheiorhgoner',
-    //     iat: 1742984689,
-    //     exp: 1742988289,
-    //     email: 'hoge@gmail.com',
-    //     email_verified: true,
-    //     firebase: {
-    //       identities: { 'google.com': [Array], email: [Array] },
-    //       sign_in_provider: 'google.com'
-    //     },
-    //     uid: 'J4sURtvomOev3L0EHxqY2EjH7pC3'
-    //   }
-    // decodedToken.uid がFirebaseユーザーのIDです
+    // decodedToken.uidがFirebaseユーザーのIDとなります
 
-    // TODO: firebaseのユーザーIDが既にDBに登録されているか確認する処理を実装する
-    if (decodedToken.uid == 'eDb3uDrUPpZxfzWdqPlKGZcbQ052') {
+    // FirebaseのユーザーIDが既にDBに登録されているか確認
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        id: decodedToken.uid,
+      },
+    });
+    if (existingUser) {
       return NextResponse.json({ error: 'ALREADY_EXISTS' }, { status: 400 });
     }
 
     const uid = decodedToken.uid;
 
-    const body = await request.json();
-    const { userId, username, occupation, birthDate } = body;
+    // Stripeの登録処理は未実装のため、ログで警告を出してスキップ
+    console.warn(`Stripe registration skipped for user: ${uid}`);
 
-    // ここでDBに{ firebaseUid: uid, userId, username, occupation, birthDate }を保存する処理を実装する
-    // 例: await createUserProfile({ firebaseUid: uid, userId, username, occupation, birthDate })
+    // ユーザープロフィールをDBに登録
+    // prismaのUserモデルに合わせて、firebaseUserIdはuid、displayIdはリクエストからのuserIdを利用
+    await prisma.user.create({
+      data: {
+        id: uid,
+        displayId: ulid().slice(0, 20), // 一旦ulidを割り振っておく。（長いとレイアウトに影響するので一旦20文字）
+        firebaseUserId: uid,
+        name: null,
+        occupation: null,
+        birthDate: null,
+      },
+    });
 
     return NextResponse.json(
       { message: 'ユーザー登録に成功しました。' },
