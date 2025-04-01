@@ -44,6 +44,16 @@ export type MasterCourseRelation = $Result.DefaultSelection<Prisma.$MasterCourse
  */
 export type MasterCourseArticle = $Result.DefaultSelection<Prisma.$MasterCourseArticlePayload>
 /**
+ * Model MasterCourseArticleReference
+ * 
+ */
+export type MasterCourseArticleReference = $Result.DefaultSelection<Prisma.$MasterCourseArticleReferencePayload>
+/**
+ * Model MasterCourseArticleMasterCourseArticleReferenceRelation
+ * 
+ */
+export type MasterCourseArticleMasterCourseArticleReferenceRelation = $Result.DefaultSelection<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>
+/**
  * Model MasterCourseArticleExercise
  * 
  */
@@ -268,6 +278,26 @@ export class PrismaClient<
     * ```
     */
   get masterCourseArticle(): Prisma.MasterCourseArticleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.masterCourseArticleReference`: Exposes CRUD operations for the **MasterCourseArticleReference** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MasterCourseArticleReferences
+    * const masterCourseArticleReferences = await prisma.masterCourseArticleReference.findMany()
+    * ```
+    */
+  get masterCourseArticleReference(): Prisma.MasterCourseArticleReferenceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.masterCourseArticleMasterCourseArticleReferenceRelation`: Exposes CRUD operations for the **MasterCourseArticleMasterCourseArticleReferenceRelation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MasterCourseArticleMasterCourseArticleReferenceRelations
+    * const masterCourseArticleMasterCourseArticleReferenceRelations = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findMany()
+    * ```
+    */
+  get masterCourseArticleMasterCourseArticleReferenceRelation(): Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.masterCourseArticleExercise`: Exposes CRUD operations for the **MasterCourseArticleExercise** model.
@@ -794,6 +824,8 @@ export namespace Prisma {
     MasterCourse: 'MasterCourse',
     MasterCourseRelation: 'MasterCourseRelation',
     MasterCourseArticle: 'MasterCourseArticle',
+    MasterCourseArticleReference: 'MasterCourseArticleReference',
+    MasterCourseArticleMasterCourseArticleReferenceRelation: 'MasterCourseArticleMasterCourseArticleReferenceRelation',
     MasterCourseArticleExercise: 'MasterCourseArticleExercise',
     ChatRoom: 'ChatRoom',
     ChatMessage: 'ChatMessage',
@@ -820,7 +852,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "masterCategory" | "masterTag" | "masterCourse" | "masterCourseRelation" | "masterCourseArticle" | "masterCourseArticleExercise" | "chatRoom" | "chatMessage" | "masterCourseArticleFAQ" | "masterExam" | "masterExamQuestion" | "examSubmission" | "examAnswer"
+      modelProps: "user" | "masterCategory" | "masterTag" | "masterCourse" | "masterCourseRelation" | "masterCourseArticle" | "masterCourseArticleReference" | "masterCourseArticleMasterCourseArticleReferenceRelation" | "masterCourseArticleExercise" | "chatRoom" | "chatMessage" | "masterCourseArticleFAQ" | "masterExam" | "masterExamQuestion" | "examSubmission" | "examAnswer"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1265,6 +1297,154 @@ export namespace Prisma {
           count: {
             args: Prisma.MasterCourseArticleCountArgs<ExtArgs>
             result: $Utils.Optional<MasterCourseArticleCountAggregateOutputType> | number
+          }
+        }
+      }
+      MasterCourseArticleReference: {
+        payload: Prisma.$MasterCourseArticleReferencePayload<ExtArgs>
+        fields: Prisma.MasterCourseArticleReferenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MasterCourseArticleReferenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MasterCourseArticleReferenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>
+          }
+          findFirst: {
+            args: Prisma.MasterCourseArticleReferenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MasterCourseArticleReferenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>
+          }
+          findMany: {
+            args: Prisma.MasterCourseArticleReferenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>[]
+          }
+          create: {
+            args: Prisma.MasterCourseArticleReferenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>
+          }
+          createMany: {
+            args: Prisma.MasterCourseArticleReferenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MasterCourseArticleReferenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>[]
+          }
+          delete: {
+            args: Prisma.MasterCourseArticleReferenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>
+          }
+          update: {
+            args: Prisma.MasterCourseArticleReferenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>
+          }
+          deleteMany: {
+            args: Prisma.MasterCourseArticleReferenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MasterCourseArticleReferenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MasterCourseArticleReferenceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>[]
+          }
+          upsert: {
+            args: Prisma.MasterCourseArticleReferenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleReferencePayload>
+          }
+          aggregate: {
+            args: Prisma.MasterCourseArticleReferenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasterCourseArticleReference>
+          }
+          groupBy: {
+            args: Prisma.MasterCourseArticleReferenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleReferenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MasterCourseArticleReferenceCountArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleReferenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      MasterCourseArticleMasterCourseArticleReferenceRelation: {
+        payload: Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>
+        fields: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>
+          }
+          findFirst: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>
+          }
+          findMany: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>[]
+          }
+          create: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>
+          }
+          createMany: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>[]
+          }
+          delete: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>
+          }
+          update: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>
+          }
+          deleteMany: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>[]
+          }
+          upsert: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload>
+          }
+          aggregate: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMasterCourseArticleMasterCourseArticleReferenceRelation>
+          }
+          groupBy: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleMasterCourseArticleReferenceRelationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MasterCourseArticleMasterCourseArticleReferenceRelationCountArgs<ExtArgs>
+            result: $Utils.Optional<MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateOutputType> | number
           }
         }
       }
@@ -1950,6 +2130,8 @@ export namespace Prisma {
     masterCourse?: MasterCourseOmit
     masterCourseRelation?: MasterCourseRelationOmit
     masterCourseArticle?: MasterCourseArticleOmit
+    masterCourseArticleReference?: MasterCourseArticleReferenceOmit
+    masterCourseArticleMasterCourseArticleReferenceRelation?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit
     masterCourseArticleExercise?: MasterCourseArticleExerciseOmit
     chatRoom?: ChatRoomOmit
     chatMessage?: ChatMessageOmit
@@ -9179,6 +9361,2043 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: MasterCourseArticleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MasterCourseArticleReference
+   */
+
+  export type AggregateMasterCourseArticleReference = {
+    _count: MasterCourseArticleReferenceCountAggregateOutputType | null
+    _min: MasterCourseArticleReferenceMinAggregateOutputType | null
+    _max: MasterCourseArticleReferenceMaxAggregateOutputType | null
+  }
+
+  export type MasterCourseArticleReferenceMinAggregateOutputType = {
+    id: string | null
+    url: string | null
+    title: string | null
+    description: string | null
+    detailedDescription: string | null
+    createdAt: Date | null
+  }
+
+  export type MasterCourseArticleReferenceMaxAggregateOutputType = {
+    id: string | null
+    url: string | null
+    title: string | null
+    description: string | null
+    detailedDescription: string | null
+    createdAt: Date | null
+  }
+
+  export type MasterCourseArticleReferenceCountAggregateOutputType = {
+    id: number
+    url: number
+    title: number
+    description: number
+    detailedDescription: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MasterCourseArticleReferenceMinAggregateInputType = {
+    id?: true
+    url?: true
+    title?: true
+    description?: true
+    detailedDescription?: true
+    createdAt?: true
+  }
+
+  export type MasterCourseArticleReferenceMaxAggregateInputType = {
+    id?: true
+    url?: true
+    title?: true
+    description?: true
+    detailedDescription?: true
+    createdAt?: true
+  }
+
+  export type MasterCourseArticleReferenceCountAggregateInputType = {
+    id?: true
+    url?: true
+    title?: true
+    description?: true
+    detailedDescription?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MasterCourseArticleReferenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasterCourseArticleReference to aggregate.
+     */
+    where?: MasterCourseArticleReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleReferences to fetch.
+     */
+    orderBy?: MasterCourseArticleReferenceOrderByWithRelationInput | MasterCourseArticleReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MasterCourseArticleReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleReferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MasterCourseArticleReferences
+    **/
+    _count?: true | MasterCourseArticleReferenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MasterCourseArticleReferenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MasterCourseArticleReferenceMaxAggregateInputType
+  }
+
+  export type GetMasterCourseArticleReferenceAggregateType<T extends MasterCourseArticleReferenceAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasterCourseArticleReference]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMasterCourseArticleReference[P]>
+      : GetScalarType<T[P], AggregateMasterCourseArticleReference[P]>
+  }
+
+
+
+
+  export type MasterCourseArticleReferenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleReferenceWhereInput
+    orderBy?: MasterCourseArticleReferenceOrderByWithAggregationInput | MasterCourseArticleReferenceOrderByWithAggregationInput[]
+    by: MasterCourseArticleReferenceScalarFieldEnum[] | MasterCourseArticleReferenceScalarFieldEnum
+    having?: MasterCourseArticleReferenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MasterCourseArticleReferenceCountAggregateInputType | true
+    _min?: MasterCourseArticleReferenceMinAggregateInputType
+    _max?: MasterCourseArticleReferenceMaxAggregateInputType
+  }
+
+  export type MasterCourseArticleReferenceGroupByOutputType = {
+    id: string
+    url: string
+    title: string
+    description: string
+    detailedDescription: string | null
+    createdAt: Date
+    _count: MasterCourseArticleReferenceCountAggregateOutputType | null
+    _min: MasterCourseArticleReferenceMinAggregateOutputType | null
+    _max: MasterCourseArticleReferenceMaxAggregateOutputType | null
+  }
+
+  type GetMasterCourseArticleReferenceGroupByPayload<T extends MasterCourseArticleReferenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MasterCourseArticleReferenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MasterCourseArticleReferenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MasterCourseArticleReferenceGroupByOutputType[P]>
+            : GetScalarType<T[P], MasterCourseArticleReferenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MasterCourseArticleReferenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    title?: boolean
+    description?: boolean
+    detailedDescription?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["masterCourseArticleReference"]>
+
+  export type MasterCourseArticleReferenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    title?: boolean
+    description?: boolean
+    detailedDescription?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["masterCourseArticleReference"]>
+
+  export type MasterCourseArticleReferenceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    title?: boolean
+    description?: boolean
+    detailedDescription?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["masterCourseArticleReference"]>
+
+  export type MasterCourseArticleReferenceSelectScalar = {
+    id?: boolean
+    url?: boolean
+    title?: boolean
+    description?: boolean
+    detailedDescription?: boolean
+    createdAt?: boolean
+  }
+
+  export type MasterCourseArticleReferenceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "title" | "description" | "detailedDescription" | "createdAt", ExtArgs["result"]["masterCourseArticleReference"]>
+
+  export type $MasterCourseArticleReferencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MasterCourseArticleReference"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      url: string
+      title: string
+      description: string
+      detailedDescription: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["masterCourseArticleReference"]>
+    composites: {}
+  }
+
+  type MasterCourseArticleReferenceGetPayload<S extends boolean | null | undefined | MasterCourseArticleReferenceDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseArticleReferencePayload, S>
+
+  type MasterCourseArticleReferenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MasterCourseArticleReferenceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasterCourseArticleReferenceCountAggregateInputType | true
+    }
+
+  export interface MasterCourseArticleReferenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseArticleReference'], meta: { name: 'MasterCourseArticleReference' } }
+    /**
+     * Find zero or one MasterCourseArticleReference that matches the filter.
+     * @param {MasterCourseArticleReferenceFindUniqueArgs} args - Arguments to find a MasterCourseArticleReference
+     * @example
+     * // Get one MasterCourseArticleReference
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MasterCourseArticleReferenceFindUniqueArgs>(args: SelectSubset<T, MasterCourseArticleReferenceFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MasterCourseArticleReference that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MasterCourseArticleReferenceFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseArticleReference
+     * @example
+     * // Get one MasterCourseArticleReference
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MasterCourseArticleReferenceFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseArticleReferenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasterCourseArticleReference that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleReferenceFindFirstArgs} args - Arguments to find a MasterCourseArticleReference
+     * @example
+     * // Get one MasterCourseArticleReference
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MasterCourseArticleReferenceFindFirstArgs>(args?: SelectSubset<T, MasterCourseArticleReferenceFindFirstArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasterCourseArticleReference that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleReferenceFindFirstOrThrowArgs} args - Arguments to find a MasterCourseArticleReference
+     * @example
+     * // Get one MasterCourseArticleReference
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MasterCourseArticleReferenceFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseArticleReferenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MasterCourseArticleReferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleReferenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MasterCourseArticleReferences
+     * const masterCourseArticleReferences = await prisma.masterCourseArticleReference.findMany()
+     * 
+     * // Get first 10 MasterCourseArticleReferences
+     * const masterCourseArticleReferences = await prisma.masterCourseArticleReference.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const masterCourseArticleReferenceWithIdOnly = await prisma.masterCourseArticleReference.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MasterCourseArticleReferenceFindManyArgs>(args?: SelectSubset<T, MasterCourseArticleReferenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MasterCourseArticleReference.
+     * @param {MasterCourseArticleReferenceCreateArgs} args - Arguments to create a MasterCourseArticleReference.
+     * @example
+     * // Create one MasterCourseArticleReference
+     * const MasterCourseArticleReference = await prisma.masterCourseArticleReference.create({
+     *   data: {
+     *     // ... data to create a MasterCourseArticleReference
+     *   }
+     * })
+     * 
+     */
+    create<T extends MasterCourseArticleReferenceCreateArgs>(args: SelectSubset<T, MasterCourseArticleReferenceCreateArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MasterCourseArticleReferences.
+     * @param {MasterCourseArticleReferenceCreateManyArgs} args - Arguments to create many MasterCourseArticleReferences.
+     * @example
+     * // Create many MasterCourseArticleReferences
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MasterCourseArticleReferenceCreateManyArgs>(args?: SelectSubset<T, MasterCourseArticleReferenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MasterCourseArticleReferences and returns the data saved in the database.
+     * @param {MasterCourseArticleReferenceCreateManyAndReturnArgs} args - Arguments to create many MasterCourseArticleReferences.
+     * @example
+     * // Create many MasterCourseArticleReferences
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MasterCourseArticleReferences and only return the `id`
+     * const masterCourseArticleReferenceWithIdOnly = await prisma.masterCourseArticleReference.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MasterCourseArticleReferenceCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseArticleReferenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MasterCourseArticleReference.
+     * @param {MasterCourseArticleReferenceDeleteArgs} args - Arguments to delete one MasterCourseArticleReference.
+     * @example
+     * // Delete one MasterCourseArticleReference
+     * const MasterCourseArticleReference = await prisma.masterCourseArticleReference.delete({
+     *   where: {
+     *     // ... filter to delete one MasterCourseArticleReference
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MasterCourseArticleReferenceDeleteArgs>(args: SelectSubset<T, MasterCourseArticleReferenceDeleteArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MasterCourseArticleReference.
+     * @param {MasterCourseArticleReferenceUpdateArgs} args - Arguments to update one MasterCourseArticleReference.
+     * @example
+     * // Update one MasterCourseArticleReference
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MasterCourseArticleReferenceUpdateArgs>(args: SelectSubset<T, MasterCourseArticleReferenceUpdateArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MasterCourseArticleReferences.
+     * @param {MasterCourseArticleReferenceDeleteManyArgs} args - Arguments to filter MasterCourseArticleReferences to delete.
+     * @example
+     * // Delete a few MasterCourseArticleReferences
+     * const { count } = await prisma.masterCourseArticleReference.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MasterCourseArticleReferenceDeleteManyArgs>(args?: SelectSubset<T, MasterCourseArticleReferenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasterCourseArticleReferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleReferenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MasterCourseArticleReferences
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MasterCourseArticleReferenceUpdateManyArgs>(args: SelectSubset<T, MasterCourseArticleReferenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasterCourseArticleReferences and returns the data updated in the database.
+     * @param {MasterCourseArticleReferenceUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseArticleReferences.
+     * @example
+     * // Update many MasterCourseArticleReferences
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MasterCourseArticleReferences and only return the `id`
+     * const masterCourseArticleReferenceWithIdOnly = await prisma.masterCourseArticleReference.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MasterCourseArticleReferenceUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseArticleReferenceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MasterCourseArticleReference.
+     * @param {MasterCourseArticleReferenceUpsertArgs} args - Arguments to update or create a MasterCourseArticleReference.
+     * @example
+     * // Update or create a MasterCourseArticleReference
+     * const masterCourseArticleReference = await prisma.masterCourseArticleReference.upsert({
+     *   create: {
+     *     // ... data to create a MasterCourseArticleReference
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MasterCourseArticleReference we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MasterCourseArticleReferenceUpsertArgs>(args: SelectSubset<T, MasterCourseArticleReferenceUpsertArgs<ExtArgs>>): Prisma__MasterCourseArticleReferenceClient<$Result.GetResult<Prisma.$MasterCourseArticleReferencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MasterCourseArticleReferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleReferenceCountArgs} args - Arguments to filter MasterCourseArticleReferences to count.
+     * @example
+     * // Count the number of MasterCourseArticleReferences
+     * const count = await prisma.masterCourseArticleReference.count({
+     *   where: {
+     *     // ... the filter for the MasterCourseArticleReferences we want to count
+     *   }
+     * })
+    **/
+    count<T extends MasterCourseArticleReferenceCountArgs>(
+      args?: Subset<T, MasterCourseArticleReferenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MasterCourseArticleReferenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MasterCourseArticleReference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleReferenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MasterCourseArticleReferenceAggregateArgs>(args: Subset<T, MasterCourseArticleReferenceAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseArticleReferenceAggregateType<T>>
+
+    /**
+     * Group by MasterCourseArticleReference.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleReferenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MasterCourseArticleReferenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MasterCourseArticleReferenceGroupByArgs['orderBy'] }
+        : { orderBy?: MasterCourseArticleReferenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MasterCourseArticleReferenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseArticleReferenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MasterCourseArticleReference model
+   */
+  readonly fields: MasterCourseArticleReferenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MasterCourseArticleReference.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MasterCourseArticleReferenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MasterCourseArticleReference model
+   */ 
+  interface MasterCourseArticleReferenceFieldRefs {
+    readonly id: FieldRef<"MasterCourseArticleReference", 'String'>
+    readonly url: FieldRef<"MasterCourseArticleReference", 'String'>
+    readonly title: FieldRef<"MasterCourseArticleReference", 'String'>
+    readonly description: FieldRef<"MasterCourseArticleReference", 'String'>
+    readonly detailedDescription: FieldRef<"MasterCourseArticleReference", 'String'>
+    readonly createdAt: FieldRef<"MasterCourseArticleReference", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MasterCourseArticleReference findUnique
+   */
+  export type MasterCourseArticleReferenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleReference to fetch.
+     */
+    where: MasterCourseArticleReferenceWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleReference findUniqueOrThrow
+   */
+  export type MasterCourseArticleReferenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleReference to fetch.
+     */
+    where: MasterCourseArticleReferenceWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleReference findFirst
+   */
+  export type MasterCourseArticleReferenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleReference to fetch.
+     */
+    where?: MasterCourseArticleReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleReferences to fetch.
+     */
+    orderBy?: MasterCourseArticleReferenceOrderByWithRelationInput | MasterCourseArticleReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasterCourseArticleReferences.
+     */
+    cursor?: MasterCourseArticleReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleReferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasterCourseArticleReferences.
+     */
+    distinct?: MasterCourseArticleReferenceScalarFieldEnum | MasterCourseArticleReferenceScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticleReference findFirstOrThrow
+   */
+  export type MasterCourseArticleReferenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleReference to fetch.
+     */
+    where?: MasterCourseArticleReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleReferences to fetch.
+     */
+    orderBy?: MasterCourseArticleReferenceOrderByWithRelationInput | MasterCourseArticleReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasterCourseArticleReferences.
+     */
+    cursor?: MasterCourseArticleReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleReferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasterCourseArticleReferences.
+     */
+    distinct?: MasterCourseArticleReferenceScalarFieldEnum | MasterCourseArticleReferenceScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticleReference findMany
+   */
+  export type MasterCourseArticleReferenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleReferences to fetch.
+     */
+    where?: MasterCourseArticleReferenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleReferences to fetch.
+     */
+    orderBy?: MasterCourseArticleReferenceOrderByWithRelationInput | MasterCourseArticleReferenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MasterCourseArticleReferences.
+     */
+    cursor?: MasterCourseArticleReferenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleReferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleReferences.
+     */
+    skip?: number
+    distinct?: MasterCourseArticleReferenceScalarFieldEnum | MasterCourseArticleReferenceScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticleReference create
+   */
+  export type MasterCourseArticleReferenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MasterCourseArticleReference.
+     */
+    data: XOR<MasterCourseArticleReferenceCreateInput, MasterCourseArticleReferenceUncheckedCreateInput>
+  }
+
+  /**
+   * MasterCourseArticleReference createMany
+   */
+  export type MasterCourseArticleReferenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MasterCourseArticleReferences.
+     */
+    data: MasterCourseArticleReferenceCreateManyInput | MasterCourseArticleReferenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MasterCourseArticleReference createManyAndReturn
+   */
+  export type MasterCourseArticleReferenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * The data used to create many MasterCourseArticleReferences.
+     */
+    data: MasterCourseArticleReferenceCreateManyInput | MasterCourseArticleReferenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MasterCourseArticleReference update
+   */
+  export type MasterCourseArticleReferenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MasterCourseArticleReference.
+     */
+    data: XOR<MasterCourseArticleReferenceUpdateInput, MasterCourseArticleReferenceUncheckedUpdateInput>
+    /**
+     * Choose, which MasterCourseArticleReference to update.
+     */
+    where: MasterCourseArticleReferenceWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleReference updateMany
+   */
+  export type MasterCourseArticleReferenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MasterCourseArticleReferences.
+     */
+    data: XOR<MasterCourseArticleReferenceUpdateManyMutationInput, MasterCourseArticleReferenceUncheckedUpdateManyInput>
+    /**
+     * Filter which MasterCourseArticleReferences to update
+     */
+    where?: MasterCourseArticleReferenceWhereInput
+    /**
+     * Limit how many MasterCourseArticleReferences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseArticleReference updateManyAndReturn
+   */
+  export type MasterCourseArticleReferenceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * The data used to update MasterCourseArticleReferences.
+     */
+    data: XOR<MasterCourseArticleReferenceUpdateManyMutationInput, MasterCourseArticleReferenceUncheckedUpdateManyInput>
+    /**
+     * Filter which MasterCourseArticleReferences to update
+     */
+    where?: MasterCourseArticleReferenceWhereInput
+    /**
+     * Limit how many MasterCourseArticleReferences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseArticleReference upsert
+   */
+  export type MasterCourseArticleReferenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MasterCourseArticleReference to update in case it exists.
+     */
+    where: MasterCourseArticleReferenceWhereUniqueInput
+    /**
+     * In case the MasterCourseArticleReference found by the `where` argument doesn't exist, create a new MasterCourseArticleReference with this data.
+     */
+    create: XOR<MasterCourseArticleReferenceCreateInput, MasterCourseArticleReferenceUncheckedCreateInput>
+    /**
+     * In case the MasterCourseArticleReference was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MasterCourseArticleReferenceUpdateInput, MasterCourseArticleReferenceUncheckedUpdateInput>
+  }
+
+  /**
+   * MasterCourseArticleReference delete
+   */
+  export type MasterCourseArticleReferenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+    /**
+     * Filter which MasterCourseArticleReference to delete.
+     */
+    where: MasterCourseArticleReferenceWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleReference deleteMany
+   */
+  export type MasterCourseArticleReferenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasterCourseArticleReferences to delete
+     */
+    where?: MasterCourseArticleReferenceWhereInput
+    /**
+     * Limit how many MasterCourseArticleReferences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseArticleReference without action
+   */
+  export type MasterCourseArticleReferenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleReference
+     */
+    select?: MasterCourseArticleReferenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleReference
+     */
+    omit?: MasterCourseArticleReferenceOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MasterCourseArticleMasterCourseArticleReferenceRelation
+   */
+
+  export type AggregateMasterCourseArticleMasterCourseArticleReferenceRelation = {
+    _count: MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateOutputType | null
+    _avg: MasterCourseArticleMasterCourseArticleReferenceRelationAvgAggregateOutputType | null
+    _sum: MasterCourseArticleMasterCourseArticleReferenceRelationSumAggregateOutputType | null
+    _min: MasterCourseArticleMasterCourseArticleReferenceRelationMinAggregateOutputType | null
+    _max: MasterCourseArticleMasterCourseArticleReferenceRelationMaxAggregateOutputType | null
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationAvgAggregateOutputType = {
+    score: number | null
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationSumAggregateOutputType = {
+    score: number | null
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationMinAggregateOutputType = {
+    id: string | null
+    masterCourseArticleId: string | null
+    referenceId: string | null
+    createdAt: Date | null
+    score: number | null
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationMaxAggregateOutputType = {
+    id: string | null
+    masterCourseArticleId: string | null
+    referenceId: string | null
+    createdAt: Date | null
+    score: number | null
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateOutputType = {
+    id: number
+    masterCourseArticleId: number
+    referenceId: number
+    createdAt: number
+    score: number
+    _all: number
+  }
+
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationAvgAggregateInputType = {
+    score?: true
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationSumAggregateInputType = {
+    score?: true
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationMinAggregateInputType = {
+    id?: true
+    masterCourseArticleId?: true
+    referenceId?: true
+    createdAt?: true
+    score?: true
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationMaxAggregateInputType = {
+    id?: true
+    masterCourseArticleId?: true
+    referenceId?: true
+    createdAt?: true
+    score?: true
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateInputType = {
+    id?: true
+    masterCourseArticleId?: true
+    referenceId?: true
+    createdAt?: true
+    score?: true
+    _all?: true
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasterCourseArticleMasterCourseArticleReferenceRelation to aggregate.
+     */
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleMasterCourseArticleReferenceRelations to fetch.
+     */
+    orderBy?: MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput | MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleMasterCourseArticleReferenceRelations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MasterCourseArticleMasterCourseArticleReferenceRelations
+    **/
+    _count?: true | MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MasterCourseArticleMasterCourseArticleReferenceRelationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MasterCourseArticleMasterCourseArticleReferenceRelationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MasterCourseArticleMasterCourseArticleReferenceRelationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MasterCourseArticleMasterCourseArticleReferenceRelationMaxAggregateInputType
+  }
+
+  export type GetMasterCourseArticleMasterCourseArticleReferenceRelationAggregateType<T extends MasterCourseArticleMasterCourseArticleReferenceRelationAggregateArgs> = {
+        [P in keyof T & keyof AggregateMasterCourseArticleMasterCourseArticleReferenceRelation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMasterCourseArticleMasterCourseArticleReferenceRelation[P]>
+      : GetScalarType<T[P], AggregateMasterCourseArticleMasterCourseArticleReferenceRelation[P]>
+  }
+
+
+
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    orderBy?: MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithAggregationInput | MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithAggregationInput[]
+    by: MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum[] | MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum
+    having?: MasterCourseArticleMasterCourseArticleReferenceRelationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateInputType | true
+    _avg?: MasterCourseArticleMasterCourseArticleReferenceRelationAvgAggregateInputType
+    _sum?: MasterCourseArticleMasterCourseArticleReferenceRelationSumAggregateInputType
+    _min?: MasterCourseArticleMasterCourseArticleReferenceRelationMinAggregateInputType
+    _max?: MasterCourseArticleMasterCourseArticleReferenceRelationMaxAggregateInputType
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationGroupByOutputType = {
+    id: string
+    masterCourseArticleId: string
+    referenceId: string
+    createdAt: Date
+    score: number
+    _count: MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateOutputType | null
+    _avg: MasterCourseArticleMasterCourseArticleReferenceRelationAvgAggregateOutputType | null
+    _sum: MasterCourseArticleMasterCourseArticleReferenceRelationSumAggregateOutputType | null
+    _min: MasterCourseArticleMasterCourseArticleReferenceRelationMinAggregateOutputType | null
+    _max: MasterCourseArticleMasterCourseArticleReferenceRelationMaxAggregateOutputType | null
+  }
+
+  type GetMasterCourseArticleMasterCourseArticleReferenceRelationGroupByPayload<T extends MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MasterCourseArticleMasterCourseArticleReferenceRelationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MasterCourseArticleMasterCourseArticleReferenceRelationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MasterCourseArticleMasterCourseArticleReferenceRelationGroupByOutputType[P]>
+            : GetScalarType<T[P], MasterCourseArticleMasterCourseArticleReferenceRelationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    masterCourseArticleId?: boolean
+    referenceId?: boolean
+    createdAt?: boolean
+    score?: boolean
+  }, ExtArgs["result"]["masterCourseArticleMasterCourseArticleReferenceRelation"]>
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    masterCourseArticleId?: boolean
+    referenceId?: boolean
+    createdAt?: boolean
+    score?: boolean
+  }, ExtArgs["result"]["masterCourseArticleMasterCourseArticleReferenceRelation"]>
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    masterCourseArticleId?: boolean
+    referenceId?: boolean
+    createdAt?: boolean
+    score?: boolean
+  }, ExtArgs["result"]["masterCourseArticleMasterCourseArticleReferenceRelation"]>
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationSelectScalar = {
+    id?: boolean
+    masterCourseArticleId?: boolean
+    referenceId?: boolean
+    createdAt?: boolean
+    score?: boolean
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "masterCourseArticleId" | "referenceId" | "createdAt" | "score", ExtArgs["result"]["masterCourseArticleMasterCourseArticleReferenceRelation"]>
+
+  export type $MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MasterCourseArticleMasterCourseArticleReferenceRelation"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      masterCourseArticleId: string
+      referenceId: string
+      createdAt: Date
+      score: number
+    }, ExtArgs["result"]["masterCourseArticleMasterCourseArticleReferenceRelation"]>
+    composites: {}
+  }
+
+  type MasterCourseArticleMasterCourseArticleReferenceRelationGetPayload<S extends boolean | null | undefined | MasterCourseArticleMasterCourseArticleReferenceRelationDefaultArgs> = $Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload, S>
+
+  type MasterCourseArticleMasterCourseArticleReferenceRelationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MasterCourseArticleMasterCourseArticleReferenceRelationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateInputType | true
+    }
+
+  export interface MasterCourseArticleMasterCourseArticleReferenceRelationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MasterCourseArticleMasterCourseArticleReferenceRelation'], meta: { name: 'MasterCourseArticleMasterCourseArticleReferenceRelation' } }
+    /**
+     * Find zero or one MasterCourseArticleMasterCourseArticleReferenceRelation that matches the filter.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueArgs} args - Arguments to find a MasterCourseArticleMasterCourseArticleReferenceRelation
+     * @example
+     * // Get one MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MasterCourseArticleMasterCourseArticleReferenceRelation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueOrThrowArgs} args - Arguments to find a MasterCourseArticleMasterCourseArticleReferenceRelation
+     * @example
+     * // Get one MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueOrThrowArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasterCourseArticleMasterCourseArticleReferenceRelation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstArgs} args - Arguments to find a MasterCourseArticleMasterCourseArticleReferenceRelation
+     * @example
+     * // Get one MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstArgs>(args?: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MasterCourseArticleMasterCourseArticleReferenceRelation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstOrThrowArgs} args - Arguments to find a MasterCourseArticleMasterCourseArticleReferenceRelation
+     * @example
+     * // Get one MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstOrThrowArgs>(args?: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstOrThrowArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MasterCourseArticleMasterCourseArticleReferenceRelations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const masterCourseArticleMasterCourseArticleReferenceRelations = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findMany()
+     * 
+     * // Get first 10 MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const masterCourseArticleMasterCourseArticleReferenceRelations = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const masterCourseArticleMasterCourseArticleReferenceRelationWithIdOnly = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MasterCourseArticleMasterCourseArticleReferenceRelationFindManyArgs>(args?: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationCreateArgs} args - Arguments to create a MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @example
+     * // Create one MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const MasterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.create({
+     *   data: {
+     *     // ... data to create a MasterCourseArticleMasterCourseArticleReferenceRelation
+     *   }
+     * })
+     * 
+     */
+    create<T extends MasterCourseArticleMasterCourseArticleReferenceRelationCreateArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationCreateArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MasterCourseArticleMasterCourseArticleReferenceRelations.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyArgs} args - Arguments to create many MasterCourseArticleMasterCourseArticleReferenceRelations.
+     * @example
+     * // Create many MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyArgs>(args?: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MasterCourseArticleMasterCourseArticleReferenceRelations and returns the data saved in the database.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyAndReturnArgs} args - Arguments to create many MasterCourseArticleMasterCourseArticleReferenceRelations.
+     * @example
+     * // Create many MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MasterCourseArticleMasterCourseArticleReferenceRelations and only return the `id`
+     * const masterCourseArticleMasterCourseArticleReferenceRelationWithIdOnly = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyAndReturnArgs>(args?: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationDeleteArgs} args - Arguments to delete one MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @example
+     * // Delete one MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const MasterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.delete({
+     *   where: {
+     *     // ... filter to delete one MasterCourseArticleMasterCourseArticleReferenceRelation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MasterCourseArticleMasterCourseArticleReferenceRelationDeleteArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationDeleteArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationUpdateArgs} args - Arguments to update one MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @example
+     * // Update one MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MasterCourseArticleMasterCourseArticleReferenceRelationUpdateArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationUpdateArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MasterCourseArticleMasterCourseArticleReferenceRelations.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationDeleteManyArgs} args - Arguments to filter MasterCourseArticleMasterCourseArticleReferenceRelations to delete.
+     * @example
+     * // Delete a few MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const { count } = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MasterCourseArticleMasterCourseArticleReferenceRelationDeleteManyArgs>(args?: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasterCourseArticleMasterCourseArticleReferenceRelations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MasterCourseArticleMasterCourseArticleReferenceRelations and returns the data updated in the database.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyAndReturnArgs} args - Arguments to update many MasterCourseArticleMasterCourseArticleReferenceRelations.
+     * @example
+     * // Update many MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MasterCourseArticleMasterCourseArticleReferenceRelations and only return the `id`
+     * const masterCourseArticleMasterCourseArticleReferenceRelationWithIdOnly = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyAndReturnArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationUpsertArgs} args - Arguments to update or create a MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * @example
+     * // Update or create a MasterCourseArticleMasterCourseArticleReferenceRelation
+     * const masterCourseArticleMasterCourseArticleReferenceRelation = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.upsert({
+     *   create: {
+     *     // ... data to create a MasterCourseArticleMasterCourseArticleReferenceRelation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MasterCourseArticleMasterCourseArticleReferenceRelation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MasterCourseArticleMasterCourseArticleReferenceRelationUpsertArgs>(args: SelectSubset<T, MasterCourseArticleMasterCourseArticleReferenceRelationUpsertArgs<ExtArgs>>): Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<$Result.GetResult<Prisma.$MasterCourseArticleMasterCourseArticleReferenceRelationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MasterCourseArticleMasterCourseArticleReferenceRelations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationCountArgs} args - Arguments to filter MasterCourseArticleMasterCourseArticleReferenceRelations to count.
+     * @example
+     * // Count the number of MasterCourseArticleMasterCourseArticleReferenceRelations
+     * const count = await prisma.masterCourseArticleMasterCourseArticleReferenceRelation.count({
+     *   where: {
+     *     // ... the filter for the MasterCourseArticleMasterCourseArticleReferenceRelations we want to count
+     *   }
+     * })
+    **/
+    count<T extends MasterCourseArticleMasterCourseArticleReferenceRelationCountArgs>(
+      args?: Subset<T, MasterCourseArticleMasterCourseArticleReferenceRelationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MasterCourseArticleMasterCourseArticleReferenceRelationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MasterCourseArticleMasterCourseArticleReferenceRelationAggregateArgs>(args: Subset<T, MasterCourseArticleMasterCourseArticleReferenceRelationAggregateArgs>): Prisma.PrismaPromise<GetMasterCourseArticleMasterCourseArticleReferenceRelationAggregateType<T>>
+
+    /**
+     * Group by MasterCourseArticleMasterCourseArticleReferenceRelation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs['orderBy'] }
+        : { orderBy?: MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MasterCourseArticleMasterCourseArticleReferenceRelationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMasterCourseArticleMasterCourseArticleReferenceRelationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MasterCourseArticleMasterCourseArticleReferenceRelation model
+   */
+  readonly fields: MasterCourseArticleMasterCourseArticleReferenceRelationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MasterCourseArticleMasterCourseArticleReferenceRelation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MasterCourseArticleMasterCourseArticleReferenceRelationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MasterCourseArticleMasterCourseArticleReferenceRelation model
+   */ 
+  interface MasterCourseArticleMasterCourseArticleReferenceRelationFieldRefs {
+    readonly id: FieldRef<"MasterCourseArticleMasterCourseArticleReferenceRelation", 'String'>
+    readonly masterCourseArticleId: FieldRef<"MasterCourseArticleMasterCourseArticleReferenceRelation", 'String'>
+    readonly referenceId: FieldRef<"MasterCourseArticleMasterCourseArticleReferenceRelation", 'String'>
+    readonly createdAt: FieldRef<"MasterCourseArticleMasterCourseArticleReferenceRelation", 'DateTime'>
+    readonly score: FieldRef<"MasterCourseArticleMasterCourseArticleReferenceRelation", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation findUnique
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleMasterCourseArticleReferenceRelation to fetch.
+     */
+    where: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation findUniqueOrThrow
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleMasterCourseArticleReferenceRelation to fetch.
+     */
+    where: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation findFirst
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleMasterCourseArticleReferenceRelation to fetch.
+     */
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleMasterCourseArticleReferenceRelations to fetch.
+     */
+    orderBy?: MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput | MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    cursor?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleMasterCourseArticleReferenceRelations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    distinct?: MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum | MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation findFirstOrThrow
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleMasterCourseArticleReferenceRelation to fetch.
+     */
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleMasterCourseArticleReferenceRelations to fetch.
+     */
+    orderBy?: MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput | MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    cursor?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleMasterCourseArticleReferenceRelations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    distinct?: MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum | MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation findMany
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * Filter, which MasterCourseArticleMasterCourseArticleReferenceRelations to fetch.
+     */
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MasterCourseArticleMasterCourseArticleReferenceRelations to fetch.
+     */
+    orderBy?: MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput | MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    cursor?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MasterCourseArticleMasterCourseArticleReferenceRelations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    skip?: number
+    distinct?: MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum | MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum[]
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation create
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * The data needed to create a MasterCourseArticleMasterCourseArticleReferenceRelation.
+     */
+    data: XOR<MasterCourseArticleMasterCourseArticleReferenceRelationCreateInput, MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedCreateInput>
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation createMany
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    data: MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyInput | MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation createManyAndReturn
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * The data used to create many MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    data: MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyInput | MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation update
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * The data needed to update a MasterCourseArticleMasterCourseArticleReferenceRelation.
+     */
+    data: XOR<MasterCourseArticleMasterCourseArticleReferenceRelationUpdateInput, MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedUpdateInput>
+    /**
+     * Choose, which MasterCourseArticleMasterCourseArticleReferenceRelation to update.
+     */
+    where: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation updateMany
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    data: XOR<MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyMutationInput, MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedUpdateManyInput>
+    /**
+     * Filter which MasterCourseArticleMasterCourseArticleReferenceRelations to update
+     */
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    /**
+     * Limit how many MasterCourseArticleMasterCourseArticleReferenceRelations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation updateManyAndReturn
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * The data used to update MasterCourseArticleMasterCourseArticleReferenceRelations.
+     */
+    data: XOR<MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyMutationInput, MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedUpdateManyInput>
+    /**
+     * Filter which MasterCourseArticleMasterCourseArticleReferenceRelations to update
+     */
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    /**
+     * Limit how many MasterCourseArticleMasterCourseArticleReferenceRelations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation upsert
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * The filter to search for the MasterCourseArticleMasterCourseArticleReferenceRelation to update in case it exists.
+     */
+    where: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+    /**
+     * In case the MasterCourseArticleMasterCourseArticleReferenceRelation found by the `where` argument doesn't exist, create a new MasterCourseArticleMasterCourseArticleReferenceRelation with this data.
+     */
+    create: XOR<MasterCourseArticleMasterCourseArticleReferenceRelationCreateInput, MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedCreateInput>
+    /**
+     * In case the MasterCourseArticleMasterCourseArticleReferenceRelation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MasterCourseArticleMasterCourseArticleReferenceRelationUpdateInput, MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedUpdateInput>
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation delete
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
+    /**
+     * Filter which MasterCourseArticleMasterCourseArticleReferenceRelation to delete.
+     */
+    where: MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation deleteMany
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MasterCourseArticleMasterCourseArticleReferenceRelations to delete
+     */
+    where?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput
+    /**
+     * Limit how many MasterCourseArticleMasterCourseArticleReferenceRelations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MasterCourseArticleMasterCourseArticleReferenceRelation without action
+   */
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    select?: MasterCourseArticleMasterCourseArticleReferenceRelationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MasterCourseArticleMasterCourseArticleReferenceRelation
+     */
+    omit?: MasterCourseArticleMasterCourseArticleReferenceRelationOmit<ExtArgs> | null
   }
 
 
@@ -18222,6 +20441,29 @@ export namespace Prisma {
   export type MasterCourseArticleScalarFieldEnum = (typeof MasterCourseArticleScalarFieldEnum)[keyof typeof MasterCourseArticleScalarFieldEnum]
 
 
+  export const MasterCourseArticleReferenceScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    title: 'title',
+    description: 'description',
+    detailedDescription: 'detailedDescription',
+    createdAt: 'createdAt'
+  };
+
+  export type MasterCourseArticleReferenceScalarFieldEnum = (typeof MasterCourseArticleReferenceScalarFieldEnum)[keyof typeof MasterCourseArticleReferenceScalarFieldEnum]
+
+
+  export const MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum: {
+    id: 'id',
+    masterCourseArticleId: 'masterCourseArticleId',
+    referenceId: 'referenceId',
+    createdAt: 'createdAt',
+    score: 'score'
+  };
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum = (typeof MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum)[keyof typeof MasterCourseArticleMasterCourseArticleReferenceRelationScalarFieldEnum]
+
+
   export const MasterCourseArticleExerciseScalarFieldEnum: {
     id: 'id',
     courseArticleId: 'courseArticleId',
@@ -18823,6 +21065,117 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"MasterCourseArticle"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MasterCourseArticle"> | Date | string
     durationMin?: IntNullableWithAggregatesFilter<"MasterCourseArticle"> | number | null
+  }
+
+  export type MasterCourseArticleReferenceWhereInput = {
+    AND?: MasterCourseArticleReferenceWhereInput | MasterCourseArticleReferenceWhereInput[]
+    OR?: MasterCourseArticleReferenceWhereInput[]
+    NOT?: MasterCourseArticleReferenceWhereInput | MasterCourseArticleReferenceWhereInput[]
+    id?: StringFilter<"MasterCourseArticleReference"> | string
+    url?: StringFilter<"MasterCourseArticleReference"> | string
+    title?: StringFilter<"MasterCourseArticleReference"> | string
+    description?: StringFilter<"MasterCourseArticleReference"> | string
+    detailedDescription?: StringNullableFilter<"MasterCourseArticleReference"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticleReference"> | Date | string
+  }
+
+  export type MasterCourseArticleReferenceOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    detailedDescription?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MasterCourseArticleReferenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MasterCourseArticleReferenceWhereInput | MasterCourseArticleReferenceWhereInput[]
+    OR?: MasterCourseArticleReferenceWhereInput[]
+    NOT?: MasterCourseArticleReferenceWhereInput | MasterCourseArticleReferenceWhereInput[]
+    url?: StringFilter<"MasterCourseArticleReference"> | string
+    title?: StringFilter<"MasterCourseArticleReference"> | string
+    description?: StringFilter<"MasterCourseArticleReference"> | string
+    detailedDescription?: StringNullableFilter<"MasterCourseArticleReference"> | string | null
+    createdAt?: DateTimeFilter<"MasterCourseArticleReference"> | Date | string
+  }, "id">
+
+  export type MasterCourseArticleReferenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    detailedDescription?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: MasterCourseArticleReferenceCountOrderByAggregateInput
+    _max?: MasterCourseArticleReferenceMaxOrderByAggregateInput
+    _min?: MasterCourseArticleReferenceMinOrderByAggregateInput
+  }
+
+  export type MasterCourseArticleReferenceScalarWhereWithAggregatesInput = {
+    AND?: MasterCourseArticleReferenceScalarWhereWithAggregatesInput | MasterCourseArticleReferenceScalarWhereWithAggregatesInput[]
+    OR?: MasterCourseArticleReferenceScalarWhereWithAggregatesInput[]
+    NOT?: MasterCourseArticleReferenceScalarWhereWithAggregatesInput | MasterCourseArticleReferenceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MasterCourseArticleReference"> | string
+    url?: StringWithAggregatesFilter<"MasterCourseArticleReference"> | string
+    title?: StringWithAggregatesFilter<"MasterCourseArticleReference"> | string
+    description?: StringWithAggregatesFilter<"MasterCourseArticleReference"> | string
+    detailedDescription?: StringNullableWithAggregatesFilter<"MasterCourseArticleReference"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MasterCourseArticleReference"> | Date | string
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput = {
+    AND?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput | MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput[]
+    OR?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput[]
+    NOT?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput | MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput[]
+    id?: StringFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    masterCourseArticleId?: StringFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    referenceId?: StringFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    createdAt?: DateTimeFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | Date | string
+    score?: FloatFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | number
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithRelationInput = {
+    id?: SortOrder
+    masterCourseArticleId?: SortOrder
+    referenceId?: SortOrder
+    createdAt?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput | MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput[]
+    OR?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput[]
+    NOT?: MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput | MasterCourseArticleMasterCourseArticleReferenceRelationWhereInput[]
+    masterCourseArticleId?: StringFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    referenceId?: StringFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    createdAt?: DateTimeFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | Date | string
+    score?: FloatFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | number
+  }, "id">
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationOrderByWithAggregationInput = {
+    id?: SortOrder
+    masterCourseArticleId?: SortOrder
+    referenceId?: SortOrder
+    createdAt?: SortOrder
+    score?: SortOrder
+    _count?: MasterCourseArticleMasterCourseArticleReferenceRelationCountOrderByAggregateInput
+    _avg?: MasterCourseArticleMasterCourseArticleReferenceRelationAvgOrderByAggregateInput
+    _max?: MasterCourseArticleMasterCourseArticleReferenceRelationMaxOrderByAggregateInput
+    _min?: MasterCourseArticleMasterCourseArticleReferenceRelationMinOrderByAggregateInput
+    _sum?: MasterCourseArticleMasterCourseArticleReferenceRelationSumOrderByAggregateInput
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationScalarWhereWithAggregatesInput = {
+    AND?: MasterCourseArticleMasterCourseArticleReferenceRelationScalarWhereWithAggregatesInput | MasterCourseArticleMasterCourseArticleReferenceRelationScalarWhereWithAggregatesInput[]
+    OR?: MasterCourseArticleMasterCourseArticleReferenceRelationScalarWhereWithAggregatesInput[]
+    NOT?: MasterCourseArticleMasterCourseArticleReferenceRelationScalarWhereWithAggregatesInput | MasterCourseArticleMasterCourseArticleReferenceRelationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    masterCourseArticleId?: StringWithAggregatesFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    referenceId?: StringWithAggregatesFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | Date | string
+    score?: FloatWithAggregatesFilter<"MasterCourseArticleMasterCourseArticleReferenceRelation"> | number
   }
 
   export type MasterCourseArticleExerciseWhereInput = {
@@ -19809,6 +22162,125 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type MasterCourseArticleReferenceCreateInput = {
+    id: string
+    url: string
+    title: string
+    description: string
+    detailedDescription?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MasterCourseArticleReferenceUncheckedCreateInput = {
+    id: string
+    url: string
+    title: string
+    description: string
+    detailedDescription?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MasterCourseArticleReferenceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    detailedDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleReferenceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    detailedDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleReferenceCreateManyInput = {
+    id: string
+    url: string
+    title: string
+    description: string
+    detailedDescription?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MasterCourseArticleReferenceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    detailedDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleReferenceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    detailedDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCreateInput = {
+    id: string
+    masterCourseArticleId: string
+    referenceId: string
+    createdAt?: Date | string
+    score: number
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedCreateInput = {
+    id: string
+    masterCourseArticleId: string
+    referenceId: string
+    createdAt?: Date | string
+    score: number
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    masterCourseArticleId?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    score?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    masterCourseArticleId?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    score?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCreateManyInput = {
+    id: string
+    masterCourseArticleId: string
+    referenceId: string
+    createdAt?: Date | string
+    score: number
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    masterCourseArticleId?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    score?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    masterCourseArticleId?: StringFieldUpdateOperationsInput | string
+    referenceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    score?: FloatFieldUpdateOperationsInput | number
   }
 
   export type MasterCourseArticleExerciseCreateInput = {
@@ -20860,6 +23332,65 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type MasterCourseArticleReferenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    detailedDescription?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MasterCourseArticleReferenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    detailedDescription?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MasterCourseArticleReferenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    detailedDescription?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationCountOrderByAggregateInput = {
+    id?: SortOrder
+    masterCourseArticleId?: SortOrder
+    referenceId?: SortOrder
+    createdAt?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationAvgOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    masterCourseArticleId?: SortOrder
+    referenceId?: SortOrder
+    createdAt?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationMinOrderByAggregateInput = {
+    id?: SortOrder
+    masterCourseArticleId?: SortOrder
+    referenceId?: SortOrder
+    createdAt?: SortOrder
+    score?: SortOrder
+  }
+
+  export type MasterCourseArticleMasterCourseArticleReferenceRelationSumOrderByAggregateInput = {
+    score?: SortOrder
   }
 
   export type MasterCourseArticleScalarRelationFilter = {

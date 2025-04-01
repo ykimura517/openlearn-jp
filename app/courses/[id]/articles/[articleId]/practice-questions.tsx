@@ -16,7 +16,7 @@ import { CheckCircle2, XCircle } from 'lucide-react';
 import { ArticleExercise } from '@/types/api';
 
 interface Question {
-  id: number;
+  id: string;
   type: 'multiple-choice' | 'free-text';
   question: string;
   options?: string[];

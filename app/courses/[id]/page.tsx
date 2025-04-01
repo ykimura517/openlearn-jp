@@ -192,13 +192,19 @@ export default async function CoursePage({ params }: CoursePageProps) {
         <p className='text-gray-700 mb-4'>
           このコースの最初のレッスンから学習を開始できます。
         </p>
-        <Link
-          href={`/courses/${courseId}/articles/${course.articleSummaries[0].id}`}
-        >
-          <Button className='bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg'>
-            コースを始める <ArrowRight className='ml-2 h-5 w-5' />
+        {course.articleSummaries[0] ? (
+          <Link
+            href={`/courses/${courseId}/articles/${course.articleSummaries[0].id}`}
+          >
+            <Button className='bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg'>
+              コースを始める <ArrowRight className='ml-2 h-5 w-5' />
+            </Button>
+          </Link>
+        ) : (
+          <Button className='bg-gray-500 hover:bg-gray-500 text-white px-8 py-6 text-lg'>
+            このコースは現在利用できません
           </Button>
-        </Link>
+        )}
       </div>
 
       {/* 関連コース */}

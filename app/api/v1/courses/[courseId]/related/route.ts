@@ -5,13 +5,16 @@ import { prisma } from '@/lib/prisma';
 import type { RelatedCoursesResponse } from '@/types/api';
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: Request
+  // { params }: { params: { id: string } }
 ) {
   try {
+    const url = new URL(request.url);
+    const id = url.pathname.split('/').slice(-2, -1)[0]; // "courses/[id]/related" の [id] を取得
+
     // まず、コース間の関連情報を取得
     const relations = await prisma.masterCourseRelation.findMany({
-      where: { courseId: params.id },
+      where: { courseId: id },
     });
 
     // 関連先のコースID一覧を抽出
@@ -35,7 +38,8 @@ export async function GET(
     }));
 
     const response: RelatedCoursesResponse = { courses: relatedCourses };
-
+    // 自分自身のコース情報は含めない
+    response.courses = response.courses.filter((course) => course.id !== id);
     return NextResponse.json(response);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

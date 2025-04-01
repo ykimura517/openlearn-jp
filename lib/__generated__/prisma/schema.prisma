@@ -107,11 +107,28 @@ model MasterCourseArticle {
   faq      MasterCourseArticleFAQ[]
 }
 
+model MasterCourseArticleReference {
+  id                  String   @id
+  url                 String
+  title               String
+  description         String //基本的にリンクのアンカーテキストになる短文
+  detailedDescription String? // embedding対象となる説明文
+  createdAt           DateTime @default(now())
+}
+
+model MasterCourseArticleMasterCourseArticleReferenceRelation {
+  id                    String   @id
+  masterCourseArticleId String
+  referenceId           String
+  createdAt             DateTime @default(now())
+  score                 Float // 基本的にコース概要のembeddingsのcos類似度を保存することを想定
+}
+
 // コース内の演習問題（記事末尾の練習問題）
 model MasterCourseArticleExercise {
   id              String              @id
   courseArticleId String
-  courseArticle   MasterCourseArticle @relation(fields: [courseArticleId], references: [id])
+  courseArticle   MasterCourseArticle @relation(fields: [courseArticleId], references: [id], onDelete: Cascade)
 
   exerciseType  String // SELECTION or TEXT, 自由記述か選択肢式か
   question      String
@@ -126,7 +143,7 @@ model MasterCourseArticleExercise {
 model ChatRoom {
   id              String              @id
   userId          String
-  user            User                @relation(fields: [userId], references: [id])
+  user            User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   courseArticleId String
   courseArticle   MasterCourseArticle @relation(fields: [courseArticleId], references: [id])
   createdAt       DateTime            @default(now())
@@ -139,7 +156,7 @@ model ChatMessage {
   id String @id
 
   chatRoomId String
-  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id])
+  chatRoom   ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
   // チャット発言者。未ログインの場合も想定できるため、userはオプショナル
   userId     String? // AIの場合はnull
   user       User?    @relation(fields: [userId], references: [id])
@@ -155,7 +172,7 @@ model ChatMessage {
 model MasterCourseArticleFAQ {
   id              String              @id
   courseArticleId String
-  courseArticle   MasterCourseArticle @relation(fields: [courseArticleId], references: [id])
+  courseArticle   MasterCourseArticle @relation(fields: [courseArticleId], references: [id], onDelete: Cascade)
 
   question  String
   answer    String
@@ -185,7 +202,7 @@ model MasterExam {
 model MasterExamQuestion {
   id            String     @id
   examId        String
-  exam          MasterExam @relation(fields: [examId], references: [id])
+  exam          MasterExam @relation(fields: [examId], references: [id], onDelete: Cascade)
   sequence      Int // 問題の順番（試験内での連番）
   score         Int // 問題の配点
   question      String
