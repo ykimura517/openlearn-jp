@@ -9,110 +9,177 @@ APIのインターフェースは、下記のapi.ts内の型にしてくださ�
 
 
 ## ユーザーからの質問
-下記のコンポーネントで、リンクカード全体をリンクにして
-### app/courses/[id]/articles/[articleId]/references-section.tsx
+下記のページにアクセスすると、なぜか下の方まで勝手にスクロールされます。
+原因を推測し、改修可能である場合は、コードを改修してください。
 
-'use client';
+### app/courses/[id]/articles/[articleId]/page.tsx
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ExternalLink } from 'lucide-react';
-import type { ReferencesResponse } from '@/types/api';
-import { apiFetch } from '@/lib/apiClient';
+import { Suspense } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import SocialShareButtons from '@/components/social-share-buttons';
+import ArticleContent from './article-content';
+import PracticeQuestions from './practice-questions';
+import AiChatSection from './ai-chat-section';
+import NavigationSection from './navigation-section';
+import ReferencesSection from './references-section';
+import NextArticleSection from './next-article-section';
+import type {
+  CourseArticleDetail,
+  ExerciseQuestionsResponse,
+} from '@/types/api';
 
-interface ReferencesSectionProps {
-  courseId: string;
-  articleId: string;
+interface ArticlePageProps {
+  params: {
+    id: string;
+    articleId: string;
+  };
 }
 
-export default function ReferencesSection({
-  courseId,
-  articleId,
-}: ReferencesSectionProps) {
-  const [references, setReferences] = useState<ReferencesResponse | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+// サーバーコンポーネントでのデータフェッチング
+async function getArticleData(courseId: string, articleId: string) {
+  try {
+    const response = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_API_BASE_URL || ''
+      }/api/v1/courses/${courseId}/articles/${articleId}`,
+      { cache: 'no-store' }
+    );
 
-  useEffect(() => {
-    const fetchReferences = async () => {
-      setIsLoading(true);
-      setError(null);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(
+        `Failed to fetch lesson(article) content: ${response.status} - ${errorText}`
+      );
+    }
 
-      try {
-        const data = await apiFetch<ReferencesResponse>(
-          `/api/v1/courses/${courseId}/articles/${articleId}/references`
-        );
-        setReferences(data);
-      } catch (err) {
-        console.error('Error fetching references:', err);
-        setError(
-          err instanceof Error
-            ? err.message
-            : '参考リンクの取得中にエラーが発生しました。'
-        );
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    return (await response.json()) as CourseArticleDetail;
+  } catch (error) {
+    console.error('Error fetching lesson data:', error);
+    throw error;
+  }
+}
 
-    fetchReferences();
-  }, [courseId, articleId]);
+// 練習問題の取得
+async function getExerciseQuestions(courseId: string, articleId: string) {
+  try {
+    const response = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_API_BASE_URL || ''
+      }/api/v1/courses/${courseId}/articles/${articleId}/questions`,
+      { cache: 'no-store' }
+    );
 
-  if (isLoading) {
+    if (!response.ok) {
+      return null;
+    }
+
+    return (await response.json()) as ExerciseQuestionsResponse;
+  } catch (error) {
+    console.error('Error fetching practice questions:', error);
+    return null;
+  }
+}
+
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const { id: courseId, articleId } = params;
+  // データフェッチング
+  let articleData: CourseArticleDetail | null = null;
+  let error: string | null = null;
+  let questions: ExerciseQuestionsResponse | null = null;
+
+  try {
+    // 並列でデータを取得
+    [articleData, questions] = await Promise.all([
+      getArticleData(courseId, articleId),
+      getExerciseQuestions(courseId, articleId),
+    ]);
+  } catch (err) {
+    error =
+      err instanceof Error
+        ? err.message
+        : 'レッスンデータの取得中にエラーが発生しました。';
+  }
+
+  // エラー状態
+  if (error || !articleData) {
     return (
-      <div className='mb-12'>
-        <h2 className='text-2xl font-bold text-gray-800 mb-6'>参考リンク</h2>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-          {[...Array(3)].map((_, index) => (
-            <div key={index} className='animate-pulse'>
-              <div className='h-8 bg-gray-200 rounded w-3/4 mb-2'></div>
-              <div className='h-16 bg-gray-200 rounded'></div>
-            </div>
-          ))}
+      <div className='container mx-auto px-4 py-8'>
+        <div className='bg-red-50 border border-red-200 rounded-lg p-6 text-center'>
+          <h2 className='text-xl font-bold text-red-600 mb-2'>
+            エラーが発生しました
+          </h2>
+          <p className='text-red-600 mb-4'>
+            {error || 'レッスンデータを取得できませんでした。'}
+          </p>
+          <Link href={`/courses/${courseId}`}>
+            <Button
+              variant='outline'
+              className='border-red-500 text-red-500 hover:bg-red-50'
+            >
+              コース概要に戻る
+            </Button>
+          </Link>
         </div>
       </div>
     );
   }
 
-  if (error || !references || references.references.length === 0) {
-    return null;
-  }
-
   return (
-    <div className='mb-12'>
-      <h2 className='text-2xl font-bold text-gray-800 mb-6'>参考リンク</h2>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {references.references.map((reference, index) => {
-          // URLに"openlearn.jp"が含まれていない場合は別ドメインと判定してnofollowを付与
-          const isExternal = !reference.url.includes('openlearn.jp');
-          return (
-            <Card key={index} className='hover:shadow-md transition-shadow'>
-              <CardHeader className='pb-2'>
-                <CardTitle className='text-lg text-gray-800 flex items-start'>
-                  <span className='flex-1'>{reference.title}</span>
-                  {reference.url !== '#' && (
-                    <a
-                      href={reference.url}
-                      target='_blank'
-                      rel={`noopener${isExternal ? ' nofollow' : ''}`}
-                      className='text-orange-500 hover:text-orange-600'
-                    >
-                      <ExternalLink className='h-4 w-4' />
-                    </a>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className='text-gray-600 text-sm'>{reference.description}</p>
-              </CardContent>
-            </Card>
-          );
-        })}
+    <div className='container mx-auto px-4 py-8'>
+      <div className='mb-8'>
+        <Link
+          href={`/courses/${courseId}`}
+          className='text-orange-500 hover:underline mb-4 inline-block'
+        >
+          ← コース概要に戻る
+        </Link>
+        <h1 className='text-3xl font-bold text-gray-800 mb-2'>
+          {articleData.courseTitle}
+        </h1>
+        <h2 className='text-xl text-gray-600 mb-4'>{articleData.title}</h2>
+        <SocialShareButtons
+          title={`${articleData.courseTitle} - ${articleData.title}`}
+          className='mb-6'
+        />
       </div>
+
+      {/* レッスンナビゲーション - クライアントコンポーネント */}
+      <NavigationSection courseId={courseId} articleId={articleId} />
+
+      {/* レッスンコンテンツ - サーバーサイドレンダリング */}
+      <div className='mb-12'>
+        <Suspense
+          fallback={
+            <div className='animate-pulse h-96 bg-gray-100 rounded-md'></div>
+          }
+        >
+          <ArticleContent content={articleData.content} />
+        </Suspense>
+      </div>
+
+      {/* 練習問題 - クライアントサイドインタラクティブ */}
+      {questions && questions.questions.length > 0 && (
+        <div className='mb-12'>
+          <h2 className='text-2xl font-bold text-gray-800 mb-6'>練習問題</h2>
+          <PracticeQuestions questions={questions.questions} />
+        </div>
+      )}
+
+      {/* AIチャットセクション - クライアントサイドインタラクティブ */}
+      <div className='mb-12'>
+        <h2 className='text-2xl font-bold text-gray-800 mb-6'>AIに質問する</h2>
+        <AiChatSection articleTitle={articleData.title} />
+      </div>
+
+      {/* 次のレッスンボタン - クライアントコンポーネント */}
+      <NextArticleSection courseId={courseId} articleId={articleId} />
+
+      {/* 参考リンク - クライアントコンポーネント */}
+      <ReferencesSection courseId={courseId} articleId={articleId} />
     </div>
   );
 }
-
 
 
 ## プロダクト(OpenLearn)について

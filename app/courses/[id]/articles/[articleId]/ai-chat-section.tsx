@@ -29,11 +29,6 @@ export default function AiChatSection({ articleTitle }: AiChatSectionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // メッセージが追加されたときに自動スクロール
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   const handleSendMessage = async () => {
     if (!inputValue.trim() || !user) return;
 
