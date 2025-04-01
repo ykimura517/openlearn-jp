@@ -9,180 +9,110 @@ APIのインターフェースは、下記のapi.ts内の型にしてくださ�
 
 
 ## ユーザーからの質問
-下記のAPIを実際のDBから取得するように変更して。
-(Articleテーブルからデータを取得していい感じに加工してレスポンスを返すイメージです。）
-### app/api/v1/courses/[courseId]/articles/[articleId]/navigation/route.ts
+下記のコンポーネントで、リンクカード全体をリンクにして
+### app/courses/[id]/articles/[articleId]/references-section.tsx
 
-import { type NextRequest, NextResponse } from 'next/server';
-import type { CourseArticleNavigationResponse } from '@/types/api';
+'use client';
 
-interface RouteParams {
-  params: {
-    id: string;
-    articleId: string;
-  };
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ExternalLink } from 'lucide-react';
+import type { ReferencesResponse } from '@/types/api';
+import { apiFetch } from '@/lib/apiClient';
+
+interface ReferencesSectionProps {
+  courseId: string;
+  articleId: string;
 }
 
-export async function GET(request: NextRequest, { params }: RouteParams) {
-  const { id: courseId, articleId } = params;
+export default function ReferencesSection({
+  courseId,
+  articleId,
+}: ReferencesSectionProps) {
+  const [references, setReferences] = useState<ReferencesResponse | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // モックデータ
-  const mockCourseArticles: Record<string, CourseArticleNavigationResponse> = {
-    'intro-to-ai': {
-      currentCourseArticle: {
-        id: 'lesson-1',
-        sequence: 1,
-        title: '生成AIとは何か',
-        durationMin: 20,
-      },
-      prevCourseArticle: null,
-      nextCourseArticle: {
-        id: 'AprevCourseArticle-2',
-        sequence: 2,
-        title: '大規模言語モデル（LLM）の仕組み',
-        durationMin: 25,
-      },
-      currentCourseArticleIndex: 0,
-      totalCourseArticles: 5,
-    },
-  };
+  useEffect(() => {
+    const fetchReferences = async () => {
+      setIsLoading(true);
+      setError(null);
 
-  // レッスンIDに基づいて動的にナビゲーション情報を生成
-  let navigationInfo: CourseArticleNavigationResponse;
-
-  if (courseId === 'intro-to-ai') {
-    const articles = [
-      { id: 'lesson-1', title: '生成AIとは何か', sequence: 1, durationMin: 20 },
-      {
-        id: 'lesson-2',
-        title: '大規模言語モデル（LLM）の仕組み',
-        sequence: 2,
-        durationMin: 25,
-      },
-      {
-        id: 'lesson-3',
-        title: 'ChatGPTの使い方と活用例',
-        durationMin: 30,
-        sequence: 3,
-      },
-      {
-        id: 'lesson-4',
-        title: '画像生成AIの基礎',
-        durationMin: 25,
-        sequence: 4,
-      },
-      {
-        id: 'lesson-5',
-        title: '生成AIの未来と課題',
-        durationMin: 20,
-        sequence: 5,
-      },
-    ];
-
-    const currentIndex = articles.findIndex(
-      (article) => article.id === articleId
-    );
-
-    if (currentIndex !== -1) {
-      navigationInfo = {
-        currentCourseArticle: articles[currentIndex],
-        prevCourseArticle: currentIndex > 0 ? articles[currentIndex - 1] : null,
-        nextCourseArticle:
-          currentIndex < articles.length - 1
-            ? articles[currentIndex + 1]
-            : null,
-        currentCourseArticleIndex: currentIndex,
-        totalCourseArticles: articles.length,
-      };
-    } else {
-      // デフォルト値（レッスンが見つからない場合）
-      navigationInfo = mockCourseArticles[courseId];
-    }
-  } else if (courseId === 'prompt-engineering') {
-    const articles = [
-      {
-        id: 'lesson-1',
-        title: 'プロンプトエンジニアリングとは',
-        durationMin: 20,
-        sequence: 1,
-      },
-      {
-        id: 'lesson-2',
-        title: '効果的なプロンプトの構造',
-        durationMin: 30,
-        sequence: 2,
-      },
-
-      {
-        id: 'lesson-3',
-        title: 'ユースケース別プロンプト設計',
-        durationMin: 40,
-        sequence: 3,
-      },
-      {
-        id: 'lesson-4',
-        title: 'プロンプトの最適化と反復',
-        durationMin: 30,
-        sequence: 4,
-      },
-      {
-        id: 'lesson-5',
-        title: '高度なプロンプト技術',
-        durationMin: 30,
-        sequence: 5,
-      },
-      {
-        id: 'lesson-6',
-        title: 'プロンプトの評価と改善',
-        durationMin: 20,
-        sequence: 6,
-      },
-      { id: 'lesson-7', title: '実践演習', durationMin: 30, sequence: 7 },
-    ];
-
-    const currentIndex = articles.findIndex(
-      (article) => article.id === articleId
-    );
-
-    if (currentIndex !== -1) {
-      navigationInfo = {
-        currentCourseArticle: articles[currentIndex],
-        prevCourseArticle: currentIndex > 0 ? articles[currentIndex - 1] : null,
-        nextCourseArticle:
-          currentIndex < articles.length - 1
-            ? articles[currentIndex + 1]
-            : null,
-        currentCourseArticleIndex: currentIndex,
-        totalCourseArticles: articles.length,
-      };
-    } else {
-      // レッスンが見つからない場合のエラーハンドリングを改善
-      return NextResponse.json(
-        { error: `Article ${articleId} not found in course ${courseId}` },
-        { status: 404 }
-      );
-    }
-  } else {
-    // 未知のコースIDの場合はデフォルト値
-    navigationInfo = {
-      currentCourseArticle: {
-        id: articleId,
-        title: 'レッスン',
-        durationMin: 30,
-        sequence: 1,
-      },
-      prevCourseArticle: null,
-      nextCourseArticle: null,
-      currentCourseArticleIndex: 0,
-      totalCourseArticles: 1,
+      try {
+        const data = await apiFetch<ReferencesResponse>(
+          `/api/v1/courses/${courseId}/articles/${articleId}/references`
+        );
+        setReferences(data);
+      } catch (err) {
+        console.error('Error fetching references:', err);
+        setError(
+          err instanceof Error
+            ? err.message
+            : '参考リンクの取得中にエラーが発生しました。'
+        );
+      } finally {
+        setIsLoading(false);
+      }
     };
+
+    fetchReferences();
+  }, [courseId, articleId]);
+
+  if (isLoading) {
+    return (
+      <div className='mb-12'>
+        <h2 className='text-2xl font-bold text-gray-800 mb-6'>参考リンク</h2>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {[...Array(3)].map((_, index) => (
+            <div key={index} className='animate-pulse'>
+              <div className='h-8 bg-gray-200 rounded w-3/4 mb-2'></div>
+              <div className='h-16 bg-gray-200 rounded'></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
-  // 遅延をシミュレート
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  if (error || !references || references.references.length === 0) {
+    return null;
+  }
 
-  return NextResponse.json(navigationInfo);
+  return (
+    <div className='mb-12'>
+      <h2 className='text-2xl font-bold text-gray-800 mb-6'>参考リンク</h2>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+        {references.references.map((reference, index) => {
+          // URLに"openlearn.jp"が含まれていない場合は別ドメインと判定してnofollowを付与
+          const isExternal = !reference.url.includes('openlearn.jp');
+          return (
+            <Card key={index} className='hover:shadow-md transition-shadow'>
+              <CardHeader className='pb-2'>
+                <CardTitle className='text-lg text-gray-800 flex items-start'>
+                  <span className='flex-1'>{reference.title}</span>
+                  {reference.url !== '#' && (
+                    <a
+                      href={reference.url}
+                      target='_blank'
+                      rel={`noopener${isExternal ? ' nofollow' : ''}`}
+                      className='text-orange-500 hover:text-orange-600'
+                    >
+                      <ExternalLink className='h-4 w-4' />
+                    </a>
+                  )}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className='text-gray-600 text-sm'>{reference.description}</p>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
+
 
 
 ## プロダクト(OpenLearn)について

@@ -71,27 +71,47 @@ export default function ReferencesSection({
         {references.references.map((reference, index) => {
           // URLに"openlearn.jp"が含まれていない場合は別ドメインと判定してnofollowを付与
           const isExternal = !reference.url.includes('openlearn.jp');
+
+          // reference.urlが'#'の場合はリンクとしてラップしない
+          if (reference.url === '#') {
+            return (
+              <Card key={index} className='hover:shadow-md transition-shadow'>
+                <CardHeader className='pb-2'>
+                  <CardTitle className='text-lg text-gray-800'>
+                    {reference.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className='text-gray-600 text-sm'>
+                    {reference.description}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          }
+
           return (
-            <Card key={index} className='hover:shadow-md transition-shadow'>
-              <CardHeader className='pb-2'>
-                <CardTitle className='text-lg text-gray-800 flex items-start'>
-                  <span className='flex-1'>{reference.title}</span>
-                  {reference.url !== '#' && (
-                    <a
-                      href={reference.url}
-                      target='_blank'
-                      rel={`noopener${isExternal ? ' nofollow' : ''}`}
-                      className='text-orange-500 hover:text-orange-600'
-                    >
-                      <ExternalLink className='h-4 w-4' />
-                    </a>
-                  )}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className='text-gray-600 text-sm'>{reference.description}</p>
-              </CardContent>
-            </Card>
+            <a
+              key={index}
+              href={reference.url}
+              target='_blank'
+              rel={`noopener${isExternal ? ' nofollow' : ''}`}
+              className='block'
+            >
+              <Card className='hover:shadow-md transition-shadow'>
+                <CardHeader className='pb-2'>
+                  <CardTitle className='text-lg text-gray-800 flex items-start'>
+                    <span className='flex-1'>{reference.title}</span>
+                    <ExternalLink className='h-4 w-4 text-orange-500 hover:text-orange-600' />
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className='text-gray-600 text-sm'>
+                    {reference.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </a>
           );
         })}
       </div>
