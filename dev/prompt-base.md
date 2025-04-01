@@ -9,208 +9,6 @@ APIのインターフェースは、下記のapi.ts内の型にしてくださ�
 
 
 ## ユーザーからの質問
-下記ページで
-「コースを探す」をクリックしたら、/coursesに飛ぶようにして、
-「試験に挑戦する」なら/examsに飛ぶようにして
-
-### app/page.tsx
-// app/page.tsx
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { ArrowRight, BookOpen, Code, Brain, Share2 } from 'lucide-react';
-import { apiFetch } from '@/lib/apiClient';
-import type { CategoryWithRepresentativeCourse } from '@/types/api';
-
-interface Category {
-  id: string;
-  title: string;
-  description: string;
-  courses: {
-    id: string;
-    title: string;
-    level: string;
-    duration: string;
-  }[];
-}
-
-export default async function Home() {
-  // APIからトップページ用のカテゴリ＋代表コース情報を取得
-  const data = await apiFetch<CategoryWithRepresentativeCourse[]>(
-    `/api/v1/home`,
-    {
-      cache: 'default',
-    }
-  );
-
-  const categories: Category[] = data.map((category) => ({
-    id: category.categoryId,
-    title: category.title,
-    description: category.description,
-    courses: category.courses.map((course) => ({
-      id: course.id,
-      title: course.title,
-      level: course.level,
-      duration: course.duration,
-    })),
-  }));
-
-  // カテゴリIDに応じたアイコンのマッピング
-  const iconMap: Record<string, JSX.Element> = {
-    ai: <Brain className='h-8 w-8 text-orange-500' />,
-    programming: <Code className='h-8 w-8 text-orange-500' />,
-    'web-development': <BookOpen className='h-8 w-8 text-orange-500' />,
-  };
-
-  return (
-    <div className='container mx-auto px-4 py-8'>
-      {/* Hero Section */}
-      <section className='bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl p-8 mb-12'>
-        <div className='max-w-3xl mx-auto text-center'>
-          <h1 className='text-4xl md:text-5xl font-bold text-orange-600 mb-4'>
-            生成AIとプログラミングを学ぼう
-          </h1>
-          <p className='text-xl text-gray-700 mb-8'>
-            OpenLearn
-            JPは、最新の生成AIやプログラミングについての学習コースを提供するプラットフォームです。
-            初心者から上級者まで、あなたのレベルに合わせた学習体験を提供します。
-          </p>
-          <div className='flex flex-col sm:flex-row justify-center gap-4'>
-            <Button className='bg-orange-500 hover:bg-orange-600 text-white text-lg py-6 px-8'>
-              コースを探す
-            </Button>
-            <Button
-              variant='outline'
-              className='border-orange-500 text-orange-500 hover:bg-orange-50 text-lg py-6 px-8'
-            >
-              試験に挑戦する
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Categories Section */}
-      {categories.map((category) => (
-        <section key={category.id} className='mb-16'>
-          <div className='flex justify-between items-center mb-6'>
-            <div className='flex items-center gap-3'>
-              {iconMap[category.id] || (
-                <BookOpen className='h-8 w-8 text-orange-500' />
-              )}
-              <h2 className='text-2xl font-bold text-gray-800'>
-                {category.title}
-              </h2>
-            </div>
-            <Link
-              href={`/courses?category=${category.id}`}
-              className='text-orange-500 hover:underline flex items-center'
-            >
-              すべて見る <ArrowRight className='ml-1 h-4 w-4' />
-            </Link>
-          </div>
-          <p className='text-gray-600 mb-6'>{category.description}</p>
-
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-            {category.courses.map((course) => (
-              <Card
-                key={course.id}
-                className='hover:shadow-md transition-shadow'
-              >
-                <CardHeader className='pb-2'>
-                  <div className='flex justify-between items-start'>
-                    <CardTitle className='text-xl text-gray-800'>
-                      {course.title}
-                    </CardTitle>
-                    <button className='text-gray-400 hover:text-orange-500'>
-                      <Share2 className='h-5 w-5' />
-                    </button>
-                  </div>
-                  <CardDescription className='flex gap-3 mt-2'>
-                    <span className='bg-orange-100 text-orange-600 px-2 py-1 rounded text-xs'>
-                      {course.level}
-                    </span>
-                    <span className='bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs'>
-                      {course.duration}
-                    </span>
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className='text-gray-600 line-clamp-3'>
-                    {course.title}
-                    に関する基礎から応用までを学べるコースです。実践的な例を通して理解を深めることができます。
-                  </p>
-                </CardContent>
-                <CardFooter>
-                  <Link href={`/courses/${course.id}`} className='w-full'>
-                    <Button
-                      variant='outline'
-                      className='w-full border-orange-500 text-orange-500 hover:bg-orange-50'
-                    >
-                      コースを見る
-                    </Button>
-                  </Link>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </section>
-      ))}
-
-      {/* Exams Section */}
-      <section className='bg-orange-50 rounded-xl p-8 mb-12'>
-        <div className='text-center mb-8'>
-          <h2 className='text-3xl font-bold text-orange-600 mb-4'>
-            知識をテストしよう
-          </h2>
-          <p className='text-xl text-gray-700'>
-            学んだ知識を試験で確認し、あなたのスキルレベルを証明しましょう。
-          </p>
-        </div>
-
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-          {categories.map((category) => (
-            <Card
-              key={category.id}
-              className='hover:shadow-md transition-shadow'
-            >
-              <CardHeader>
-                <div className='flex items-center gap-3'>
-                  {iconMap[category.id] || (
-                    <BookOpen className='h-8 w-8 text-orange-500' />
-                  )}
-                  <CardTitle>{category.title}試験</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className='text-gray-600'>
-                  {category.title}
-                  の知識を確認するための試験です。合格すると認定証が発行されます。
-                </p>
-              </CardContent>
-              <CardFooter>
-                <Link
-                  href={`/exams?category=${category.id}`}
-                  className='w-full'
-                >
-                  <Button className='w-full bg-orange-500 hover:bg-orange-600 text-white'>
-                    試験に挑戦する
-                  </Button>
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
 
 ## プロダクト(OpenLearn)について
 解説対象のOpenLearnについての情報は下記です。
@@ -279,6 +77,7 @@ APIは/api/v1以下に作っていってます。
 
 ## 主要なファイル
 ### prisma/schema.prisma
+```
 generator client {
   provider = "prisma-client-js"
   output   = "../lib/__generated__/prisma"
@@ -513,9 +312,11 @@ model ExamAnswer {
   @@index([examSubmissionId])
 }
 
+```
 
 ### types/api.ts
 ```
+// types/api.ts
 // APIの返却・受領値の型定義
 
 // コース関連
@@ -627,6 +428,7 @@ export interface Course {
 export interface CoursesResponse {
   courses: Course[];
   totalCourses: number;
+  totalPages: number;
 }
 
 export interface CourseDetail {
@@ -713,12 +515,25 @@ export interface AIChatResponse {
   message: string;
   timestamp: string;
 }
+
+export interface UserExamResult {
+  subMissionId: string;
+  examId: string;
+  examTitle: string;
+  date: string;
+  score: number;
+  passingScore: number;
+  examCategoryName: string;
+  examLevel: string;
+}
+
 ```
 
 重要：APIのリクエスト・レスポンスはプリミティブ型か↑のファイルにある型を必ず使用して行ってください。
 機能的に上記の型だけではデータを上手く表現出来ない場合は、上記ファイルに使用したい型を追記してください。
 
 ### contexts/auth-context.tsx
+```
 'use client';
 
 import type React from 'react';
@@ -824,8 +639,10 @@ export const useAuth = () => {
   return context;
 };
 
+```
 
 ### lib/apiClient.ts(APIへのリクエストをするときは基本このラッパーを使ってください)
+```
 // lib/apiClient.ts
 import { auth } from './firebase';
 
@@ -889,49 +706,10 @@ export async function apiFetch<T>(
   return res.json();
 }
 
-### lib/apiHandler.ts(APIでリクエストを処理するときは基本このライブラリを使ってください)
-// lib/apiHandler.ts
-import admin from './firebase-admin';
-
-/**
- * リクエストからAuthorizationヘッダーを取得し、
- * Firebase Admin SDKでトークンを検証する
- * @param req - Requestオブジェクト
- * @returns デコード済みのトークン情報
- * @throws 認証に失敗した場合はエラーを投げる
- */
-export async function authenticate(
-  req: Request
-): Promise<admin.auth.DecodedIdToken> {
-  const authHeader = req.headers.get('authorization');
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    throw new Error('Unauthorized: トークンが存在しないか不正です');
-  }
-  const token = authHeader.split('Bearer ')[1];
-  try {
-    const decodedToken = await admin.auth().verifyIdToken(token);
-    return decodedToken;
-  } catch (error) {
-    throw new Error('Unauthorized: トークンの検証に失敗しました');
-  }
-}
-
-/**
- * URLを丁寧に結合するヘルパー関数（サーバー側用）
- */
-export function joinURL(...parts: string[]): string {
-  return parts
-    .map((part, index) => {
-      if (index === 0) {
-        return part.replace(/\/+$/, '');
-      }
-      return part.replace(/^\/+|\/+$/g, '');
-    })
-    .join('/');
-}
-
+```
 
 ### sample.env
+```
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
 NEXT_PUBLIC_FIREBASE_API_KEY=
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=
@@ -943,8 +721,9 @@ FIREBASE_ADMIN_PROJECT_ID=
 FIREBASE_ADMIN_CLIENT_EMAIL=
 FIREBASE_ADMIN_PRIVATE_KEY=
 DATABASE_URL=
-
+```
 ### app/page.tsx
+```
 // app/page.tsx
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -1014,15 +793,19 @@ export default async function Home() {
             初心者から上級者まで、あなたのレベルに合わせた学習体験を提供します。
           </p>
           <div className='flex flex-col sm:flex-row justify-center gap-4'>
-            <Button className='bg-orange-500 hover:bg-orange-600 text-white text-lg py-6 px-8'>
-              コースを探す
-            </Button>
-            <Button
-              variant='outline'
-              className='border-orange-500 text-orange-500 hover:bg-orange-50 text-lg py-6 px-8'
-            >
-              試験に挑戦する
-            </Button>
+            <Link href='/courses'>
+              <Button className='bg-orange-500 hover:bg-orange-600 text-white text-lg py-6 px-8'>
+                コースを探す
+              </Button>
+            </Link>
+            <Link href='/exams'>
+              <Button
+                variant='outline'
+                className='border-orange-500 text-orange-500 hover:bg-orange-50 text-lg py-6 px-8'
+              >
+                試験に挑戦する
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -1143,49 +926,7 @@ export default async function Home() {
   );
 }
 
+```
 
 ### app/api/v1/home/route.ts 
-// app/api/v1/home/route.ts
-
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import type { CategoryWithRepresentativeCourse } from '@/types/api';
-
-export async function GET(request: Request) {
-  try {
-    // MasterCategoryとその関連するコース情報を取得
-    const categories = await prisma.masterCategory.findMany({
-      include: {
-        courses: {
-          // トップページ用として、代表となる上位3件のコースを取得
-          take: 3,
-          orderBy: {
-            createdAt: 'asc',
-          },
-        },
-      },
-    });
-
-    // PrismaのデータをAPIのレスポンス型に合わせて変換
-    const result: CategoryWithRepresentativeCourse[] = categories.map(
-      (category) => ({
-        categoryId: category.id,
-        title: category.name,
-        description: category.description,
-        courses: category.courses.map((course) => ({
-          id: course.id,
-          // course.title は nullable の可能性があるため、nullの場合は空文字にしています
-          title: course.title || '',
-          level: course.level,
-          // 所要時間 (durationMin) が設定されていれば「○分」として表示
-          duration: course.durationMin ? `${course.durationMin}分` : 'N/A',
-        })),
-      })
-    );
-
-    return NextResponse.json(result);
-  } catch (error: any) {
-    // エラー発生時はエラーメッセージと共に 500 エラーを返す
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-}
+{{app/api/v1/home/route.ts}}
