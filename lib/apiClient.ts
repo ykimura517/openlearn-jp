@@ -31,6 +31,7 @@ function joinURL(...parts: string[]): string {
  * @param options - fetchのオプション
  * @param requiresAuth - 認証トークンが必要な場合trueにする
  */
+
 export async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {},
@@ -55,8 +56,13 @@ export async function apiFetch<T>(
     headers,
   });
 
+  const data = await res.json();
+
   if (!res.ok) {
-    throw new Error(`APIエラー: ${res.status}`);
+    // レスポンスのbodyに含まれるエラーメッセージがあれば利用する
+    const errorMessage =
+      data && data.message ? data.message : `APIエラー: ${res.status}`;
+    throw new Error(errorMessage);
   }
-  return res.json();
+  return data;
 }

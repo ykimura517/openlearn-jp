@@ -44,7 +44,7 @@ export async function PUT(request: Request) {
       },
     });
 
-    const responseUser = {
+    const responseUser: ApiUser = {
       id: user.id,
       displayId: user.displayId,
       name: user.name || '',
@@ -55,6 +55,18 @@ export async function PUT(request: Request) {
 
     return NextResponse.json(responseUser);
   } catch (error: any) {
+    // displayIdの重複によるユニーク制約違反の場合、PrismaエラーコードP2002が返る
+    if (
+      error.code === 'P2002' &&
+      error.meta &&
+      error.meta.target &&
+      error.meta.target.includes('displayId')
+    ) {
+      return NextResponse.json(
+        { message: 'DISPLAY_ID_ALREADY_USED' },
+        { status: 409 }
+      );
+    }
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

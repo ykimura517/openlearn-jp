@@ -63,7 +63,7 @@ export default function SettingsPage() {
         occupation: occupation,
         displayId: userId,
       };
-      await apiFetch<ApiUser>(
+      const res = await apiFetch<ApiUser>(
         '/api/v1/mypage/profile',
         {
           method: 'PUT',
@@ -72,10 +72,15 @@ export default function SettingsPage() {
         },
         true
       );
-
       setSuccess('プロフィール情報が正常に更新されました。');
-    } catch (err) {
-      setError('プロフィールの更新に失敗しました。もう一度お試しください。');
+    } catch (err: any) {
+      console.error(err);
+      // API側でDISPLAY_ID_ALREADY_USEDエラーを返している場合
+      if (err.message === 'DISPLAY_ID_ALREADY_USED') {
+        setError('ユーザーIDは既に使用されています。');
+      } else {
+        setError('プロフィールの更新に失敗しました。もう一度お試しください。');
+      }
       console.error('Error updating profile:', err);
     } finally {
       setIsLoading(false);
