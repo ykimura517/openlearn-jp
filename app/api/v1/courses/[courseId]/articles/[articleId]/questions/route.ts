@@ -45,7 +45,7 @@ export async function GET(
         }
       }
       return {
-        id: index + 1, // APIではnumber型のIDとして扱うため、配列の順番を利用
+        id: ex.id,
         type,
         question: ex.question,
         options,

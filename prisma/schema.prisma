@@ -56,6 +56,7 @@ model MasterCourse {
   summary        String?
   description    String?
   targetAudience String?
+  prerequisites  String?
   level          String
   difficulty     Int?
   durationMin    Int? // コースの所要時間（分）

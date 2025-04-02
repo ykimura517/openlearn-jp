@@ -5923,6 +5923,7 @@ export namespace Prisma {
     summary: string | null
     description: string | null
     targetAudience: string | null
+    prerequisites: string | null
     level: string | null
     difficulty: number | null
     durationMin: number | null
@@ -5937,6 +5938,7 @@ export namespace Prisma {
     summary: string | null
     description: string | null
     targetAudience: string | null
+    prerequisites: string | null
     level: string | null
     difficulty: number | null
     durationMin: number | null
@@ -5951,6 +5953,7 @@ export namespace Prisma {
     summary: number
     description: number
     targetAudience: number
+    prerequisites: number
     level: number
     difficulty: number
     durationMin: number
@@ -5977,6 +5980,7 @@ export namespace Prisma {
     summary?: true
     description?: true
     targetAudience?: true
+    prerequisites?: true
     level?: true
     difficulty?: true
     durationMin?: true
@@ -5991,6 +5995,7 @@ export namespace Prisma {
     summary?: true
     description?: true
     targetAudience?: true
+    prerequisites?: true
     level?: true
     difficulty?: true
     durationMin?: true
@@ -6005,6 +6010,7 @@ export namespace Prisma {
     summary?: true
     description?: true
     targetAudience?: true
+    prerequisites?: true
     level?: true
     difficulty?: true
     durationMin?: true
@@ -6106,6 +6112,7 @@ export namespace Prisma {
     summary: string | null
     description: string | null
     targetAudience: string | null
+    prerequisites: string | null
     level: string
     difficulty: number | null
     durationMin: number | null
@@ -6139,6 +6146,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    prerequisites?: boolean
     level?: boolean
     difficulty?: boolean
     durationMin?: boolean
@@ -6157,6 +6165,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    prerequisites?: boolean
     level?: boolean
     difficulty?: boolean
     durationMin?: boolean
@@ -6172,6 +6181,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    prerequisites?: boolean
     level?: boolean
     difficulty?: boolean
     durationMin?: boolean
@@ -6187,6 +6197,7 @@ export namespace Prisma {
     summary?: boolean
     description?: boolean
     targetAudience?: boolean
+    prerequisites?: boolean
     level?: boolean
     difficulty?: boolean
     durationMin?: boolean
@@ -6195,7 +6206,7 @@ export namespace Prisma {
     categoryId?: boolean
   }
 
-  export type MasterCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "description" | "targetAudience" | "level" | "difficulty" | "durationMin" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["masterCourse"]>
+  export type MasterCourseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "description" | "targetAudience" | "prerequisites" | "level" | "difficulty" | "durationMin" | "createdAt" | "updatedAt" | "categoryId", ExtArgs["result"]["masterCourse"]>
   export type MasterCourseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | MasterCategoryDefaultArgs<ExtArgs>
     tags?: boolean | MasterCourse$tagsArgs<ExtArgs>
@@ -6222,6 +6233,7 @@ export namespace Prisma {
       summary: string | null
       description: string | null
       targetAudience: string | null
+      prerequisites: string | null
       level: string
       difficulty: number | null
       durationMin: number | null
@@ -6659,6 +6671,7 @@ export namespace Prisma {
     readonly summary: FieldRef<"MasterCourse", 'String'>
     readonly description: FieldRef<"MasterCourse", 'String'>
     readonly targetAudience: FieldRef<"MasterCourse", 'String'>
+    readonly prerequisites: FieldRef<"MasterCourse", 'String'>
     readonly level: FieldRef<"MasterCourse", 'String'>
     readonly difficulty: FieldRef<"MasterCourse", 'Int'>
     readonly durationMin: FieldRef<"MasterCourse", 'Int'>
@@ -20406,6 +20419,7 @@ export namespace Prisma {
     summary: 'summary',
     description: 'description',
     targetAudience: 'targetAudience',
+    prerequisites: 'prerequisites',
     level: 'level',
     difficulty: 'difficulty',
     durationMin: 'durationMin',
@@ -20853,6 +20867,7 @@ export namespace Prisma {
     summary?: StringNullableFilter<"MasterCourse"> | string | null
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
+    prerequisites?: StringNullableFilter<"MasterCourse"> | string | null
     level?: StringFilter<"MasterCourse"> | string
     difficulty?: IntNullableFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableFilter<"MasterCourse"> | number | null
@@ -20870,6 +20885,7 @@ export namespace Prisma {
     summary?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
+    prerequisites?: SortOrderInput | SortOrder
     level?: SortOrder
     difficulty?: SortOrderInput | SortOrder
     durationMin?: SortOrderInput | SortOrder
@@ -20890,6 +20906,7 @@ export namespace Prisma {
     summary?: StringNullableFilter<"MasterCourse"> | string | null
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
+    prerequisites?: StringNullableFilter<"MasterCourse"> | string | null
     level?: StringFilter<"MasterCourse"> | string
     difficulty?: IntNullableFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableFilter<"MasterCourse"> | number | null
@@ -20907,6 +20924,7 @@ export namespace Prisma {
     summary?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     targetAudience?: SortOrderInput | SortOrder
+    prerequisites?: SortOrderInput | SortOrder
     level?: SortOrder
     difficulty?: SortOrderInput | SortOrder
     durationMin?: SortOrderInput | SortOrder
@@ -20929,6 +20947,7 @@ export namespace Prisma {
     summary?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
     description?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
+    prerequisites?: StringNullableWithAggregatesFilter<"MasterCourse"> | string | null
     level?: StringWithAggregatesFilter<"MasterCourse"> | string
     difficulty?: IntNullableWithAggregatesFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableWithAggregatesFilter<"MasterCourse"> | number | null
@@ -21928,6 +21947,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -21944,6 +21964,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -21960,6 +21981,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21976,6 +21998,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21992,6 +22015,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -22006,6 +22030,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -22019,6 +22044,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -23121,6 +23147,7 @@ export namespace Prisma {
     summary?: SortOrder
     description?: SortOrder
     targetAudience?: SortOrder
+    prerequisites?: SortOrder
     level?: SortOrder
     difficulty?: SortOrder
     durationMin?: SortOrder
@@ -23140,6 +23167,7 @@ export namespace Prisma {
     summary?: SortOrder
     description?: SortOrder
     targetAudience?: SortOrder
+    prerequisites?: SortOrder
     level?: SortOrder
     difficulty?: SortOrder
     durationMin?: SortOrder
@@ -23154,6 +23182,7 @@ export namespace Prisma {
     summary?: SortOrder
     description?: SortOrder
     targetAudience?: SortOrder
+    prerequisites?: SortOrder
     level?: SortOrder
     difficulty?: SortOrder
     durationMin?: SortOrder
@@ -25016,6 +25045,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -25031,6 +25061,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -25111,6 +25142,7 @@ export namespace Prisma {
     summary?: StringNullableFilter<"MasterCourse"> | string | null
     description?: StringNullableFilter<"MasterCourse"> | string | null
     targetAudience?: StringNullableFilter<"MasterCourse"> | string | null
+    prerequisites?: StringNullableFilter<"MasterCourse"> | string | null
     level?: StringFilter<"MasterCourse"> | string
     difficulty?: IntNullableFilter<"MasterCourse"> | number | null
     durationMin?: IntNullableFilter<"MasterCourse"> | number | null
@@ -25156,6 +25188,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -25171,6 +25204,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -25356,6 +25390,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -25371,6 +25406,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -25480,6 +25516,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25495,6 +25532,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26719,6 +26757,7 @@ export namespace Prisma {
     summary?: string | null
     description?: string | null
     targetAudience?: string | null
+    prerequisites?: string | null
     level: string
     difficulty?: number | null
     durationMin?: number | null
@@ -26743,6 +26782,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26758,6 +26798,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26773,6 +26814,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26823,6 +26865,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26838,6 +26881,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26853,6 +26897,7 @@ export namespace Prisma {
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     targetAudience?: NullableStringFieldUpdateOperationsInput | string | null
+    prerequisites?: NullableStringFieldUpdateOperationsInput | string | null
     level?: StringFieldUpdateOperationsInput | string
     difficulty?: NullableIntFieldUpdateOperationsInput | number | null
     durationMin?: NullableIntFieldUpdateOperationsInput | number | null

@@ -44,8 +44,7 @@ export async function GET(
       level: course.level,
       durationMin: course.durationMin || 0,
       targetAudience: course.targetAudience || '',
-      // prerequisites はスキーマ上に存在しないため、空文字を設定
-      prerequisites: '',
+      prerequisites: course.prerequisites || '',
       articleSummaries,
     };
 
