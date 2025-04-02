@@ -153,7 +153,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       {/* AIチャットセクション - クライアントサイドインタラクティブ */}
       <div className='mb-12'>
         <h2 className='text-2xl font-bold text-gray-800 mb-6'>AIに質問する</h2>
-        <AiChatSection articleTitle={articleData.title} />
+        <AiChatSection articleId={articleData.id} />
       </div>
 
       {/* 次のレッスンボタン - クライアントコンポーネント */}

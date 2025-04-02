@@ -162,7 +162,7 @@ model ChatMessage {
   userId     String? // AIの場合はnull
   user       User?    @relation(fields: [userId], references: [id])
 
-  role                  String // 発言者の役割（例：USER or AI）
+  role                  String // 発言者の役割（USER or AI）
   message               String
   createdAt             DateTime @default(now())
   masterCourseArticleId String?

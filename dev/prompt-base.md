@@ -9,293 +9,331 @@ APIのインターフェースは、下記のapi.ts内の型にしてくださ�
 
 
 ## ユーザーからの質問
-下記のユーザープロフィール更新関係のファイルで、displayIdが使用済みであった場合に、エラーコードDISPLAY_ID_ALREADY_USED
-を返し、画面にもその旨を表示してください。
+下記の質問チャット用のAPIを改修したいです。
+具体的には、現在モックになっているAIからのメッセージを実際にAIから動的に生成するようにしたいです。
+
+・langchainを通じて、openAIにリクエストを送ることでこれを実現してください。モデル名は環境変数で指定したいです。
+・また、プロンプトには、そのページの記事の内容と、ユーザーからの質問、及びこれまでの会話履歴を埋め込めるようにしてください。
+・また、同一ユーザーに対して日本時間で考えて今月既に5回以上AIが発言している場合は、返信を生成せずにエラーメッセージ（TOO_MANY_CHAT）を返してください。
+
+
+### app/api/v1/ai-chat/route.ts
+```ts
+import { type NextRequest, NextResponse } from 'next/server';
+import { getAuth } from 'firebase-admin/auth';
+import type { AIChatRequest, AIChatResponse } from '@/types/api';
+
+export async function POST(request: NextRequest) {
+  try {
+    // 認証チェック
+    const authHeader = request.headers.get('Authorization');
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const token = authHeader.split('Bearer ')[1];
+
+    try {
+      // トークンの検証
+      await getAuth().verifyIdToken(token);
+    } catch (error) {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+    }
+
+    // リクエストボディの解析
+    const body: AIChatRequest = await request.json();
+    const { message, articleTitle, history } = body;
+
+    if (!message) {
+      return NextResponse.json(
+        { error: 'Message is required' },
+        { status: 400 }
+      );
+    }
+
+    // AIレスポンスの生成（実際のアプリケーションではAI APIを呼び出す）
+    const aiResponses = [
+      `「${articleTitle}」について、ご質問ありがとうございます。${message}についてですが、このレッスンでは生成AIの基本的な概念と種類について説明しています。さらに詳しく知りたい点はありますか？`,
+      `良い質問ですね！${message}に関しては、生成AIの発展において重要なポイントです。特にTransformerアーキテクチャの登場以降、大きな進化を遂げました。他に気になる点はありますか？`,
+      `${message}については、実際の応用例を見るとより理解が深まります。例えば、テキスト生成AIはコンテンツ作成、コード生成、翻訳などで活用されています。具体的な例を知りたい場合は、お気軽にお尋ねください。`,
+      `${message}は興味深いトピックですね。生成AIの倫理的な側面も含めて考えると、技術の発展だけでなく社会的な影響も重要です。このレッスンの後半で詳しく触れていますが、補足情報が必要でしたらお知らせください。`,
+    ];
+
+    const randomResponse =
+      aiResponses[Math.floor(Math.random() * aiResponses.length)];
+
+    // レスポンスの作成
+    const response: AIChatResponse = {
+      message: randomResponse,
+      timestamp: new Date().toISOString(),
+    };
+
+    // 遅延をシミュレート
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return NextResponse.json(response);
+  } catch (error) {
+    console.error('AI Chat API Error:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
+}
+```
+### 参考
+フロント側のコンポーネント
 ```
 'use client';
 
-import type React from 'react';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertCircle, ArrowLeft, CheckCircle } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { SendHorizontal, Lock } from 'lucide-react';
 import { useAuth } from '@/contexts/auth-context';
-import { apiFetch } from '@/lib/apiClient';
-import type { User as ApiUser } from '@/types/api';
+import Link from 'next/link';
+import type { AIChatRequest, AIChatResponse } from '@/types/api';
 
-export default function SettingsPage() {
+interface AiChatSectionProps {
+  articleTitle: string;
+}
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+}
+
+//// TODO:messageが8000文字を超える場合は、エラーにしてその旨を表示する
+export default function AiChatSection({ articleTitle }: AiChatSectionProps) {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState('account');
-  const [username, setUsername] = useState('');
-  const [userId, setUserId] = useState('');
-  const [occupation, setOccupation] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // プロフィール情報の取得
-  useEffect(() => {
-    async function fetchProfile() {
-      try {
-        const data = await apiFetch<ApiUser>(
-          '/api/v1/mypage/profile',
-          { cache: 'no-store' },
-          true
-        );
-        setUsername(data.name);
-        setUserId(data.displayId);
-        setOccupation(data.occupation);
-      } catch (err) {
-        console.error('プロフィール取得エラー:', err);
-        setError('プロフィール情報の取得に失敗しました。');
-      }
-    }
-    fetchProfile();
-  }, []);
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || !user) return;
 
-  // プロフィール更新処理（PUTリクエスト）
-  const handleSaveProfile = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
+    // ユーザーメッセージを追加
+    const userMessage: Message = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: inputValue,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue('');
     setIsLoading(true);
 
     try {
-      const payload = {
-        name: username,
-        occupation: occupation,
-        displayId: userId,
-      };
-      await apiFetch<ApiUser>(
-        '/api/v1/mypage/profile',
-        {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        },
-        true
-      );
+      // ユーザーのIDトークンを取得
+      const idToken = await user.getIdToken();
 
-      setSuccess('プロフィール情報が正常に更新されました。');
-    } catch (err) {
-      setError('プロフィールの更新に失敗しました。もう一度お試しください。');
-      console.error('Error updating profile:', err);
+      // AIチャットAPIにリクエスト
+      const response = await fetch('/api/v1/ai-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({
+          message: userMessage.content,
+          articleTitle,
+          history: messages.map((m) => ({ role: m.role, content: m.content })),
+        } as AIChatRequest),
+      });
+
+      if (!response.ok) {
+        throw new Error('AI chat request failed');
+      }
+
+      const data: AIChatResponse = await response.json();
+
+      // AIの応答を追加
+      const aiMessage: Message = {
+        id: `ai-${Date.now()}`,
+        role: 'assistant',
+        content: data.message,
+        timestamp: new Date(data.timestamp),
+      };
+
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      // エラー処理
+      const errorMessage: Message = {
+        id: `error-${Date.now()}`,
+        role: 'assistant',
+        content:
+          '申し訳ありません。メッセージの送信中にエラーが発生しました。もう一度お試しください。',
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  // 非ログイン状態の表示
+  if (!user) {
+    return (
+      <Card className='border border-orange-100'>
+        <CardHeader className='bg-orange-50 border-b border-orange-100'>
+          <CardTitle className='text-lg text-orange-700'>
+            AIに質問する
+          </CardTitle>
+        </CardHeader>
+        <CardContent className='p-6 text-center'>
+          <div className='flex flex-col items-center justify-center py-8'>
+            <div className='bg-orange-100 rounded-full p-4 mb-4'>
+              <Lock className='h-8 w-8 text-orange-500' />
+            </div>
+            <h3 className='text-xl font-semibold text-gray-800 mb-2'>
+              この機能はログインが必要です
+            </h3>
+            <p className='text-gray-600 mb-6'>
+              AIアシスタントに質問するには、ログインまたは新規登録が必要です。
+            </p>
+            <div className='flex gap-4'>
+              <Link href='/auth/signin'>
+                <Button
+                  variant='outline'
+                  className='border-orange-500 text-orange-500 hover:bg-orange-50'
+                >
+                  ログイン
+                </Button>
+              </Link>
+              <Link href='/auth/signup'>
+                <Button className='bg-orange-500 hover:bg-orange-600 text-white'>
+                  新規登録
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-8'>
-        <Link
-          href='/mypage'
-          className='text-orange-500 hover:underline mb-4 inline-flex items-center'
-        >
-          <ArrowLeft className='mr-2 h-4 w-4' /> マイページに戻る
-        </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>
-          アカウント設定
-        </h1>
-      </div>
+    <Card className='border border-orange-100'>
+      <CardHeader className='bg-orange-50 border-b border-orange-100'>
+        <CardTitle className='text-lg text-orange-700'>AIに質問する</CardTitle>
+      </CardHeader>
+      <CardContent className='p-0'>
+        <div className='h-96 overflow-y-auto p-4 space-y-4'>
+          {messages.length === 0 && (
+            <div className='text-center text-gray-500 py-8'>
+              <p>レッスンの内容について質問してみましょう</p>
+            </div>
+          )}
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full'>
-        <TabsList className='grid w-full grid-cols-2 mb-8'>
-          <TabsTrigger value='account'>アカウント情報</TabsTrigger>
-          {/* <TabsTrigger value='notifications'>通知設定</TabsTrigger> */}
-        </TabsList>
-
-        <TabsContent value='account'>
-          <Card>
-            <CardHeader>
-              <CardTitle>アカウント情報</CardTitle>
-              <CardDescription>プロフィール情報を変更します。</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSaveProfile} className='space-y-6'>
-                <div className='space-y-4'>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-                    <div className='space-y-2'>
-                      <Label htmlFor='username'>ユーザー名</Label>
-                      <Input
-                        id='username'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-                    </div>
-                    <div className='space-y-2'>
-                      <Label htmlFor='userId'>ユーザーID</Label>
-                      <Input
-                        id='userId'
-                        value={userId}
-                        // disabled
-                        // className='bg-gray-50'
-                        onChange={(e) => setUserId(e.target.value)}
-                      />
-                      <p className='text-xs text-gray-500'></p>
-                    </div>
+          {messages.map((message) => (
+            <div
+              key={message.id}
+              className={`flex ${
+                message.role === 'user' ? 'justify-end' : 'justify-start'
+              }`}
+            >
+              <div
+                className={`flex max-w-[80%] ${
+                  message.role === 'user' ? 'flex-row-reverse' : ''
+                }`}
+              >
+                {message.role === 'assistant' && (
+                  <Avatar className='h-8 w-8 mr-2 mt-1'>
+                    <AvatarImage src='/placeholder.svg?height=32&width=32' />
+                    <AvatarFallback>AI</AvatarFallback>
+                  </Avatar>
+                )}
+                <div>
+                  <div
+                    className={`rounded-lg p-3 ${
+                      message.role === 'user'
+                        ? 'bg-orange-500 text-white'
+                        : 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    {message.content}
                   </div>
-
-                  <div className='space-y-2'>
-                    <Label htmlFor='occupation'>職種</Label>
-                    <Input
-                      id='occupation'
-                      value={occupation}
-                      onChange={(e) => setOccupation(e.target.value)}
-                    />
-                  </div>
-
-                  <div className='space-y-2'>
-                    <Label htmlFor='email'>メールアドレス</Label>
-                    <div className='flex items-center gap-4'>
-                      <Input
-                        id='email'
-                        type='email'
-                        value={user?.email || 'example@email.com'}
-                        disabled
-                        className='bg-gray-50 flex-1'
-                      />
-                      <Link href='/auth/change-email'>
-                        <Button
-                          variant='outline'
-                          className='border-orange-500 text-orange-500 hover:bg-orange-50'
-                        >
-                          変更
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className='space-y-2'>
-                    <Label>パスワード</Label>
-                    <div className='flex items-center gap-4'>
-                      <Input
-                        type='password'
-                        value='********'
-                        disabled
-                        className='bg-gray-50 flex-1'
-                      />
-                      <Button
-                        variant='outline'
-                        className='border-orange-500 text-orange-500 hover:bg-orange-50'
-                      >
-                        変更
-                      </Button>
-                    </div>
+                  <div
+                    className={`text-xs mt-1 text-gray-500 ${
+                      message.role === 'user' ? 'text-right' : ''
+                    }`}
+                  >
+                    {formatTime(message.timestamp)}
                   </div>
                 </div>
-
-                {error && (
-                  <Alert variant='destructive'>
-                    <AlertCircle className='h-4 w-4' />
-                    <AlertTitle>エラー</AlertTitle>
-                    <AlertDescription>{error}</AlertDescription>
-                  </Alert>
-                )}
-
-                {success && (
-                  <Alert className='bg-green-50 border-green-200'>
-                    <CheckCircle className='h-4 w-4 text-green-600' />
-                    <AlertTitle className='text-green-600'>成功</AlertTitle>
-                    <AlertDescription className='text-green-700'>
-                      {success}
-                    </AlertDescription>
-                  </Alert>
-                )}
-
-                <Button
-                  type='submit'
-                  className='bg-orange-500 hover:bg-orange-600'
-                  disabled={isLoading}
-                >
-                  {isLoading ? '保存中...' : '変更を保存'}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-    </div>
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+            <div className='flex justify-start'>
+              <div className='flex'>
+                <Avatar className='h-8 w-8 mr-2 mt-1'>
+                  <AvatarImage src='/placeholder.svg?height=32&width=32' />
+                  <AvatarFallback>AI</AvatarFallback>
+                </Avatar>
+                <div className='bg-gray-100 text-gray-800 rounded-lg p-3 flex items-center'>
+                  <div className='flex space-x-1'>
+                    <div
+                      className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                      style={{ animationDelay: '0ms' }}
+                    ></div>
+                    <div
+                      className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                      style={{ animationDelay: '150ms' }}
+                    ></div>
+                    <div
+                      className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                      style={{ animationDelay: '300ms' }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+        <div className='p-4 border-t border-gray-200'>
+          <div className='flex'>
+            <Textarea
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder='質問を入力してください...'
+              className='flex-1 resize-none'
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSendMessage();
+                }
+              }}
+              disabled={isLoading}
+            />
+            <Button
+              onClick={handleSendMessage}
+              className='ml-2 bg-orange-500 hover:bg-orange-600'
+              disabled={!inputValue.trim() || isLoading}
+            >
+              <SendHorizontal className='h-5 w-5' />
+            </Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   );
 }
 
 ```
-
-```
-// app/api/v1/mypage/profile/route.ts
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import type { User as ApiUser } from '@/types/api';
-import { authenticate } from '@/lib/apiHandler';
-
-export async function GET(request: Request) {
-  try {
-    const decodedToken = await authenticate(request);
-    const userId = decodedToken.uid;
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-    });
-    if (!user) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-    const apiUser: ApiUser = {
-      id: user.id,
-      displayId: user.displayId,
-      name: user.name || '',
-      occupation: user.occupation || '',
-      birthDate: user.birthDate || '',
-      joinedDate: user.createdAt.toISOString(),
-    };
-    return NextResponse.json(apiUser);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-}
-
-export async function PUT(request: Request) {
-  try {
-    const decodedToken = await authenticate(request);
-    const userId = decodedToken.uid;
-    const body = await request.json();
-    const { name, occupation, displayId } = body;
-
-    const user = await prisma.user.update({
-      where: { id: userId },
-      data: {
-        name,
-        occupation,
-        displayId,
-      },
-    });
-
-    const responseUser = {
-      id: user.id,
-      displayId: user.displayId,
-      name: user.name || '',
-      occupation: user.occupation || '',
-      birthDate: user.birthDate || '',
-      joinedDate: user.createdAt.toISOString(),
-    };
-
-    return NextResponse.json(responseUser);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-}
-
-```
-
 
 ## プロダクト(OpenLearn)について
 解説対象のOpenLearnについての情報は下記です。

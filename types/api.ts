@@ -185,8 +185,7 @@ export interface ReferencesResponse {
 
 export interface AIChatRequest {
   message: string;
-  articleTitle: string;
-  history: { role: 'user' | 'assistant'; content: string }[];
+  articleId: string;
 }
 
 export interface DeleteAccountRequest {

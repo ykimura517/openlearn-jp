@@ -1,6 +1,7 @@
+// app/components/AiChatSection.tsx
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,7 +12,8 @@ import Link from 'next/link';
 import type { AIChatRequest, AIChatResponse } from '@/types/api';
 
 interface AiChatSectionProps {
-  articleTitle: string;
+  // 変更：記事IDをプロパティとして受け取るように変更
+  articleId: string;
 }
 
 interface Message {
@@ -21,8 +23,7 @@ interface Message {
   timestamp: Date;
 }
 
-//// TODO:messageが8000文字を超える場合は、エラーにしてその旨を表示する
-export default function AiChatSection({ articleTitle }: AiChatSectionProps) {
+export default function AiChatSection({ articleId }: AiChatSectionProps) {
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -48,7 +49,15 @@ export default function AiChatSection({ articleTitle }: AiChatSectionProps) {
       // ユーザーのIDトークンを取得
       const idToken = await user.getIdToken();
 
-      // AIチャットAPIにリクエスト
+      // AIチャットAPIにリクエスト（articleId を送信）
+      console.log(articleId);
+      console.log(articleId);
+      console.log(articleId);
+      console.log(articleId);
+      console.log(articleId);
+      console.log(articleId);
+      console.log(articleId);
+      console.log(articleId);
       const response = await fetch('/api/v1/ai-chat', {
         method: 'POST',
         headers: {
@@ -57,8 +66,7 @@ export default function AiChatSection({ articleTitle }: AiChatSectionProps) {
         },
         body: JSON.stringify({
           message: userMessage.content,
-          articleTitle,
-          history: messages.map((m) => ({ role: m.role, content: m.content })),
+          articleId, // プロパティから送信
         } as AIChatRequest),
       });
 
