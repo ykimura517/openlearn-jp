@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
 import type { ExamsResponse, ExamOutline } from '@/types/api';
 
 export async function GET(request: Request) {
+  // このAPIは認証不要
   const { searchParams } = new URL(request.url);
   const page = Number(searchParams.get('page')) || 1;
   const pageSize = Number(searchParams.get('pageSize')) || 10;

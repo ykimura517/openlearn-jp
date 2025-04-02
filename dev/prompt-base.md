@@ -9,177 +9,292 @@ APIのインターフェースは、下記のapi.ts内の型にしてくださ�
 
 
 ## ユーザーからの質問
-下記のページにアクセスすると、なぜか下の方まで勝手にスクロールされます。
-原因を推測し、改修可能である場合は、コードを改修してください。
+下記のユーザープロフィール更新関係のファイルで、displayIdが使用済みであった場合に、エラーコードDISPLAY_ID_ALREADY_USED
+を返し、画面にもその旨を表示してください。
+```
+'use client';
 
-### app/courses/[id]/articles/[articleId]/page.tsx
-
-import { Suspense } from 'react';
+import type React from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import SocialShareButtons from '@/components/social-share-buttons';
-import ArticleContent from './article-content';
-import PracticeQuestions from './practice-questions';
-import AiChatSection from './ai-chat-section';
-import NavigationSection from './navigation-section';
-import ReferencesSection from './references-section';
-import NextArticleSection from './next-article-section';
-import type {
-  CourseArticleDetail,
-  ExerciseQuestionsResponse,
-} from '@/types/api';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AlertCircle, ArrowLeft, CheckCircle } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useAuth } from '@/contexts/auth-context';
+import { apiFetch } from '@/lib/apiClient';
+import type { User as ApiUser } from '@/types/api';
 
-interface ArticlePageProps {
-  params: {
-    id: string;
-    articleId: string;
-  };
-}
+export default function SettingsPage() {
+  const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState('account');
+  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
+  const [occupation, setOccupation] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-// サーバーコンポーネントでのデータフェッチング
-async function getArticleData(courseId: string, articleId: string) {
-  try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_BASE_URL || ''
-      }/api/v1/courses/${courseId}/articles/${articleId}`,
-      { cache: 'no-store' }
-    );
+  // プロフィール情報の取得
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const data = await apiFetch<ApiUser>(
+          '/api/v1/mypage/profile',
+          { cache: 'no-store' },
+          true
+        );
+        setUsername(data.name);
+        setUserId(data.displayId);
+        setOccupation(data.occupation);
+      } catch (err) {
+        console.error('プロフィール取得エラー:', err);
+        setError('プロフィール情報の取得に失敗しました。');
+      }
+    }
+    fetchProfile();
+  }, []);
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(
-        `Failed to fetch lesson(article) content: ${response.status} - ${errorText}`
+  // プロフィール更新処理（PUTリクエスト）
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsLoading(true);
+
+    try {
+      const payload = {
+        name: username,
+        occupation: occupation,
+        displayId: userId,
+      };
+      await apiFetch<ApiUser>(
+        '/api/v1/mypage/profile',
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        },
+        true
       );
+
+      setSuccess('プロフィール情報が正常に更新されました。');
+    } catch (err) {
+      setError('プロフィールの更新に失敗しました。もう一度お試しください。');
+      console.error('Error updating profile:', err);
+    } finally {
+      setIsLoading(false);
     }
-
-    return (await response.json()) as CourseArticleDetail;
-  } catch (error) {
-    console.error('Error fetching lesson data:', error);
-    throw error;
-  }
-}
-
-// 練習問題の取得
-async function getExerciseQuestions(courseId: string, articleId: string) {
-  try {
-    const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_BASE_URL || ''
-      }/api/v1/courses/${courseId}/articles/${articleId}/questions`,
-      { cache: 'no-store' }
-    );
-
-    if (!response.ok) {
-      return null;
-    }
-
-    return (await response.json()) as ExerciseQuestionsResponse;
-  } catch (error) {
-    console.error('Error fetching practice questions:', error);
-    return null;
-  }
-}
-
-export default async function ArticlePage({ params }: ArticlePageProps) {
-  const { id: courseId, articleId } = params;
-  // データフェッチング
-  let articleData: CourseArticleDetail | null = null;
-  let error: string | null = null;
-  let questions: ExerciseQuestionsResponse | null = null;
-
-  try {
-    // 並列でデータを取得
-    [articleData, questions] = await Promise.all([
-      getArticleData(courseId, articleId),
-      getExerciseQuestions(courseId, articleId),
-    ]);
-  } catch (err) {
-    error =
-      err instanceof Error
-        ? err.message
-        : 'レッスンデータの取得中にエラーが発生しました。';
-  }
-
-  // エラー状態
-  if (error || !articleData) {
-    return (
-      <div className='container mx-auto px-4 py-8'>
-        <div className='bg-red-50 border border-red-200 rounded-lg p-6 text-center'>
-          <h2 className='text-xl font-bold text-red-600 mb-2'>
-            エラーが発生しました
-          </h2>
-          <p className='text-red-600 mb-4'>
-            {error || 'レッスンデータを取得できませんでした。'}
-          </p>
-          <Link href={`/courses/${courseId}`}>
-            <Button
-              variant='outline'
-              className='border-red-500 text-red-500 hover:bg-red-50'
-            >
-              コース概要に戻る
-            </Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  };
 
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='mb-8'>
         <Link
-          href={`/courses/${courseId}`}
-          className='text-orange-500 hover:underline mb-4 inline-block'
+          href='/mypage'
+          className='text-orange-500 hover:underline mb-4 inline-flex items-center'
         >
-          ← コース概要に戻る
+          <ArrowLeft className='mr-2 h-4 w-4' /> マイページに戻る
         </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-2'>
-          {articleData.courseTitle}
+        <h1 className='text-3xl font-bold text-gray-800 mb-4'>
+          アカウント設定
         </h1>
-        <h2 className='text-xl text-gray-600 mb-4'>{articleData.title}</h2>
-        <SocialShareButtons
-          title={`${articleData.courseTitle} - ${articleData.title}`}
-          className='mb-6'
-        />
       </div>
 
-      {/* レッスンナビゲーション - クライアントコンポーネント */}
-      <NavigationSection courseId={courseId} articleId={articleId} />
+      <Tabs value={activeTab} onValueChange={setActiveTab} className='w-full'>
+        <TabsList className='grid w-full grid-cols-2 mb-8'>
+          <TabsTrigger value='account'>アカウント情報</TabsTrigger>
+          {/* <TabsTrigger value='notifications'>通知設定</TabsTrigger> */}
+        </TabsList>
 
-      {/* レッスンコンテンツ - サーバーサイドレンダリング */}
-      <div className='mb-12'>
-        <Suspense
-          fallback={
-            <div className='animate-pulse h-96 bg-gray-100 rounded-md'></div>
-          }
-        >
-          <ArticleContent content={articleData.content} />
-        </Suspense>
-      </div>
+        <TabsContent value='account'>
+          <Card>
+            <CardHeader>
+              <CardTitle>アカウント情報</CardTitle>
+              <CardDescription>プロフィール情報を変更します。</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSaveProfile} className='space-y-6'>
+                <div className='space-y-4'>
+                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                    <div className='space-y-2'>
+                      <Label htmlFor='username'>ユーザー名</Label>
+                      <Input
+                        id='username'
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                    </div>
+                    <div className='space-y-2'>
+                      <Label htmlFor='userId'>ユーザーID</Label>
+                      <Input
+                        id='userId'
+                        value={userId}
+                        // disabled
+                        // className='bg-gray-50'
+                        onChange={(e) => setUserId(e.target.value)}
+                      />
+                      <p className='text-xs text-gray-500'></p>
+                    </div>
+                  </div>
 
-      {/* 練習問題 - クライアントサイドインタラクティブ */}
-      {questions && questions.questions.length > 0 && (
-        <div className='mb-12'>
-          <h2 className='text-2xl font-bold text-gray-800 mb-6'>練習問題</h2>
-          <PracticeQuestions questions={questions.questions} />
-        </div>
-      )}
+                  <div className='space-y-2'>
+                    <Label htmlFor='occupation'>職種</Label>
+                    <Input
+                      id='occupation'
+                      value={occupation}
+                      onChange={(e) => setOccupation(e.target.value)}
+                    />
+                  </div>
 
-      {/* AIチャットセクション - クライアントサイドインタラクティブ */}
-      <div className='mb-12'>
-        <h2 className='text-2xl font-bold text-gray-800 mb-6'>AIに質問する</h2>
-        <AiChatSection articleTitle={articleData.title} />
-      </div>
+                  <div className='space-y-2'>
+                    <Label htmlFor='email'>メールアドレス</Label>
+                    <div className='flex items-center gap-4'>
+                      <Input
+                        id='email'
+                        type='email'
+                        value={user?.email || 'example@email.com'}
+                        disabled
+                        className='bg-gray-50 flex-1'
+                      />
+                      <Link href='/auth/change-email'>
+                        <Button
+                          variant='outline'
+                          className='border-orange-500 text-orange-500 hover:bg-orange-50'
+                        >
+                          変更
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
 
-      {/* 次のレッスンボタン - クライアントコンポーネント */}
-      <NextArticleSection courseId={courseId} articleId={articleId} />
+                  <div className='space-y-2'>
+                    <Label>パスワード</Label>
+                    <div className='flex items-center gap-4'>
+                      <Input
+                        type='password'
+                        value='********'
+                        disabled
+                        className='bg-gray-50 flex-1'
+                      />
+                      <Button
+                        variant='outline'
+                        className='border-orange-500 text-orange-500 hover:bg-orange-50'
+                      >
+                        変更
+                      </Button>
+                    </div>
+                  </div>
+                </div>
 
-      {/* 参考リンク - クライアントコンポーネント */}
-      <ReferencesSection courseId={courseId} articleId={articleId} />
+                {error && (
+                  <Alert variant='destructive'>
+                    <AlertCircle className='h-4 w-4' />
+                    <AlertTitle>エラー</AlertTitle>
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+
+                {success && (
+                  <Alert className='bg-green-50 border-green-200'>
+                    <CheckCircle className='h-4 w-4 text-green-600' />
+                    <AlertTitle className='text-green-600'>成功</AlertTitle>
+                    <AlertDescription className='text-green-700'>
+                      {success}
+                    </AlertDescription>
+                  </Alert>
+                )}
+
+                <Button
+                  type='submit'
+                  className='bg-orange-500 hover:bg-orange-600'
+                  disabled={isLoading}
+                >
+                  {isLoading ? '保存中...' : '変更を保存'}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
+
+```
+
+```
+// app/api/v1/mypage/profile/route.ts
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import type { User as ApiUser } from '@/types/api';
+import { authenticate } from '@/lib/apiHandler';
+
+export async function GET(request: Request) {
+  try {
+    const decodedToken = await authenticate(request);
+    const userId = decodedToken.uid;
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+    const apiUser: ApiUser = {
+      id: user.id,
+      displayId: user.displayId,
+      name: user.name || '',
+      occupation: user.occupation || '',
+      birthDate: user.birthDate || '',
+      joinedDate: user.createdAt.toISOString(),
+    };
+    return NextResponse.json(apiUser);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request) {
+  try {
+    const decodedToken = await authenticate(request);
+    const userId = decodedToken.uid;
+    const body = await request.json();
+    const { name, occupation, displayId } = body;
+
+    const user = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        name,
+        occupation,
+        displayId,
+      },
+    });
+
+    const responseUser = {
+      id: user.id,
+      displayId: user.displayId,
+      name: user.name || '',
+      occupation: user.occupation || '',
+      birthDate: user.birthDate || '',
+      joinedDate: user.createdAt.toISOString(),
+    };
+
+    return NextResponse.json(responseUser);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+```
 
 
 ## プロダクト(OpenLearn)について

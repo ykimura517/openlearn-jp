@@ -12,6 +12,10 @@ export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  const decodedToken = await authenticate(request);
+  const userId = decodedToken.uid;
+  const submissionId = ulid();
+
   try {
     const body: ExamSubmissionReq = await request.json();
 
@@ -53,11 +57,6 @@ export async function POST(
     const totalQuestions = questions.length;
     const score = Math.round((correctAnswers / totalQuestions) * 100);
     const passed = score >= exam.passingScore;
-
-    // ユーザー情報は認証から取得すべきですが、ここでは簡略化のため固定値を使用
-    const decodedToken = await authenticate(request);
-    const userId = decodedToken.uid;
-    const submissionId = ulid();
 
     // 試験提出レコードを作成
     const submission = await prisma.examSubmission.create({

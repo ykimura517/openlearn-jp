@@ -1,57 +1,64 @@
-import { type NextRequest, NextResponse } from "next/server"
-import type { DeleteAccountRequest, DeleteAccountResponse } from "@/types/api"
-import { getAuth } from "firebase-admin/auth"
-import { initializeFirebaseAdmin } from "@/lib/firebase-admin"
+// app/api/v1/mypage/delete-account/route.ts
 
-// Firebase Adminの初期化
-initializeFirebaseAdmin()
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { DeleteAccountRequest, OkResponse } from '@/types/api';
+import admin from 'firebase-admin';
 
-export async function POST(request: NextRequest) {
-  try {
-    // 認証チェック
-    const authHeader = request.headers.get("Authorization")
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
-    const token = authHeader.split("Bearer ")[1]
-
-    try {
-      // トークンの検証
-      const decodedToken = await getAuth().verifyIdToken(token)
-      const uid = decodedToken.uid
-
-      // リクエストボディの解析
-      const body: DeleteAccountRequest = await request.json()
-      const { reason, confirmation } = body
-
-      // バリデーション
-      if (!reason) {
-        return NextResponse.json({ error: "Reason is required" }, { status: 400 })
-      }
-
-      if (confirmation !== "退会します") {
-        return NextResponse.json({ error: "Invalid confirmation text" }, { status: 400 })
-      }
-
-      // 実際のアプリケーションではユーザーアカウントを削除
-      // ここではモック処理
-
-      // 遅延をシミュレート
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      const response: DeleteAccountResponse = {
-        success: true,
-        message: "アカウントが正常に削除されました。",
-      }
-
-      return NextResponse.json(response)
-    } catch (error) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 })
-    }
-  } catch (error) {
-    console.error("Delete account API error:", error)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
-  }
+// Firebase Admin SDK の初期化（初回のみ）
+if (!admin.apps.length) {
+  admin.initializeApp({
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+      // 改行コードの置換が必要な場合あり
+      privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+    }),
+  });
 }
 
+export async function POST(request: Request) {
+  try {
+    // リクエストボディから退会理由と確認テキストを取得
+    const body: DeleteAccountRequest = await request.json();
+    const { reason, confirmation } = body;
+
+    if (confirmation !== '退会します') {
+      return NextResponse.json(
+        { error: '確認テキストが正しくありません。' },
+        { status: 400 }
+      );
+    }
+
+    // リクエストヘッダーから Authorization トークンを取得
+    const authHeader = request.headers.get('Authorization') || '';
+    if (!authHeader.startsWith('Bearer ')) {
+      return NextResponse.json(
+        { error: '認証トークンがありません。' },
+        { status: 401 }
+      );
+    }
+    const token = authHeader.split('Bearer ')[1];
+
+    // Firebase Admin SDK でトークンを検証し、ユーザーID (uid) を取得
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const uid = decodedToken.uid;
+
+    // Firebase 上のユーザーを削除
+    await admin.auth().deleteUser(uid);
+
+    // DBのユーザー情報を論理削除（deletedAt, deleteReason を更新）
+    await prisma.user.update({
+      where: { id: uid },
+      data: {
+        deletedAt: new Date(),
+        deleteReason: reason,
+      },
+    });
+
+    const res: OkResponse = { ok: true };
+    return NextResponse.json(res);
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

@@ -7,6 +7,7 @@ export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  // このAPIは認証不要
   try {
     const exam = await prisma.masterExam.findUnique({
       where: { id: params.id },
