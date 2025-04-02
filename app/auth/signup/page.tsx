@@ -43,6 +43,8 @@ function getErrorMessage(err: any) {
     return '既に別の認証方法で登録されています。';
   } else if (err.code === 'auth/weak-password') {
     return 'パスワードは8文字以上(数字と英小文字が必要)で設定してください。';
+  } else if (err.message === 'DISPLAY_ID_ALREADY_USED') {
+    return 'このユーザーIDは既に使用されています。';
   } else {
     return err.message || 'エラーが発生しました。';
   }
