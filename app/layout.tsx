@@ -5,6 +5,8 @@ import './globals.css';
 import Header from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/contexts/auth-context';
+import { GoogleTagManager } from '@next/third-parties/google';
+const noIndexEnv = ['development', 'dev', 'staging', 'test', 'local', 'stg'];
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,7 +14,9 @@ export const metadata: Metadata = {
   title: 'OpenLearn JP - AI・プログラミング学習プラットフォーム',
   description:
     '生成AIやプログラミングについての学習コースを提供するプラットフォーム',
-  generator: 'v0.dev',
+  robots: noIndexEnv.includes(process.env.NEXT_PUBLIC_ENV as string)
+    ? 'noindex,nofollow'
+    : 'index,follow',
 };
 
 export default function RootLayout({
@@ -38,6 +42,7 @@ export default function RootLayout({
         />
         <link rel='manifest' href='/favicons/site.webmanifest' />
       </head>
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />
       <body className={inter.className}>
         <AuthProvider>
           <ThemeProvider attribute='class' defaultTheme='light'>
