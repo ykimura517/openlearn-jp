@@ -3,6 +3,12 @@ import { NextResponse } from 'next/server';
 import admin from '@/lib/firebase-admin';
 import { prisma } from '@/lib/prisma';
 import { ulid } from 'ulid';
+import Stripe from 'stripe';
+
+// Stripe初期化。環境変数STRIPE_SECRET_KEYが設定されている前提です。
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2025-03-31.basil',
+});
 
 export async function POST(request: Request) {
   try {
@@ -29,16 +35,21 @@ export async function POST(request: Request) {
 
     const uid = decodedToken.uid;
 
-    // Stripeの登録処理は未実装のため、ログで警告を出してスキップ
-    console.warn(`Stripe registration skipped for user: ${uid}`);
+    // Stripeでユーザー登録（Customer作成）
+    const stripeCustomer = await stripe.customers.create({
+      email: decodedToken.email || undefined,
+      metadata: {
+        firebaseUserId: uid,
+      },
+    });
 
     // ユーザープロフィールをDBに登録
-    // prismaのUserモデルに合わせて、firebaseUserIdはuid、displayIdはリクエストからのuserIdを利用
     await prisma.user.create({
       data: {
         id: uid,
         displayId: ulid().slice(0, 20), // 一旦ulidを割り振っておく。（長いとレイアウトに影響するので一旦20文字）
         firebaseUserId: uid,
+        stripeUserId: stripeCustomer.id,
         name: null,
         occupation: null,
         birthDate: null,

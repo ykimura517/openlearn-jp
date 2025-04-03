@@ -1,7 +1,7 @@
 // app/components/AiChatSection.tsx
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +9,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SendHorizontal, Lock } from 'lucide-react';
 import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
-import type { AIChatRequest, AIChatResponse } from '@/types/api';
+import type {
+  AIChatRequest,
+  AIChatResponse,
+  AIChatHistoryResponse,
+} from '@/types/api';
 
 interface AiChatSectionProps {
   // 変更：記事IDをプロパティとして受け取るように変更
@@ -29,6 +33,47 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // チャット履歴を初回描画時に取得
+  useEffect(() => {
+    if (!user) return;
+    const fetchChatHistory = async () => {
+      try {
+        const idToken = await user.getIdToken();
+        const res = await fetch(
+          `/api/v1/ai-chat/history?articleId=${articleId}`,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
+        );
+        if (res.ok) {
+          const data: AIChatHistoryResponse = await res.json();
+          // APIから取得したtimestampは文字列なので Date に変換
+          setMessages(
+            data.messages.map((m) => ({
+              id: m.id,
+              role: m.role,
+              content: m.content,
+              timestamp: new Date(m.timestamp),
+            }))
+          );
+        } else {
+          console.error('Failed to fetch chat history');
+        }
+      } catch (error) {
+        console.error('Error fetching chat history:', error);
+      }
+    };
+    fetchChatHistory();
+  }, [articleId, user]);
+
+  // メッセージ追加時に自動スクロール
+  // useEffect(() => {
+  //   messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  // }, [messages]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || !user) return;

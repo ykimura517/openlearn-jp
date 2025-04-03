@@ -208,3 +208,14 @@ export interface UserExamResult {
   examCategoryName: string;
   examLevel: string;
 }
+
+export interface AIChatMessage {
+  id: string;
+  role: 'USER' | 'AI';
+  content: string;
+  timestamp: string;
+}
+
+export interface AIChatHistoryResponse {
+  messages: AIChatMessage[];
+}
