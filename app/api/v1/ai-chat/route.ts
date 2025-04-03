@@ -5,7 +5,12 @@ import { getAuth } from 'firebase-admin/auth';
 import { prisma } from '@/lib/prisma';
 import type { AIChatRequest, AIChatResponse } from '@/types/api';
 import { ChatOpenAI } from '@langchain/openai';
-import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import {
+  HumanMessage,
+  SystemMessage,
+  AIMessage,
+  BaseMessage,
+} from '@langchain/core/messages';
 import { ulid } from 'ulid';
 export async function POST(request: NextRequest) {
   try {
@@ -101,9 +106,21 @@ export async function POST(request: NextRequest) {
         },
       });
     }
+    // チャットルームにメッセージを保存
+    await prisma.chatMessage.create({
+      data: {
+        id: ulid(),
+        message: message,
+        userId: userId,
+        role: 'USER',
+        chatRoomId: chatRoom.id,
+        masterCourseArticleId: articleId,
+        createdAt: new Date(),
+      },
+    });
 
     // 取得したチャットルームから、直近半年以内のメッセージを時系列昇順に結合
-    let conversationHistory = '';
+    let conversationHistory: (SystemMessage | AIMessage | HumanMessage)[];
     if (chatRoom) {
       const chatMessages = await prisma.chatMessage.findMany({
         where: {
@@ -112,37 +129,53 @@ export async function POST(request: NextRequest) {
         },
         orderBy: { createdAt: 'asc' },
       });
-      conversationHistory = chatMessages
-        .map(
-          (msg) =>
-            `${msg.role === 'AI' ? 'アシスタント' : 'ユーザー'}: ${msg.message}`
-        )
-        .join('\n');
+      conversationHistory = chatMessages.map((msg) => {
+        if (msg.role === 'AI') {
+          return new AIMessage(msg.message);
+        } else {
+          return new HumanMessage(msg.message);
+        }
+      });
+    } else {
+      conversationHistory = [];
     }
 
     // 記事内容は DB から取得した内容（content が存在しなければ title を利用）
     const articleContent = article.content || article.title || '';
 
     // プロンプトの作成
-    const systemPrompt = `あなたはOpenLearn JPという学習サービスに掲載された記事の質問に対応する優秀なAIアシスタントです。
+    const systemPrompt = `You are an excellent AI assistant who responds to questions about articles published on the learning service OpenLearn JP.
 
-対象の記事内容: ${articleContent}
-
-これまでの会話履歴:
-${conversationHistory}`;
+Content of the relevant article: 
+${articleContent}
+`;
 
     // langchain を通じて OpenAI にリクエスト（環境変数からモデル名・APIキーを取得）
     const modelName = process.env.OPENAI_MODEL || 'gpt-4o-mini';
     // model
-    const model = new ChatOpenAI({ model: modelName, temperature: 0.1 });
-
-    // messages
-    const messages = [
-      new SystemMessage(systemPrompt),
-      new HumanMessage(message),
-    ];
-
+    const model = new ChatOpenAI({
+      model: modelName,
+      temperature: 0.1,
+    }).withConfig({
+      runName: '[OL]記事質問:' + article.title + '_' + articleId,
+    });
+    const systemMessages = [new SystemMessage(systemPrompt)];
+    const messages: BaseMessage[] = [...systemMessages, ...conversationHistory];
     const aiResponseText = await model.invoke(messages);
+
+    // AIのレスポンスをDBに保存
+    await prisma.chatMessage.create({
+      data: {
+        id: ulid(),
+        message: aiResponseText.content.toString(),
+        userId: userId,
+        role: 'AI',
+        chatRoomId: chatRoom.id,
+        masterCourseArticleId: articleId,
+        createdAt: new Date(),
+      },
+    });
+
     console.log('AI Response:', aiResponseText);
     // レスポンスの作成
     const response: AIChatResponse = {
