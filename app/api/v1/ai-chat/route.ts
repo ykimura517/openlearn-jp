@@ -2,6 +2,7 @@
 
 import { type NextRequest, NextResponse } from 'next/server';
 import { getAuth } from 'firebase-admin/auth';
+import { authenticate } from '@/lib/apiHandler';
 import { prisma } from '@/lib/prisma';
 import type { AIChatRequest, AIChatResponse } from '@/types/api';
 import { ChatOpenAI } from '@langchain/openai';
@@ -15,16 +16,9 @@ import { ulid } from 'ulid';
 export async function POST(request: NextRequest) {
   try {
     // 認証チェック
-    const authHeader = request.headers.get('Authorization');
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    const decodedToken = await authenticate(request);
+    if (!decodedToken) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-    }
-    const token = authHeader.split('Bearer ')[1];
-    let decodedToken;
-    try {
-      decodedToken = await getAuth().verifyIdToken(token);
-    } catch (error) {
-      return NextResponse.json({ message: 'Invalid token' }, { status: 401 });
     }
     const userId = decodedToken.uid;
 

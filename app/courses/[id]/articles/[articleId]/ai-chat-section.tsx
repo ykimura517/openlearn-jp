@@ -18,7 +18,7 @@ interface AiChatSectionProps {
 
 interface Message {
   id: string;
-  role: 'user' | 'assistant';
+  role: 'USER' | 'AI';
   content: string;
   timestamp: Date;
 }
@@ -36,7 +36,7 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
     // ユーザーメッセージを追加
     const userMessage: Message = {
       id: `user-${Date.now()}`,
-      role: 'user',
+      role: 'USER',
       content: inputValue,
       timestamp: new Date(),
     };
@@ -50,14 +50,6 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
       const idToken = await user.getIdToken();
 
       // AIチャットAPIにリクエスト（articleId を送信）
-      console.log(articleId);
-      console.log(articleId);
-      console.log(articleId);
-      console.log(articleId);
-      console.log(articleId);
-      console.log(articleId);
-      console.log(articleId);
-      console.log(articleId);
       const response = await fetch('/api/v1/ai-chat', {
         method: 'POST',
         headers: {
@@ -70,19 +62,29 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
         } as AIChatRequest),
       });
 
+      let aiMessage: Message;
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error('AI chat request failed');
+        if (data.message === 'TOO_MANY_CHAT') {
+          aiMessage = {
+            id: `ai-${Date.now()}`,
+            role: 'AI',
+            content:
+              '無料プランの月間の質問上限に達しました。有料プランに変更して上限を上げてください。',
+            timestamp: new Date(),
+          };
+        } else {
+          throw new Error('AI chat request failed');
+        }
+      } else {
+        // AIの応答を追加
+        aiMessage = {
+          id: `ai-${Date.now()}`,
+          role: 'AI',
+          content: data.message,
+          timestamp: new Date(data.timestamp),
+        };
       }
-
-      const data: AIChatResponse = await response.json();
-
-      // AIの応答を追加
-      const aiMessage: Message = {
-        id: `ai-${Date.now()}`,
-        role: 'assistant',
-        content: data.message,
-        timestamp: new Date(data.timestamp),
-      };
 
       setMessages((prev) => [...prev, aiMessage]);
     } catch (error) {
@@ -90,7 +92,7 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
       // エラー処理
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
-        role: 'assistant',
+        role: 'AI',
         content:
           '申し訳ありません。メッセージの送信中にエラーが発生しました。もう一度お試しください。',
         timestamp: new Date(),
@@ -163,15 +165,15 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
             <div
               key={message.id}
               className={`flex ${
-                message.role === 'user' ? 'justify-end' : 'justify-start'
+                message.role === 'USER' ? 'justify-end' : 'justify-start'
               }`}
             >
               <div
                 className={`flex max-w-[80%] ${
-                  message.role === 'user' ? 'flex-row-reverse' : ''
+                  message.role === 'USER' ? 'flex-row-reverse' : ''
                 }`}
               >
-                {message.role === 'assistant' && (
+                {message.role === 'AI' && (
                   <Avatar className='h-8 w-8 mr-2 mt-1'>
                     <AvatarImage src='/ai-icon.webp?height=32&width=32' />
                     <AvatarFallback>AI</AvatarFallback>
@@ -180,7 +182,7 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
                 <div>
                   <div
                     className={`rounded-lg p-3 ${
-                      message.role === 'user'
+                      message.role === 'USER'
                         ? 'bg-orange-500 text-white'
                         : 'bg-gray-100 text-gray-800'
                     }`}
@@ -189,7 +191,7 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
                   </div>
                   <div
                     className={`text-xs mt-1 text-gray-500 ${
-                      message.role === 'user' ? 'text-right' : ''
+                      message.role === 'USER' ? 'text-right' : ''
                     }`}
                   >
                     {formatTime(message.timestamp)}
