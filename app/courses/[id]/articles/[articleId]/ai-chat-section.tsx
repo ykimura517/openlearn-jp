@@ -173,7 +173,7 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
               >
                 {message.role === 'assistant' && (
                   <Avatar className='h-8 w-8 mr-2 mt-1'>
-                    <AvatarImage src='/placeholder.svg?height=32&width=32' />
+                    <AvatarImage src='/ai-icon.webp?height=32&width=32' />
                     <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
                 )}
@@ -202,7 +202,7 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
             <div className='flex justify-start'>
               <div className='flex'>
                 <Avatar className='h-8 w-8 mr-2 mt-1'>
-                  <AvatarImage src='/placeholder.svg?height=32&width=32' />
+                  <AvatarImage src='/ai-icon.webp?height=32&width=32' />
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
                 <div className='bg-gray-100 text-gray-800 rounded-lg p-3 flex items-center'>
