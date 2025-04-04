@@ -158,15 +158,6 @@ export default function MyPage() {
                     設定
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    href='/mypage/delete-account'
-                    className='flex items-center px-3 py-2 rounded-md text-red-600 hover:bg-red-50'
-                  >
-                    <LogOut className='h-5 w-5 mr-3' />
-                    退会
-                  </Link>
-                </li>
               </ul>
             </nav>
           </div>

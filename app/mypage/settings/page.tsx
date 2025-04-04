@@ -11,6 +11,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  Trophy,
+  BookOpen,
+  Settings,
+  LogOut,
+  Calendar,
+  Award,
+} from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -185,6 +193,23 @@ export default function SettingsPage() {
                       </Button>
                     </div>
                   </div>
+                  <div className='space-y-2'>
+                    <Label>パスワード</Label>
+                    {/* <div className='flex items-center gap-4'>
+                      <Input
+                        type='password'
+                        value='********'
+                        disabled
+                        className='bg-gray-50 flex-1'
+                      />
+                      <Button
+                        variant='outline'
+                        className='border-orange-500 text-orange-500 hover:bg-orange-50'
+                      >
+                        変更
+                      </Button>
+                    </div> */}
+                  </div>
                 </div>
 
                 {error && (
@@ -217,6 +242,22 @@ export default function SettingsPage() {
           </Card>
         </TabsContent>
       </Tabs>
+      {/* 退会リンク */}
+      <div className='mt-12 pt-6 border-t border-gray-200'>
+        <div className='flex flex-col md:flex-row justify-between items-center'>
+          <div>
+            <h3 className='text-lg font-medium'>アカウント退会</h3>
+            <p className='text-gray-600 text-sm mt-1'>
+              アカウントを退会すると、すべてのデータが削除され、復元することはできません。
+            </p>
+          </div>
+          <Link href='/mypage/delete-account' className='mt-4 md:mt-0'>
+            <Button variant='outline' className='hover:bg-red-50'>
+              退会手続きへ
+            </Button>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
