@@ -23,6 +23,13 @@ export async function POST(request: Request) {
     const body: DeleteAccountRequest = await request.json();
     const { reason, confirmation } = body;
 
+    if (reason.length > 10000) {
+      return NextResponse.json(
+        { error: '理由が長すぎます。' },
+        { status: 400 }
+      );
+    }
+
     if (confirmation !== '退会します') {
       return NextResponse.json(
         { error: '確認テキストが正しくありません。' },

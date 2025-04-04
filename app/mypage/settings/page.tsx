@@ -119,7 +119,7 @@ export default function SettingsPage() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="username">ユーザー名</Label>
+                      <Label htmlFor="username">ユーザー名(最大15文字)</Label>
                       <Input
                         id="username"
                         value={username}
@@ -127,7 +127,7 @@ export default function SettingsPage() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="userId">ユーザーID</Label>
+                      <Label htmlFor="userId">ユーザーID（最大20文字）</Label>
                       <Input
                         id="userId"
                         value={userId}

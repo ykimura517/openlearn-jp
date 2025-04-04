@@ -35,6 +35,22 @@ export async function PUT(request: Request) {
     const body = await request.json();
     const { name, occupation, displayId } = body;
 
+    if (name.length > 15) {
+      return NextResponse.json({ message: 'NAME_TOO_LONG' }, { status: 400 });
+    }
+    if (occupation.length > 30) {
+      return NextResponse.json(
+        { message: 'OCCUPATION_TOO_LONG' },
+        { status: 400 }
+      );
+    }
+    if (displayId.length > 20) {
+      return NextResponse.json(
+        { message: 'DISPLAY_ID_TOO_LONG' },
+        { status: 400 }
+      );
+    }
+
     const user = await prisma.user.update({
       where: { id: userId },
       data: {
@@ -43,6 +59,21 @@ export async function PUT(request: Request) {
         displayId,
       },
     });
+    if (name.length > 15) {
+      return NextResponse.json({ message: 'NAME_TOO_LONG' }, { status: 400 });
+    }
+    if (occupation.length > 30) {
+      return NextResponse.json(
+        { message: 'OCCUPATION_TOO_LONG' },
+        { status: 400 }
+      );
+    }
+    if (displayId.length > 20) {
+      return NextResponse.json(
+        { message: 'DISPLAY_ID_TOO_LONG' },
+        { status: 400 }
+      );
+    }
 
     const responseUser: ApiUser = {
       id: user.id,

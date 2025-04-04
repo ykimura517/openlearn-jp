@@ -11,6 +11,28 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { username, occupation, userId, birthDate } = body; // ここでのuserIdはdisplayIdに相当
 
+    if (username.length > 15) {
+      return NextResponse.json({ message: 'NAME_TOO_LONG' }, { status: 400 });
+    }
+    if (occupation.length > 30) {
+      return NextResponse.json(
+        { message: 'OCCUPATION_TOO_LONG' },
+        { status: 400 }
+      );
+    }
+    if (userId.length > 20) {
+      return NextResponse.json(
+        { message: 'DISPLAY_ID_TOO_LONG' },
+        { status: 400 }
+      );
+    }
+    if (birthDate.length > 40) {
+      return NextResponse.json(
+        { message: 'BIRTH_DATE_TOO_LONG' },
+        { status: 400 }
+      );
+    }
+
     // 登録フロー上、先に空のデータが必ず作られているため更新する
     const user = await prisma.user.update({
       where: { id: firebaseId },
