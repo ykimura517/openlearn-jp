@@ -67,6 +67,13 @@ export async function PUT(request: Request) {
         { status: 409 }
       );
     }
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    // その他のエラーは500エラーとして返す
+    const msg =
+      process.env.NEXT_PUBLIC_ENV !== 'prod'
+        ? error.message
+        : 'INTERNAL_SERVER_ERROR';
+    console.error('Error updating user profile:', msg);
+
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

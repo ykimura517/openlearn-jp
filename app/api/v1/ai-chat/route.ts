@@ -29,13 +29,21 @@ export async function POST(request: NextRequest) {
 
     if (!message) {
       return NextResponse.json(
-        { message: 'Message is required' },
+        { message: 'MESSAGE_REQUIRED' },
         { status: 400 }
       );
     }
+
+    if (message.length > 8000) {
+      return NextResponse.json(
+        { message: 'MESSAGE_TOO_LONG' },
+        { status: 400 }
+      );
+    }
+
     if (!articleId) {
       return NextResponse.json(
-        { message: 'Article ID is required' },
+        { message: 'ARTICLE_ID_REQUIRED' },
         { status: 400 }
       );
     }
@@ -178,11 +186,13 @@ ${articleContent}
     };
 
     return NextResponse.json(response);
-  } catch (error) {
+  } catch (error: any) {
     console.error('AI Chat API Error:', error);
-    return NextResponse.json(
-      { message: 'Internal server error' },
-      { status: 500 }
-    );
+    const msg =
+      process.env.NEXT_PUBLIC_ENV !== 'prod'
+        ? error.message
+        : 'INTERNAL_SERVER_ERROR';
+    console.error('Error in AI Chat API:', msg);
+    return NextResponse.json({ message: msg }, { status: 500 });
   }
 }

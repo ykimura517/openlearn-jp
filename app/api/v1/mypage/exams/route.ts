@@ -30,6 +30,11 @@ export async function GET(request: Request) {
     }));
     return NextResponse.json(results);
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const msg =
+      process.env.NEXT_PUBLIC_ENV !== 'prod'
+        ? error.message
+        : 'INTERNAL_SERVER_ERROR';
+    console.error('Error fetching exam results:', msg);
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

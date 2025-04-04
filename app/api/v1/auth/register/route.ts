@@ -5,7 +5,6 @@ import { prisma } from '@/lib/prisma';
 import { ulid } from 'ulid';
 import Stripe from 'stripe';
 
-// Stripe初期化。環境変数STRIPE_SECRET_KEYが設定されている前提です。
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: '2025-03-31.basil',
 });
@@ -61,9 +60,11 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error: any) {
-    return NextResponse.json(
-      { error: error.message || 'エラーが発生しました。' },
-      { status: 500 }
-    );
+    const msg =
+      process.env.NEXT_PUBLIC_ENV !== 'prod'
+        ? error.message
+        : 'INTERNAL_SERVER_ERROR';
+    console.error('Error during registration:', msg);
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

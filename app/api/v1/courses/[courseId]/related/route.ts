@@ -42,6 +42,10 @@ export async function GET(
     response.courses = response.courses.filter((course) => course.id !== id);
     return NextResponse.json(response);
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const msg =
+      process.env.NEXT_PUBLIC_ENV !== 'prod'
+        ? error.message
+        : 'INTERNAL_SERVER_ERROR';
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

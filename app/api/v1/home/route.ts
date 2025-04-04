@@ -39,6 +39,11 @@ export async function GET(request: Request) {
     return NextResponse.json(result);
   } catch (error: any) {
     // エラー発生時はエラーメッセージと共に 500 エラーを返す
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const msg =
+      process.env.NEXT_PUBLIC_ENV !== 'prod'
+        ? error.message
+        : 'INTERNAL_SERVER_ERROR';
+    console.error('Error fetching categories:', msg);
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }

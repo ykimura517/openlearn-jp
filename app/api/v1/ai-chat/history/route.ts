@@ -58,6 +58,11 @@ export async function GET(request: Request) {
 
     return NextResponse.json({ messages: responseMessages });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    const msg =
+      process.env.NEXT_PUBLIC_ENV !== 'prod'
+        ? error.message
+        : 'INTERNAL_SERVER_ERROR';
+    console.error('Error fetching chat history:', error);
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
