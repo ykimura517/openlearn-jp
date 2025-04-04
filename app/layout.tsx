@@ -99,7 +99,7 @@ export default function RootLayout({
                       <ul className='space-y-2'>
                         <li>
                           <a
-                            href='/ask'
+                            href='/contact'
                             className='text-gray-700 hover:text-orange-500'
                           >
                             お問い合わせ
