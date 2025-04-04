@@ -59,68 +59,68 @@ export default function Contact() {
   };
 
   return (
-    <div className='container mx-auto px-4 py-8'>
+    <div className="container mx-auto px-4 py-8">
       <Link
-        href='/'
-        className='text-orange-500 hover:underline mb-4 inline-block'
+        href="/"
+        className="text-orange-500 hover:underline mb-4 inline-block"
       >
         ← ホームに戻る
       </Link>
-      <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8'>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>お問い合わせ</h1>
-        <form className='max-w-lg mx-auto' onSubmit={handleSubmit}>
-          <div className='mb-4'>
-            <label className='block text-gray-600 mb-2' htmlFor='name'>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">お問い合わせ</h1>
+        <form className="max-w-lg mx-auto" onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label className="block text-gray-600 mb-2" htmlFor="name">
               お名前
             </label>
             <input
-              type='text'
-              id='name'
-              className='w-full px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded'
-              placeholder='お名前を入力してください'
+              type="text"
+              id="name"
+              className="w-full px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded"
+              placeholder="お名前を入力してください"
               required
               value={formData.name}
               onChange={handleChange}
             />
           </div>
-          <div className='mb-4'>
-            <label className='block text-gray-600 mb-2' htmlFor='email'>
+          <div className="mb-4">
+            <label className="block text-gray-600 mb-2" htmlFor="email">
               メールアドレス
             </label>
             <input
-              type='email'
-              id='email'
-              className='w-full px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded'
-              placeholder='メールアドレスを入力してください'
+              type="email"
+              id="email"
+              className="w-full px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded"
+              placeholder="メールアドレスを入力してください"
               required
               value={formData.email}
               onChange={handleChange}
             />
           </div>
-          <div className='mb-4'>
-            <label className='block text-gray-600 mb-2' htmlFor='message'>
+          <div className="mb-4">
+            <label className="block text-gray-600 mb-2" htmlFor="message">
               メッセージ
             </label>
             <textarea
-              id='message'
-              className='w-full px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded'
+              id="message"
+              className="w-full px-3 py-2 bg-gray-100 text-gray-800 border border-gray-300 rounded"
               rows={5}
-              placeholder='お問い合わせ内容を入力してください'
+              placeholder="お問い合わせ内容を入力してください"
               required
               value={formData.message}
               onChange={handleChange}
             ></textarea>
           </div>
           {status === 'error' && (
-            <p className='text-red-500 mb-4'>{errorMessage}</p>
+            <p className="text-red-500 mb-4">{errorMessage}</p>
           )}
           {status === 'success' && (
-            <p className='text-green-500 mb-4'>
+            <p className="text-green-500 mb-4">
               お問い合わせが正常に送信されました。
             </p>
           )}
           <button
-            type='submit'
+            type="submit"
             className={`bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded ${
               status === 'loading' ? 'opacity-50 cursor-not-allowed' : ''
             }`}

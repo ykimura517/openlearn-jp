@@ -46,13 +46,13 @@ export default function ReferencesSection({
 
   if (isLoading) {
     return (
-      <div className='mb-12'>
-        <h2 className='text-2xl font-bold text-gray-800 mb-6'>参考リンク</h2>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">参考リンク</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(3)].map((_, index) => (
-            <div key={index} className='animate-pulse'>
-              <div className='h-8 bg-gray-200 rounded w-3/4 mb-2'></div>
-              <div className='h-16 bg-gray-200 rounded'></div>
+            <div key={index} className="animate-pulse">
+              <div className="h-8 bg-gray-200 rounded w-3/4 mb-2"></div>
+              <div className="h-16 bg-gray-200 rounded"></div>
             </div>
           ))}
         </div>
@@ -65,9 +65,9 @@ export default function ReferencesSection({
   }
 
   return (
-    <div className='mb-12'>
-      <h2 className='text-2xl font-bold text-gray-800 mb-6'>参考リンク</h2>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+    <div className="mb-12">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">参考リンク</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {references.references.map((reference, index) => {
           // URLに"openlearn.jp"が含まれていない場合は別ドメインと判定してnofollowを付与
           const isExternal = !reference.url.includes('openlearn.jp');
@@ -75,14 +75,14 @@ export default function ReferencesSection({
           // reference.urlが'#'の場合はリンクとしてラップしない
           if (reference.url === '#') {
             return (
-              <Card key={index} className='hover:shadow-md transition-shadow'>
-                <CardHeader className='pb-2'>
-                  <CardTitle className='text-lg text-gray-800'>
+              <Card key={index} className="hover:shadow-md transition-shadow">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg text-gray-800">
                     {reference.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className='text-gray-600 text-sm'>
+                  <p className="text-gray-600 text-sm">
                     {reference.description}
                   </p>
                 </CardContent>
@@ -94,19 +94,19 @@ export default function ReferencesSection({
             <a
               key={index}
               href={reference.url}
-              target='_blank'
+              target="_blank"
               rel={`noopener${isExternal ? ' nofollow' : ''}`}
-              className='block'
+              className="block"
             >
-              <Card className='hover:shadow-md transition-shadow'>
-                <CardHeader className='pb-2'>
-                  <CardTitle className='text-lg text-gray-800 flex items-start'>
-                    <span className='flex-1'>{reference.title}</span>
-                    <ExternalLink className='h-4 w-4 text-orange-500 hover:text-orange-600' />
+              <Card className="hover:shadow-md transition-shadow">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-lg text-gray-800 flex items-start">
+                    <span className="flex-1">{reference.title}</span>
+                    <ExternalLink className="h-4 w-4 text-orange-500 hover:text-orange-600" />
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className='text-gray-600 text-sm'>
+                  <p className="text-gray-600 text-sm">
                     {reference.description}
                   </p>
                 </CardContent>

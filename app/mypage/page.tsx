@@ -16,14 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import {
-  Trophy,
-  BookOpen,
-  Settings,
-  LogOut,
-  Calendar,
-  Award,
-} from 'lucide-react';
+import { Trophy, Settings, Calendar, Award } from 'lucide-react';
 import { apiFetch } from '@/lib/apiClient';
 import type { User, UserExamResult } from '@/types/api';
 import { useRouter } from 'next/navigation';
@@ -77,39 +70,39 @@ export default function MyPage() {
   }
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='flex flex-col md:flex-row gap-8'>
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
-        <div className='w-full md:w-64 space-y-6'>
-          <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-6 text-center'>
-            <Avatar className='h-24 w-24 mx-auto mb-4'>
-              <AvatarImage src='/default-profile.webp?height=96&width=96' />
+        <div className="w-full md:w-64 space-y-6">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 text-center">
+            <Avatar className="h-24 w-24 mx-auto mb-4">
+              <AvatarImage src="/default-profile.webp?height=96&width=96" />
               <AvatarFallback>{user?.name.substring(0, 2)}</AvatarFallback>
             </Avatar>
-            <h2 className='text-xl font-bold text-gray-800'>{user?.name}</h2>
-            <p className='text-gray-600 text-sm mb-2'>@{user?.displayId}</p>
+            <h2 className="text-xl font-bold text-gray-800">{user?.name}</h2>
+            <p className="text-gray-600 text-sm mb-2">@{user?.displayId}</p>
             <Badge
-              variant='outline'
-              className='bg-orange-100 text-orange-600 border-orange-200'
+              variant="outline"
+              className="bg-orange-100 text-orange-600 border-orange-200"
             >
               {user?.occupation}
             </Badge>
-            <div className='mt-4 text-sm text-gray-500 flex items-center justify-center'>
-              <Calendar className='h-4 w-4 mr-1' />
+            <div className="mt-4 text-sm text-gray-500 flex items-center justify-center">
+              <Calendar className="h-4 w-4 mr-1" />
               {new Date(user?.joinedDate || '').toLocaleDateString('ja-JP')}
               に登録
             </div>
           </div>
 
-          <div className='bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden'>
-            <div className='p-4 border-b border-gray-100'>
-              <h3 className='font-medium text-gray-800'>メニュー</h3>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+            <div className="p-4 border-b border-gray-100">
+              <h3 className="font-medium text-gray-800">メニュー</h3>
             </div>
-            <nav className='p-2'>
-              <ul className='space-y-1'>
+            <nav className="p-2">
+              <ul className="space-y-1">
                 <li>
                   <Link
-                    href='/mypage'
+                    href="/mypage"
                     className={`flex items-center px-3 py-2 rounded-md ${
                       activeTab === 'profile'
                         ? 'bg-orange-50 text-orange-600'
@@ -117,13 +110,13 @@ export default function MyPage() {
                     }`}
                     onClick={() => setActiveTab('profile')}
                   >
-                    <Award className='h-5 w-5 mr-3' />
+                    <Award className="h-5 w-5 mr-3" />
                     プロフィール
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href='/mypage?tab=exams'
+                    href="/mypage?tab=exams"
                     className={`flex items-center px-3 py-2 rounded-md ${
                       activeTab === 'exams'
                         ? 'bg-orange-50 text-orange-600'
@@ -131,7 +124,7 @@ export default function MyPage() {
                     }`}
                     onClick={() => setActiveTab('exams')}
                   >
-                    <Trophy className='h-5 w-5 mr-3' />
+                    <Trophy className="h-5 w-5 mr-3" />
                     試験結果
                   </Link>
                 </li>
@@ -151,10 +144,10 @@ export default function MyPage() {
                 </li> */}
                 <li>
                   <Link
-                    href='/mypage/settings'
-                    className='flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100'
+                    href="/mypage/settings"
+                    className="flex items-center px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
                   >
-                    <Settings className='h-5 w-5 mr-3' />
+                    <Settings className="h-5 w-5 mr-3" />
                     設定
                   </Link>
                 </li>
@@ -164,20 +157,20 @@ export default function MyPage() {
         </div>
 
         {/* Main Content */}
-        <div className='flex-1'>
+        <div className="flex-1">
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
-            className='w-full'
+            className="w-full"
           >
-            <TabsList className='grid w-full grid-cols-3 mb-8'>
-              <TabsTrigger value='profile'>プロフィール</TabsTrigger>
-              <TabsTrigger value='exams'>試験結果</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 mb-8">
+              <TabsTrigger value="profile">プロフィール</TabsTrigger>
+              <TabsTrigger value="exams">試験結果</TabsTrigger>
               {/* <TabsTrigger value='courses'>コース進捗</TabsTrigger> */}
             </TabsList>
 
             {/* Profile Tab */}
-            <TabsContent value='profile'>
+            <TabsContent value="profile">
               <Card>
                 <CardHeader>
                   <CardTitle>プロフィール情報</CardTitle>
@@ -185,32 +178,32 @@ export default function MyPage() {
                     あなたのアカウント情報です。
                   </CardDescription>
                 </CardHeader>
-                <CardContent className='space-y-4'>
-                  <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                      <h4 className="text-sm font-medium text-gray-500 mb-1">
                         ユーザーID
                       </h4>
-                      <p className='text-gray-800'>{user?.displayId}</p>
+                      <p className="text-gray-800">{user?.displayId}</p>
                     </div>
                     <div>
-                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                      <h4 className="text-sm font-medium text-gray-500 mb-1">
                         ユーザー名
                       </h4>
-                      <p className='text-gray-800'>{user?.name}</p>
+                      <p className="text-gray-800">{user?.name}</p>
                     </div>
                     {/* メールアドレスは型に含まれていないため表示から除外 */}
                     <div>
-                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                      <h4 className="text-sm font-medium text-gray-500 mb-1">
                         職種
                       </h4>
-                      <p className='text-gray-800'>{user?.occupation}</p>
+                      <p className="text-gray-800">{user?.occupation}</p>
                     </div>
                     <div>
-                      <h4 className='text-sm font-medium text-gray-500 mb-1'>
+                      <h4 className="text-sm font-medium text-gray-500 mb-1">
                         生年月日
                       </h4>
-                      <p className='text-gray-800'>
+                      <p className="text-gray-800">
                         {new Date(user?.birthDate || '').toLocaleDateString(
                           'ja-JP'
                         )}
@@ -219,10 +212,10 @@ export default function MyPage() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Link href='/mypage/settings'>
+                  <Link href="/mypage/settings">
                     <Button
-                      variant='outline'
-                      className='border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600'
+                      variant="outline"
+                      className="border-orange-500 text-orange-500 hover:bg-orange-50 hover:text-orange-600"
                     >
                       プロフィールを編集
                     </Button>
@@ -230,16 +223,16 @@ export default function MyPage() {
                 </CardFooter>
               </Card>
 
-              <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mt-6'>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                 <Card>
                   <CardHeader>
                     <CardTitle>試験成績</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className='space-y-2'>
-                      <div className='flex justify-between'>
-                        <span className='text-gray-600'>合格した試験</span>
-                        <span className='font-medium'>
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">合格した試験</span>
+                        <span className="font-medium">
                           {
                             examResults.filter(
                               (exam) => exam.score >= exam.passingScore
@@ -247,9 +240,9 @@ export default function MyPage() {
                           }
                         </span>
                       </div>
-                      <div className='flex justify-between'>
-                        <span className='text-gray-600'>平均スコア</span>
-                        <span className='font-medium'>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">平均スコア</span>
+                        <span className="font-medium">
                           {examResults.length > 0
                             ? Math.round(
                                 examResults.reduce(
@@ -270,7 +263,7 @@ export default function MyPage() {
             </TabsContent>
 
             {/* Exams Tab */}
-            <TabsContent value='exams'>
+            <TabsContent value="exams">
               {loadingExams ? (
                 <div>Loading exam results...</div>
               ) : (
@@ -282,35 +275,35 @@ export default function MyPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className='space-y-6'>
+                    <div className="space-y-6">
                       {examResults.map((exam) => {
                         const failed = exam.score < exam.passingScore;
                         return (
                           <div
                             key={exam.subMissionId}
-                            className='border border-gray-200 rounded-lg p-4'
+                            className="border border-gray-200 rounded-lg p-4"
                           >
-                            <div className='flex flex-col md:flex-row justify-between mb-2'>
+                            <div className="flex flex-col md:flex-row justify-between mb-2">
                               <div>
-                                <h3 className='text-lg font-medium text-gray-800'>
+                                <h3 className="text-lg font-medium text-gray-800">
                                   {exam.examTitle}
                                 </h3>
-                                <div className='flex flex-wrap gap-2 mt-1'>
+                                <div className="flex flex-wrap gap-2 mt-1">
                                   <Badge
-                                    variant='outline'
-                                    className='bg-orange-100 text-orange-600 border-orange-200'
+                                    variant="outline"
+                                    className="bg-orange-100 text-orange-600 border-orange-200"
                                   >
                                     {exam.examCategoryName}
                                   </Badge>
                                   <Badge
-                                    variant='outline'
-                                    className='bg-orange-100 text-orange-600 border-orange-200'
+                                    variant="outline"
+                                    className="bg-orange-100 text-orange-600 border-orange-200"
                                   >
                                     {exam.examLevel}
                                   </Badge>
                                   <Badge
-                                    variant='outline'
-                                    className='bg-gray-100 text-gray-600 border-gray-200'
+                                    variant="outline"
+                                    className="bg-gray-100 text-gray-600 border-gray-200"
                                   >
                                     {new Date(exam.date).toLocaleDateString(
                                       'ja-JP'
@@ -318,8 +311,8 @@ export default function MyPage() {
                                   </Badge>
                                 </div>
                               </div>
-                              <div className='mt-2 md:mt-0 text-right'>
-                                <div className='text-2xl font-bold flex items-center justify-end'>
+                              <div className="mt-2 md:mt-0 text-right">
+                                <div className="text-2xl font-bold flex items-center justify-end">
                                   <span
                                     className={
                                       failed ? 'text-red-500' : 'text-green-500'
@@ -328,16 +321,16 @@ export default function MyPage() {
                                     {exam.score}%
                                   </span>
                                   {!failed && (
-                                    <Trophy className='ml-2 h-5 w-5 text-yellow-500' />
+                                    <Trophy className="ml-2 h-5 w-5 text-yellow-500" />
                                   )}
                                 </div>
-                                <p className='text-sm text-gray-500'>
+                                <p className="text-sm text-gray-500">
                                   合格ライン: {exam.passingScore}%
                                 </p>
                               </div>
                             </div>
-                            <div className='mt-2'>
-                              <div className='flex justify-between text-sm mb-1'>
+                            <div className="mt-2">
+                              <div className="flex justify-between text-sm mb-1">
                                 <span>スコア</span>
                                 <span>{exam.score}%</span>
                               </div>
@@ -351,7 +344,7 @@ export default function MyPage() {
                                 // }
                               />
                             </div>
-                            <div className='mt-4 flex justify-end'>
+                            <div className="mt-4 flex justify-end">
                               {/* <Button
                                 variant='outline'
                                 size='sm'
@@ -361,8 +354,8 @@ export default function MyPage() {
                               </Button> */}
                               {failed && (
                                 <Button
-                                  size='sm'
-                                  className='ml-2 text-sm bg-orange-500 hover:bg-orange-600 text-white'
+                                  size="sm"
+                                  className="ml-2 text-sm bg-orange-500 hover:bg-orange-600 text-white"
                                 >
                                   再受験する
                                 </Button>
@@ -374,9 +367,9 @@ export default function MyPage() {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Link href={`/exams`} className='w-full'>
+                    <Link href={`/exams`} className="w-full">
                       <Button
-                        className='bg-orange-500 hover:bg-orange-600 text-white'
+                        className="bg-orange-500 hover:bg-orange-600 text-white"
                         onClick={() => router.push('/exams')}
                       >
                         新しい試験に挑戦する

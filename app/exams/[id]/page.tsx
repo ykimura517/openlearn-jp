@@ -108,44 +108,44 @@ export default function ExamPage({ params }: ExamParams) {
   const progress = ((currentQuestionIndex + 1) / exam.questions.length) * 100;
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
         <Link
-          href='/exams'
-          className='text-orange-500 hover:underline mb-4 inline-block'
+          href="/exams"
+          className="text-orange-500 hover:underline mb-4 inline-block"
         >
-          <ArrowLeft className='inline mr-2 h-4 w-4' /> 試験一覧に戻る
+          <ArrowLeft className="inline mr-2 h-4 w-4" /> 試験一覧に戻る
         </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-2'>{exam.title}</h1>
-        <p className='text-gray-600 mb-4'>{exam.description}</p>
-        <div className='flex flex-wrap gap-2 mb-4'>
-          <span className='bg-orange-100 text-orange-600 px-2 py-1 rounded text-sm'>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">{exam.title}</h1>
+        <p className="text-gray-600 mb-4">{exam.description}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded text-sm">
             {exam.categoryName}
           </span>
-          <span className='bg-orange-100 text-orange-600 px-2 py-1 rounded text-sm'>
+          <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded text-sm">
             {exam.level}
           </span>
-          <span className='bg-gray-100 text-gray-600 px-2 py-1 rounded text-sm flex items-center'>
-            <Clock className='mr-1 h-4 w-4' /> {exam.timeLimitMin}分
+          <span className="bg-gray-100 text-gray-600 px-2 py-1 rounded text-sm flex items-center">
+            <Clock className="mr-1 h-4 w-4" /> {exam.timeLimitMin}分
           </span>
         </div>
       </div>
 
       {/* 試験進捗 */}
-      <div className='mb-6'>
-        <div className='flex justify-between items-center mb-2'>
-          <span className='text-gray-600'>
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-gray-600">
             問題 {currentQuestionIndex + 1} / {exam.questions.length}
           </span>
-          <span className='text-gray-600'>進捗: {Math.round(progress)}%</span>
+          <span className="text-gray-600">進捗: {Math.round(progress)}%</span>
         </div>
-        <Progress value={progress} className='h-2' />
+        <Progress value={progress} className="h-2" />
       </div>
 
       {/* 問題カード */}
-      <Card className='mb-8'>
+      <Card className="mb-8">
         <CardHeader>
-          <CardTitle className='text-xl text-gray-800'>
+          <CardTitle className="text-xl text-gray-800">
             問題 {currentQuestionIndex + 1}: {currentQuestion.question}
           </CardTitle>
         </CardHeader>
@@ -158,9 +158,9 @@ export default function ExamPage({ params }: ExamParams) {
               }
             >
               {currentQuestion.options?.map((option, index) => (
-                <div key={index} className='flex items-center space-x-2 mb-4'>
+                <div key={index} className="flex items-center space-x-2 mb-4">
                   <RadioGroupItem value={option} id={`option-${index}`} />
-                  <Label htmlFor={`option-${index}`} className='text-base'>
+                  <Label htmlFor={`option-${index}`} className="text-base">
                     {option}
                   </Label>
                 </div>
@@ -169,14 +169,14 @@ export default function ExamPage({ params }: ExamParams) {
           ) : (
             <div>
               <Textarea
-                placeholder='回答を入力してください...'
-                className='min-h-32'
+                placeholder="回答を入力してください..."
+                className="min-h-32"
                 value={answers[currentQuestion.id] || ''}
                 onChange={(e) =>
                   handleAnswerChange(currentQuestion.id, e.target.value)
                 }
               />
-              <p className='text-gray-500 text-sm mt-2'>
+              <p className="text-gray-500 text-sm mt-2">
                 100字以内で回答してください。
               </p>
             </div>
@@ -185,12 +185,12 @@ export default function ExamPage({ params }: ExamParams) {
       </Card>
 
       {/* ナビゲーションボタン */}
-      <div className='flex justify-between mb-8'>
+      <div className="flex justify-between mb-8">
         <Button
-          variant='outline'
+          variant="outline"
           onClick={handlePrevQuestion}
           disabled={currentQuestionIndex === 0}
-          className='border-orange-500 text-orange-500 hover:bg-orange-50'
+          className="border-orange-500 text-orange-500 hover:bg-orange-50"
         >
           前の問題
         </Button>
@@ -198,7 +198,7 @@ export default function ExamPage({ params }: ExamParams) {
         {currentQuestionIndex < exam.questions.length - 1 ? (
           <Button
             onClick={handleNextQuestion}
-            className='bg-orange-500 hover:bg-orange-600 text-white'
+            className="bg-orange-500 hover:bg-orange-600 text-white"
           >
             次の問題
           </Button>
@@ -206,7 +206,7 @@ export default function ExamPage({ params }: ExamParams) {
           <Button
             onClick={handleSubmit}
             disabled={isSubmitted}
-            className='bg-orange-500 hover:bg-orange-600 text-white'
+            className="bg-orange-500 hover:bg-orange-600 text-white"
           >
             提出する
           </Button>
@@ -215,35 +215,35 @@ export default function ExamPage({ params }: ExamParams) {
 
       {/* 結果ダイアログ */}
       <Dialog open={showResults} onOpenChange={setShowResults}>
-        <DialogContent className='sm:max-w-md'>
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className='text-center text-2xl'>
+            <DialogTitle className="text-center text-2xl">
               {result && result.passed ? (
-                <span className='text-green-600'>
+                <span className="text-green-600">
                   合格おめでとうございます！
                 </span>
               ) : (
-                <span className='text-red-600'>残念ながら不合格です</span>
+                <span className="text-red-600">残念ながら不合格です</span>
               )}
             </DialogTitle>
-            <DialogDescription className='text-center'>
-              <div className='my-6 flex justify-center'>
+            <DialogDescription className="text-center">
+              <div className="my-6 flex justify-center">
                 {result && result.passed ? (
-                  <Trophy className='h-16 w-16 text-yellow-500' />
+                  <Trophy className="h-16 w-16 text-yellow-500" />
                 ) : (
-                  <div className='h-16 w-16 rounded-full bg-red-100 flex items-center justify-center'>
-                    <span className='text-red-600 text-2xl'>!</span>
+                  <div className="h-16 w-16 rounded-full bg-red-100 flex items-center justify-center">
+                    <span className="text-red-600 text-2xl">!</span>
                   </div>
                 )}
               </div>
               {result && (
                 <>
-                  <p className='text-xl mb-2'>
+                  <p className="text-xl mb-2">
                     あなたのスコア:{' '}
-                    <span className='font-bold'>{result.score}%</span>
+                    <span className="font-bold">{result.score}%</span>
                   </p>
-                  <p className='mb-4'>合格ライン: {exam.passingScore}%</p>
-                  <p className='text-sm text-gray-600 mb-4'>
+                  <p className="mb-4">合格ライン: {exam.passingScore}%</p>
+                  <p className="text-sm text-gray-600 mb-4">
                     あなたは上位{result.percentile}
                     %のパフォーマンスを達成しました！
                   </p>
@@ -251,17 +251,17 @@ export default function ExamPage({ params }: ExamParams) {
               )}
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className='flex-col sm:flex-col gap-2'>
+          <DialogFooter className="flex-col sm:flex-col gap-2">
             <SocialShareButtons
               title={`OpenLearn JPの${exam.title}で${
                 result?.score || 0
               }%のスコアを獲得しました！`}
-              className='mb-4 justify-center'
+              className="mb-4 justify-center"
             />
-            <div className='flex gap-2 w-full'>
+            <div className="flex gap-2 w-full">
               <Button
-                variant='outline'
-                className='flex-1 border-orange-500 text-orange-500 hover:bg-orange-50'
+                variant="outline"
+                className="flex-1 border-orange-500 text-orange-500 hover:bg-orange-50"
                 onClick={() => {
                   setShowResults(false);
                   setIsSubmitted(false);
@@ -272,8 +272,8 @@ export default function ExamPage({ params }: ExamParams) {
               >
                 もう一度挑戦
               </Button>
-              <Link href='/exams' className='flex-1'>
-                <Button className='w-full bg-orange-500 hover:bg-orange-600 text-white'>
+              <Link href="/exams" className="flex-1">
+                <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">
                   他の試験を見る
                 </Button>
               </Link>

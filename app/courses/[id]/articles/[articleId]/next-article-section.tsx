@@ -47,18 +47,18 @@ export default function NextArticleSection({
   }
 
   return (
-    <div className='bg-orange-50 border border-orange-100 rounded-lg p-6 mb-12 text-center'>
-      <h2 className='text-xl font-bold text-orange-600 mb-2'>
+    <div className="bg-orange-50 border border-orange-100 rounded-lg p-6 mb-12 text-center">
+      <h2 className="text-xl font-bold text-orange-600 mb-2">
         次のレッスンに進みましょう
       </h2>
-      <p className='text-gray-700 mb-4'>
+      <p className="text-gray-700 mb-4">
         次のレッスンのタイトルは「{navigation.nextCourseArticle.title}」です。
       </p>
       <Link
         href={`/courses/${courseId}/articles/${navigation.nextCourseArticle.id}`}
       >
-        <Button className='bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg'>
-          次のレッスンへ進む <ArrowRight className='ml-2 h-5 w-5' />
+        <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg">
+          次のレッスンへ進む <ArrowRight className="ml-2 h-5 w-5" />
         </Button>
       </Link>
     </div>

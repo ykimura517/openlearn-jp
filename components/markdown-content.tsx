@@ -1,12 +1,12 @@
-"use client"
+'use client';
 
-import type React from "react"
-import ReactMarkdown from "react-markdown"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism"
+import type React from 'react';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface MarkdownContentProps {
-  content: string
+  content: string;
 }
 
 const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
@@ -15,7 +15,7 @@ const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
       <ReactMarkdown
         components={{
           code({ node, inline, className, children, ...props }) {
-            const match = /language-(\w+)/.exec(className || "")
+            const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
               <div className="relative">
                 {/* Language label */}
@@ -29,22 +29,21 @@ const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
                   {...props}
                   className="mt-6" // Add margin top to accommodate the language label
                 >
-                  {String(children).replace(/\n$/, "")}
+                  {String(children).replace(/\n$/, '')}
                 </SyntaxHighlighter>
               </div>
             ) : (
               <code className={className} {...props}>
                 {children}
               </code>
-            )
+            );
           },
         }}
       >
         {content}
       </ReactMarkdown>
     </div>
-  )
-}
+  );
+};
 
-export default MarkdownContent
-
+export default MarkdownContent;

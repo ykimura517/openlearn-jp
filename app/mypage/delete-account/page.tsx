@@ -79,26 +79,26 @@ export default function DeleteAccountPage() {
   };
 
   return (
-    <div className='container mx-auto px-4 py-8 max-w-2xl'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-8 max-w-2xl">
+      <div className="mb-8">
         <Link
-          href='/mypage'
-          className='text-orange-500 hover:underline mb-4 inline-block'
+          href="/mypage"
+          className="text-orange-500 hover:underline mb-4 inline-block"
         >
           ← マイページに戻る
         </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-2'>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
           アカウント退会
         </h1>
-        <p className='text-gray-600'>
+        <p className="text-gray-600">
           アカウントを退会すると、すべてのデータが削除され、復元することはできません。
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className='text-red-600 flex items-center'>
-            <AlertTriangle className='mr-2 h-5 w-5' />
+          <CardTitle className="text-red-600 flex items-center">
+            <AlertTriangle className="mr-2 h-5 w-5" />
             アカウント退会
           </CardTitle>
           <CardDescription>
@@ -106,11 +106,11 @@ export default function DeleteAccountPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Alert className='mb-6 border-amber-200 bg-amber-50'>
-            <AlertCircle className='h-4 w-4 text-amber-600' />
-            <AlertTitle className='text-amber-600'>注意事項</AlertTitle>
-            <AlertDescription className='text-amber-700'>
-              <ul className='list-disc pl-5 space-y-1 mt-2'>
+          <Alert className="mb-6 border-amber-200 bg-amber-50">
+            <AlertCircle className="h-4 w-4 text-amber-600" />
+            <AlertTitle className="text-amber-600">注意事項</AlertTitle>
+            <AlertDescription className="text-amber-700">
+              <ul className="list-disc pl-5 space-y-1 mt-2">
                 <li>
                   アカウントを退会すると、すべての学習データ、試験結果、認定証が削除されます。
                 </li>
@@ -124,86 +124,86 @@ export default function DeleteAccountPage() {
             </AlertDescription>
           </Alert>
 
-          <form onSubmit={handleSubmit} className='space-y-6'>
-            <div className='space-y-4'>
-              <h3 className='text-lg font-medium text-gray-800'>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <h3 className="text-lg font-medium text-gray-800">
                 退会理由を教えてください
               </h3>
               <RadioGroup
                 value={selectedReason}
                 onValueChange={setSelectedReason}
               >
-                <div className='space-y-3'>
-                  <div className='flex items-start space-x-2'>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-2">
                     <RadioGroupItem
-                      value='not-useful'
-                      id='not-useful'
-                      className='mt-1'
+                      value="not-useful"
+                      id="not-useful"
+                      className="mt-1"
                     />
                     <div>
-                      <Label htmlFor='not-useful' className='text-base'>
+                      <Label htmlFor="not-useful" className="text-base">
                         サービスが役に立たなかった
                       </Label>
-                      <p className='text-sm text-gray-500'>
+                      <p className="text-sm text-gray-500">
                         コンテンツや機能が期待と異なっていた
                       </p>
                     </div>
                   </div>
-                  <div className='flex items-start space-x-2'>
+                  <div className="flex items-start space-x-2">
                     <RadioGroupItem
-                      value='too-expensive'
-                      id='too-expensive'
-                      className='mt-1'
+                      value="too-expensive"
+                      id="too-expensive"
+                      className="mt-1"
                     />
                     <div>
-                      <Label htmlFor='too-expensive' className='text-base'>
+                      <Label htmlFor="too-expensive" className="text-base">
                         料金が高すぎる
                       </Label>
-                      <p className='text-sm text-gray-500'>
+                      <p className="text-sm text-gray-500">
                         サービスの価格に見合う価値を感じなかった
                       </p>
                     </div>
                   </div>
-                  <div className='flex items-start space-x-2'>
+                  <div className="flex items-start space-x-2">
                     <RadioGroupItem
-                      value='found-alternative'
-                      id='found-alternative'
-                      className='mt-1'
+                      value="found-alternative"
+                      id="found-alternative"
+                      className="mt-1"
                     />
                     <div>
-                      <Label htmlFor='found-alternative' className='text-base'>
+                      <Label htmlFor="found-alternative" className="text-base">
                         他のサービスを見つけた
                       </Label>
-                      <p className='text-sm text-gray-500'>
+                      <p className="text-sm text-gray-500">
                         より良い代替サービスを利用することにした
                       </p>
                     </div>
                   </div>
-                  <div className='flex items-start space-x-2'>
+                  <div className="flex items-start space-x-2">
                     <RadioGroupItem
-                      value='temporary'
-                      id='temporary'
-                      className='mt-1'
+                      value="temporary"
+                      id="temporary"
+                      className="mt-1"
                     />
                     <div>
-                      <Label htmlFor='temporary' className='text-base'>
+                      <Label htmlFor="temporary" className="text-base">
                         一時的に利用しないため
                       </Label>
-                      <p className='text-sm text-gray-500'>
+                      <p className="text-sm text-gray-500">
                         後で再登録する予定がある
                       </p>
                     </div>
                   </div>
-                  <div className='flex items-start space-x-2'>
-                    <RadioGroupItem value='other' id='other' className='mt-1' />
-                    <div className='flex-1'>
-                      <Label htmlFor='other' className='text-base'>
+                  <div className="flex items-start space-x-2">
+                    <RadioGroupItem value="other" id="other" className="mt-1" />
+                    <div className="flex-1">
+                      <Label htmlFor="other" className="text-base">
                         その他
                       </Label>
                       {selectedReason === 'other' && (
                         <Textarea
-                          placeholder='退会理由を詳しく教えてください'
-                          className='mt-2'
+                          placeholder="退会理由を詳しく教えてください"
+                          className="mt-2"
                           value={otherReason}
                           onChange={(e) => setOtherReason(e.target.value)}
                         />
@@ -214,31 +214,31 @@ export default function DeleteAccountPage() {
               </RadioGroup>
             </div>
 
-            <div className='space-y-2'>
-              <h3 className='text-lg font-medium text-gray-800'>確認</h3>
-              <p className='text-sm text-gray-600'>
+            <div className="space-y-2">
+              <h3 className="text-lg font-medium text-gray-800">確認</h3>
+              <p className="text-sm text-gray-600">
                 退会を確定するには、以下に「退会します」と入力してください。
               </p>
               <Input
-                placeholder='退会します'
+                placeholder="退会します"
                 value={confirmation}
                 onChange={(e) => setConfirmation(e.target.value)}
-                className='border-red-200'
+                className="border-red-200"
               />
             </div>
 
-            <div className='flex items-start space-x-2'>
+            <div className="flex items-start space-x-2">
               <Checkbox
-                id='confirm'
+                id="confirm"
                 checked={confirmCheckbox}
                 onCheckedChange={(checked) =>
                   setConfirmCheckbox(checked as boolean)
                 }
               />
-              <div className='grid gap-1.5 leading-none'>
+              <div className="grid gap-1.5 leading-none">
                 <label
-                  htmlFor='confirm'
-                  className='text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                  htmlFor="confirm"
+                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   上記の注意事項を読み、理解しました。アカウントを完全に削除することに同意します。
                 </label>
@@ -246,20 +246,20 @@ export default function DeleteAccountPage() {
             </div>
 
             {error && (
-              <Alert variant='destructive'>
-                <AlertCircle className='h-4 w-4' />
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
                 <AlertTitle>エラー</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
           </form>
         </CardContent>
-        <CardFooter className='flex justify-between'>
-          <Link href='/mypage'>
-            <Button variant='outline'>キャンセル</Button>
+        <CardFooter className="flex justify-between">
+          <Link href="/mypage">
+            <Button variant="outline">キャンセル</Button>
           </Link>
           <Button
-            variant='destructive'
+            variant="destructive"
             onClick={handleSubmit}
             disabled={
               !selectedReason ||

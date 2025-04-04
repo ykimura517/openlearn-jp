@@ -1,10 +1,9 @@
 // app/api/v1/ai-chat/route.ts
 
 import { type NextRequest, NextResponse } from 'next/server';
-import { getAuth } from 'firebase-admin/auth';
 import { authenticate } from '@/lib/apiHandler';
 import { prisma } from '@/lib/prisma';
-import type { AIChatRequest, AIChatResponse } from '@/types/api';
+import type { AIChatResponse } from '@/types/api';
 import { ChatOpenAI } from '@langchain/openai';
 import {
   HumanMessage,

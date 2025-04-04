@@ -10,21 +10,21 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export default async function PrivacyPolicyPage() {
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
         <Link
-          href='/'
-          className='text-orange-500 hover:underline mb-4 inline-block'
+          href="/"
+          className="text-orange-500 hover:underline mb-4 inline-block"
         >
           ← ホームに戻る
         </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">
           プライバシーポリシー
         </h1>
       </div>
 
-      <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8'>
-        <div className='prose max-w-none'>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
+        <div className="prose max-w-none">
           <h2>1. 個人情報の収集について</h2>
           <p>
             当サイトでは、お問い合わせやサービス提供の際に、お名前、メールアドレス等の個人情報をご提供いただく場合があります。これらの情報は、質問に対する回答や必要なサービスの提供のために利用するものであり、その他の目的には利用いたしません。

@@ -88,18 +88,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   // エラー状態
   if (error || !articleData) {
     return (
-      <div className='container mx-auto px-4 py-8'>
-        <div className='bg-red-50 border border-red-200 rounded-lg p-6 text-center'>
-          <h2 className='text-xl font-bold text-red-600 mb-2'>
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <h2 className="text-xl font-bold text-red-600 mb-2">
             エラーが発生しました
           </h2>
-          <p className='text-red-600 mb-4'>
+          <p className="text-red-600 mb-4">
             {error || 'レッスンデータを取得できませんでした。'}
           </p>
           <Link href={`/courses/${courseId}`}>
             <Button
-              variant='outline'
-              className='border-red-500 text-red-500 hover:bg-red-50'
+              variant="outline"
+              className="border-red-500 text-red-500 hover:bg-red-50"
             >
               コース概要に戻る
             </Button>
@@ -110,21 +110,21 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   }
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
         <Link
           href={`/courses/${courseId}`}
-          className='text-orange-500 hover:underline mb-4 inline-block'
+          className="text-orange-500 hover:underline mb-4 inline-block"
         >
           ← コース概要に戻る
         </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-2'>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">
           {articleData.courseTitle}
         </h1>
-        <h2 className='text-xl text-gray-600 mb-4'>{articleData.title}</h2>
+        <h2 className="text-xl text-gray-600 mb-4">{articleData.title}</h2>
         <SocialShareButtons
           title={`${articleData.courseTitle} - ${articleData.title}`}
-          className='mb-6'
+          className="mb-6"
         />
       </div>
 
@@ -132,10 +132,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <NavigationSection courseId={courseId} articleId={articleId} />
 
       {/* レッスンコンテンツ - サーバーサイドレンダリング */}
-      <div className='mb-12'>
+      <div className="mb-12">
         <Suspense
           fallback={
-            <div className='animate-pulse h-96 bg-gray-100 rounded-md'></div>
+            <div className="animate-pulse h-96 bg-gray-100 rounded-md"></div>
           }
         >
           <ArticleContent content={articleData.content} />
@@ -144,15 +144,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
       {/* 練習問題 - クライアントサイドインタラクティブ */}
       {questions && questions.questions.length > 0 && (
-        <div className='mb-12'>
-          <h2 className='text-2xl font-bold text-gray-800 mb-6'>練習問題</h2>
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">練習問題</h2>
           <PracticeQuestions questions={questions.questions} />
         </div>
       )}
 
       {/* AIチャットセクション - クライアントサイドインタラクティブ */}
-      <div className='mb-12'>
-        <h2 className='text-2xl font-bold text-gray-800 mb-6'>AIに質問する</h2>
+      <div className="mb-12">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">AIに質問する</h2>
         <AiChatSection articleId={articleData.id} />
       </div>
 

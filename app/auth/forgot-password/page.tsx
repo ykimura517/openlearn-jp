@@ -65,16 +65,16 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <div className='container mx-auto px-4 py-16 max-w-md'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-16 max-w-md">
+      <div className="mb-8">
         <Link
-          href='/auth/signin'
-          className='text-orange-500 hover:underline mb-4 inline-flex items-center'
+          href="/auth/signin"
+          className="text-orange-500 hover:underline mb-4 inline-flex items-center"
         >
-          <ArrowLeft className='mr-2 h-4 w-4' /> ログインページに戻る
+          <ArrowLeft className="mr-2 h-4 w-4" /> ログインページに戻る
         </Link>
-        <h1 className='text-3xl font-bold mt-6 mb-2'>パスワードをお忘れの方</h1>
-        <p className='text-gray-600'>
+        <h1 className="text-3xl font-bold mt-6 mb-2">パスワードをお忘れの方</h1>
+        <p className="text-gray-600">
           登録したメールアドレスにパスワードリセット用のリンクを送信します。
         </p>
       </div>
@@ -87,13 +87,13 @@ export default function ForgotPasswordPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className='space-y-4'>
-            <div className='space-y-2'>
-              <Label htmlFor='email'>メールアドレス</Label>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">メールアドレス</Label>
               <Input
-                id='email'
-                type='email'
-                placeholder='your@email.com'
+                id="email"
+                type="email"
+                placeholder="your@email.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -101,35 +101,35 @@ export default function ForgotPasswordPage() {
             </div>
 
             {error && (
-              <Alert variant='destructive'>
-                <AlertCircle className='h-4 w-4' />
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
                 <AlertTitle>エラー</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
             {success && (
-              <Alert className='bg-green-50 border-green-200'>
-                <CheckCircle className='h-4 w-4 text-green-600' />
-                <AlertTitle className='text-green-600'>送信完了</AlertTitle>
-                <AlertDescription className='text-green-700'>
+              <Alert className="bg-green-50 border-green-200">
+                <CheckCircle className="h-4 w-4 text-green-600" />
+                <AlertTitle className="text-green-600">送信完了</AlertTitle>
+                <AlertDescription className="text-green-700">
                   {success}
                 </AlertDescription>
               </Alert>
             )}
 
             <Button
-              type='submit'
-              className='w-full bg-orange-500 hover:bg-orange-600'
+              type="submit"
+              className="w-full bg-orange-500 hover:bg-orange-600"
               disabled={isLoading}
             >
               {isLoading ? '送信中...' : 'リセットリンクを送信'}
             </Button>
           </form>
         </CardContent>
-        <CardFooter className='flex flex-col space-y-4'>
-          <div className='text-center text-sm'>
-            <p className='text-gray-500 mb-2'>
+        <CardFooter className="flex flex-col space-y-4">
+          <div className="text-center text-sm">
+            <p className="text-gray-500 mb-2">
               メールが届かない場合は、迷惑メールフォルダをご確認いただくか、
               <br />
               別のメールアドレスでお試しください。
@@ -137,8 +137,8 @@ export default function ForgotPasswordPage() {
             <p>
               アカウントをお持ちの方は
               <Link
-                href='/auth/signin'
-                className='text-orange-500 hover:underline ml-1'
+                href="/auth/signin"
+                className="text-orange-500 hover:underline ml-1"
               >
                 ログイン
               </Link>

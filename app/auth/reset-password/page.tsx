@@ -90,15 +90,15 @@ export default function ResetPasswordPage() {
   // トークンがない場合はエラーを表示
   if (!token) {
     return (
-      <div className='container mx-auto px-4 py-16 max-w-md'>
-        <div className='mb-8'>
+      <div className="container mx-auto px-4 py-16 max-w-md">
+        <div className="mb-8">
           <Link
-            href='/auth/signin'
-            className='text-orange-500 hover:underline mb-4 inline-flex items-center'
+            href="/auth/signin"
+            className="text-orange-500 hover:underline mb-4 inline-flex items-center"
           >
-            <ArrowLeft className='mr-2 h-4 w-4' /> ログインページに戻る
+            <ArrowLeft className="mr-2 h-4 w-4" /> ログインページに戻る
           </Link>
-          <h1 className='text-3xl font-bold mt-6 mb-2'>パスワードリセット</h1>
+          <h1 className="text-3xl font-bold mt-6 mb-2">パスワードリセット</h1>
         </div>
 
         <Card>
@@ -109,8 +109,8 @@ export default function ResetPasswordPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Alert variant='destructive'>
-              <AlertCircle className='h-4 w-4' />
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
               <AlertTitle>エラー</AlertTitle>
               <AlertDescription>
                 無効なリセットリンクです。もう一度パスワードリセットをお試しください。
@@ -118,8 +118,8 @@ export default function ResetPasswordPage() {
             </Alert>
           </CardContent>
           <CardFooter>
-            <Link href='/auth/forgot-password' className='w-full'>
-              <Button className='w-full bg-orange-500 hover:bg-orange-600'>
+            <Link href="/auth/forgot-password" className="w-full">
+              <Button className="w-full bg-orange-500 hover:bg-orange-600">
                 パスワードリセットをやり直す
               </Button>
             </Link>
@@ -130,16 +130,16 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className='container mx-auto px-4 py-16 max-w-md'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-16 max-w-md">
+      <div className="mb-8">
         <Link
-          href='/auth/signin'
-          className='text-orange-500 hover:underline mb-4 inline-flex items-center'
+          href="/auth/signin"
+          className="text-orange-500 hover:underline mb-4 inline-flex items-center"
         >
-          <ArrowLeft className='mr-2 h-4 w-4' /> ログインページに戻る
+          <ArrowLeft className="mr-2 h-4 w-4" /> ログインページに戻る
         </Link>
-        <h1 className='text-3xl font-bold mt-6 mb-2'>新しいパスワードの設定</h1>
-        <p className='text-gray-600'>新しいパスワードを入力してください。</p>
+        <h1 className="text-3xl font-bold mt-6 mb-2">新しいパスワードの設定</h1>
+        <p className="text-gray-600">新しいパスワードを入力してください。</p>
       </div>
 
       <Card>
@@ -150,25 +150,25 @@ export default function ResetPasswordPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className='space-y-4'>
-            <div className='space-y-2'>
-              <Label htmlFor='newPassword'>新しいパスワード</Label>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="newPassword">新しいパスワード</Label>
               <Input
-                id='newPassword'
-                type='password'
+                id="newPassword"
+                type="password"
                 required
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
               />
-              <p className='text-xs text-gray-500'>
+              <p className="text-xs text-gray-500">
                 8文字以上の英数字を含むパスワードを設定してください。
               </p>
             </div>
-            <div className='space-y-2'>
-              <Label htmlFor='confirmPassword'>パスワード（確認）</Label>
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">パスワード（確認）</Label>
               <Input
-                id='confirmPassword'
-                type='password'
+                id="confirmPassword"
+                type="password"
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -176,20 +176,20 @@ export default function ResetPasswordPage() {
             </div>
 
             {error && (
-              <Alert variant='destructive'>
-                <AlertCircle className='h-4 w-4' />
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
                 <AlertTitle>エラー</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
             {success && (
-              <Alert className='bg-green-50 border-green-200'>
-                <CheckCircle className='h-4 w-4 text-green-600' />
-                <AlertTitle className='text-green-600'>成功</AlertTitle>
-                <AlertDescription className='text-green-700'>
+              <Alert className="bg-green-50 border-green-200">
+                <CheckCircle className="h-4 w-4 text-green-600" />
+                <AlertTitle className="text-green-600">成功</AlertTitle>
+                <AlertDescription className="text-green-700">
                   {success}
-                  <div className='mt-2 text-sm'>
+                  <div className="mt-2 text-sm">
                     3秒後にログインページに移動します...
                   </div>
                 </AlertDescription>
@@ -197,8 +197,8 @@ export default function ResetPasswordPage() {
             )}
 
             <Button
-              type='submit'
-              className='w-full bg-orange-500 hover:bg-orange-600'
+              type="submit"
+              className="w-full bg-orange-500 hover:bg-orange-600"
               disabled={isLoading}
             >
               {isLoading ? '処理中...' : 'パスワードを変更する'}

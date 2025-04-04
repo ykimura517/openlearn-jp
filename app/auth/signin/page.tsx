@@ -71,7 +71,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className='container mx-auto px-4 py-16 max-w-md'>
+    <div className="container mx-auto px-4 py-16 max-w-md">
       <Card>
         <CardHeader>
           <CardTitle>ログイン</CardTitle>
@@ -80,107 +80,107 @@ export default function SignInPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue='email' className='w-full'>
-            <TabsList className='grid w-full grid-cols-3'>
-              <TabsTrigger value='email'>メール</TabsTrigger>
-              <TabsTrigger value='google'>Google</TabsTrigger>
-              <TabsTrigger value='github'>GitHub</TabsTrigger>
+          <Tabs defaultValue="email" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="email">メール</TabsTrigger>
+              <TabsTrigger value="google">Google</TabsTrigger>
+              <TabsTrigger value="github">GitHub</TabsTrigger>
             </TabsList>
-            <TabsContent value='email'>
-              <form onSubmit={handleSignIn} className='space-y-4 mt-4'>
-                <div className='space-y-2'>
-                  <Label htmlFor='email'>メールアドレス</Label>
+            <TabsContent value="email">
+              <form onSubmit={handleSignIn} className="space-y-4 mt-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email">メールアドレス</Label>
                   <Input
-                    id='email'
-                    type='email'
-                    placeholder='your@email.com'
+                    id="email"
+                    type="email"
+                    placeholder="your@email.com"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className='space-y-2'>
-                  <Label htmlFor='password'>パスワード</Label>
+                <div className="space-y-2">
+                  <Label htmlFor="password">パスワード</Label>
                   <Input
-                    id='password'
-                    type='password'
+                    id="password"
+                    type="password"
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <div className='flex items-center space-x-2'>
+                <div className="flex items-center space-x-2">
                   <Checkbox
-                    id='rememberMe'
+                    id="rememberMe"
                     checked={rememberMe}
                     onCheckedChange={(checked) =>
                       setRememberMe(checked as boolean)
                     }
                   />
-                  <Label htmlFor='rememberMe' className='text-sm'>
+                  <Label htmlFor="rememberMe" className="text-sm">
                     ログイン状態を保持する
                   </Label>
                 </div>
                 {error && (
-                  <Alert variant='destructive'>
-                    <AlertCircle className='h-4 w-4' />
+                  <Alert variant="destructive">
+                    <AlertCircle className="h-4 w-4" />
                     <AlertTitle>エラー</AlertTitle>
                     <AlertDescription>{error}</AlertDescription>
                   </Alert>
                 )}
                 <Button
-                  type='submit'
-                  className='w-full bg-orange-500 hover:bg-orange-600'
+                  type="submit"
+                  className="w-full bg-orange-500 hover:bg-orange-600"
                 >
                   ログイン
                 </Button>
               </form>
             </TabsContent>
-            <TabsContent value='google'>
-              <div className='space-y-4 mt-4'>
-                <p className='text-center text-gray-600'>
+            <TabsContent value="google">
+              <div className="space-y-4 mt-4">
+                <p className="text-center text-gray-600">
                   Googleアカウントを使用してログインします。
                 </p>
                 <Button
                   onClick={handleGoogleSignIn}
-                  variant='outline'
-                  className='w-full'
+                  variant="outline"
+                  className="w-full"
                 >
                   Googleでログイン
                 </Button>
               </div>
             </TabsContent>
-            <TabsContent value='github'>
-              <div className='space-y-4 mt-4'>
-                <p className='text-center text-gray-600'>
+            <TabsContent value="github">
+              <div className="space-y-4 mt-4">
+                <p className="text-center text-gray-600">
                   GitHubアカウントを使用してログインします。
                 </p>
                 <Button
                   onClick={handleGithubSignIn}
-                  variant='outline'
-                  className='w-full'
+                  variant="outline"
+                  className="w-full"
                 >
-                  <Github className='mr-2 h-4 w-4' />
+                  <Github className="mr-2 h-4 w-4" />
                   GitHubでログイン
                 </Button>
               </div>
             </TabsContent>
           </Tabs>
         </CardContent>
-        <CardFooter className='flex flex-col space-y-4'>
+        <CardFooter className="flex flex-col space-y-4">
           <Separator />
-          <div className='text-center text-sm'>
+          <div className="text-center text-sm">
             アカウントをお持ちでないですか？{' '}
             <Link
-              href='/auth/signup'
-              className='text-orange-500 hover:underline'
+              href="/auth/signup"
+              className="text-orange-500 hover:underline"
             >
               新規登録
             </Link>
             <br />
             <Link
-              href='/auth/forgot-password'
-              className='text-xs text-orange-500 hover:underline'
+              href="/auth/forgot-password"
+              className="text-xs text-orange-500 hover:underline"
             >
               パスワードをお忘れですか？
             </Link>

@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["unused-imports"],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "prettier/prettier": ["error"],
+        // 未使用 import を警告
+        "unused-imports/no-unused-imports": "warn",
+        // 未使用の変数（アンダースコアで始まるものは無視）
+        "unused-imports/no-unused-vars": [
+          "warn",
+          {
+            "vars": "all",
+            "varsIgnorePattern": "^_",
+            "args": "after-used",
+            "argsIgnorePattern": "^_"
+          }
+        ]
+  }
+}

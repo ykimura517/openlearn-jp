@@ -71,18 +71,18 @@ export default async function CoursePage({ params }: CoursePageProps) {
   // エラー状態
   if (error || !course) {
     return (
-      <div className='container mx-auto px-4 py-8'>
-        <div className='bg-red-50 border border-red-200 rounded-lg p-6 text-center'>
-          <h2 className='text-xl font-bold text-red-600 mb-2'>
+      <div className="container mx-auto px-4 py-8">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <h2 className="text-xl font-bold text-red-600 mb-2">
             エラーが発生しました
           </h2>
-          <p className='text-red-600 mb-4'>
+          <p className="text-red-600 mb-4">
             {error || 'コース情報を取得できませんでした。'}
           </p>
-          <Link href='/courses'>
+          <Link href="/courses">
             <Button
-              variant='outline'
-              className='border-red-500 text-red-500 hover:bg-red-50'
+              variant="outline"
+              className="border-red-500 text-red-500 hover:bg-red-50"
             >
               コース一覧に戻る
             </Button>
@@ -93,75 +93,75 @@ export default async function CoursePage({ params }: CoursePageProps) {
   }
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
         <Link
-          href='/courses'
-          className='text-orange-500 hover:underline mb-4 inline-block'
+          href="/courses"
+          className="text-orange-500 hover:underline mb-4 inline-block"
         >
           ← コース一覧に戻る
         </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">
           {course.title}
         </h1>
-        <div className='flex flex-wrap gap-2 mb-4'>
+        <div className="flex flex-wrap gap-2 mb-4">
           <Badge
-            variant='outline'
-            className='bg-orange-100 text-orange-600 border-orange-200'
+            variant="outline"
+            className="bg-orange-100 text-orange-600 border-orange-200"
           >
             {course.categoryName}
           </Badge>
           <Badge
-            variant='outline'
-            className='bg-orange-100 text-orange-600 border-orange-200'
+            variant="outline"
+            className="bg-orange-100 text-orange-600 border-orange-200"
           >
             {course.level}
           </Badge>
           <Badge
-            variant='outline'
-            className='bg-gray-100 text-gray-600 border-gray-200'
+            variant="outline"
+            className="bg-gray-100 text-gray-600 border-gray-200"
           >
             {course.durationMin}分
           </Badge>
         </div>
-        <SocialShareButtons title={course.title} className='mb-6' />
+        <SocialShareButtons title={course.title} className="mb-6" />
       </div>
 
       {/* コース概要ボックス */}
-      <div className='bg-orange-50 border border-orange-100 rounded-lg p-6 mb-8'>
-        <h2 className='text-xl font-bold text-orange-600 mb-4'>コース概要</h2>
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+      <div className="bg-orange-50 border border-orange-100 rounded-lg p-6 mb-8">
+        <h2 className="text-xl font-bold text-orange-600 mb-4">コース概要</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h3 className='text-lg font-semibold text-gray-800 mb-2'>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
               このコースについて
             </h3>
-            <p className='text-gray-700 mb-4'>{course.summary}</p>
-            <div className='mb-4'>
-              <h4 className='font-medium text-gray-800 mb-1'>対象者</h4>
-              <p className='text-gray-700'>{course.targetAudience}</p>
+            <p className="text-gray-700 mb-4">{course.summary}</p>
+            <div className="mb-4">
+              <h4 className="font-medium text-gray-800 mb-1">対象者</h4>
+              <p className="text-gray-700">{course.targetAudience}</p>
             </div>
             <div>
-              <h4 className='font-medium text-gray-800 mb-1'>前提条件</h4>
-              <p className='text-gray-700'>
+              <h4 className="font-medium text-gray-800 mb-1">前提条件</h4>
+              <p className="text-gray-700">
                 {course.prerequisites ? course.prerequisites : '特になし'}
               </p>
             </div>
           </div>
           <div>
-            <h3 className='text-lg font-semibold text-gray-800 mb-2'>
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
               コース内容
             </h3>
-            <ul className='space-y-3'>
+            <ul className="space-y-3">
               {course.articleSummaries.map((article, index) => (
-                <li key={article.id} className='flex items-start'>
-                  <div className='bg-orange-200 text-orange-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0'>
+                <li key={article.id} className="flex items-start">
+                  <div className="bg-orange-200 text-orange-700 rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-0.5 flex-shrink-0">
                     {index + 1}
                   </div>
-                  <div className='flex-1'>
-                    <div className='flex justify-between'>
-                      <span className='text-gray-800'>{article.title}</span>
-                      <span className='text-gray-500 text-sm flex items-center'>
-                        <Clock className='h-3 w-3 mr-1' /> {article.durationMin}
+                  <div className="flex-1">
+                    <div className="flex justify-between">
+                      <span className="text-gray-800">{article.title}</span>
+                      <span className="text-gray-500 text-sm flex items-center">
+                        <Clock className="h-3 w-3 mr-1" /> {article.durationMin}
                         分
                       </span>
                     </div>
@@ -174,10 +174,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
       </div>
 
       {/* コースコンテンツ */}
-      <div className='mb-12'>
+      <div className="mb-12">
         <Suspense
           fallback={
-            <div className='animate-pulse h-96 bg-gray-100 rounded-md'></div>
+            <div className="animate-pulse h-96 bg-gray-100 rounded-md"></div>
           }
         >
           <MarkdownContent content={course.description} />
@@ -185,23 +185,23 @@ export default async function CoursePage({ params }: CoursePageProps) {
       </div>
 
       {/* コース開始ボタン */}
-      <div className='bg-orange-50 border border-orange-100 rounded-lg p-6 mb-12 text-center'>
-        <h2 className='text-xl font-bold text-orange-600 mb-2'>
+      <div className="bg-orange-50 border border-orange-100 rounded-lg p-6 mb-12 text-center">
+        <h2 className="text-xl font-bold text-orange-600 mb-2">
           学習を始めましょう
         </h2>
-        <p className='text-gray-700 mb-4'>
+        <p className="text-gray-700 mb-4">
           このコースの最初のレッスンから学習を開始できます。
         </p>
         {course.articleSummaries[0] ? (
           <Link
             href={`/courses/${courseId}/articles/${course.articleSummaries[0].id}`}
           >
-            <Button className='bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg'>
-              コースを始める <ArrowRight className='ml-2 h-5 w-5' />
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg">
+              コースを始める <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
         ) : (
-          <Button className='bg-gray-500 hover:bg-gray-500 text-white px-8 py-6 text-lg'>
+          <Button className="bg-gray-500 hover:bg-gray-500 text-white px-8 py-6 text-lg">
             このコースは現在利用できません
           </Button>
         )}
@@ -209,45 +209,45 @@ export default async function CoursePage({ params }: CoursePageProps) {
 
       {/* 関連コース */}
       {relatedCourses && relatedCourses.courses.length > 0 && (
-        <div className='mb-8'>
-          <h2 className='text-2xl font-bold text-gray-800 mb-6'>関連コース</h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">関連コース</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedCourses.courses.map((relatedCourse) => (
               <Card
                 key={relatedCourse.id}
-                className='hover:shadow-md transition-shadow'
+                className="hover:shadow-md transition-shadow"
               >
-                <CardHeader className='pb-2'>
-                  <div className='flex justify-between items-start'>
-                    <CardTitle className='text-lg text-gray-800'>
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <CardTitle className="text-lg text-gray-800">
                       {relatedCourse.title}
                     </CardTitle>
-                    <button className='text-gray-400 hover:text-orange-500'>
-                      <Share2 className='h-4 w-4' />
+                    <button className="text-gray-400 hover:text-orange-500">
+                      <Share2 className="h-4 w-4" />
                     </button>
                   </div>
-                  <CardDescription className='flex gap-2 mt-2'>
-                    <span className='bg-orange-100 text-orange-600 px-2 py-0.5 rounded text-xs'>
+                  <CardDescription className="flex gap-2 mt-2">
+                    <span className="bg-orange-100 text-orange-600 px-2 py-0.5 rounded text-xs">
                       {relatedCourse.level}
                     </span>
-                    <span className='bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs'>
+                    <span className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs">
                       {relatedCourse.durationMin}分
                     </span>
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className='text-gray-600 text-sm line-clamp-2'>
+                  <p className="text-gray-600 text-sm line-clamp-2">
                     {relatedCourse.title}に関する学習コースです。
                   </p>
                 </CardContent>
                 <CardFooter>
                   <Link
                     href={`/courses/${relatedCourse.id}`}
-                    className='w-full'
+                    className="w-full"
                   >
                     <Button
-                      variant='outline'
-                      className='w-full border-orange-500 text-orange-500 hover:bg-orange-50 text-sm'
+                      variant="outline"
+                      className="w-full border-orange-500 text-orange-500 hover:bg-orange-50 text-sm"
                     >
                       コースを見る
                     </Button>

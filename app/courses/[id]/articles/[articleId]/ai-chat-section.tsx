@@ -9,11 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { SendHorizontal, Lock } from 'lucide-react';
 import { useAuth } from '@/contexts/auth-context';
 import Link from 'next/link';
-import type {
-  AIChatRequest,
-  AIChatResponse,
-  AIChatHistoryResponse,
-} from '@/types/api';
+import type { AIChatRequest, AIChatHistoryResponse } from '@/types/api';
 
 interface AiChatSectionProps {
   // 変更：記事IDをプロパティとして受け取るように変更
@@ -155,34 +151,34 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
   // 非ログイン状態の表示
   if (!user) {
     return (
-      <Card className='border border-orange-100'>
-        <CardHeader className='bg-orange-50 border-b border-orange-100'>
-          <CardTitle className='text-lg text-orange-700'>
+      <Card className="border border-orange-100">
+        <CardHeader className="bg-orange-50 border-b border-orange-100">
+          <CardTitle className="text-lg text-orange-700">
             AIに質問する
           </CardTitle>
         </CardHeader>
-        <CardContent className='p-6 text-center'>
-          <div className='flex flex-col items-center justify-center py-8'>
-            <div className='bg-orange-100 rounded-full p-4 mb-4'>
-              <Lock className='h-8 w-8 text-orange-500' />
+        <CardContent className="p-6 text-center">
+          <div className="flex flex-col items-center justify-center py-8">
+            <div className="bg-orange-100 rounded-full p-4 mb-4">
+              <Lock className="h-8 w-8 text-orange-500" />
             </div>
-            <h3 className='text-xl font-semibold text-gray-800 mb-2'>
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
               この機能はログインが必要です
             </h3>
-            <p className='text-gray-600 mb-6'>
+            <p className="text-gray-600 mb-6">
               AIアシスタントに質問するには、ログインまたは新規登録が必要です。
             </p>
-            <div className='flex gap-4'>
-              <Link href='/auth/signin'>
+            <div className="flex gap-4">
+              <Link href="/auth/signin">
                 <Button
-                  variant='outline'
-                  className='border-orange-500 text-orange-500 hover:bg-orange-50'
+                  variant="outline"
+                  className="border-orange-500 text-orange-500 hover:bg-orange-50"
                 >
                   ログイン
                 </Button>
               </Link>
-              <Link href='/auth/signup'>
-                <Button className='bg-orange-500 hover:bg-orange-600 text-white'>
+              <Link href="/auth/signup">
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
                   新規登録
                 </Button>
               </Link>
@@ -194,14 +190,14 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
   }
 
   return (
-    <Card className='border border-orange-100'>
-      <CardHeader className='bg-orange-50 border-b border-orange-100'>
-        <CardTitle className='text-lg text-orange-700'>AIに質問する</CardTitle>
+    <Card className="border border-orange-100">
+      <CardHeader className="bg-orange-50 border-b border-orange-100">
+        <CardTitle className="text-lg text-orange-700">AIに質問する</CardTitle>
       </CardHeader>
-      <CardContent className='p-0'>
-        <div className='h-96 overflow-y-auto p-4 space-y-4'>
+      <CardContent className="p-0">
+        <div className="h-96 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 && (
-            <div className='text-center text-gray-500 py-8'>
+            <div className="text-center text-gray-500 py-8">
               <p>レッスンの内容について質問してみましょう</p>
             </div>
           )}
@@ -219,8 +215,8 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
                 }`}
               >
                 {message.role === 'AI' && (
-                  <Avatar className='h-8 w-8 mr-2 mt-1'>
-                    <AvatarImage src='/ai-icon.webp?height=32&width=32' />
+                  <Avatar className="h-8 w-8 mr-2 mt-1">
+                    <AvatarImage src="/ai-icon.webp?height=32&width=32" />
                     <AvatarFallback>AI</AvatarFallback>
                   </Avatar>
                 )}
@@ -246,24 +242,24 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
             </div>
           ))}
           {isLoading && (
-            <div className='flex justify-start'>
-              <div className='flex'>
-                <Avatar className='h-8 w-8 mr-2 mt-1'>
-                  <AvatarImage src='/ai-icon.webp?height=32&width=32' />
+            <div className="flex justify-start">
+              <div className="flex">
+                <Avatar className="h-8 w-8 mr-2 mt-1">
+                  <AvatarImage src="/ai-icon.webp?height=32&width=32" />
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
-                <div className='bg-gray-100 text-gray-800 rounded-lg p-3 flex items-center'>
-                  <div className='flex space-x-1'>
+                <div className="bg-gray-100 text-gray-800 rounded-lg p-3 flex items-center">
+                  <div className="flex space-x-1">
                     <div
-                      className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                       style={{ animationDelay: '0ms' }}
                     ></div>
                     <div
-                      className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                       style={{ animationDelay: '150ms' }}
                     ></div>
                     <div
-                      className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                       style={{ animationDelay: '300ms' }}
                     ></div>
                   </div>
@@ -273,13 +269,13 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
           )}
           <div ref={messagesEndRef} />
         </div>
-        <div className='p-4 border-t border-gray-200'>
-          <div className='flex'>
+        <div className="p-4 border-t border-gray-200">
+          <div className="flex">
             <Textarea
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              placeholder='質問を入力してください...'
-              className='flex-1 resize-none'
+              placeholder="質問を入力してください..."
+              className="flex-1 resize-none"
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
@@ -290,10 +286,10 @@ export default function AiChatSection({ articleId }: AiChatSectionProps) {
             />
             <Button
               onClick={handleSendMessage}
-              className='ml-2 bg-orange-500 hover:bg-orange-600'
+              className="ml-2 bg-orange-500 hover:bg-orange-600"
               disabled={!inputValue.trim() || isLoading}
             >
-              <SendHorizontal className='h-5 w-5' />
+              <SendHorizontal className="h-5 w-5" />
             </Button>
           </div>
         </div>

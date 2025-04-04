@@ -26,9 +26,9 @@ export default function ExamsPage() {
 
   // カテゴリー毎のアイコンマッピング（最終的にはマップで指定する想定）
   const mapCategoryIdToIcon: Record<string, JSX.Element> = {
-    ai: <Brain className='h-8 w-8 text-orange-500' />,
-    programming: <Code className='h-8 w-8 text-orange-500' />,
-    'web-development': <BookOpen className='h-8 w-8 text-orange-500' />,
+    ai: <Brain className="h-8 w-8 text-orange-500" />,
+    programming: <Code className="h-8 w-8 text-orange-500" />,
+    'web-development': <BookOpen className="h-8 w-8 text-orange-500" />,
   };
 
   // カテゴリー一覧（ベタ書き）
@@ -38,21 +38,21 @@ export default function ExamsPage() {
       title: '生成AI',
       description:
         '生成AIの基礎知識や応用についての試験です。ChatGPT、Stable Diffusionなどの理解度を測定します。',
-      icon: <Brain className='h-8 w-8 text-orange-500' />,
+      icon: <Brain className="h-8 w-8 text-orange-500" />,
     },
     {
       id: 'programming',
       title: 'プログラミング',
       description:
         'JavaScript、Python、Reactなどのプログラミング言語やフレームワークの知識を測定します。',
-      icon: <Code className='h-8 w-8 text-orange-500' />,
+      icon: <Code className="h-8 w-8 text-orange-500" />,
     },
     {
       id: 'web-development',
       title: 'Web開発',
       description:
         'HTML、CSS、レスポンシブデザイン、Webアクセシビリティなどの知識を測定します。',
-      icon: <BookOpen className='h-8 w-8 text-orange-500' />,
+      icon: <BookOpen className="h-8 w-8 text-orange-500" />,
     },
   ];
 
@@ -125,7 +125,7 @@ export default function ExamsPage() {
       // 現在のページが最初のページから離れている場合、省略記号を表示
       if (currentPage > 3) {
         items.push(
-          <PaginationItem key='ellipsis-start'>
+          <PaginationItem key="ellipsis-start">
             <PaginationEllipsis />
           </PaginationItem>
         );
@@ -151,7 +151,7 @@ export default function ExamsPage() {
       // 現在のページが最後のページから離れている場合、省略記号を表示
       if (currentPage < examsData.totalPages - 2) {
         items.push(
-          <PaginationItem key='ellipsis-end'>
+          <PaginationItem key="ellipsis-end">
             <PaginationEllipsis />
           </PaginationItem>
         );
@@ -173,24 +173,24 @@ export default function ExamsPage() {
   };
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <h1 className='text-3xl font-bold mb-6'>試験一覧</h1>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">試験一覧</h1>
 
       {/* 検索・フィルターエリア */}
-      <div className='flex flex-col md:flex-row items-start md:items-center gap-4 mb-8'>
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-4 mb-8">
         <input
-          type='text'
-          placeholder='キーワードで検索'
+          type="text"
+          placeholder="キーワードで検索"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className='border border-gray-300 rounded px-4 py-2 w-full md:max-w-xs'
+          className="border border-gray-300 rounded px-4 py-2 w-full md:max-w-xs"
         />
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className='border border-gray-300 rounded px-4 py-2'
+          className="border border-gray-300 rounded px-4 py-2"
         >
-          <option value='all'>すべてのカテゴリー</option>
+          <option value="all">すべてのカテゴリー</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.title}
@@ -200,12 +200,12 @@ export default function ExamsPage() {
         <select
           value={levelFilter}
           onChange={(e) => setLevelFilter(e.target.value)}
-          className='border border-gray-300 rounded px-4 py-2'
+          className="border border-gray-300 rounded px-4 py-2"
         >
-          <option value='all'>すべての難易度</option>
-          <option value='1'>レベル1</option>
-          <option value='2'>レベル2</option>
-          <option value='3'>レベル3</option>
+          <option value="all">すべての難易度</option>
+          <option value="1">レベル1</option>
+          <option value="2">レベル2</option>
+          <option value="3">レベル3</option>
         </select>
       </div>
 
@@ -217,30 +217,30 @@ export default function ExamsPage() {
           {examsData.exams.length === 0 ? (
             <p>該当する試験がありません。</p>
           ) : (
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-8'>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               {examsData.exams.map((exam) => (
                 <div
                   key={exam.id}
-                  className='border border-gray-200 rounded p-4 shadow-sm'
+                  className="border border-gray-200 rounded p-4 shadow-sm"
                 >
-                  <div className='flex items-center gap-2 mb-2'>
+                  <div className="flex items-center gap-2 mb-2">
                     {/* カテゴリーに応じたアイコン */}
                     {mapCategoryIdToIcon[exam.categoryId] || (
-                      <BookOpen className='h-8 w-8 text-orange-500' />
+                      <BookOpen className="h-8 w-8 text-orange-500" />
                     )}
-                    <h2 className='text-xl font-semibold'>{exam.title}</h2>
+                    <h2 className="text-xl font-semibold">{exam.title}</h2>
                   </div>
-                  <p className='text-gray-600 mb-2'>{exam.description}</p>
-                  <div className='flex items-center gap-4 text-sm text-gray-500'>
+                  <p className="text-gray-600 mb-2">{exam.description}</p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
                     <span>{exam.categoryName}</span>
                     <span>難易度: {exam.level}</span>
                     <span>
                       {exam.questions}問 / {exam.time}
                     </span>
                   </div>
-                  <div className='mt-4'>
+                  <div className="mt-4">
                     <Link href={`/exams/${exam.id}`}>
-                      <Button className='bg-orange-500 hover:bg-orange-600 text-white'>
+                      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
                         試験詳細へ
                       </Button>
                     </Link>
@@ -251,7 +251,7 @@ export default function ExamsPage() {
           )}
 
           {/* ページネーション */}
-          <div className='flex justify-center items-center gap-2'>
+          <div className="flex justify-center items-center gap-2">
             {renderPaginationItems()}
           </div>
         </>

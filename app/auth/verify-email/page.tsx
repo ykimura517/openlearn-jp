@@ -49,7 +49,7 @@ export default function VerifyEmailPage() {
   }, [mode, oobCode]);
 
   return (
-    <div className='container mx-auto px-4 py-16 max-w-md'>
+    <div className="container mx-auto px-4 py-16 max-w-md">
       <Card>
         <CardHeader>
           <CardTitle>メール確認</CardTitle>
@@ -57,24 +57,24 @@ export default function VerifyEmailPage() {
         <CardContent>
           {status === 'loading' && <p>確認中...</p>}
           {status === 'success' && (
-            <Alert variant='success'>
+            <Alert variant="success">
               <AlertTitle>成功</AlertTitle>
               <AlertDescription>{message}</AlertDescription>
             </Alert>
           )}
           {status === 'error' && (
-            <Alert variant='destructive'>
+            <Alert variant="destructive">
               <AlertTitle>エラー</AlertTitle>
               <AlertDescription>{message}</AlertDescription>
             </Alert>
           )}
         </CardContent>
-        <CardFooter className='flex justify-center'>
+        <CardFooter className="flex justify-center">
           <Button onClick={() => router.push('/')}>トップページへ</Button>
         </CardFooter>
       </Card>
-      <div className='mt-4 text-center'>
-        <Link href='/auth/signin' className='text-orange-500 hover:underline'>
+      <div className="mt-4 text-center">
+        <Link href="/auth/signin" className="text-orange-500 hover:underline">
           ログインページへ
         </Link>
       </div>

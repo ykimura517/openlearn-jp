@@ -10,19 +10,19 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export default async function LegalPage() {
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-8'>
+    <div className="container mx-auto px-4 py-8">
+      <div className="mb-8">
         <Link
-          href='/'
-          className='text-orange-500 hover:underline mb-4 inline-block'
+          href="/"
+          className="text-orange-500 hover:underline mb-4 inline-block"
         >
           ← ホームに戻る
         </Link>
-        <h1 className='text-3xl font-bold text-gray-800 mb-4'>利用規約</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">利用規約</h1>
       </div>
 
-      <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8'>
-        <div className='prose max-w-none'>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
+        <div className="prose max-w-none">
           <section>
             <h2>1. はじめに</h2>
             <p>

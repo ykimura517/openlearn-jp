@@ -248,13 +248,13 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className='container mx-auto px-4 py-16 max-w-md'>
-      <div className='text-center mb-8'>
-        <Link href='/' className='text-2xl font-bold text-orange-600'>
+    <div className="container mx-auto px-4 py-16 max-w-md">
+      <div className="text-center mb-8">
+        <Link href="/" className="text-2xl font-bold text-orange-600">
           OpenLearn JP
         </Link>
-        <h1 className='text-3xl font-bold mt-6 mb-2'>アカウント作成</h1>
-        <p className='text-gray-600'>OpenLearn JPで学習を始めましょう</p>
+        <h1 className="text-3xl font-bold mt-6 mb-2">アカウント作成</h1>
+        <p className="text-gray-600">OpenLearn JPで学習を始めましょう</p>
       </div>
 
       {step === 'signup' ? (
@@ -268,101 +268,101 @@ export default function SignUpPage() {
           <CardContent>
             {/* エラーはどのタブにいても常に表示 */}
             {error && (
-              <Alert variant='destructive' className='mb-4'>
-                <AlertCircle className='h-4 w-4' />
+              <Alert variant="destructive" className="mb-4">
+                <AlertCircle className="h-4 w-4" />
                 <AlertTitle>エラー</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            <Tabs defaultValue='email' className='w-full'>
-              <TabsList className='grid w-full grid-cols-3'>
-                <TabsTrigger value='email'>メール</TabsTrigger>
-                <TabsTrigger value='google'>Google</TabsTrigger>
-                <TabsTrigger value='github'>GitHub</TabsTrigger>
+            <Tabs defaultValue="email" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="email">メール</TabsTrigger>
+                <TabsTrigger value="google">Google</TabsTrigger>
+                <TabsTrigger value="github">GitHub</TabsTrigger>
               </TabsList>
-              <TabsContent value='email'>
-                <form onSubmit={handleSignUp} className='space-y-4 mt-4'>
-                  <div className='space-y-2'>
-                    <Label htmlFor='email'>メールアドレス</Label>
+              <TabsContent value="email">
+                <form onSubmit={handleSignUp} className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="email">メールアドレス</Label>
                     <Input
-                      id='email'
-                      type='email'
-                      placeholder='your@email.com'
+                      id="email"
+                      type="email"
+                      placeholder="your@email.com"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       onBlur={handleEmailBlur}
                     />
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='password'>パスワード</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="password">パスワード</Label>
                     <Input
-                      id='password'
-                      type='password'
+                      id="password"
+                      type="password"
                       required
                       value={password}
                       onChange={handlePasswordChange}
                     />
                     {passwordError && (
-                      <p className='text-xs text-red-500'>{passwordError}</p>
+                      <p className="text-xs text-red-500">{passwordError}</p>
                     )}
                   </div>
-                  <div className='space-y-2'>
-                    <Label htmlFor='confirmPassword'>パスワード（確認）</Label>
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword">パスワード（確認）</Label>
                     <Input
-                      id='confirmPassword'
-                      type='password'
+                      id="confirmPassword"
+                      type="password"
                       required
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                   </div>
                   <Button
-                    type='submit'
-                    className='w-full bg-orange-500 hover:bg-orange-600'
+                    type="submit"
+                    className="w-full bg-orange-500 hover:bg-orange-600"
                   >
                     アカウント作成
                   </Button>
                 </form>
               </TabsContent>
-              <TabsContent value='google'>
-                <div className='space-y-4 mt-4'>
-                  <p className='text-center text-gray-600'>
+              <TabsContent value="google">
+                <div className="space-y-4 mt-4">
+                  <p className="text-center text-gray-600">
                     Googleアカウントを使用して登録します。
                   </p>
                   <Button
                     onClick={handleGoogleSignUp}
-                    variant='outline'
-                    className='w-full'
+                    variant="outline"
+                    className="w-full"
                   >
                     Googleで続ける
                   </Button>
                 </div>
               </TabsContent>
-              <TabsContent value='github'>
-                <div className='space-y-4 mt-4'>
-                  <p className='text-center text-gray-600'>
+              <TabsContent value="github">
+                <div className="space-y-4 mt-4">
+                  <p className="text-center text-gray-600">
                     GitHubアカウントを使用して登録します。
                   </p>
                   <Button
                     onClick={handleGithubSignUp}
-                    variant='outline'
-                    className='w-full'
+                    variant="outline"
+                    className="w-full"
                   >
-                    <Github className='mr-2 h-4 w-4' />
+                    <Github className="mr-2 h-4 w-4" />
                     GitHubで続ける
                   </Button>
                 </div>
               </TabsContent>
             </Tabs>
           </CardContent>
-          <CardFooter className='flex flex-col space-y-4'>
+          <CardFooter className="flex flex-col space-y-4">
             <Separator />
-            <div className='text-center text-sm'>
+            <div className="text-center text-sm">
               すでにアカウントをお持ちですか？{' '}
               <Link
-                href='/auth/signin'
-                className='text-orange-500 hover:underline'
+                href="/auth/signin"
+                className="text-orange-500 hover:underline"
               >
                 ログイン
               </Link>
@@ -378,81 +378,81 @@ export default function SignUpPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleProfileSubmit} className='space-y-4'>
-              <div className='space-y-2'>
-                <Label htmlFor='userId'>
-                  ユーザーID <span className='text-red-500'>*</span>
+            <form onSubmit={handleProfileSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="userId">
+                  ユーザーID <span className="text-red-500">*</span>
                 </Label>
                 <Input
-                  id='userId'
-                  placeholder='user123'
+                  id="userId"
+                  placeholder="user123"
                   required
                   value={userId}
                   onChange={(e) => setUserId(e.target.value)}
                 />
-                <p className='text-xs text-gray-500'>
+                <p className="text-xs text-gray-500">
                   半角英数字（20文字以内）。一度設定すると変更できません。サービス上で他のユーザーに公開されます。
                 </p>
               </div>
-              <div className='space-y-2'>
-                <Label htmlFor='username'>
-                  ユーザー名 <span className='text-red-500'>*</span>
+              <div className="space-y-2">
+                <Label htmlFor="username">
+                  ユーザー名 <span className="text-red-500">*</span>
                 </Label>
                 <Input
-                  id='username'
-                  placeholder='山田 太郎'
+                  id="username"
+                  placeholder="山田 太郎"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
-                <p className='text-xs text-gray-500'>
+                <p className="text-xs text-gray-500">
                   15文字以内。サービス上で他のユーザーに公開されます。
                 </p>
               </div>
-              <div className='space-y-2'>
-                <Label htmlFor='occupation'>
-                  職種 <span className='text-red-500'>*</span>
+              <div className="space-y-2">
+                <Label htmlFor="occupation">
+                  職種 <span className="text-red-500">*</span>
                 </Label>
                 <Select value={occupation} onValueChange={setOccupation}>
                   <SelectTrigger>
-                    <SelectValue placeholder='職種を選択' />
+                    <SelectValue placeholder="職種を選択" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value='student'>学生</SelectItem>
-                    <SelectItem value='engineer'>エンジニア・開発者</SelectItem>
-                    <SelectItem value='designer'>デザイナー</SelectItem>
-                    <SelectItem value='manager'>
+                    <SelectItem value="student">学生</SelectItem>
+                    <SelectItem value="engineer">エンジニア・開発者</SelectItem>
+                    <SelectItem value="designer">デザイナー</SelectItem>
+                    <SelectItem value="manager">
                       マネージャー・管理職
                     </SelectItem>
-                    <SelectItem value='marketing'>マーケティング</SelectItem>
-                    <SelectItem value='sales'>営業</SelectItem>
-                    <SelectItem value='education'>教育関係</SelectItem>
-                    <SelectItem value='other'>その他</SelectItem>
+                    <SelectItem value="marketing">マーケティング</SelectItem>
+                    <SelectItem value="sales">営業</SelectItem>
+                    <SelectItem value="education">教育関係</SelectItem>
+                    <SelectItem value="other">その他</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <div className='space-y-2'>
-                <Label htmlFor='birthDate'>
-                  生年月日 <span className='text-red-500'>*</span>
+              <div className="space-y-2">
+                <Label htmlFor="birthDate">
+                  生年月日 <span className="text-red-500">*</span>
                 </Label>
                 <Input
-                  id='birthDate'
-                  type='date'
+                  id="birthDate"
+                  type="date"
                   required
                   value={birthDate}
                   onChange={(e) => setBirthDate(e.target.value)}
                 />
               </div>
               {error && (
-                <Alert variant='destructive'>
-                  <AlertCircle className='h-4 w-4' />
+                <Alert variant="destructive">
+                  <AlertCircle className="h-4 w-4" />
                   <AlertTitle>エラー</AlertTitle>
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               )}
               <Button
-                type='submit'
-                className='w-full bg-orange-500 hover:bg-orange-600'
+                type="submit"
+                className="w-full bg-orange-500 hover:bg-orange-600"
               >
                 登録を完了する
               </Button>
