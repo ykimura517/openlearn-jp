@@ -54,6 +54,7 @@ export default function RootLayout({
                   <div className='mb-6 md:mb-0'>
                     <h3 className='text-xl font-bold text-orange-600 mb-4'>
                       OpenLearn JP
+                      {process.env.NEXT_PUBLIC_ENV != 'prod' ? ' 開発' : ''}
                     </h3>
                     <p className='text-gray-700'>
                       生成AIやプログラミングについての学習コースを提供するプラットフォーム
