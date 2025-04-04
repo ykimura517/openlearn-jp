@@ -1,6 +1,14 @@
+'use server';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
-export default function LegalPage() {
+export const generateMetadata = async (): Promise<Metadata> => {
+  return {
+    robots: 'noindex,nofollow',
+  };
+};
+
+export default async function LegalPage() {
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='mb-8'>
@@ -19,56 +27,34 @@ export default function LegalPage() {
             <tbody>
               <tr className='border-b border-gray-200'>
                 <th className='py-4 px-6 text-left bg-gray-50 w-1/4'>
-                  事業者名
+                  OpenLearn JPとは何ですか？
                 </th>
-                <td className='py-4 px-6'>株式会社OpenLearn</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>代表者名</th>
-                <td className='py-4 px-6'>山田 太郎</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>所在地</th>
                 <td className='py-4 px-6'>
-                  〒100-0001 東京都千代田区千代田1-1-1
+                  AIやプログラミングについての学習コースや試験を提供するサービスです。
                 </td>
               </tr>
               <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>電話番号</th>
-                <td className='py-4 px-6'>03-1234-5678</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
                 <th className='py-4 px-6 text-left bg-gray-50'>
-                  メールアドレス
+                  どういうプランがありますか？
                 </th>
-                <td className='py-4 px-6'>info@openlearn-jp.example.com</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>URL</th>
                 <td className='py-4 px-6'>
-                  https://www.openlearn-jp.example.com
+                  2025年4月現在、無料プランのみです。
                 </td>
               </tr>
               <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>販売価格</th>
-                <td className='py-4 px-6'>各商品・サービスページに記載</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
                 <th className='py-4 px-6 text-left bg-gray-50'>
-                  商品等の引渡時期
-                </th>
-                <td className='py-4 px-6'>お申込み完了後、即時アクセス可能</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>お支払い方法</th>
-                <td className='py-4 px-6'>クレジットカード決済、銀行振込</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>
-                  キャンセル・返品
+                  無料プランに制限はありますか？
                 </th>
                 <td className='py-4 px-6'>
-                  デジタルコンテンツのため、原則として返品・キャンセルはお受けしておりません。
+                  AIへの質問が月5回までに制限されます。
+                </td>
+              </tr>
+              <tr className='border-b border-gray-200'>
+                <th className='py-4 px-6 text-left bg-gray-50'>
+                  AIの回答が間違っている気がするのですが？
+                </th>
+                <td className='py-4 px-6'>
+                  AIは完璧ではありません。特に酷い間違いを見つけた場合は、お問い合わせより連絡していただけると幸いです。
                 </td>
               </tr>
             </tbody>

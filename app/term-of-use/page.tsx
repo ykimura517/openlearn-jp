@@ -1,6 +1,14 @@
+'use server';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
-export default function LegalPage() {
+export const generateMetadata = async (): Promise<Metadata> => {
+  return {
+    robots: 'noindex,nofollow',
+  };
+};
+
+export default async function LegalPage() {
   return (
     <div className='container mx-auto px-4 py-8'>
       <div className='mb-8'>
@@ -15,64 +23,94 @@ export default function LegalPage() {
 
       <div className='bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8'>
         <div className='prose max-w-none'>
-          <table className='w-full border-collapse'>
-            <tbody>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50 w-1/4'>
-                  事業者名
-                </th>
-                <td className='py-4 px-6'>株式会社OpenLearn</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>代表者名</th>
-                <td className='py-4 px-6'>山田 太郎</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>所在地</th>
-                <td className='py-4 px-6'>
-                  〒100-0001 東京都千代田区千代田1-1-1
-                </td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>電話番号</th>
-                <td className='py-4 px-6'>03-1234-5678</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>
-                  メールアドレス
-                </th>
-                <td className='py-4 px-6'>info@openlearn-jp.example.com</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>URL</th>
-                <td className='py-4 px-6'>
-                  https://www.openlearn-jp.example.com
-                </td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>販売価格</th>
-                <td className='py-4 px-6'>各商品・サービスページに記載</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>
-                  商品等の引渡時期
-                </th>
-                <td className='py-4 px-6'>お申込み完了後、即時アクセス可能</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>お支払い方法</th>
-                <td className='py-4 px-6'>クレジットカード決済、銀行振込</td>
-              </tr>
-              <tr className='border-b border-gray-200'>
-                <th className='py-4 px-6 text-left bg-gray-50'>
-                  キャンセル・返品
-                </th>
-                <td className='py-4 px-6'>
-                  デジタルコンテンツのため、原則として返品・キャンセルはお受けしておりません。
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <section>
+            <h2>1. はじめに</h2>
+            <p>
+              本利用規約（以下「本規約」といいます。）は、ネクストフォーム合同会社（以下「当社」といいます。）が提供する本サービス「OpenLearn
+              JP」（以下「本サービス」といいます。）の利用条件を定めるものです。本サービスをご利用になる前に、本規約の全文をよくお読みいただき、同意の上でご利用ください。
+            </p>
+          </section>
+
+          <section>
+            <h2>2. 規約の変更</h2>
+            <p>
+              当社は、本規約を随時変更する権利を有します。変更後の規約は、本サイトに掲載された時点で効力を発生し、ユーザーは変更後の規約に従って本サービスを利用するものとします。
+            </p>
+          </section>
+
+          <section>
+            <h2>3. ユーザーの責任</h2>
+            <p>
+              ユーザーは、本サービスの利用にあたり、自己の責任において行動し、適用される法令および本規約を遵守するものとします。いかなる理由においても、当社はユーザーの行為により発生した損害（直接損害、間接損害、特別損害、結果的損害等を含む）について一切責任を負いません。
+            </p>
+          </section>
+
+          <section>
+            <h2>4. 禁止事項</h2>
+            <p>
+              ユーザーは、本サービスを以下の目的や方法で利用してはなりません：
+            </p>
+            <ul>
+              <li>違法、不正、または悪意ある目的での利用</li>
+              <li>本サービスまたは他のユーザー、第三者の権利を侵害する行為</li>
+              <li>
+                当社が提供するシステム、サーバー等に対する不正アクセスや過剰な負荷をかける行為
+              </li>
+              <li>
+                ウイルス、マルウェア等の有害なプログラムを使用または送信する行為
+              </li>
+              <li>その他、当社が不適切と判断する行為</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>5. 知的財産権</h2>
+            <p>
+              本サービスに含まれる全てのコンテンツ（テキスト、画像、ソフトウェア、デザイン等）の知的財産権は、当社または正当な権利を有する第三者に帰属します。ユーザーは、当社の事前の書面による許可なく、これらのコンテンツを複製、改変、転載、配布、販売等することはできません。
+            </p>
+          </section>
+
+          <section>
+            <h2>6. 免責事項</h2>
+            <p>
+              当社は、本サービス上に提供される情報の正確性、最新性、有用性について保証するものではありません。本サービスの利用に起因して生じた一切の損害に関して、当社は明示的にも黙示的にも一切責任を負いません。ユーザーは自己の判断と責任において本サービスを利用するものとします。
+            </p>
+          </section>
+
+          <section>
+            <h2>7. AIによる回答の免責事項</h2>
+            <p>
+              本サービスでは、AIを利用した自動応答機能を提供しています。AIによる回答は、あくまで参考情報として提供されるものであり、その正確性や完全性、信頼性について保証するものではありません。AIの回答により生じた誤情報やそれに基づく損害について、当社は一切の責任を負いません。ユーザーは、AIの回答を鵜呑みにせず、必要に応じてご自身で情報の確認を行ってください。
+            </p>
+          </section>
+
+          <section>
+            <h2>8. 利用停止およびアカウントの削除</h2>
+            <p>
+              当社は、ユーザーが本規約に違反した場合、事前の通知なく本サービスの利用停止やアカウントの削除等の措置を講じる権利を有します。
+            </p>
+          </section>
+
+          <section>
+            <h2>9. プライバシーの保護</h2>
+            <p>
+              当社は、ユーザーのプライバシー保護を最優先に考え、個人情報の適切な管理に努めます。個人情報の取り扱いにつきましては、別途定めるプライバシーポリシーに従って行います。
+            </p>
+          </section>
+
+          <section>
+            <h2>10. 準拠法および管轄</h2>
+            <p>
+              本規約は日本法に準拠し、解釈されるものとします。本サービスに関して紛争が生じた場合、東京地方裁判所を第一審の専属的合意管轄裁判所とします。
+            </p>
+          </section>
+
+          <section>
+            <h2>11. お問い合わせ</h2>
+            <p>
+              本規約に関するご質問やご不明点がございましたら、お問い合わせページよりお問い合わせください。
+            </p>
+          </section>
         </div>
       </div>
     </div>
