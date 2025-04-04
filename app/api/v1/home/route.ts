@@ -4,7 +4,8 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import type { CategoryWithRepresentativeCourse } from '@/types/api';
 
-export async function GET(request: Request) {
+// eslint-disable-next-line
+export async function GET(_: Request) {
   try {
     // MasterCategoryとその関連するコース情報を取得
     const categories = await prisma.masterCategory.findMany({

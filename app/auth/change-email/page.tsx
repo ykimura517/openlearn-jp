@@ -3,7 +3,6 @@
 import type React from 'react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -26,7 +25,7 @@ import {
 } from 'firebase/auth';
 
 export default function ChangeEmailPage() {
-  const router = useRouter();
+  // const router = useRouter();
   const { user, reloadUser } = useAuth(); // ※ useAuth で現在のユーザー情報を管理している前提
   const [currentEmail, setCurrentEmail] = useState(user?.email || '');
   const [newEmail, setNewEmail] = useState('');

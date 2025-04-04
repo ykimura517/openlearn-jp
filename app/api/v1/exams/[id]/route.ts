@@ -3,10 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import type { ExamDetail, ExamQuestion } from '@/types/api';
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(_: Request, { params }: { params: { id: string } }) {
   // このAPIは認証不要
   try {
     const exam = await prisma.masterExam.findUnique({
@@ -30,6 +27,7 @@ export async function GET(
           try {
             options = JSON.parse(q.options);
           } catch (err) {
+            console.error('Error parsing options JSON:', err);
             options = [];
           }
         }

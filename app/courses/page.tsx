@@ -36,7 +36,8 @@ export default function CoursesPage() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [levelFilter, setLevelFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(9);
+  // eslint-disable-next-line
+  const [pageSize, _] = useState(9);
   const [isLoading, setIsLoading] = useState(true);
   const [coursesData, setCoursesData] = useState<CoursesResponse>({
     courses: [],
@@ -235,22 +236,25 @@ export default function CoursesPage() {
       {/* ローディング状態 */}
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, index) => (
-            <Card key={index} className="animate-pulse">
-              <CardHeader className="pb-2">
-                <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-              </CardHeader>
-              <CardContent>
-                <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-              </CardContent>
-              <CardFooter>
-                <div className="h-10 bg-gray-200 rounded w-full"></div>
-              </CardFooter>
-            </Card>
-          ))}
+          {
+            // eslint-disable-next-line
+            [...Array(6)].map((_, index) => (
+              <Card key={index} className="animate-pulse">
+                <CardHeader className="pb-2">
+                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                </CardContent>
+                <CardFooter>
+                  <div className="h-10 bg-gray-200 rounded w-full"></div>
+                </CardFooter>
+              </Card>
+            ))
+          }
         </div>
       ) : (
         <>

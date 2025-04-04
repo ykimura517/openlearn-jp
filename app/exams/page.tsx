@@ -16,7 +16,8 @@ export default function ExamsPage() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [levelFilter, setLevelFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
+  // eslint-disable-next-line
+  const [pageSize, _] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
   const [examsData, setExamsData] = useState<ExamsResponse>({
     exams: [],

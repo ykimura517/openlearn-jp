@@ -32,7 +32,7 @@ export async function GET(
     });
 
     // APIレスポンスの型に合わせて変換
-    const questions = exercises.map((ex, index) => {
+    const questions = exercises.map((ex) => {
       // DB上のexerciseTypeをAPI用の値に変換（SELECTION -> multiple-choice, TEXT -> free-text）
       const type =
         ex.exerciseType === 'SELECTION' ? 'multiple-choice' : 'free-text';
@@ -41,6 +41,7 @@ export async function GET(
         try {
           options = JSON.parse(ex.options);
         } catch (e) {
+          console.error('Error parsing options JSON:', e);
           options = [];
         }
       }

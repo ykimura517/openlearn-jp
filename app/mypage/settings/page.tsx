@@ -64,7 +64,7 @@ export default function SettingsPage() {
         occupation: occupation,
         displayId: userId,
       };
-      const res = await apiFetch<ApiUser>(
+      await apiFetch<ApiUser>(
         '/api/v1/mypage/profile',
         {
           method: 'PUT',

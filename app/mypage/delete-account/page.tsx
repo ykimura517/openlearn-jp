@@ -2,7 +2,6 @@
 
 import type React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,9 +23,9 @@ import { apiFetch } from '@/lib/apiClient';
 import { useAuth } from '@/contexts/auth-context';
 
 export default function DeleteAccountPage() {
-  const router = useRouter();
+  // const router = useRouter();
   const { logout } = useAuth();
-  const [reason, setReason] = useState('');
+  // const [reason, setReason] = useState('');
   const [selectedReason, setSelectedReason] = useState('');
   const [otherReason, setOtherReason] = useState('');
   const [confirmation, setConfirmation] = useState('');

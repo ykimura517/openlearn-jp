@@ -39,7 +39,7 @@ export default function ExamPage({ params }: ExamParams) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(1800); // 30分
+  // const [timeLeft, setTimeLeft] = useState(1800); // 30分
   const [result, setResult] = useState<ExamResult | null>(null);
 
   useEffect(() => {

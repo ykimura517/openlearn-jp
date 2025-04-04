@@ -2,6 +2,7 @@ import type React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import Link from 'next/link';
 import Header from '@/components/header';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AuthProvider } from '@/contexts/auth-context';
@@ -67,28 +68,28 @@ export default function RootLayout({
                       </h4>
                       <ul className="space-y-2">
                         <li>
-                          <a
+                          <Link
                             href="/"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             ホーム
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="/courses"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             コース一覧
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="/exams"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             試験一覧
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </div>
@@ -98,44 +99,44 @@ export default function RootLayout({
                       </h4>
                       <ul className="space-y-2">
                         <li>
-                          <a
+                          <Link
                             href="/contact"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             お問い合わせ
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="/faq"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             よくある質問
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="/term-of-use"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             利用規約
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="/legal"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             特定商取引法に基づく表記
-                          </a>
+                          </Link>
                         </li>
                         <li>
-                          <a
+                          <Link
                             href="/privacy-policy"
                             className="text-gray-700 hover:text-orange-500"
                           >
                             プライバシーポリシー
-                          </a>
+                          </Link>
                         </li>
                       </ul>
                     </div>

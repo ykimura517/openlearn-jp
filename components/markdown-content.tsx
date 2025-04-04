@@ -14,7 +14,8 @@ const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
     <div className="markdown-content">
       <ReactMarkdown
         components={{
-          code({ node, inline, className, children, ...props }) {
+          // code({ node, inline, className, children, ...props }) {
+          code({ inline, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || '');
             return !inline && match ? (
               <div className="relative">

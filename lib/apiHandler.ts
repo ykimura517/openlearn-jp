@@ -20,6 +20,7 @@ export async function authenticate(
     const decodedToken = await admin.auth().verifyIdToken(token);
     return decodedToken;
   } catch (error) {
+    console.error('Token verification failed:', error);
     throw new Error('Unauthorized: トークンの検証に失敗しました');
   }
 }

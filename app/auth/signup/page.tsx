@@ -100,6 +100,7 @@ export default function SignUpPage() {
 
   // メール/パスワードでのサインアップ処理
   const handleSignUp = async (e: React.FormEvent) => {
+    console.log(signupMethod);
     e.preventDefault();
     setError('');
     if (password !== confirmPassword) {
