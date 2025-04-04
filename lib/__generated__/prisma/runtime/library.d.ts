@@ -2651,7 +2651,7 @@ declare type QueryEngineLogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error'
 
 declare type QueryEngineRequest = {
     query: string;
-    variables: object;
+    variables: Object;
 };
 
 declare type QueryEngineResultData<T> = {
