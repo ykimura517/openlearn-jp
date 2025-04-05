@@ -12,6 +12,7 @@ import {
 import { ArrowRight, BookOpen, Code, Brain, Share2 } from 'lucide-react';
 import { apiFetch } from '@/lib/apiClient';
 import type { CategoryWithRepresentativeCourse } from '@/types/api';
+import { auth } from '@/lib/firebase';
 
 interface Category {
   id: string;
@@ -27,13 +28,31 @@ interface Category {
 
 export default async function Home() {
   // APIからトップページ用のカテゴリ＋代表コース情報を取得
-  const data = await apiFetch<CategoryWithRepresentativeCourse[]>(
-    `/api/v1/home`,
+  // const data = await apiFetch<CategoryWithRepresentativeCourse[]>(
+  //   `/api/v1/home`,
+  //   {
+  //     cache: 'default',
+  //   }
+  // );
+  const user = auth.currentUser;
+
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/v1/home`,
     {
-      cache: 'default',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: user ? `Bearer ${await user.getIdToken()}` : '',
+      },
     }
   );
-
+  let data: CategoryWithRepresentativeCourse[] = [];
+  if (!response.ok) {
+    // vercelデプロイ時にAPIがエラーになるとデプロイ出来ないことがあるので握りつぶす
+    console.info('APIからのデータ取得に失敗しました。');
+  } else {
+    data = await response.json();
+  }
   const categories: Category[] = data.map((category) => ({
     id: category.categoryId,
     title: category.title,
