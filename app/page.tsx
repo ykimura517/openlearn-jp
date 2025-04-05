@@ -10,7 +10,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ArrowRight, BookOpen, Code, Brain, Share2 } from 'lucide-react';
-import { apiFetch } from '@/lib/apiClient';
 import type { CategoryWithRepresentativeCourse } from '@/types/api';
 import { auth } from '@/lib/firebase';
 
