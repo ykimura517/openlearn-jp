@@ -1,5 +1,5 @@
 name: Prisma Migrate
-
+# 注意：無料プランだとsupabase側のdirect connectionでは、でIpv4通信できないので、Ipv4通信可能な他のconnection文字列を使う必要がある
 on:
   push:
     branches:
