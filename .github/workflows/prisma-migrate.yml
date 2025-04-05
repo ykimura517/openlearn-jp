@@ -1,0 +1,36 @@
+name: Prisma Migrate
+
+on:
+  push:
+    branches:
+      - dev
+      - prod
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'  # 必要に応じて Node.js のバージョンを変更
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Set DATABASE_URL based on branch
+        run: |
+          BRANCH_NAME=${GITHUB_REF##*/}
+          echo "Current branch: ${BRANCH_NAME}"
+          if [ "${BRANCH_NAME}" = "prod" ]; then
+            echo "DATABASE_URL=${{ secrets.PROD_DATABASE_URL }}" >> $GITHUB_ENV
+          else
+            echo "DATABASE_URL=${{ secrets.DEV_DATABASE_URL }}" >> $GITHUB_ENV
+          fi
+
+      - name: Run Prisma Migrate
+        run: npx prisma migrate deploy
