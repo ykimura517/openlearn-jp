@@ -29,7 +29,14 @@ export default function Header() {
     <header className="bg-white border-b border-orange-100 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="flex items-center">
+          <Link
+            href={
+              (process.env.NEXT_PUBLIC_ENV as string) === 'dev'
+                ? 'https://open-learn.dev/'
+                : '/'
+            }
+            className="flex items-center"
+          >
             <span className="text-2xl font-bold text-orange-600">
               OpenLearn JP
               {process.env.NEXT_PUBLIC_ENV !== 'prod' ? ' 開発' : ''}

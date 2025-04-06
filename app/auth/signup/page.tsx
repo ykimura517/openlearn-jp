@@ -392,7 +392,7 @@ export default function SignUpPage() {
                   onChange={(e) => setUserId(e.target.value)}
                 />
                 <p className="text-xs text-gray-500">
-                  半角英数字（20文字以内）。一度設定すると変更できません。サービス上で他のユーザーに公開されます。
+                  半角英数字（20文字以内）。サービス上で他のユーザーに公開されます。
                 </p>
               </div>
               <div className="space-y-2">
