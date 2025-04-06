@@ -69,7 +69,11 @@ export default function RootLayout({
                       <ul className="space-y-2">
                         <li>
                           <Link
-                            href="/"
+                            href={
+                              (process.env.NEXT_PUBLIC_ENV as string) === 'dev'
+                                ? 'https://open-learn.dev/'
+                                : '/'
+                            }
                             className="text-gray-700 hover:text-orange-500"
                           >
                             ホーム
