@@ -1,0 +1,11 @@
+{
+  "id": "intro-to-llms",
+  "title": "また間に合う生成AI入門！大規模言語モデル（LLM）の概要と使い方を学ぶ",
+  "summary": "大規模言語モデル（LLM）の基礎から実践的なアプリ開発、ファインチューニングまで幅広くカバーする入門コースです。",
+  "targetAudience": "初心者",
+  "level": "中級",
+  "difficulty": 5,
+  "durationMin": 300,
+  "categoryId": "ai",
+  "prerequisites": "Pythonの基礎知識があると望ましいが必須ではありません"
+}

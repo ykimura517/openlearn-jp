@@ -87,11 +87,11 @@ export default function PracticeQuestions({
 
   return (
     <div className="space-y-6">
-      {questions.map((question) => (
+      {questions.map((question, ind) => (
         <Card key={question.id} className="overflow-hidden">
           <CardHeader className="bg-orange-50">
             <CardTitle className="text-lg text-gray-800">
-              問題 {question.id}: {question.question}
+              問題 {ind + 1}: {question.question}
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
