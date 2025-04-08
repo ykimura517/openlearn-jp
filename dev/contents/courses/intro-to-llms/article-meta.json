@@ -1,0 +1,41 @@
+{
+  "courseName": "また間に合う生成AI入門！大規模言語モデル（LLM）の概要と使い方を学ぶ",
+  "courseId": "intro-to-llms",
+  "articles": [
+    {
+      "articleName": "生成AIとLLMの基礎知識",
+      "articleId": "basics-of-generative-ai-and-llms",
+      "sequence": 0
+    },
+    {
+      "articleName": "代表的なLLMモデル（GPTシリーズ・Gemini・Llama）の特徴比較",
+      "articleId": "comparison-of-popular-llm-models",
+      "sequence": 1
+    },
+    {
+      "articleName": "プロンプトエンジニアリング入門〜良質な回答を引き出すコツ〜",
+      "articleId": "prompt-engineering-basics",
+      "sequence": 2
+    },
+    {
+      "articleName": "OpenAI APIを使ってチャットボットを作ろう（Python編）",
+      "articleId": "building-chatbot-with-openai-api-python",
+      "sequence": 3
+    },
+    {
+      "articleName": "LangChainを活用した高度なLLMアプリ開発",
+      "articleId": "advanced-llm-app-development-with-langchain",
+      "sequence": 4
+    },
+    {
+      "articleName": "LLMのファインチューニング入門",
+      "articleId": "introduction-to-llm-fine-tuning",
+      "sequence": 5
+    },
+    {
+      "articleName": "LLM活用のためのベストプラクティスと注意点",
+      "articleId": "best-practices-and-tips-for-using-llms",
+      "sequence": 6
+    }
+  ]
+}
