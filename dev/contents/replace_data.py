@@ -30,6 +30,25 @@ def get_connection():
     if "?" in db_url:
         # ? 以降のクエリパラメータを削除
         db_url = db_url.split("?")[0]
+    if "duochuivvuhcpwxa" in db_url:
+        # stg環境
+        # devと入力しないとエラーにする
+        answer = input(
+            "You are trying to connect to the staging database. 続けるにはdevと入力: "
+        )
+        if answer != "dev":
+            print("Exiting...")
+            exit(1)
+    if "yqitfc" in db_url:
+        # 本番環境
+        # prodと入力しないとエラーにする
+        answer = input(
+            "You are trying to connect to the production database. 続けるにはprodと入力: "
+        )
+        if answer != "prod":
+            print("Exiting...")
+            exit(1)
+
     return psycopg2.connect(db_url)
 
 
@@ -66,7 +85,9 @@ def upsert_course(conn, course_meta, course_content):
                 course_meta.get("prerequisites"),
                 course_meta["level"],
                 course_meta.get("difficulty"),
-                course_meta.get("durationMin"),
+                course_meta.get(
+                    "durationMin",
+                ),
                 course_meta["categoryId"],
             ),
         )
@@ -80,14 +101,15 @@ def upsert_article(conn, course_id, article, article_content):
     article_content: 各記事のMarkdownファイルの内容（文字列）
     """
     upsert_sql = """
-    INSERT INTO "MasterCourseArticle" (id, "courseId", sequence, title, content, "createdAt", "updatedAt")
-    VALUES (%s, %s, %s, %s, %s, now(), now())
+    INSERT INTO "MasterCourseArticle" (id, "courseId", sequence, title, content, "createdAt", "updatedAt","durationMin")
+    VALUES (%s, %s, %s, %s, %s, now(), now(), %s)
     ON CONFLICT (id) DO UPDATE SET
       "courseId" = EXCLUDED."courseId",
       sequence = EXCLUDED.sequence,
       title = EXCLUDED.title,
       content = EXCLUDED.content,
-      "updatedAt" = now()
+      "updatedAt" = now(),
+      "durationMin" = EXCLUDED."durationMin"
     """
     with conn.cursor() as cur:
         cur.execute(
@@ -98,6 +120,9 @@ def upsert_article(conn, course_id, article, article_content):
                 article["sequence"],
                 article["articleName"],
                 article_content,
+                article.get(
+                    "durationMin", str(10 * (1 + len(article_content) // 2500))
+                ),  # 1000文字あたり10分
             ),
         )
 
