@@ -1,0 +1,32 @@
+[
+  {
+    "courseArticleId": "comparison-of-popular-llm-models",
+    "question": "GPTシリーズ、Gemini、Llama、Claude、Grokの中で、オープンソース戦略を最も強く打ち出しているモデルはどれでしょうか？",
+    "options": "[\"GPTシリーズ\",\"Gemini\",\"Llama\",\"Grok\"]",
+    "correctAnswer": "Llama"
+  },
+  {
+    "courseArticleId": "comparison-of-popular-llm-models",
+    "question": "LLM導入時に特に注意すべきハルシネーション(幻覚)とは何を指しますか？",
+    "options": "[\"多国語翻訳が不十分になる現象\",\"学習済みデータがユーザーに共有される不具合\",\"AIが存在しない事実をあたかも真実のように回答してしまう現象\",\"AIがクラッシュして動作しなくなる問題\"]",
+    "correctAnswer": "AIが存在しない事実をあたかも真実のように回答してしまう現象"
+  },
+  {
+    "courseArticleId": "comparison-of-popular-llm-models",
+    "question": "Geminiが他モデルと比較して特に強みを持つとされるポイントはどれでしょうか？",
+    "options": "[\"検索機能との統合と長文処理の強化\",\"オンプレミスでの導入のしやすさ\",\"ソースコードが完全に公開されている点\",\"エッジデバイス上での実行速度\"]",
+    "correctAnswer": "検索機能との統合と長文処理の強化"
+  },
+  {
+    "courseArticleId": "comparison-of-popular-llm-models",
+    "question": "Claude（Anthropic）が他モデルと比較して重視しているとされる要素はどれでしょうか？",
+    "options": "[\"圧倒的な推論速度\",\"安全性や倫理面への配慮\",\"ゲームAIへの特化\",\"多言語学習の完全サポート\"]",
+    "correctAnswer": "安全性や倫理面への配慮"
+  },
+  {
+    "courseArticleId": "comparison-of-popular-llm-models",
+    "question": "Grok（xAI）の特徴として正しいものはどれでしょうか？",
+    "options": "[\"Microsoft Azureとの完全統合を目指している\",\"SNSプラットフォームXと連動し、最新情報を反映しやすい\",\"初期からすべてのソースコードを公開している\",\"日本語特化の小型モデルのみ展開している\"]",
+    "correctAnswer": "SNSプラットフォームXと連動し、最新情報を反映しやすい"
+  }
+]
