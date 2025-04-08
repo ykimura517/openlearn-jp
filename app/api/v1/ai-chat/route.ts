@@ -12,6 +12,9 @@ import {
   BaseMessage,
 } from '@langchain/core/messages';
 import { ulid } from 'ulid';
+
+export const maxDuration = 60; // レスポンスに時間を要することが想定されるのでvercelでの起動時間を60秒に伸ばす
+
 export async function POST(request: NextRequest) {
   try {
     // 認証チェック
