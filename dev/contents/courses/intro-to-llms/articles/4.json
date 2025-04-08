@@ -1,0 +1,32 @@
+[
+  {
+    "courseArticleId": "advanced-llm-app-development-with-langchain",
+    "question": "LangChainにおいてAgentsが果たす主な役割はどれでしょうか？",
+    "options": "[\"LLMの学習データを拡張するために使う\",\"LLMが複数のツールを動的に呼び出す仕組みを提供する\",\"チェーン処理を高速化するためのキャッシュ機能\",\"ユーザーインターフェースを自動生成するための仕組み\"]",
+    "correctAnswer": "LLMが複数のツールを動的に呼び出す仕組みを提供する"
+  },
+  {
+    "courseArticleId": "advanced-llm-app-development-with-langchain",
+    "question": "LangChainでRetrievalが重要視される理由として最も正しいものはどれでしょうか？",
+    "options": "[\"LLMのパラメータを学習中に動的に変更するため\",\"チャットボットのレスポンス速度を落とすため\",\"LLMが学習していない外部データソースから情報を取り込みやすくするため\",\"ツール連携の代替手段として機能を限定するため\"]",
+    "correctAnswer": "LLMが学習していない外部データソースから情報を取り込みやすくするため"
+  },
+  {
+    "courseArticleId": "advanced-llm-app-development-with-langchain",
+    "question": "LangChainのChainsコンポーネントを使う利点として正しいものはどれでしょうか？",
+    "options": "[\"LLMのトークン使用量を削減できるのでコストが無料になる\",\"プロンプトを一度に渡さず、複数ステップに分けて処理を行えるので柔軟性が上がる\",\"利用するモデルを自動で変更してくれるので、ユーザー設定は不要になる\",\"チェーンを使うと機密情報が暗号化されるため安全になる\"]",
+    "correctAnswer": "プロンプトを一度に渡さず、複数ステップに分けて処理を行えるので柔軟性が上がる"
+  },
+  {
+    "courseArticleId": "advanced-llm-app-development-with-langchain",
+    "question": "LangChainでよく使われるVector Stores（ベクトルストア）とは何でしょうか？",
+    "options": "[\"LLMの学習パラメータを保存するクラウドサービス\",\"自然言語をベクトルに変換し、類似度検索を効率的に行うデータベース\",\"GPU上での行列演算を最適化するライブラリ\",\"ユーザー認証情報をハッシュ化して保管するための機能\"]",
+    "correctAnswer": "自然言語をベクトルに変換し、類似度検索を効率的に行うデータベース"
+  },
+  {
+    "courseArticleId": "advanced-llm-app-development-with-langchain",
+    "question": "LangChainを実務で使う際に気をつけたい点として、最も関連性の高いものはどれでしょうか？",
+    "options": "[\"LangChainが提供するLLMモデルは無料で無制限に利用できる\",\"バージョンアップの頻度が高く、互換性の問題が起きる可能性がある\",\"一度設定するとプロンプトの内容を変更できない\",\"実はオンプレミス環境でしか動作しない\"]",
+    "correctAnswer": "バージョンアップの頻度が高く、互換性の問題が起きる可能性がある"
+  }
+]
